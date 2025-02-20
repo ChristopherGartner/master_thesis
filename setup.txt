@@ -1,0 +1,4 @@
+To setup project locally, Flask has to be installed in the virtual environment first.
+Therefor use 'pip install Flask' in terminal
+Then install loguru with 'pip install loguru'
+Then install argparse with 'pip install argparse'
