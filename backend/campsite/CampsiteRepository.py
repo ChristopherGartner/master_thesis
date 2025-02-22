@@ -8,18 +8,19 @@ class CampsiteRepository:
     __campsiteMapper = None
 
 # Get methods
-    def getCampsites(self):
+    def getCampsites(self) -> List[Campsite]:
         # if the campsites aren't loaded yet, they should be loaded.
         if len(self.__campsites) == 0:
             self.setCampsites(self.getCampsiteMapper().getCampsiteObjects())
         return self.__campsites
 
-    def getCampsiteMapper(self):
+    def getCampsiteMapper(self) -> CampsiteMapper:
         if self.__campsiteMapper is None:
             self.__campsiteMapper = CampsiteMapper()
         return self.__campsiteMapper
 
-    def getCampsitesAsDataObjects(self):
+    # returns all campsite objects as transferred data objects
+    def getCampsitesAsDataObjects(self) -> List[dict]:
         campsiteDataObjects = []
 
         for campsite in self.getCampsites():
@@ -28,8 +29,8 @@ class CampsiteRepository:
         return campsiteDataObjects
 
     # Set methods
-    def setCampsites(self, campsites: List[Campsite]):
+    def setCampsites(self, campsites: List[Campsite]) -> None:
         self.__campsites = campsites
 
-    def setCampsiteMapper(self, campSiteMapper: CampsiteMapper):
+    def setCampsiteMapper(self, campSiteMapper: CampsiteMapper) -> None:
         self.__campsiteMapper = campSiteMapper

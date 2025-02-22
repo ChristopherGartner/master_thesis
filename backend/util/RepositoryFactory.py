@@ -9,9 +9,9 @@ class RepositoryFactory:
         self.__campsiteRepository = CampsiteRepository()
 
 # Get methods
-    def getCampsiteRepository(self):
+    def getCampsiteRepository(self) -> CampsiteRepository:
         return self.__campsiteRepository
 
 # Set methods
-    def setCampsiteRepository(self, campsiteRepository: CampsiteRepository):
+    def setCampsiteRepository(self, campsiteRepository: CampsiteRepository) -> None:
         self.__campsiteRepository = campsiteRepository

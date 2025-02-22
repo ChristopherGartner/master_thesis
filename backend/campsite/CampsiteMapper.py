@@ -1,3 +1,5 @@
+from typing import List
+
 from .Campsite import *
 # loads the campsites from the database and
 # creates Campsites objects from them
@@ -18,7 +20,7 @@ class CampsiteMapper:
     # objects out of it.
     #
     # @param rebuildObjects = Boolean whether the campsite objects should be rebuilt
-    def getCampsiteObjects(self, rebuildObjects: bool = False):
+    def getCampsiteObjects(self, rebuildObjects: bool = False) -> List[Campsite]:
         # Check if list is already initialized. If yes, skip refilling for performance reasons
         if len(self.__campSiteObjects) == 0 or rebuildObjects == True:
             for campsite in self.CAMPSITEDATA:

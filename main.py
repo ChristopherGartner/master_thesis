@@ -11,7 +11,7 @@ log.setLevel(logging.ERROR)
 logger.add("latest.log")
 
 
-def read_args():
+def read_args() -> dict:
     parser = argparse.ArgumentParser(
         description='TODO')
     parser.add_argument('dbhost')
@@ -44,7 +44,7 @@ class FlaskApp:
         self.cachedGroups = ""
 
 
-    def __log(self, req):
+    def __log(self, req) -> None:
         ip = ""
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
             ip = (request.environ['REMOTE_ADDR'])
@@ -60,7 +60,7 @@ class FlaskApp:
         self.app = Flask(__name__, static_url_path='', static_folder='static')
 
         @self.app.route("/")
-        def index():
+        def index() -> str:
             self.__log(request)
 
             campsiteRepository = self.__repositoryFactory.getCampsiteRepository()
