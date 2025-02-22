@@ -4,6 +4,7 @@ import os
 
 from flask import Flask, request, render_template
 from loguru import logger
+from backend.util.RepositoryFactory import RepositoryFactory
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -23,9 +24,14 @@ def read_args():
 
 class FlaskApp:
 
+    __repositoryFactory = None
+
     @logger.catch
     def __init__(self, dbhost=None, dbuser=None, dbpw=None, dbschema=None):
         logger.info("Starting up...")
+
+        # initializing local classes
+        self.__repositoryFactory = RepositoryFactory()
 
         args = read_args()
         if not dbhost is None:
@@ -56,7 +62,11 @@ class FlaskApp:
         @self.app.route("/")
         def index():
             self.__log(request)
-            return render_template("index.html")
+
+            campsiteRepository = self.__repositoryFactory.getCampsiteRepository()
+            allCampsites = campsiteRepository.getCampsitesAsDataObjects()
+
+            return render_template("index.html", allCampsites = allCampsites)
 
 
         if __name__ == '__main__':

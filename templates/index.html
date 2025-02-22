@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Foo</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <h1>TEST</h1>
 </head>
 <body>
-
+    <ul class="list-group">
+        {% for campsite in allCampsites %}
+        <li class="list-group-item">
+            <h5>{{ campsite.name }}</h5>
+            <p>Id: {{ campsite.id }}</p>
+            <p>Address: {{ campsite.address }}</p>
+        </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
