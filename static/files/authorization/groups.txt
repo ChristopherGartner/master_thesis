@@ -1,0 +1,5 @@
+# Gruppe = Rechte (kommasepariert)
+BookingsGroup = view_bookings, manage_bookings
+CustomersGroup = view_customers, manage_customers
+PaymentsGroup = view_payments, manage_payments
+AdminGroup = full_access

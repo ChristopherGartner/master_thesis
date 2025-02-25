@@ -29,6 +29,6 @@ class LanguageManager:
 
         filePath = os.path.join(app.static_folder + LanguageManager.FOLDER_PATH_LANGUAGES + "\\" + language + ".txt")
 
-        return textfileManager.getKeyValueValues(filePath)
+        return textfileManager.getKeyValueValueDict(filePath)
 
 

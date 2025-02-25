@@ -1,0 +1,8 @@
+# Liste von Rechten, eines pro Zeile
+view_bookings
+manage_bookings
+view_customers
+manage_customers
+view_payments
+manage_payments
+full_access
