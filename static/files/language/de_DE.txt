@@ -1,0 +1,3 @@
+campsite_id = ID
+campsite_name = Campingplatz-Name
+campsite_address = Adresse

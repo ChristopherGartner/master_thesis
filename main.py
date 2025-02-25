@@ -4,6 +4,8 @@ import os
 
 from flask import Flask, request, render_template
 from loguru import logger
+
+from backend.language.LanguageManager import LanguageManager
 from backend.util.RepositoryFactory import RepositoryFactory
 
 log = logging.getLogger('werkzeug')
@@ -25,6 +27,7 @@ def read_args() -> dict:
 class FlaskApp:
 
     __repositoryFactory = None
+    __languageManager   = None
 
     @logger.catch
     def __init__(self, dbhost=None, dbuser=None, dbpw=None, dbschema=None):
@@ -32,6 +35,7 @@ class FlaskApp:
 
         # initializing local classes
         self.__repositoryFactory = RepositoryFactory()
+        self.__languageManager   = LanguageManager()
 
         args = read_args()
         if not dbhost is None:
@@ -66,7 +70,9 @@ class FlaskApp:
             campsiteRepository = self.__repositoryFactory.getCampsiteRepository()
             allCampsites = campsiteRepository.getCampsitesAsDataObjects()
 
-            return render_template("index.html", allCampsites = allCampsites)
+            languageValues = self.__languageManager.getLanguageValues(LanguageManager.LANGUAGE_GERMAN, self.app)
+
+            return render_template("index.html", allCampsites = allCampsites, languageValues = languageValues)
 
 
         if __name__ == '__main__':

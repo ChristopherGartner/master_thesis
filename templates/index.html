@@ -7,12 +7,13 @@
     <h1>TEST</h1>
 </head>
 <body>
+<p>Debug: {{ languageValues }}</p>
     <ul class="list-group">
         {% for campsite in allCampsites %}
         <li class="list-group-item">
             <h5>{{ campsite.name }}</h5>
-            <p>Id: {{ campsite.id }}</p>
-            <p>Address: {{ campsite.address }}</p>
+            <p>{{ languageValues.campsite_id }}: {{ campsite.id }}</p>
+            <p>{{ languageValues.campsite_address }}: {{ campsite.address }}</p>
         </li>
         {% endfor %}
     </ul>
