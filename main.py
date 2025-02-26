@@ -1,12 +1,13 @@
 import argparse
 import logging
-import os
 
 from flask import Flask, request, render_template
 from loguru import logger
 
+from backend.db.Database import Database
 from backend.language.LanguageManager import LanguageManager
 from backend.util.RepositoryFactory import RepositoryFactory
+from backend.util.Toolbox import Toolbox
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -28,6 +29,9 @@ class FlaskApp:
 
     __repositoryFactory = None
     __languageManager   = None
+    __toolbox           = None
+
+    FORCE_MOBILE = False
 
     @logger.catch
     def __init__(self, dbhost=None, dbuser=None, dbpw=None, dbschema=None):
@@ -36,6 +40,7 @@ class FlaskApp:
         # initializing local classes
         self.__repositoryFactory = RepositoryFactory()
         self.__languageManager   = LanguageManager()
+        self.__toolbox           = Toolbox()
 
         args = read_args()
         if not dbhost is None:
@@ -43,19 +48,9 @@ class FlaskApp:
             args['dbuser'] = dbuser
             args['dbpw'] = dbpw
             args['dbschema'] = dbschema
-        #self.db = MySQLPool(host=args['dbhost'], user=args['dbuser'], password=args['dbpw'], database=args['dbschema'],
-        #                    pool_size=15)
+        self.db = Database(host=args['dbhost'], user=args['dbuser'], password=args['dbpw'], database=args['dbschema'],
+                            pool_size=15)
         self.cachedGroups = ""
-
-
-    def __log(self, req) -> None:
-        ip = ""
-        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-            ip = (request.environ['REMOTE_ADDR'])
-        else:
-            ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
-        logger.info(ip + " " + req.environ.get('REQUEST_URI'))
-
 
 
     @logger.catch
@@ -65,7 +60,6 @@ class FlaskApp:
 
         @self.app.route("/")
         def index() -> str:
-            self.__log(request)
 
             campsiteRepository = self.__repositoryFactory.getCampsiteRepository()
             allCampsites = campsiteRepository.getCampsitesAsDataObjects()
@@ -74,6 +68,9 @@ class FlaskApp:
 
             return render_template("index.html", allCampsites = allCampsites, languageValues = languageValues)
 
+        @self.app.before_request
+        def before() -> None:
+            self.__toolbox.logToDatabase(request, self.db)
 
         if __name__ == '__main__':
             self.app.run(host='0.0.0.0', port=9000)

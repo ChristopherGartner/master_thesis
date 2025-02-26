@@ -3,5 +3,7 @@ Therefor use 'pip install Flask' in terminal
 Then install loguru with 'pip install loguru'
 Then install argparse with 'pip install argparse'
 Then install bootstrap with 'npm install bootstrap'
+pip install mysql-connector-python
+
 
 Now you're good to go

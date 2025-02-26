@@ -84,3 +84,103 @@
 2025-02-25 16:26:06.558 | INFO     | __main__:__init__:34 - Starting up...
 2025-02-25 16:26:06.558 | INFO     | __main__:create_app:63 - Creating Server...
 2025-02-25 16:26:09.102 | INFO     | __main__:__log:57 - 127.0.0.1 /
+2025-02-25 17:08:57.850 | INFO     | __main__:__init__:34 - Starting up...
+2025-02-25 17:08:57.851 | INFO     | __main__:create_app:63 - Creating Server...
+2025-02-25 17:09:01.155 | INFO     | __main__:__log:57 - 127.0.0.1 /
+2025-02-26 21:28:42.464 | INFO     | __main__:__init__:36 - Starting up...
+2025-02-26 21:28:42.525 | ERROR    | __main__:<module>:87 - An error has been caught in function '<module>', process 'MainProcess' (15060), thread 'MainThread' (17600):
+Traceback (most recent call last):
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 365, in _open_connection
+    self._cmysql.connect(**cnx_kwargs)
+    │    │       │         └ {'host': 'localhost', 'user': '', 'password': 'local_master_project', 'password1': '', 'password2': '', 'password3': '', 'dat...
+    │    │       └ <method 'connect' of '_mysql_connector.MySQL' objects>
+    │    └ <_mysql_connector.MySQL object at 0x000001AE940E2E70>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001AE93C83FB0>
+
+_mysql_connector.MySQLInterfaceError: Access denied for user 'ODBC'@'localhost' (using password: YES)
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 87, in <module>
+    fa = FlaskApp()
+         └ <class '__main__.FlaskApp'>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 48, in __init__
+    self.db = Database(host=args['dbhost'], user=args['dbuser'], password=args['dbpw'], database=args['dbschema'],
+    │         │             │                    │                        │                      └ {'dbhost': 'localhost', 'dbschema': 'root', 'dbuser': '', 'dbpw': 'local_master_project'}
+    │         │             │                    │                        └ {'dbhost': 'localhost', 'dbschema': 'root', 'dbuser': '', 'dbpw': 'local_master_project'}
+    │         │             │                    └ {'dbhost': 'localhost', 'dbschema': 'root', 'dbuser': '', 'dbpw': 'local_master_project'}
+    │         │             └ {'dbhost': 'localhost', 'dbschema': 'root', 'dbuser': '', 'dbpw': 'local_master_project'}
+    │         └ <class 'backend.db.Database.Database'>
+    └ <__main__.FlaskApp object at 0x000001AE93F797F0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\backend\db\Database.py", line 26, in __init__
+    self.pool = self.create_pool(pool_name=pool_name, pool_size=pool_size)
+    │           │    │                     │                    └ 15
+    │           │    │                     └ 'mypool'
+    │           │    └ <function Database.create_pool at 0x000001AE94B2BB00>
+    │           └ <backend.db.Database.Database object at 0x000001AE94B278F0>
+    └ <backend.db.Database.Database object at 0x000001AE94B278F0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\backend\db\Database.py", line 37, in create_pool
+    pool = mysql.connector.pooling.MySQLConnectionPool(
+           │     │         │       └ <class 'mysql.connector.pooling.MySQLConnectionPool'>
+           │     │         └ <module 'mysql.connector.pooling' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-pack...
+           │     └ <module 'mysql.connector' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-packages\\my...
+           └ <module 'mysql' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-packages\\mysql\\__ini...
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 490, in __init__
+    self.add_connection()
+    │    └ <function MySQLConnectionPool.add_connection at 0x000001AE939E5120>
+    └ <mysql.connector.pooling.MySQLConnectionPool object at 0x000001AE94B27FE0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 613, in add_connection
+    cnx = connect(**self._cnx_config)  # type: ignore[assignment]
+          │         │    └ {'host': 'localhost', 'port': '3306', 'user': '', 'password': 'local_master_project', 'database': 'root'}
+          │         └ <mysql.connector.pooling.MySQLConnectionPool object at 0x000001AE94B27FE0>
+          └ <function connect at 0x000001AE939E45E0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 322, in connect
+    return CMySQLConnection(*args, **kwargs)
+           │                 │       └ {'host': 'localhost', 'port': '3306', 'user': '', 'password': 'local_master_project', 'database': 'root'}
+           │                 └ ()
+           └ <class 'mysql.connector.connection_cext.CMySQLConnection'>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 153, in __init__
+    self.connect(**kwargs)
+    │    │         └ {'host': 'localhost', 'port': '3306', 'user': '', 'password': 'local_master_project', 'database': 'root'}
+    │    └ <function MySQLConnectionAbstract.connect at 0x000001AE91DF2020>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001AE93C83FB0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\abstracts.py", line 1529, in connect
+    self._open_connection()
+    │    └ <function CMySQLConnection._open_connection at 0x000001AE9397AF20>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001AE93C83FB0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 370, in _open_connection
+    raise get_mysql_exception(
+          └ <function get_mysql_exception at 0x000001AE91875440>
+
+mysql.connector.errors.ProgrammingError: 1045 (28000): Access denied for user 'ODBC'@'localhost' (using password: YES)
+2025-02-26 21:28:42.534 | INFO     | __main__:create_app:65 - Creating Server...
+2025-02-26 21:30:11.294 | INFO     | __main__:__init__:36 - Starting up...
+2025-02-26 21:30:11.355 | INFO     | __main__:create_app:65 - Creating Server...
+2025-02-26 21:58:57.389 | INFO     | __main__:__init__:37 - Starting up...
+2025-02-26 21:58:57.515 | INFO     | __main__:create_app:65 - Creating Server...
+2025-02-26 21:59:05.105 | INFO     | __main__:__log:60 - 127.0.0.1 /
+2025-02-26 21:59:05.187 | INFO     | __main__:__log:60 - 127.0.0.1 /css/bootstrap.min.css
+2025-02-26 21:59:25.698 | INFO     | __main__:__log:60 - 127.0.0.1 /
+2025-02-26 21:59:26.002 | INFO     | __main__:__log:60 - 127.0.0.1 /css/bootstrap.min.css
+2025-02-26 22:03:28.142 | INFO     | __main__:__init__:38 - Starting up...
+2025-02-26 22:03:28.142 | INFO     | __main__:__init__:38 - Starting up...
+2025-02-26 22:03:28.199 | INFO     | __main__:create_app:57 - Creating Server...
+2025-02-26 22:03:28.199 | INFO     | __main__:create_app:57 - Creating Server...
+2025-02-26 22:09:57.551 | INFO     | __main__:__init__:38 - Starting up...
+2025-02-26 22:09:57.611 | INFO     | __main__:create_app:58 - Creating Server...
+2025-02-26 22:10:56.449 | INFO     | __main__:__init__:38 - Starting up...
+2025-02-26 22:10:56.519 | INFO     | __main__:create_app:58 - Creating Server...
+2025-02-26 22:11:00.416 | INFO     | backend.util.Toolbox:logToDatabase:23 - 127.0.0.1 /
+2025-02-26 22:11:28.665 | INFO     | __main__:__init__:38 - Starting up...
+2025-02-26 22:11:28.724 | INFO     | __main__:create_app:58 - Creating Server...
+2025-02-26 22:11:32.742 | INFO     | backend.util.Toolbox:logToDatabase:23 - 127.0.0.1 /
+2025-02-26 22:11:32.805 | INFO     | backend.util.Toolbox:logToDatabase:23 - 127.0.0.1 /css/bootstrap.min.css
