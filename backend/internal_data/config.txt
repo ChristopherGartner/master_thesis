@@ -1,0 +1,5 @@
+db_hostname = localhost
+db_schema = local_master_project
+db_username = root
+db_password =
+main_language = en_EN

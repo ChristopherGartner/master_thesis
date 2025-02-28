@@ -24,7 +24,7 @@ class LanguageManager:
 
 # Other methods
     # returns the values for given language. Use class constants like "LANGUAGE_GERMAN" for accessing the language
-    def getLanguageValues(self, language: str, app: Flask):
+    def getLanguageValues(self, language: str, app: Flask) -> dict:
         textfileManager = TextfileManager()
 
         filePath = os.path.join(app.static_folder + LanguageManager.FOLDER_PATH_LANGUAGES + "\\" + language + ".txt")

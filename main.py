@@ -8,6 +8,7 @@ from backend.db.Database import Database
 from backend.language.LanguageManager import LanguageManager
 from backend.util.RepositoryFactory import RepositoryFactory
 from backend.util.Toolbox import Toolbox
+from backend.internal_data.ConfigManager import ConfigManager
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -30,6 +31,7 @@ class FlaskApp:
     __repositoryFactory = None
     __languageManager   = None
     __toolbox           = None
+    __configManager     = None
 
     FORCE_MOBILE = False
 
@@ -41,22 +43,23 @@ class FlaskApp:
         self.__repositoryFactory = RepositoryFactory()
         self.__languageManager   = LanguageManager()
         self.__toolbox           = Toolbox()
+        self.__configManager     = ConfigManager()
 
         args = read_args()
-        if not dbhost is None:
-            args['dbhost'] = dbhost
-            args['dbuser'] = dbuser
-            args['dbpw'] = dbpw
-            args['dbschema'] = dbschema
-        self.db = Database(host=args['dbhost'], user=args['dbuser'], password=args['dbpw'], database=args['dbschema'],
-                            pool_size=15)
+
         self.cachedGroups = ""
 
+    def __setupDB(self, app: Flask) -> None:
+        configDict = self.__configManager.getConfigValues(app)
+
+        self.db = Database(host=configDict['db_hostname'], user=configDict['db_username'], password=configDict['db_password'], database=configDict['db_schema'],
+                           pool_size=15)
 
     @logger.catch
     def create_app(self):
         logger.info("Creating Server...")
         self.app = Flask(__name__, static_url_path='', static_folder='static')
+        self.__setupDB(self.app)
 
         @self.app.route("/")
         def index() -> str:
