@@ -6,7 +6,7 @@ import os
 """ Maintains all config file related things """
 class ConfigManager:
 
-    __configFileDict = []
+    __configFileDict = dict()
 
     CONFIG_FILE_PATH = "\\backend\\internal_data\\config.txt"
 
@@ -20,3 +20,8 @@ class ConfigManager:
             self.__configFileDict = textfileManager.getKeyValueValueDict(filePath)
 
         return self.__configFileDict
+
+    def overrideDBargs(self, args: dict):
+        for a in args:
+            self.__configFileDict[a] = args[a]
+
