@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Foo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campsites</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .campsite-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .campsite-item {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+        .campsite-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .campsite-info {
+            flex-grow: 1;
+        }
+        .campsite-info h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .campsite-info p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+        }
+        .campsite-actions {
+            margin-left: 20px;
+        }
+        .campsite-actions a {
+            text-decoration: none;
+            color: #ff6200;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .campsite-actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-
+    <div class="campsite-list">
+        {% if allCampsites %}
+            {% for campsite in allCampsites %}
+                <div class="campsite-item">
+                    <div class="campsite-info">
+                        <h2>{{ campsite.getName() }}</h2>
+                        <p>{{ campsite.getAddress().getStreet() }} {{ campsite.getAddress().getHouseNumber() }},
+                           {{ campsite.getAddress().getCity() }}, {{ campsite.getAddress().getPostCode() }},
+                           {{ campsite.getAddress().getCountry() }}</p>
+                        {% if campsite.getDescription() %}
+                            <p>{{ campsite.getDescription() }}</p>
+                        {% else %}
+                            <p>Keine Beschreibung verfügbar.</p>
+                        {% endif %}
+                    </div>
+                    <div class="campsite-actions">
+                        <a href="#">Details anzeigen</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Keine Campsites verfügbar.</p>
+        {% endif %}
+    </div>
 </body>
 </html>

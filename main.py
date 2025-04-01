@@ -12,6 +12,7 @@ from backend.language.LanguageManager import LanguageManager
 from backend.util.RepositoryFactory import RepositoryFactory
 from backend.util.Toolbox import Toolbox
 from backend.internal_data.ConfigManager import ConfigManager
+from backend.campsite.Campsite import Campsite
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -99,15 +100,11 @@ class FlaskApp:
 
         @self.app.route("/index_user")
         def index_user():
-            selectedCampsites = self.db.execute(
-                f"SELECT campsite.name, campsite.description, campsite.isActive, address.streetName, address.houseNumber, city.name AS cityName, city.postCode, country.name AS countryName"
-                f"FROM campsite "
-                f"INNER JOIN address ON campsite.fk_address = address.id "
-                f"INNER JOIN city ON address.fk_city = city.id "
-                f"INNER JOIN country ON city.fk_country = country.id"
-            )
-            # Wrap as
-            return render_template("index_user.html")
+
+            campsiteRepository = self.__repositoryFactory.getCampsiteRepository()
+            allCampsites = campsiteRepository.getCampsites(self.db)
+
+            return render_template("index_user.html", allCampsites = allCampsites)
 
         @self.app.before_request
         def before() -> None:

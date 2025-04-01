@@ -1,6 +1,8 @@
 from .CampsiteMapper import CampsiteMapper
 from typing import List
 from .Campsite import Campsite
+from ..db.Database import Database
+
 
 # holds and provides all campsite objects
 class CampsiteRepository:
@@ -8,10 +10,10 @@ class CampsiteRepository:
     __campsiteMapper = None
 
 # Get methods
-    def getCampsites(self) -> List[Campsite]:
+    def getCampsites(self, db: Database) -> List[Campsite]:
         # if the campsites aren't loaded yet, they should be loaded.
         if len(self.__campsites) == 0:
-            self.setCampsites(self.getCampsiteMapper().getCampsiteObjects())
+            self.setCampsites(self.getCampsiteMapper().getCampsiteObjects(db))
         return self.__campsites
 
     def getCampsiteMapper(self) -> CampsiteMapper:
@@ -20,10 +22,10 @@ class CampsiteRepository:
         return self.__campsiteMapper
 
     # returns all campsite objects as transferred data objects
-    def getCampsitesAsDataObjects(self) -> List[dict]:
+    def getCampsitesAsDataObjects(self, db: Database) -> List[dict]:
         campsiteDataObjects = []
 
-        for campsite in self.getCampsites():
+        for campsite in self.getCampsites(db):
             campsiteDataObjects.append(campsite.getDataObject())
 
         return campsiteDataObjects
