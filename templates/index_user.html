@@ -6,14 +6,59 @@
     <title>Campsites</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #f5f5f5;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
+        /* Moderne Türkise Leiste */
+        .top-bar {
+            background: linear-gradient(135deg, #26a69a, #4dd0e1); /* Türkiser Gradient */
+            padding: 12px 25px; /* Etwas schlanker und breiter */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .top-bar:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Hover-Effekt */
+        }
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+        .top-bar a:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtiler Hover-Effekt */
+        }
+        .language-select {
+            background-color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .language-select:hover {
+            background-color: #f0f0f0; /* Leichter Hover-Effekt */
+        }
+        .language-select:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Fokus-Effekt */
+        }
+        /* Campsite-Liste */
         .campsite-list {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 40px 20px; /* Mehr Abstand oben (40px statt 20px) */
         }
         .campsite-item {
             background-color: #fff;
@@ -57,6 +102,21 @@
     </style>
 </head>
 <body>
+    <!-- Moderne Türkise Leiste -->
+    <div class="top-bar">
+        <div>
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+        <div>
+            <select class="language-select" onchange="location = this.value;">
+                <option value="#">Deutsch</option>
+                <option value="#">English</option>
+                <option value="#">Français</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Campsite-Liste -->
     <div class="campsite-list">
         {% if allCampsites %}
             {% for campsite in allCampsites %}
