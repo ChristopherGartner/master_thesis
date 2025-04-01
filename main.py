@@ -1,12 +1,13 @@
 import argparse
 import logging
+import os
 
-from flask import Flask, request, render_template, redirect, url_for, flash
-from flask_login import current_user, login_user
+from flask import Flask, request, render_template, redirect, url_for, flash, make_response
+from flask_login import current_user, login_user, LoginManager, logout_user, login_manager
 from loguru import logger
 from werkzeug.security import check_password_hash
 
-from backend.authorization.User import User
+from backend.authorization.User import User, validate_username, validate_email, validate_role, validate_password
 from backend.db.Database import Database
 from backend.language.LanguageManager import LanguageManager
 from backend.util.RepositoryFactory import RepositoryFactory
@@ -60,22 +61,53 @@ class FlaskApp:
         self.db = Database(host=configDict['dbhost'], user=configDict['dbuser'], password=configDict['dbpw'], database=configDict['dbschema'],
                            pool_size=15)
 
+
     @logger.catch
     def create_app(self):
         logger.info("Creating Server...")
         self.app = Flask(__name__, static_url_path='', static_folder='static')
+        self.app.config['SECRET_KEY'] = os.urandom(24).hex()
         if self.DEBUG: self.__configManager.overrideDBargs(self._args)
         self.__setupDB(self.app)
+        logger.info("DB Connection established!")
+
+        self.login_manager = LoginManager()
+        self.login_manager.init_app(self.app)
+        self.login_manager.login_view = 'login'
+
+        campsiteRepository = self.__repositoryFactory.getCampsiteRepository()
+        allCampsites = campsiteRepository.getCampsitesAsDataObjects(self.db)
+        languageValues = self.__languageManager.getLanguageValues(LanguageManager.LANGUAGE_GERMAN, self.app)
+
+
+        @self.login_manager.user_loader
+        def load_user(user_id):
+            res = self.db.execute("SELECT * FROM users WHERE id = %s;", (user_id,))
+            return User(res)
 
         @self.app.route("/")
         def index():
+            if current_user.is_authenticated:
+                if current_user.role == "User":
+                    pass
+                elif current_user.role == "Campsite":
+                    return index_campsite()
+                elif current_user.role == "Admin":
+                    return index_admin()
+                else:
+                    raise Exception("Unknown user role")
 
-            campsiteRepository = self.__repositoryFactory.getCampsiteRepository()
-            allCampsites = campsiteRepository.getCampsitesAsDataObjects()
-
-            languageValues = self.__languageManager.getLanguageValues(LanguageManager.LANGUAGE_GERMAN, self.app)
 
             return render_template("index.html", allCampsites = allCampsites, languageValues = languageValues)
+
+        def index_campsite():
+            return render_template("index_campsite.html")
+
+        def index_admin():
+            return render_template("index_admin.html")
+
+
+
 
         @self.app.route("/login", methods = ['GET', 'POST'])
         def login():
@@ -86,7 +118,7 @@ class FlaskApp:
                 username = request.form.get('username')
                 password = request.form.get('password')
 
-                pwh = self.db.execute("SELECT password FROM users WHERE username=%s;", (username,))
+                pwh = self.db.execute("SELECT passwordhash FROM users WHERE username=%s;", (username,))[0][0]
 
                 if not pwh or not check_password_hash(pwh, password):
                     flash('Invalid username or password')
@@ -98,13 +130,64 @@ class FlaskApp:
 
             return render_template('login.html')
 
-        @self.app.route("/index_user")
-        def index_user():
+        @self.app.route('/register', methods=['GET', 'POST'])
+        def register():
+            if current_user.is_authenticated:
+                return redirect(url_for('index'))
 
-            campsiteRepository = self.__repositoryFactory.getCampsiteRepository()
-            allCampsites = campsiteRepository.getCampsites(self.db)
+            if request.method == 'POST':
+                username = request.form.get('username')
+                email = request.form.get('email')
+                password = request.form.get('password')
+                role = "User"
 
-            return render_template("index_user.html", allCampsites = allCampsites)
+                err = ""
+                err += validate_username(username)
+                err += validate_email(email)
+                err += validate_password(password)
+                err += validate_role(role)
+                if err != "":
+                    flash(err)
+                    return make_response('', 400)
+
+                # Check if username or email already exists
+                user_exists = self.db.execute("SELECT * FROM users WHERE username = %s;", (username,))
+                email_exists = self.db.execute("SELECT * FROM users WHERE email = %s;", (email,))
+
+
+                if user_exists:
+                    flash('Username already exists.')
+                    return redirect(url_for('register'))
+
+                if email_exists:
+                    flash('Email already registered.')
+                    return redirect(url_for('register'))
+
+
+
+
+                try:
+                    new_user = User(username, email, role)
+                    pwh = new_user.set_password(password)
+                    self.db.execute("INSERT INTO users(username, email, passwordhash, role) VALUES(%s, %s, %s, %s);", (username, email, pwh, "User"), commit=True)
+                    # Create new user
+                    id = self.db.execute("SELECT id FROM users WHERE username = %s;", (username, ))[0][0]
+                    new_user.id = id
+                    login_user(new_user)
+
+                    flash('Registration successful!')
+
+                    return redirect(url_for('index'))
+                except Exception as e:
+                    flash(f'An error occurred during registration: {str(e)}')
+                    return redirect(url_for('register'))
+
+            return render_template('register.html')
+
+        @self.app.route("/logout")
+        def logout():
+            logout_user()
+            return redirect(url_for('index'))
 
         @self.app.before_request
         def before() -> None:
