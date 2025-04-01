@@ -97,6 +97,17 @@ class FlaskApp:
 
             return render_template('login.html')
 
+        @self.app.route("/index_user")
+        def index_user():
+            selectedCampsites = self.db.execute(
+                f"SELECT campsite.name, campsite.description, campsite.isActive, address.streetName, address.houseNumber, city.name AS cityName, city.postCode, country.name AS countryName"
+                f"FROM campsite "
+                f"INNER JOIN address ON campsite.fk_address = address.id "
+                f"INNER JOIN city ON address.fk_city = city.id "
+                f"INNER JOIN country ON city.fk_country = country.id"
+            )
+            # Wrap as
+            return render_template("index_user.html")
 
         @self.app.before_request
         def before() -> None:
@@ -111,5 +122,3 @@ class FlaskApp:
 if __name__ == '__main__':
     fa = FlaskApp()
     fa.create_app()
-
-

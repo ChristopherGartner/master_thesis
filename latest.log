@@ -194,3 +194,394 @@ mysql.connector.errors.ProgrammingError: 1045 (28000): Access denied for user 'O
 2025-02-28 16:08:32.126 | INFO     | __main__:create_app:60 - Creating Server...
 2025-02-28 16:08:36.542 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
 2025-02-28 16:08:36.573 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/bootstrap.min.css
+2025-04-01 18:06:12.008 | INFO     | __main__:__init__:40 - Starting up...
+2025-04-01 18:06:12.009 | INFO     | __main__:create_app:60 - Creating Server...
+2025-04-01 18:06:16.145 | ERROR    | __main__:<module>:101 - An error has been caught in function '<module>', process 'MainProcess' (29712), thread 'MainThread' (33620):
+Traceback (most recent call last):
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 365, in _open_connection
+    self._cmysql.connect(**cnx_kwargs)
+    │    │       │         └ {'host': 'localhost', 'user': 'root', 'password': '', 'password1': '', 'password2': '', 'password3': '', 'database': 'local_m...
+    │    │       └ <method 'connect' of '_mysql_connector.MySQL' objects>
+    │    └ <_mysql_connector.MySQL object at 0x00000211FE181D80>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x00000211FE4BD040>
+
+_mysql_connector.MySQLInterfaceError: Can't connect to MySQL server on 'localhost:3306' (10061)
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 101, in <module>
+    fa.create_app()
+    │  └ <function FlaskApp.create_app at 0x00000211FF88D6C0>
+    └ <__main__.FlaskApp object at 0x00000211FE727AA0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 62, in create_app
+    self.__setupDB(self.app)
+    │              │    └ <Flask 'main'>
+    │              └ <__main__.FlaskApp object at 0x00000211FE727AA0>
+    └ <__main__.FlaskApp object at 0x00000211FE727AA0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 55, in __setupDB
+    self.db = Database(host=configDict['db_hostname'], user=configDict['db_username'], password=configDict['db_password'], database=configDict['db_schema'],
+    │         │             │                               │                                   │                                   └ {'db_hostname': ' localhost', 'db_schema': ' local_master_project', 'db_username': ' root', 'db_password': '', 'main_language...
+    │         │             │                               │                                   └ {'db_hostname': ' localhost', 'db_schema': ' local_master_project', 'db_username': ' root', 'db_password': '', 'main_language...
+    │         │             │                               └ {'db_hostname': ' localhost', 'db_schema': ' local_master_project', 'db_username': ' root', 'db_password': '', 'main_language...
+    │         │             └ {'db_hostname': ' localhost', 'db_schema': ' local_master_project', 'db_username': ' root', 'db_password': '', 'main_language...
+    │         └ <class 'backend.db.Database.Database'>
+    └ <__main__.FlaskApp object at 0x00000211FE727AA0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\backend\db\Database.py", line 26, in __init__
+    self.pool = self.create_pool(pool_name=pool_name, pool_size=pool_size)
+    │           │    │                     │                    └ 15
+    │           │    │                     └ 'mypool'
+    │           │    └ <function Database.create_pool at 0x00000211FF38EFC0>
+    │           └ <backend.db.Database.Database object at 0x00000211FF86FE30>
+    └ <backend.db.Database.Database object at 0x00000211FF86FE30>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\backend\db\Database.py", line 37, in create_pool
+    pool = mysql.connector.pooling.MySQLConnectionPool(
+           │     │         │       └ <class 'mysql.connector.pooling.MySQLConnectionPool'>
+           │     │         └ <module 'mysql.connector.pooling' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-pack...
+           │     └ <module 'mysql.connector' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-packages\\my...
+           └ <module 'mysql' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-packages\\mysql\\__ini...
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 490, in __init__
+    self.add_connection()
+    │    └ <function MySQLConnectionPool.add_connection at 0x00000211FF877A60>
+    └ <mysql.connector.pooling.MySQLConnectionPool object at 0x00000211FF8A0860>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 613, in add_connection
+    cnx = connect(**self._cnx_config)  # type: ignore[assignment]
+          │         │    └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+          │         └ <mysql.connector.pooling.MySQLConnectionPool object at 0x00000211FF8A0860>
+          └ <function connect at 0x00000211FF875080>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 322, in connect
+    return CMySQLConnection(*args, **kwargs)
+           │                 │       └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+           │                 └ ()
+           └ <class 'mysql.connector.connection_cext.CMySQLConnection'>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 153, in __init__
+    self.connect(**kwargs)
+    │    │         └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+    │    └ <function MySQLConnectionAbstract.connect at 0x00000211FF494F40>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x00000211FE4BD040>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\abstracts.py", line 1529, in connect
+    self._open_connection()
+    │    └ <function CMySQLConnection._open_connection at 0x00000211FF851B20>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x00000211FE4BD040>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 370, in _open_connection
+    raise get_mysql_exception(
+          └ <function get_mysql_exception at 0x00000211FF3E3600>
+
+mysql.connector.errors.DatabaseError: 2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
+2025-04-01 18:17:26.501 | INFO     | __main__:__init__:40 - Starting up...
+2025-04-01 18:17:26.501 | INFO     | __main__:create_app:60 - Creating Server...
+2025-04-01 18:17:26.502 | ERROR    | __main__:<module>:86 - An error has been caught in function '<module>', process 'MainProcess' (20440), thread 'MainThread' (39248):
+Traceback (most recent call last):
+
+> File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 86, in <module>
+    fa.create_app()
+    │  └ <function FlaskApp.create_app at 0x000001E74B6E9800>
+    └ <__main__.FlaskApp object at 0x000001E74B6CE750>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 62, in create_app
+    self.__setupDB(self.app)
+    │              │    └ <Flask 'main'>
+    │              └ <__main__.FlaskApp object at 0x000001E74B6CE750>
+    └ <__main__.FlaskApp object at 0x000001E74B6CE750>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 55, in __setupDB
+    self.db = Database(host=configDict['db_hostname'], user=configDict['db_username'], password=configDict['db_password'], database=configDict['db_schema'],
+    │         │             │                               │                                   │                                   └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             │                               │                                   └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             │                               └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         └ <class 'backend.db.Database.Database'>
+    └ <__main__.FlaskApp object at 0x000001E74B6CE750>
+
+KeyError: 'db_hostname'
+2025-04-01 18:17:45.967 | INFO     | __main__:__init__:40 - Starting up...
+2025-04-01 18:18:13.153 | INFO     | __main__:__init__:40 - Starting up...
+2025-04-01 18:18:13.153 | INFO     | __main__:create_app:60 - Creating Server...
+2025-04-01 18:18:13.155 | ERROR    | __main__:<module>:86 - An error has been caught in function '<module>', process 'MainProcess' (38132), thread 'MainThread' (19892):
+Traceback (most recent call last):
+
+> File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 86, in <module>
+    fa.create_app()
+    │  └ <function FlaskApp.create_app at 0x000001E438309800>
+    └ <__main__.FlaskApp object at 0x000001E4382EFD40>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 62, in create_app
+    self.__setupDB(self.app)
+    │              │    └ <Flask 'main'>
+    │              └ <__main__.FlaskApp object at 0x000001E4382EFD40>
+    └ <__main__.FlaskApp object at 0x000001E4382EFD40>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 55, in __setupDB
+    self.db = Database(host=configDict['db_hostname'], user=configDict['db_username'], password=configDict['db_password'], database=configDict['db_schema'],
+    │         │             │                               │                                   │                                   └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             │                               │                                   └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             │                               └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         └ <class 'backend.db.Database.Database'>
+    └ <__main__.FlaskApp object at 0x000001E4382EFD40>
+
+KeyError: 'db_hostname'
+2025-04-01 18:19:49.958 | INFO     | __main__:__init__:40 - Starting up...
+2025-04-01 18:19:49.959 | INFO     | __main__:create_app:60 - Creating Server...
+2025-04-01 18:19:54.069 | ERROR    | __main__:<module>:86 - An error has been caught in function '<module>', process 'MainProcess' (11368), thread 'MainThread' (36928):
+Traceback (most recent call last):
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 365, in _open_connection
+    self._cmysql.connect(**cnx_kwargs)
+    │    │       │         └ {'host': 'localhost', 'user': 'root', 'password': '', 'password1': '', 'password2': '', 'password3': '', 'database': 'local_m...
+    │    │       └ <method 'connect' of '_mysql_connector.MySQL' objects>
+    │    └ <_mysql_connector.MySQL object at 0x000001B2CCEDE810>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001B2CDC8CAD0>
+
+_mysql_connector.MySQLInterfaceError: Can't connect to MySQL server on 'localhost:3306' (10061)
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 86, in <module>
+    fa.create_app()
+    │  └ <function FlaskApp.create_app at 0x000001B2CDC79800>
+    └ <__main__.FlaskApp object at 0x000001B2CDC5FBC0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 62, in create_app
+    self.__setupDB(self.app)
+    │              │    └ <Flask 'main'>
+    │              └ <__main__.FlaskApp object at 0x000001B2CDC5FBC0>
+    └ <__main__.FlaskApp object at 0x000001B2CDC5FBC0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 55, in __setupDB
+    self.db = Database(host=configDict['dbhost'], user=configDict['dbuser'], password=configDict['dbpw'], database=configDict['dbschema'],
+    │         │             │                          │                              │                            └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             │                          │                              └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             │                          └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         └ <class 'backend.db.Database.Database'>
+    └ <__main__.FlaskApp object at 0x000001B2CDC5FBC0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\backend\db\Database.py", line 26, in __init__
+    self.pool = self.create_pool(pool_name=pool_name, pool_size=pool_size)
+    │           │    │                     │                    └ 15
+    │           │    │                     └ 'mypool'
+    │           │    └ <function Database.create_pool at 0x000001B2CD77F060>
+    │           └ <backend.db.Database.Database object at 0x000001B2CDC5EF00>
+    └ <backend.db.Database.Database object at 0x000001B2CDC5EF00>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\backend\db\Database.py", line 37, in create_pool
+    pool = mysql.connector.pooling.MySQLConnectionPool(
+           │     │         │       └ <class 'mysql.connector.pooling.MySQLConnectionPool'>
+           │     │         └ <module 'mysql.connector.pooling' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-pack...
+           │     └ <module 'mysql.connector' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-packages\\my...
+           └ <module 'mysql' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-packages\\mysql\\__ini...
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 490, in __init__
+    self.add_connection()
+    │    └ <function MySQLConnectionPool.add_connection at 0x000001B2CDC67B00>
+    └ <mysql.connector.pooling.MySQLConnectionPool object at 0x000001B2CD8987D0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 613, in add_connection
+    cnx = connect(**self._cnx_config)  # type: ignore[assignment]
+          │         │    └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+          │         └ <mysql.connector.pooling.MySQLConnectionPool object at 0x000001B2CD8987D0>
+          └ <function connect at 0x000001B2CDC65120>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 322, in connect
+    return CMySQLConnection(*args, **kwargs)
+           │                 │       └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+           │                 └ ()
+           └ <class 'mysql.connector.connection_cext.CMySQLConnection'>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 153, in __init__
+    self.connect(**kwargs)
+    │    │         └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+    │    └ <function MySQLConnectionAbstract.connect at 0x000001B2CD884FE0>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001B2CDC8CAD0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\abstracts.py", line 1529, in connect
+    self._open_connection()
+    │    └ <function CMySQLConnection._open_connection at 0x000001B2CDC3DBC0>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001B2CDC8CAD0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 370, in _open_connection
+    raise get_mysql_exception(
+          └ <function get_mysql_exception at 0x000001B2CD7D36A0>
+
+mysql.connector.errors.DatabaseError: 2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
+2025-04-01 18:20:01.492 | INFO     | __main__:__init__:40 - Starting up...
+2025-04-01 18:20:01.492 | INFO     | __main__:create_app:60 - Creating Server...
+2025-04-01 18:20:05.607 | ERROR    | __main__:<module>:86 - An error has been caught in function '<module>', process 'MainProcess' (9500), thread 'MainThread' (36016):
+Traceback (most recent call last):
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 365, in _open_connection
+    self._cmysql.connect(**cnx_kwargs)
+    │    │       │         └ {'host': 'localhost', 'user': 'root', 'password': '', 'password1': '', 'password2': '', 'password3': '', 'database': 'local_m...
+    │    │       └ <method 'connect' of '_mysql_connector.MySQL' objects>
+    │    └ <_mysql_connector.MySQL object at 0x000001E1A685ED40>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001E1A761CFB0>
+
+_mysql_connector.MySQLInterfaceError: Can't connect to MySQL server on 'localhost:3306' (10061)
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 86, in <module>
+    fa.create_app()
+    │  └ <function FlaskApp.create_app at 0x000001E1A7609800>
+    └ <__main__.FlaskApp object at 0x000001E1A64AB6E0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 62, in create_app
+    self.__setupDB(self.app)
+    │              │    └ <Flask 'main'>
+    │              └ <__main__.FlaskApp object at 0x000001E1A64AB6E0>
+    └ <__main__.FlaskApp object at 0x000001E1A64AB6E0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 55, in __setupDB
+    self.db = Database(host=configDict['dbhost'], user=configDict['dbuser'], password=configDict['dbpw'], database=configDict['dbschema'],
+    │         │             │                          │                              │                            └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             │                          │                              └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             │                          └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         └ <class 'backend.db.Database.Database'>
+    └ <__main__.FlaskApp object at 0x000001E1A64AB6E0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\backend\db\Database.py", line 26, in __init__
+    self.pool = self.create_pool(pool_name=pool_name, pool_size=pool_size)
+    │           │    │                     │                    └ 15
+    │           │    │                     └ 'mypool'
+    │           │    └ <function Database.create_pool at 0x000001E1A710F060>
+    │           └ <backend.db.Database.Database object at 0x000001E1A446B440>
+    └ <backend.db.Database.Database object at 0x000001E1A446B440>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\backend\db\Database.py", line 37, in create_pool
+    pool = mysql.connector.pooling.MySQLConnectionPool(
+           │     │         │       └ <class 'mysql.connector.pooling.MySQLConnectionPool'>
+           │     │         └ <module 'mysql.connector.pooling' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-pack...
+           │     └ <module 'mysql.connector' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-packages\\my...
+           └ <module 'mysql' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-packages\\mysql\\__ini...
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 490, in __init__
+    self.add_connection()
+    │    └ <function MySQLConnectionPool.add_connection at 0x000001E1A75F7B00>
+    └ <mysql.connector.pooling.MySQLConnectionPool object at 0x000001E1A6710B00>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 613, in add_connection
+    cnx = connect(**self._cnx_config)  # type: ignore[assignment]
+          │         │    └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+          │         └ <mysql.connector.pooling.MySQLConnectionPool object at 0x000001E1A6710B00>
+          └ <function connect at 0x000001E1A75F5120>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 322, in connect
+    return CMySQLConnection(*args, **kwargs)
+           │                 │       └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+           │                 └ ()
+           └ <class 'mysql.connector.connection_cext.CMySQLConnection'>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 153, in __init__
+    self.connect(**kwargs)
+    │    │         └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+    │    └ <function MySQLConnectionAbstract.connect at 0x000001E1A7214FE0>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001E1A761CFB0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\abstracts.py", line 1529, in connect
+    self._open_connection()
+    │    └ <function CMySQLConnection._open_connection at 0x000001E1A75CDBC0>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001E1A761CFB0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 370, in _open_connection
+    raise get_mysql_exception(
+          └ <function get_mysql_exception at 0x000001E1A71636A0>
+
+mysql.connector.errors.DatabaseError: 2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
+2025-04-01 18:21:37.492 | INFO     | __main__:__init__:40 - Starting up...
+2025-04-01 18:21:37.493 | INFO     | __main__:create_app:60 - Creating Server...
+2025-04-01 18:21:41.621 | ERROR    | __main__:<module>:86 - An error has been caught in function '<module>', process 'MainProcess' (36432), thread 'MainThread' (28028):
+Traceback (most recent call last):
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 365, in _open_connection
+    self._cmysql.connect(**cnx_kwargs)
+    │    │       │         └ {'host': 'localhost', 'user': 'root', 'password': '', 'password1': '', 'password2': '', 'password3': '', 'database': 'local_m...
+    │    │       └ <method 'connect' of '_mysql_connector.MySQL' objects>
+    │    └ <_mysql_connector.MySQL object at 0x000001E34FA497C0>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001E350F9CFB0>
+
+_mysql_connector.MySQLInterfaceError: Can't connect to MySQL server on 'localhost:3306' (10061)
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 86, in <module>
+    fa.create_app()
+    │  └ <function FlaskApp.create_app at 0x000001E350F89800>
+    └ <__main__.FlaskApp object at 0x000001E34FE2B6E0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 62, in create_app
+    self.__setupDB(self.app)
+    │              │    └ <Flask 'main'>
+    │              └ <__main__.FlaskApp object at 0x000001E34FE2B6E0>
+    └ <__main__.FlaskApp object at 0x000001E34FE2B6E0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\main.py", line 55, in __setupDB
+    self.db = Database(host=configDict['dbhost'], user=configDict['dbuser'], password=configDict['dbpw'], database=configDict['dbschema'],
+    │         │             │                          │                              │                            └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             │                          │                              └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             │                          └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         │             └ {'dbhost': ' localhost', 'dbschema': ' local_master_project', 'dbuser': ' root', 'dbpw': '', 'main_language': ' en_EN'}
+    │         └ <class 'backend.db.Database.Database'>
+    └ <__main__.FlaskApp object at 0x000001E34FE2B6E0>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\backend\db\Database.py", line 26, in __init__
+    self.pool = self.create_pool(pool_name=pool_name, pool_size=pool_size)
+    │           │    │                     │                    └ 15
+    │           │    │                     └ 'mypool'
+    │           │    └ <function Database.create_pool at 0x000001E350A8F060>
+    │           └ <backend.db.Database.Database object at 0x000001E34DE5B440>
+    └ <backend.db.Database.Database object at 0x000001E34DE5B440>
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\backend\db\Database.py", line 37, in create_pool
+    pool = mysql.connector.pooling.MySQLConnectionPool(
+           │     │         │       └ <class 'mysql.connector.pooling.MySQLConnectionPool'>
+           │     │         └ <module 'mysql.connector.pooling' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-pack...
+           │     └ <module 'mysql.connector' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-packages\\my...
+           └ <module 'mysql' from 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\.venv\\Lib\\site-packages\\mysql\\__ini...
+
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 490, in __init__
+    self.add_connection()
+    │    └ <function MySQLConnectionPool.add_connection at 0x000001E350F77B00>
+    └ <mysql.connector.pooling.MySQLConnectionPool object at 0x000001E350090B00>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 613, in add_connection
+    cnx = connect(**self._cnx_config)  # type: ignore[assignment]
+          │         │    └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+          │         └ <mysql.connector.pooling.MySQLConnectionPool object at 0x000001E350090B00>
+          └ <function connect at 0x000001E350F75120>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\pooling.py", line 322, in connect
+    return CMySQLConnection(*args, **kwargs)
+           │                 │       └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+           │                 └ ()
+           └ <class 'mysql.connector.connection_cext.CMySQLConnection'>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 153, in __init__
+    self.connect(**kwargs)
+    │    │         └ {'host': ' localhost', 'port': '3306', 'user': ' root', 'password': '', 'database': ' local_master_project'}
+    │    └ <function MySQLConnectionAbstract.connect at 0x000001E350B94FE0>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001E350F9CFB0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\abstracts.py", line 1529, in connect
+    self._open_connection()
+    │    └ <function CMySQLConnection._open_connection at 0x000001E350F4DBC0>
+    └ <mysql.connector.connection_cext.CMySQLConnection object at 0x000001E350F9CFB0>
+  File "C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\.venv\Lib\site-packages\mysql\connector\connection_cext.py", line 370, in _open_connection
+    raise get_mysql_exception(
+          └ <function get_mysql_exception at 0x000001E350AE36A0>
+
+mysql.connector.errors.DatabaseError: 2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
+2025-04-01 18:28:26.616 | INFO     | __main__:__init__:44 - Starting up...
+2025-04-01 18:28:26.616 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-01 18:28:57.324 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-01 18:28:57.659 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/bootstrap.min.css
+2025-04-01 18:28:57.957 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /favicon.ico
+2025-04-01 18:29:04.699 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /index_user

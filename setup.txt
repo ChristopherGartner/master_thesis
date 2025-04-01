@@ -4,6 +4,7 @@ Then install loguru with 'pip install loguru'
 Then install argparse with 'pip install argparse'
 Then install bootstrap with 'npm install bootstrap'
 pip install mysql-connector-python
+pip install flask_login
 
 
 Now you're good to go
