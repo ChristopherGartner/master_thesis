@@ -24,7 +24,7 @@ class PermissionManager:
         return self.__textFileManager.getAsList(filepath)
 
     def _loadGroups(self) -> Dict[str, List[str]]:
-        filepath = os.path.join(self.app.static_folder + self.AUTHORIZATION_FOLDER, self.GROUPS_FILE)
+        filepath = os.path.join(self.__app.static_folder + self.AUTHORIZATION_FOLDER, self.GROUPS_FILE)
         return self.__textFileManager.getKeyValueValueDict(filepath, ",")
 
     # Returns the permissions of a certain group

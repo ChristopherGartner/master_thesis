@@ -11,7 +11,7 @@
     <ul class="list-group">
         {% for campsite in allCampsites %}
         <li class="list-group-item">
-            <h5>{{ campsite.name }}</h5>
+            <a href="/campsite/{{ campsite.name }}">{{ campsite.name }}</a>
             <p>{{ languageValues.campsite_id }}: {{ campsite.id }}</p>
             <p>{{ languageValues.campsite_address }}: {{ campsite.address }}</p>
         </li>

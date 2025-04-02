@@ -104,8 +104,19 @@ class FlaskApp:
             return render_template("index_campsite.html")
 
         def index_admin():
-            return render_template("index_admin.html")
+            return render_template("index_user.html")
 
+
+        @self.app.route("/campsite/<camp>")
+        def campsite(camp):
+            campinfo=None
+            for c in allCampsites:
+                if c["name"] == camp:
+                    campinfo = c
+            if campinfo is None:
+                pass #TODO falschen campnamen handeln
+
+            return render_template("campsite.html", campsite=campinfo)
 
 
 
