@@ -1,19 +1,232 @@
 {% extends "base.html" %}
 {% block body %}
-<h1>Register</h1>
-<form method="POST">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* Moderne Türkise Leiste */
+        .top-bar {
+            background: linear-gradient(135deg, #26a69a, #4dd0e1);
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .top-bar:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        /* Register-Container */
+        .register-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 80px;
+        }
+        .register-container h1 {
+            margin: 0 0 40px;
+            font-size: 28px;
+            color: #333;
+            text-align: center;
+        }
+        .form-columns {
+            display: flex;
+            gap: 30px;
+        }
+        .column {
+            flex: 1;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+            color: #00695c;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #26a69a;
+            outline: none;
+        }
+        /* Geburtsdatum */
+        .date-group {
+            display: flex;
+            gap: 10px;
+        }
+        .date-group select {
+            flex: 1;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: #004d40; /* Dunkleres Türkis für das ausgewählte Element */
+            cursor: pointer;
+        }
+        .date-group select:hover {
+            border-color: #26a69a;
+        }
+        .date-group select option {
+            color: #00251a; /* Noch dunkler für die Dropdown-Optionen */
+        }
+        /* Stadt und PLZ zusammen */
+        .city-zip-group {
+            display: flex;
+            gap: 10px;
+        }
+        .city-zip-group input {
+            flex: 1;
+        }
+        /* Straße und Hausnummer zusammen */
+        .street-number-group {
+            display: flex;
+            gap: 10px;
+        }
+        .street-number-group input#street {
+            flex: 3;
+        }
+        .street-number-group input#house_number {
+            flex: 1;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #26a69a, #4dd0e1);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn:hover {
+            background: linear-gradient(135deg, #4dd0e1, #26a69a);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Moderne Türkise Leiste (ohne Button) -->
+    <div class="top-bar">
     </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+
+    <!-- Register-Formular -->
+    <div class="register-container">
+        <h1>Registrieren</h1>
+        <form method="POST">
+            <div class="form-columns">
+                <!-- Linke Spalte -->
+                <div class="column">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">Vorname</label>
+                        <input type="text" id="first_name" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Nachname</label>
+                        <input type="text" id="last_name" name="last_name" required>
+                    </div>
+                </div>
+                <!-- Rechte Spalte -->
+                <div class="column">
+                    <div class="form-group">
+                        <label>Geburtsdatum</label>
+                        <div class="date-group">
+                            <select name="birth_day" required>
+                                <option value="">Tag</option>
+                                {% for day in range(1, 32) %}
+                                    <option value="{{ day }}">{{ day }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="birth_month" required>
+                                <option value="">Monat</option>
+                                <option value="1">Januar</option>
+                                <option value="2">Februar</option>
+                                <option value="3">März</option>
+                                <option value="4">April</option>
+                                <option value="5">Mai</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Dezember</option>
+                            </select>
+                            <select name="birth_year" required>
+                                <option value="">Jahr</option>
+                                {% for year in range(1900, 2026) %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Land</label>
+                        <input type="text" id="country" name="country" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Stadt und Postleitzahl</label>
+                        <div class="city-zip-group">
+                            <input type="text" id="city" name="city" placeholder="Stadt" required>
+                            <input type="text" id="zip_code" name="zip_code" placeholder="PLZ" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Straße und Hausnummer</label>
+                        <div class="street-number-group">
+                            <input type="text" id="street" name="street" placeholder="Straße" required>
+                            <input type="text" id="house_number" name="house_number" placeholder="Nr." required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn">Register</button>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit" class="btn">Register</button>
-</form>
+</body>
+</html>
 {% endblock %}
