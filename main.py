@@ -106,7 +106,7 @@ class FlaskApp:
             return render_template("index.html", allCampsites=all_campsites, languageValues=languageValues)
 
         def index_campsite():
-            return render_template("index_campsite.html")
+            return render_template("campsite_detail.html")
 
         def index_admin():
             return render_template("index_admin.html")
