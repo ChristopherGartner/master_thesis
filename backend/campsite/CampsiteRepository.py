@@ -6,7 +6,7 @@ from ..db.Database import Database
 
 # holds and provides all campsite objects
 class CampsiteRepository:
-    __campsites = []
+    __campsites      = []
     __campsiteMapper = None
 
 # Get methods
@@ -30,7 +30,7 @@ class CampsiteRepository:
 
         return campsiteDataObjects
 
-    # Set methods
+# Set methods
     def setCampsites(self, campsites: List[Campsite]) -> None:
         self.__campsites = campsites
 

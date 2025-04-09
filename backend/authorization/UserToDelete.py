@@ -27,7 +27,7 @@ def validate_role(role):
         return "Invalid role!\n"
 
 
-class User(UserMixin):
+class UserToDelete(UserMixin):
     id = 0
     username = ""
     email = ""

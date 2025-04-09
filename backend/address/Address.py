@@ -1,5 +1,6 @@
 # Data class for address objects
 class Address:
+    __id          = None
     __street      = None
     __houseNumber = None
     __city        = None
@@ -7,6 +8,9 @@ class Address:
     __country     = None
 
 # Get methods
+    def getId(self) -> str:
+        return self.__id
+
     def getStreet(self) -> str:
         return self.__street
 
@@ -23,6 +27,9 @@ class Address:
         return self.__country
 
 # Set methods
+    def setId(self, id):
+        self.__id = id
+
     def setStreet(self, street) -> None:
         self.__street = street
 
@@ -42,9 +49,11 @@ class Address:
     # transforms this object in a data object only containing the relevant data
     def getDataObject(self) -> dict:
         dataObject = {
+            "id": self.getId(),
             "street": self.getStreet(),
             "houseNumber": self.getHouseNumber(),
             "city": self.getCity(),
+            "postCode": self.getPostCode(),
             "country": self.getCountry()
         }
 

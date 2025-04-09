@@ -7,13 +7,14 @@ from flask_login import current_user, login_user, LoginManager, logout_user, log
 from loguru import logger
 from werkzeug.security import check_password_hash
 
-from backend.authorization.User import User, validate_username, validate_email, validate_role, validate_password
+#from backend.authorization.UserToDelete import UserToDelete, validate_username, validate_email, validate_role, validate_password
 from backend.db.Database import Database
 from backend.language.LanguageManager import LanguageManager
 from backend.util.RepositoryFactory import RepositoryFactory
 from backend.util.Toolbox import Toolbox
 from backend.internal_data.ConfigManager import ConfigManager
 from backend.campsite.Campsite import Campsite
+from backend.users.User import *
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -45,11 +46,7 @@ class FlaskApp:
     def __init__(self, dbhost=None, dbuser=None, dbpw=None, dbschema=None):
         logger.info("Starting up...")
 
-        # initializing local classes
-        self.__repositoryFactory = RepositoryFactory()
-        self.__languageManager   = LanguageManager()
-        self.__toolbox           = Toolbox()
-        self.__configManager     = ConfigManager()
+        self.__configManager = ConfigManager()
 
         self._args = read_args()
 
@@ -71,6 +68,13 @@ class FlaskApp:
         self.__setupDB(self.app)
         logger.info("DB Connection established!")
 
+        logger.info("Setting up local classes...")
+        # initializing local classes
+        self.__repositoryFactory = RepositoryFactory(self.db)
+        self.__languageManager = LanguageManager()
+        self.__toolbox = Toolbox()
+        logger.info("Local classes set up successfully")
+
         self.login_manager = LoginManager()
         self.login_manager.init_app(self.app)
         self.login_manager.login_view = 'login'
@@ -81,9 +85,8 @@ class FlaskApp:
 
 
         @self.login_manager.user_loader
-        def load_user(user_id):
-            res = self.db.execute("SELECT * FROM users WHERE id = %s;", (user_id,))
-            return User(res)
+        def load_user(userId):
+            return self.__repositoryFactory.getUserRepository().getUserById(userId)
 
         @self.app.route("/")
         def index():
@@ -97,7 +100,6 @@ class FlaskApp:
                 else:
                     raise Exception("Unknown user role")
 
-
             return render_template("index.html", allCampsites = allCampsites, languageValues = languageValues)
 
         def index_campsite():
@@ -105,8 +107,6 @@ class FlaskApp:
 
         def index_admin():
             return render_template("index_admin.html")
-
-
 
 
         @self.app.route("/login", methods = ['GET', 'POST'])
@@ -118,13 +118,11 @@ class FlaskApp:
                 username = request.form.get('username')
                 password = request.form.get('password')
 
-                pwh = self.db.execute("SELECT passwordhash FROM users WHERE username=%s;", (username,))[0][0]
-
-                if not pwh or not check_password_hash(pwh, password):
+                user = self.__repositoryFactory.getUserRepository().getUserByUsername(username)
+                if user is None or not check_password_hash(user.getPasswordHash(), password):
                     flash('Invalid username or password')
                     return redirect(url_for('login'))
 
-                user = User(self.db.execute("SELECT * FROM users WHERE username = %s;", (username, )))
                 login_user(user)
                 return redirect(url_for('index'))
 
@@ -136,44 +134,62 @@ class FlaskApp:
                 return redirect(url_for('index'))
 
             if request.method == 'POST':
-                username = request.form.get('username')
-                email = request.form.get('email')
-                password = request.form.get('password')
                 role = "User"
 
+                username         = request.form.get('username')
+                email            = request.form.get('email')
+                passwordUnhashed = request.form.get('password')
+                firstname        = request.form.get('first_name')
+                lastname         = request.form.get('last_name')
+
+                # three fields for birthdate
+                birthday_day   = request.form.get('birth_day')
+                birthday_month = request.form.get('birth_month')
+                birthday_year  = request.form.get('birth_year')
+
+                country     = request.form.get('country')
+                city        = request.form.get('city')
+                postCode    = request.form.get('zip_code')
+                streetName  = request.form.get('street')
+                houseNumber = request.form.get('house_number')
+
+                # some minor validations
                 err = ""
-                err += validate_username(username)
+                err += validateUsername(username)
                 err += validate_email(email)
-                err += validate_password(password)
+                err += validate_password(passwordUnhashed)
                 err += validate_role(role)
                 if err != "":
                     flash(err)
                     return make_response('', 400)
 
-                # Check if username or email already exists
-                user_exists = self.db.execute("SELECT * FROM users WHERE username = %s;", (username,))
-                email_exists = self.db.execute("SELECT * FROM users WHERE email = %s;", (email,))
+                userObject = User()
+                userObject.setUsername(username)
+                userObject.setEmail(email)
+                userObject.setFirstName(firstname)
+                userObject.setLastName(lastname)
+                userObject.setBirthday(f"{birthday_year}-{birthday_month}-{birthday_day}")
+                userObject.setAddress(streetName, houseNumber, city, postCode, country)
 
+                # Check if user with given username or email exists
+                userWithName  = self.__repositoryFactory.getUserRepository().getUserByUsername(username)
+                userWithEmail = self.__repositoryFactory.getUserRepository().getUserByEmail(email)
 
-                if user_exists:
+                if userWithName:
                     flash('Username already exists.')
                     return redirect(url_for('register'))
 
-                if email_exists:
+                if userWithEmail:
                     flash('Email already registered.')
                     return redirect(url_for('register'))
 
-
-
-
                 try:
-                    new_user = User(username, email, role)
-                    pwh = new_user.set_password(password)
-                    self.db.execute("INSERT INTO users(username, email, passwordhash, role) VALUES(%s, %s, %s, %s);", (username, email, pwh, "User"), commit=True)
+                    userObject.setPasswordHash(generateHashedPassword(passwordUnhashed))
                     # Create new user
-                    id = self.db.execute("SELECT id FROM users WHERE username = %s;", (username, ))[0][0]
-                    new_user.id = id
-                    login_user(new_user)
+                    userId = self.__repositoryFactory.getUserRepository().saveUserObject(self.__repositoryFactory.getAddressRepository(), userObject)
+                    userObject.setId(userId)
+
+                    login_user(userObject)
 
                     flash('Registration successful!')
 

@@ -16,6 +16,8 @@ class CampsiteMapper:
     def getCampsiteObjects(self, db: Database, rebuildObjects: bool = False) -> List[Campsite]:
         # Check if list is already initialized. If yes, skip refilling for performance reasons
         if len(self.__campSiteObjects) == 0 or rebuildObjects == True:
+            self.__campSiteObjects = []
+
             selectedCampsites = db.execute(
                 f"SELECT campsite.id, campsite.name, campsite.description, campsite.isActive, address.streetName, address.houseNumber, city.name AS cityName, city.postCode, country.name AS countryName "
                 f"FROM campsite "
