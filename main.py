@@ -90,12 +90,13 @@ class FlaskApp:
 
         @self.app.route("/")
         def index():
-            if current_user.is_authenticated:
-                if current_user.role == "User":
+            currentUser: User = current_user
+            if currentUser.is_authenticated:
+                if currentUser.getRole() == "User":
                     pass
-                elif current_user.role == "Campsite":
+                elif currentUser.getRole() == "Campsite":
                     return index_campsite()
-                elif current_user.role == "Admin":
+                elif currentUser.getRole() == "Admin":
                     return index_admin()
                 else:
                     raise Exception("Unknown user role")
@@ -170,6 +171,7 @@ class FlaskApp:
                 userObject.setLastName(lastname)
                 userObject.setBirthday(f"{birthday_year}-{birthday_month}-{birthday_day}")
                 userObject.setAddress(streetName, houseNumber, city, postCode, country)
+                userObject.setRole('User')
 
                 # Check if user with given username or email exists
                 userWithName  = self.__repositoryFactory.getUserRepository().getUserByUsername(username)

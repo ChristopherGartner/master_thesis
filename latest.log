@@ -1155,3 +1155,94 @@ AttributeError: 'NoneType' object has no attribute 'overrideDBargs'
 2025-04-09 17:14:19.647 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
 2025-04-09 17:14:20.355 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
 2025-04-09 17:14:20.758 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/bootstrap.min.css
+2025-04-09 17:15:43.331 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 17:15:43.332 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 17:15:47.066 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 17:15:47.066 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 17:15:47.066 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 17:15:52.863 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /register
+2025-04-09 17:15:53.248 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 17:15:53.303 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 17:15:53.487 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 17:15:53.782 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 17:15:54.202 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 17:15:54.362 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 17:15:55.033 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 17:16:42.389 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /register
+2025-04-09 17:16:46.806 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 17:16:47.118 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/bootstrap.min.css
+2025-04-09 17:17:22.750 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 17:17:23.080 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 17:17:23.131 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 17:17:23.296 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 17:17:23.465 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 17:17:23.704 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 17:17:24.053 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 17:17:24.503 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 17:17:31.932 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 17:17:32.325 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 17:17:32.761 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 17:17:32.901 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 17:17:33.076 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 17:17:33.479 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 17:17:33.697 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 17:17:33.860 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 17:17:34.457 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 17:17:40.970 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 17:17:41.483 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 17:17:41.889 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 17:17:41.985 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 17:17:42.072 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 17:17:42.413 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 17:17:42.776 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 17:17:42.820 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 17:17:43.368 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 17:17:50.576 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 17:17:51.045 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 17:17:51.442 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/bootstrap.min.css
+2025-04-09 17:40:52.354 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 17:40:52.354 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 17:40:57.392 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 17:40:57.392 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 17:40:57.392 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 17:41:01.326 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 17:41:01.849 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 17:41:01.954 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 17:41:02.131 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 17:41:02.492 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 17:41:02.811 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 17:41:03.215 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 17:41:03.971 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 17:41:11.654 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 17:41:12.680 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /user
+2025-04-09 17:45:23.238 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 17:45:23.239 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 17:45:26.878 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 17:45:26.878 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 17:45:26.878 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 17:45:29.011 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /index
+2025-04-09 17:45:35.079 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /index
+2025-04-09 17:45:40.239 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 17:45:43.464 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /register
+2025-04-09 17:45:43.823 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 17:45:43.871 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 17:45:43.952 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 17:45:44.297 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 17:45:44.473 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 17:45:44.813 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 17:45:45.370 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 17:45:46.250 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 17:50:02.488 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 17:50:02.488 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 17:50:06.386 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 17:50:06.386 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 17:50:06.386 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 17:50:08.243 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 17:50:10.944 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 17:50:11.312 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 17:50:11.386 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 17:50:11.555 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 17:50:11.696 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 17:50:12.411 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 17:50:12.535 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 17:50:13.640 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
