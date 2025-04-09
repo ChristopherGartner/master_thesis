@@ -1,5 +1,6 @@
-from typing import List
 from backend.db.Database import *
+from .module_campsite.CampsiteModuleRepository import CampsiteModuleRepository
+from ..modules.ModuleRepository import ModuleRepository
 
 from .Campsite import *
 # loads the campsites from the database and
@@ -13,7 +14,7 @@ class CampsiteMapper:
     #
     # @param db = Database object
     # @param rebuildObjects = Boolean whether the campsite objects should be rebuilt
-    def getCampsiteObjects(self, db: Database, rebuildObjects: bool = False) -> List[Campsite]:
+    def getCampsiteObjects(self, db: Database, campsiteModuleRepository: CampsiteModuleRepository, moduleRepository: ModuleRepository, rebuildObjects: bool = False) -> List[Campsite]:
         # Check if list is already initialized. If yes, skip refilling for performance reasons
         if len(self.__campSiteObjects) == 0 or rebuildObjects == True:
             self.__campSiteObjects = []
@@ -40,6 +41,8 @@ class CampsiteMapper:
 
                 campsiteObject.setAddress(campsiteTuple[4], campsiteTuple[5], campsiteTuple[6], campsiteTuple[7],
                                           campsiteTuple[8])
+
+                campsiteObject.setModules(campsiteModuleRepository.getCampsiteModulesForCampsiteId(int(campsiteObject.getId()), db, moduleRepository))
 
                 self.__campSiteObjects.append(campsiteObject)
 

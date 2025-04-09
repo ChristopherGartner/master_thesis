@@ -1,4 +1,6 @@
 from ..address.Address import Address
+from ..modules.Module import Module
+from typing import List
 
 # Data class for campsites*
 class Campsite:
@@ -7,6 +9,7 @@ class Campsite:
     __address     = None
     __description = None
     __isActive    = None
+    __modules     = None
 
 # Get methods
     def getId(self) -> str:
@@ -23,6 +26,9 @@ class Campsite:
 
     def isActive(self) -> bool:
         return self.isActive()
+
+    def getModules(self) -> List[Module]:
+        return self.__modules
 
 # Set methods
     def setId(self, id: str) -> None:
@@ -51,6 +57,9 @@ class Campsite:
     def setActive(self, isActive) -> None:
         self.__isActive = isActive
 
+    def setModules(self, modules: List[Module]) -> None:
+        self.__modules = modules
+
 # Other methods
     # transforms this object in a data object only containing the relevant data
     def getDataObject(self) -> dict:
@@ -58,7 +67,8 @@ class Campsite:
             "id": self.getId(),
             "name": self.getName(),
             "address": self.getAddress(),
-            "description": self.getDescription()
+            "description": self.getDescription(),
+            "modules": self.getModules()
         }
 
         return dataObject

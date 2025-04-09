@@ -80,7 +80,7 @@ class FlaskApp:
         self.login_manager.login_view = 'login'
 
         campsiteRepository = self.__repositoryFactory.getCampsiteRepository()
-        allCampsites = campsiteRepository.getCampsitesAsDataObjects(self.db)
+        allCampsites = campsiteRepository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
         languageValues = self.__languageManager.getLanguageValues(LanguageManager.LANGUAGE_GERMAN, self.app)
 
 
@@ -92,7 +92,7 @@ class FlaskApp:
         def index():
             currentUser: User = current_user
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
-            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db)
+            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
             if currentUser.is_authenticated:
                 if currentUser.getRole() == "User":
                     pass
@@ -207,7 +207,7 @@ class FlaskApp:
         def campsite_detail(campsite_id):
             logger.info(f"Requested campsite_id: {campsite_id} (type: {type(campsite_id)})")
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
-            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db)
+            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
             logger.info(f"All campsites: {[c['id'] for c in all_campsites]}")
             campsite = next((c for c in all_campsites if str(c["id"]) == str(campsite_id)), None)
             if campsite is None:
@@ -215,7 +215,33 @@ class FlaskApp:
                 flash('Campsite not found')
                 return redirect(url_for('index'))
             logger.info(f"Found campsite: {campsite['name']}")
-            return render_template("campsite_detail.html", campsite=campsite)
+
+            # Map module names to logos and URLs (temporary hardcoded solution)
+            module_metadata = {
+                "bread_module": {
+                    "logo": "pictogram_breadModule.png",
+                    "url": f"/campsite/{campsite_id}/bread_module"
+                },
+                "booking_module": {
+                    "logo": "pictogram_bookingModule.png",
+                    "url": f"/campsite/{campsite_id}/booking_module"
+                }
+            }
+
+            # Get modules from the campsite and enrich with metadata
+            modules = campsite["modules"] or []  # Ensure it's not None
+            enriched_modules = []
+            for module in modules:
+                module_data = module.getDataObject() if module else {}
+                metadata = module_metadata.get(module_data.get("name", ""), {})
+                enriched_modules.append({
+                    "id": module_data.get("id"),
+                    "name": module_data.get("name"),
+                    "logo": metadata.get("logo"),
+                    "url": metadata.get("url")
+                })
+
+            return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules)
 
         @self.app.route("/campsite/<campsite_id>/module/<module_id>")
         def module(campsite_id, module_id):
