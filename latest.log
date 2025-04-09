@@ -1781,3 +1781,22 @@ AttributeError: 'NoneType' object has no attribute 'overrideDBargs'
 2025-04-09 21:10:00.393 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
 2025-04-09 21:10:00.463 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
 2025-04-09 21:10:09.076 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /static
+2025-04-09 21:11:08.198 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 21:11:10.496 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 21:11:10.720 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 21:11:10.720 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 21:11:10.720 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 21:11:10.796 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-09 21:11:28.765 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 21:11:31.743 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/2
+2025-04-09 21:11:31.965 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 2 (type: <class 'str'>)
+2025-04-09 21:11:31.965 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 21:11:31.966 | INFO     | __main__:campsite_detail:217 - Found campsite: Amsterdam-Campsite
+2025-04-09 21:11:32.053 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-09 21:11:35.743 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 21:11:37.272 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/5
+2025-04-09 21:11:37.512 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 5 (type: <class 'str'>)
+2025-04-09 21:11:37.514 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 21:11:37.514 | INFO     | __main__:campsite_detail:217 - Found campsite: Test 2
+2025-04-09 21:11:37.584 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-09 21:11:47.893 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
