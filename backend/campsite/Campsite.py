@@ -57,7 +57,8 @@ class Campsite:
         dataObject = {
             "id": self.getId(),
             "name": self.getName(),
-            "address": self.getAddress()
+            "address": self.getAddress(),
+            "description": self.getDescription()
         }
 
         return dataObject

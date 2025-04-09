@@ -3,107 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campsites</title>
+    <title>Campsites - Natur erleben</title>
     <style>
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Lora', serif;
+            background: linear-gradient(to bottom, #b2dfdb, #eceff1);
             margin: 0;
             padding: 0;
+            color: #263238;
         }
-        /* Moderne Türkise Leiste */
-        .top-bar {
-            background: linear-gradient(135deg, #26a69a, #4dd0e1); /* Türkiser Gradient */
-            padding: 12px 25px; /* Etwas schlanker und breiter */
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #00695c, #8e24aa);
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             position: sticky;
             top: 0;
             z-index: 1000;
-            transition: all 0.3s ease;
         }
-        .top-bar:hover {
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Hover-Effekt */
-        }
-        .top-bar a {
+        .header a {
             color: #fff;
             text-decoration: none;
+            font-size: 18px;
             font-weight: 500;
-            font-size: 16px;
-            padding: 8px 12px;
-            border-radius: 5px;
-            transition: background-color 0.2s ease;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: background 0.3s ease;
         }
-        .top-bar a:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* Subtiler Hover-Effekt */
+        .header a:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
         .language-select {
-            background-color: #fff;
+            background: #fff;
             border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 16px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         .language-select:hover {
-            background-color: #f0f0f0; /* Leichter Hover-Effekt */
-        }
-        .language-select:focus {
-            outline: none;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Fokus-Effekt */
+            background: #f0f0f0;
         }
         /* Campsite-Liste */
-        .campsite-list {
-            max-width: 800px;
-            margin: 40px 20px; /* Mehr Abstand oben (40px statt 20px) */
+        .campsite-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
-        .campsite-item {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            transition: transform 0.2s;
+        .campsite-card {
+            background: #fafafa;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #80cbc4;
         }
-        .campsite-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        .campsite-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
         }
-        .campsite-info {
-            flex-grow: 1;
+        .campsite-header {
+            background: linear-gradient(to bottom, #00695c, transparent);
+            padding: 15px 20px;
+            color: #fff;
         }
-        .campsite-info h2 {
+        .campsite-header h2 {
             margin: 0;
             font-size: 24px;
-            color: #333;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        .campsite-info {
+            padding: 20px;
         }
         .campsite-info p {
-            margin: 5px 0;
-            color: #666;
+            margin: 10px 0;
             font-size: 16px;
+            color: #37474f;
+            line-height: 1.6;
+        }
+        .campsite-info .description {
+            color: #546e7a;
+            font-style: italic;
+            background: #e0f2f1;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 15px;
         }
         .campsite-actions {
-            margin-left: 20px;
+            padding: 0 20px 20px;
+            text-align: center;
         }
         .campsite-actions a {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #8e24aa;
+            color: #fff;
             text-decoration: none;
-            color: #ff6200;
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: background 0.3s ease;
         }
         .campsite-actions a:hover {
-            text-decoration: underline;
+            background: #6a1b9a;
+        }
+        /* Flash-Nachrichten */
+        .flash-messages {
+            text-align: center;
+            padding: 20px;
+            color: #c2185b;
+            font-weight: 600;
+            background: #f8bbd0;
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 10px;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Moderne Türkise Leiste -->
-    <div class="top-bar">
+    <div class="header">
         <div>
             <a href="{{ url_for('login') }}">Login</a>
         </div>
@@ -116,30 +142,46 @@
         </div>
     </div>
 
-    <!-- Campsite-Liste -->
-    <div class="campsite-list">
-    {% if allCampsites %}
-        {% for campsite in allCampsites %}
-            <div class="campsite-item">
-                <div class="campsite-info">
-                    <h2>{{ campsite.name }}</h2>
-                    <p>{{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }},
-                       {{ campsite.address.getCity() }}, {{ campsite.address.getPostCode() }},
-                       {{ campsite.address.getCountry() }}</p>
-                    {% if campsite.description %}
-                        <p>{{ campsite.description }}</p>
-                    {% else %}
-                        <p>Keine Beschreibung verfügbar.</p>
-                    {% endif %}
-                </div>
-                <div class="campsite-actions">
-                    <a href="#">Details anzeigen</a>
-                </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
             </div>
-        {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="campsite-container">
+        {% if allCampsites %}
+            {% for campsite in allCampsites %}
+                <div class="campsite-card">
+                    <div class="campsite-header">
+                        <h2>{{ campsite.name }}</h2>
+                    </div>
+                    <div class="campsite-info">
+                        <p>{{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }},<br>
+                           {{ campsite.address.getCity()}}, {{ campsite.address.getPostCode() }},<br>
+                           {{ campsite.address.getCountry() }}
+                        </p>
+                        <p class="description">
+                            {% if campsite.description %}
+                                {{ campsite.description }}
+                            {% else %}
+                                No description existent
+                            {% endif %}
+                        </>
+                    </div>
+                    <div class="campsite-actions">
+                        <a href="{{ url_for('campsite_detail', campsite_id=campsite['id']) }}">Details</a>
+                    </div>
+                </div>
+            {% endfor %}
         {% else %}
-            <p>Keine Campsites verfügbar.</p>
+            <p style="text-align: center; color: #546e7a;">No campsites existent</p>
         {% endif %}
     </div>
+    <!-- Script bleibt unverändert -->
+    <script>...</script>
 </body>
 </html>

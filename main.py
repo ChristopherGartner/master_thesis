@@ -91,6 +91,8 @@ class FlaskApp:
         @self.app.route("/")
         def index():
             currentUser: User = current_user
+            campsite_repository = self.__repositoryFactory.getCampsiteRepository()
+            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db)
             if currentUser.is_authenticated:
                 if currentUser.getRole() == "User":
                     pass
@@ -100,8 +102,7 @@ class FlaskApp:
                     return index_admin()
                 else:
                     raise Exception("Unknown user role")
-
-            return render_template("index.html", allCampsites = allCampsites, languageValues = languageValues)
+            return render_template("index.html", allCampsites=all_campsites, languageValues=languageValues)
 
         def index_campsite():
             return render_template("index_campsite.html")
@@ -201,6 +202,20 @@ class FlaskApp:
                     return redirect(url_for('register'))
 
             return render_template('register.html')
+
+        @self.app.route("/campsite/<campsite_id>")
+        def campsite_detail(campsite_id):
+            logger.info(f"Requested campsite_id: {campsite_id} (type: {type(campsite_id)})")
+            campsite_repository = self.__repositoryFactory.getCampsiteRepository()
+            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db)
+            logger.info(f"All campsites: {[c['id'] for c in all_campsites]}")
+            campsite = next((c for c in all_campsites if str(c["id"]) == str(campsite_id)), None)
+            if campsite is None:
+                logger.warning(f"Campsite with ID {campsite_id} not found in {len(all_campsites)} campsites")
+                flash('Campsite not found')
+                return redirect(url_for('index'))
+            logger.info(f"Found campsite: {campsite['name']}")
+            return render_template("campsite_detail.html", campsite=campsite)
 
         @self.app.route("/logout")
         def logout():

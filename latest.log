@@ -1246,3 +1246,280 @@ AttributeError: 'NoneType' object has no attribute 'overrideDBargs'
 2025-04-09 17:50:12.411 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
 2025-04-09 17:50:12.535 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
 2025-04-09 17:50:13.640 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 17:54:22.886 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 17:54:22.886 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 17:54:29.119 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 17:54:29.119 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 17:54:29.119 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 17:54:29.770 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 17:54:38.808 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 17:54:39.278 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 17:54:39.395 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 17:54:39.512 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 17:54:40.134 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 17:54:40.531 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 17:54:41.002 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 17:54:41.694 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 18:03:30.308 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:03:30.309 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:03:33.558 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:03:33.559 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:03:33.559 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:03:39.382 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:03:41.561 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:03:41.935 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:03:44.217 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:03:44.550 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:03:52.618 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 18:03:52.975 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 18:03:53.027 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 18:03:53.135 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 18:03:53.259 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 18:03:53.751 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 18:03:53.950 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 18:03:54.382 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 18:04:02.175 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 18:04:02.846 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:04:06.768 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:04:07.099 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:04:23.669 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:04:23.669 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:04:26.717 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:04:26.718 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:04:26.718 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:04:27.184 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:04:28.863 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:04:29.177 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:09:26.112 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:09:26.113 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:09:30.991 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:09:30.991 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:09:30.991 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:09:31.383 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:09:35.168 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:09:35.476 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:12:23.737 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:12:23.737 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:12:26.875 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:12:26.875 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:12:26.875 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:12:27.275 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:12:29.278 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:12:29.632 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:12:29.632 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3]
+2025-04-09 18:12:29.632 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:12:49.442 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:12:51.965 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/2
+2025-04-09 18:12:52.618 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 2 (type: <class 'str'>)
+2025-04-09 18:12:52.618 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3]
+2025-04-09 18:12:52.618 | INFO     | __main__:campsite_detail:217 - Found campsite: Amsterdam-Campsite
+2025-04-09 18:14:19.629 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:14:19.630 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:14:22.876 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:14:22.877 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:14:22.877 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:14:24.189 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:14:39.919 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:14:40.208 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:14:40.208 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3]
+2025-04-09 18:14:40.208 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:14:52.554 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:17:12.836 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:17:12.836 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:17:16.011 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:17:16.012 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:17:16.012 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:17:17.185 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:17:25.657 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 18:17:26.006 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 18:17:26.079 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 18:17:26.224 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 18:17:26.408 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 18:17:26.516 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 18:17:26.901 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 18:17:27.358 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 18:17:29.859 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:17:30.094 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:17:30.094 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3]
+2025-04-09 18:17:30.094 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:17:46.160 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 18:17:46.504 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 18:17:46.576 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 18:17:46.640 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 18:17:46.864 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 18:17:47.104 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 18:17:47.560 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 18:17:48.028 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 18:20:11.467 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:20:11.468 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:20:14.534 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:20:14.535 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:20:14.535 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:20:15.774 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:21:40.434 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:21:40.733 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:21:40.733 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3]
+2025-04-09 18:21:40.733 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:22:39.581 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:22:39.583 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:22:42.972 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:22:42.972 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:22:42.972 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:22:47.690 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:22:54.993 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:22:55.363 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:22:55.363 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3]
+2025-04-09 18:22:55.363 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:23:02.196 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:24:13.918 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:24:35.635 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:24:35.636 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:24:38.800 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:24:38.800 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:24:38.800 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:24:39.302 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:24:46.600 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:24:46.864 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:24:46.864 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 18:24:46.864 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:26:35.521 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:26:35.521 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:26:38.681 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:26:38.682 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:26:38.682 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:26:39.116 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:26:42.570 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:26:42.878 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:26:42.879 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 18:26:42.879 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:30:26.677 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:30:26.678 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:30:29.812 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:30:29.812 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:30:29.812 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:30:33.326 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:31:41.009 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:31:41.009 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:31:44.152 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:31:44.152 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:31:44.152 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:31:44.558 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:42:44.202 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:42:44.203 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:42:47.331 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:42:47.331 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:42:47.331 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:42:47.593 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:43:42.964 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:43:42.965 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:43:46.151 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:43:46.151 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:43:46.151 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:43:46.669 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:44:17.507 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:44:17.508 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:44:21.290 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:44:21.291 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:44:21.291 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:44:34.774 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:44:34.774 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:44:37.847 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:44:37.847 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:44:37.847 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:44:38.099 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:44:40.113 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:44:40.409 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:44:40.409 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 18:44:40.409 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:45:05.901 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:45:05.902 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:45:09.146 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:45:09.146 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:45:09.146 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:45:09.953 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:45:34.223 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:45:34.224 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:45:37.549 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:45:37.550 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:45:37.550 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:45:38.880 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:46:23.667 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:46:23.667 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:46:35.206 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:46:35.206 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:46:35.206 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:46:37.007 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:47:13.121 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:47:13.121 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:47:17.079 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:47:17.079 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:47:17.079 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:47:17.578 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:48:00.412 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:48:00.413 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:48:08.689 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:48:08.689 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:48:08.689 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:48:12.180 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:48:32.464 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:48:32.464 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:48:46.235 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:48:46.235 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:48:46.236 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:48:47.299 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:50:38.047 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:50:38.049 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:50:46.808 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:50:46.808 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:50:46.808 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:50:47.128 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:50:53.402 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:50:53.714 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:50:53.714 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 18:50:53.714 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:51:27.412 | INFO     | __main__:__init__:47 - Starting up...
+2025-04-09 18:51:27.412 | INFO     | __main__:create_app:64 - Creating Server...
+2025-04-09 18:51:30.562 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-09 18:51:30.562 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-09 18:51:30.562 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-09 18:51:31.472 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:51:31.785 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:51:31.786 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 18:51:31.786 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:51:34.597 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:51:35.914 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:51:36.187 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:51:36.187 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 18:51:36.187 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:51:40.951 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:51:43.391 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/2
+2025-04-09 18:51:43.704 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 2 (type: <class 'str'>)
+2025-04-09 18:51:43.704 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 18:51:43.704 | INFO     | __main__:campsite_detail:217 - Found campsite: Amsterdam-Campsite
+2025-04-09 18:51:46.689 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:52:00.598 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/1
+2025-04-09 18:52:00.913 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-09 18:52:00.913 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 18:52:00.914 | INFO     | __main__:campsite_detail:217 - Found campsite: Berlin-Campingplatz
+2025-04-09 18:52:08.481 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:52:10.830 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /campsite/5
+2025-04-09 18:52:11.158 | INFO     | __main__:campsite_detail:208 - Requested campsite_id: 5 (type: <class 'str'>)
+2025-04-09 18:52:11.158 | INFO     | __main__:campsite_detail:211 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-09 18:52:11.158 | INFO     | __main__:campsite_detail:217 - Found campsite: Test 2
+2025-04-09 18:52:12.562 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /
+2025-04-09 18:52:13.815 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /login
+2025-04-09 18:52:14.137 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 18:52:14.206 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 18:52:14.371 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 18:52:14.645 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 18:52:14.911 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 18:52:15.187 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 18:52:15.628 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
+2025-04-09 18:52:30.692 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /register
+2025-04-09 18:52:31.068 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-09 18:52:31.186 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-09 18:52:31.375 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/build.js
+2025-04-09 18:52:31.743 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/style.css
+2025-04-09 18:52:32.019 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/dark.css
+2025-04-09 18:52:32.272 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /scripts/mobile.js
+2025-04-09 18:52:32.739 | INFO     | backend.util.Toolbox:logToDatabase:42 - 127.0.0.1 /css/light.css
