@@ -63,6 +63,7 @@ class FlaskApp:
     def create_app(self):
         logger.info("Creating Server...")
         self.app = Flask(__name__, static_url_path='', static_folder='static')
+        self.app.jinja_env.globals['hasattr'] = hasattr
         self.app.config['SECRET_KEY'] = os.urandom(24).hex()
         if self.DEBUG: self.__configManager.overrideDBargs(self._args)
         self.__setupDB(self.app)
@@ -218,11 +219,11 @@ class FlaskApp:
 
             # Map module names to logos and URLs (temporary hardcoded solution)
             module_metadata = {
-                "bread_module": {
+                "Bread": {
                     "logo": "pictogram_breadModule.png",
                     "url": f"/campsite/{campsite_id}/bread_module"
                 },
-                "booking_module": {
+                "Booking": {
                     "logo": "pictogram_bookingModule.png",
                     "url": f"/campsite/{campsite_id}/booking_module"
                 }

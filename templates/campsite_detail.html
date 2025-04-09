@@ -207,7 +207,7 @@
                             </div>
                             <div class="module-info">
                                 {% if module.logo %}
-                                    <img src="{{ url_for('static', filename='images/' + module.logo) }}" alt="{{ module.name }} Logo" style="max-width: 100px; height: auto; display: block; margin: 0 auto;">
+                                    <img src="{{ url_for('static', filename='/images/' + module.logo) }}" alt="{{ module.name }} Logo" style="max-width: 100px; height: auto; display: block; margin: 0 auto;">
                                 {% else %}
                                     <p style="color: #546e7a;">No module-logo available</p>
                                 {% endif %}
