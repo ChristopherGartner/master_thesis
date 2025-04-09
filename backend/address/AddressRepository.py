@@ -8,8 +8,6 @@ class AddressRepository:
     __addresses     = []
     __addressMapper = None
 
-
-
 # Get methods
     def getAddresses(self, db: Database) -> List[Address]:
         # if the addresses aren't loaded yet, they should be loaded.
