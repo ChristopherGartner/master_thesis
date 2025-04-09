@@ -1,0 +1,33 @@
+{% extends "base_desktop.html" %}
+{% block body %}
+<body>
+    <h1>Brötchenmodul</h1>
+    <p>ToDo: Modulare Befüllung aus DB infos</p>
+    <div id="paypal-button-container"></div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=ARxqHiwt6kcfKLiU1LLE_RNVDD2hwtryN9_jxMh6CJuGWglQwzNSqU5BZhToWRN1KOoKvyUteYtB7MUE&currency=EUR"></script>
+    <script>
+      paypal.Buttons({
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: '0.01'  // Replace with your product price
+              },
+              description: 'Normales Brötchen'  // Replace with your product name
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+            // Successful payment
+            // You can redirect to a success page or update UI here
+            console.log('Capture result', orderData);
+            // order confirmed banner
+          });
+        }
+      }).render('#paypal-button-container');
+    </script>
+</body>
+</html>
+{% endblock %}

@@ -217,6 +217,12 @@ class FlaskApp:
             logger.info(f"Found campsite: {campsite['name']}")
             return render_template("campsite_detail.html", campsite=campsite)
 
+        @self.app.route("/campsite/<campsite_id>/module/<module_id>")
+        def module(campsite_id, module_id):
+            module_id = 1 #todo change later
+            return render_template("module.html")
+
+
         @self.app.route("/logout")
         def logout():
             logout_user()
