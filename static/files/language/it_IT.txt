@@ -1,0 +1,59 @@
+# Index Page
+index_Button_Login = Accedi
+index_Campsite_Description_NotFound = Nessuna descrizione del campeggio disponibile
+index_Campsite_Clickable_ViewDetails = Visualizza dettagli
+index_Campsites_NotFound = Nessun campeggio trovato
+
+# Campsite_Detail Page
+campsiteDetail_name_Label_Details = - Dettagli
+campsiteDetail_button_backToIndexPage = Torna alla panoramica del campeggio
+campsiteDetail_button_logout = Disconnetti
+campsiteDetail_button_login = Accedi
+campsiteDetail_label_address = Indirizzo
+campsiteDetail_label_description = Descrizione
+campsiteDetail_label_description_nonExistent = Nessuna descrizione disponibile
+campsiteDetail_label_availableModules = Moduli disponibili
+campsiteDetail_label_module_logo_notAvailable = Logo del modulo non disponibile
+campsiteDetail_label_module_access = Accedi al modulo
+campsiteDetail_label_module_nonAvailable = Nessun modulo disponibile
+
+# Login Page
+login_label_login = Accedi
+login_label_username = Nome utente
+login_label_password = Password
+login_button_login = Accedi
+
+# Register Page
+register_label_register = Registrati
+register_label_username = Nome utente
+register_label_eMail = E-Mail
+register_label_password = Password
+register_label_firstName = Nome
+register_label_lastName = Cognome
+register_label_birthDate = Data di nascita
+register_label_birthDate_day = Giorno
+register_label_birthDate_month = Mese
+register_label_birthDate_month_january = Gennaio
+register_label_birthDate_month_february = Febbraio
+register_label_birthDate_month_march = Marzo
+register_label_birthDate_month_april = Aprile
+register_label_birthDate_month_may = Maggio
+register_label_birthDate_month_june = Giugno
+register_label_birthDate_month_july = Luglio
+register_label_birthDate_month_august = Agosto
+register_label_birthDate_month_september = Settembre
+register_label_birthDate_month_october = Ottobre
+register_label_birthDate_month_november = Novembre
+register_label_birthDate_month_december = Dicembre
+register_label_birthDate_year = Anno
+register_label_country = Paese
+register_label_cityAndPostcode = Città e codice postale
+register_label_streetAndHousenumber = Via e numero civico
+
+# Languages
+index_Select_Language_de_DE = Tedesco
+index_Select_Language_en_EN = Inglese
+index_Select_Language_fr_FR = Francese
+index_Select_Language_sp_SP = Spagnolo
+index_Select_Language_it_IT = Italiano
+index_Select_Language_nl_NL = Olandese

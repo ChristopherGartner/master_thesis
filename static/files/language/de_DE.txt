@@ -1,3 +1,59 @@
-campsite_id = ID
-campsite_name = Campingplatz-Name
-campsite_address = Adresse
+# Index Page
+index_Button_Login = Einloggen
+index_Campsite_Description_NotFound = Keine Campingplatz-Beschreibung verfügbar
+index_Campsite_Clickable_ViewDetails = Details einsehen
+index_Campsites_NotFound = Keine Campingplätze gefunden
+
+# Campsite_Detail Page
+campsiteDetail_name_Label_Details = - Details
+campsiteDetail_button_backToIndexPage = Zurück zur Campingplatz-Übersicht
+campsiteDetail_button_logout = Ausloggen
+campsiteDetail_button_login = Einloggen
+campsiteDetail_label_address = Adresse
+campsiteDetail_label_description = Beschreibung
+campsiteDetail_label_description_nonExistent = Keine Beschreibung verfügbar
+campsiteDetail_label_availableModules = Verfügbare Module
+campsiteDetail_label_module_logo_notAvailable = Modul-Logo nicht verfügbar
+campsiteDetail_label_module_access = Modul öffnen
+campsiteDetail_label_module_nonAvailable = Keine Module verfügbar
+
+# Login Page
+login_label_login = Einloggen
+login_label_username = Benutzername
+login_label_password = Passwort
+login_button_login = Einloggen
+
+# Register Page
+register_label_register = Registrieren
+register_label_username = Benutzername
+register_label_eMail = E-Mail
+register_label_password = Passwort
+register_label_firstName = Vorname
+register_label_lastName = Nachname
+register_label_birthDate = Geburtsdatum
+register_label_birthDate_day = Tag
+register_label_birthDate_month = Monat
+register_label_birthDate_month_january = Januar
+register_label_birthDate_month_february = Februar
+register_label_birthDate_month_march = März
+register_label_birthDate_month_april = April
+register_label_birthDate_month_may = Mai
+register_label_birthDate_month_june = Juni
+register_label_birthDate_month_july = Juli
+register_label_birthDate_month_august = August
+register_label_birthDate_month_september = September
+register_label_birthDate_month_october = Oktober
+register_label_birthDate_month_november = November
+register_label_birthDate_month_december = Dezember
+register_label_birthDate_year = Jahr
+register_label_country = Land
+register_label_cityAndPostcode = Stadt und Postleitzahl
+register_label_streetAndHousenumber = Straße und Hausnummer
+
+# Languages
+index_Select_Language_de_DE = Deutsch
+index_Select_Language_en_EN = Englisch
+index_Select_Language_fr_FR = Französisch
+index_Select_Language_sp_SP = Spanisch
+index_Select_Language_it_IT = Italienisch
+index_Select_Language_nl_NL = Niederländisch

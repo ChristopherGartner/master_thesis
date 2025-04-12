@@ -1,3 +1,59 @@
-campsite_id = ID
-campsite_name = Campsite Name
-campsite_address = Address
+# Index Page
+index_Button_Login = Login
+index_Campsite_Description_NotFound = No campsite-description available
+index_Campsite_Clickable_ViewDetails = View Details
+index_Campsites_NotFound = No campsite found
+
+# Campsite_Detail Page
+campsiteDetail_name_Label_Details = - Details
+campsiteDetail_button_backToIndexPage = Back to campsite-overview
+campsiteDetail_button_logout = Logout
+campsiteDetail_button_login = Login
+campsiteDetail_label_address = Address
+campsiteDetail_label_description = Description
+campsiteDetail_label_description_nonExistent = No description available
+campsiteDetail_label_availableModules = Available modules
+campsiteDetail_label_module_logo_notAvailable = Module-Logo not available
+campsiteDetail_label_module_access = Access Module
+campsiteDetail_label_module_nonAvailable = No modules available
+
+# Login Page
+login_label_login = Login
+login_label_username = Username
+login_label_password = Password
+login_button_login = Login
+
+# Register Page
+register_label_register = Register
+register_label_username = Username
+register_label_eMail = E-Mail
+register_label_password = Password
+register_label_firstName = Firstname
+register_label_lastName = Lastname
+register_label_birthDate = Birthdate
+register_label_birthDate_day = Day
+register_label_birthDate_month = Month
+register_label_birthDate_month_january = January
+register_label_birthDate_month_february = February
+register_label_birthDate_month_march = March
+register_label_birthDate_month_april = April
+register_label_birthDate_month_may = May
+register_label_birthDate_month_june = June
+register_label_birthDate_month_july = July
+register_label_birthDate_month_august = August
+register_label_birthDate_month_september = September
+register_label_birthDate_month_october = October
+register_label_birthDate_month_november = November
+register_label_birthDate_month_december = December
+register_label_birthDate_year = Year
+register_label_country = Country
+register_label_cityAndPostcode = City and Postcode
+register_label_streetAndHousenumber = Street and Housenumber
+
+# Languages
+index_Select_Language_de_DE = German
+index_Select_Language_en_EN = English
+index_Select_Language_fr_FR = French
+index_Select_Language_sp_SP = Spanish
+index_Select_Language_it_IT = Italian
+index_Select_Language_nl_NL = Dutch

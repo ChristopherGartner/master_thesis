@@ -1,0 +1,59 @@
+# Index Page
+index_Button_Login = Inloggen
+index_Campsite_Description_NotFound = Geen campingbeschrijving beschikbaar
+index_Campsite_Clickable_ViewDetails = Bekijk details
+index_Campsites_NotFound = Geen campings gevonden
+
+# Campsite_Detail Page
+campsiteDetail_name_Label_Details = - Details
+campsiteDetail_button_backToIndexPage = Terug naar campingoverzicht
+campsiteDetail_button_logout = Uitloggen
+campsiteDetail_button_login = Inloggen
+campsiteDetail_label_address = Adres
+campsiteDetail_label_description = Beschrijving
+campsiteDetail_label_description_nonExistent = Geen beschrijving beschikbaar
+campsiteDetail_label_availableModules = Beschikbare modules
+campsiteDetail_label_module_logo_notAvailable = Module-logo niet beschikbaar
+campsiteDetail_label_module_access = Module openen
+campsiteDetail_label_module_nonAvailable = Geen modules beschikbaar
+
+# Login Page
+login_label_login = Inloggen
+login_label_username = Gebruikersnaam
+login_label_password = Wachtwoord
+login_button_login = Inloggen
+
+# Register Page
+register_label_register = Registreren
+register_label_username = Gebruikersnaam
+register_label_eMail = E-Mail
+register_label_password = Wachtwoord
+register_label_firstName = Voornaam
+register_label_lastName = Achternaam
+register_label_birthDate = Geboortedatum
+register_label_birthDate_day = Dag
+register_label_birthDate_month = Maand
+register_label_birthDate_month_january = Januari
+register_label_birthDate_month_february = Februari
+register_label_birthDate_month_march = Maart
+register_label_birthDate_month_april = April
+register_label_birthDate_month_may = Mei
+register_label_birthDate_month_june = Juni
+register_label_birthDate_month_july = Juli
+register_label_birthDate_month_august = Augustus
+register_label_birthDate_month_september = September
+register_label_birthDate_month_october = Oktober
+register_label_birthDate_month_november = November
+register_label_birthDate_month_december = December
+register_label_birthDate_year = Jaar
+register_label_country = Land
+register_label_cityAndPostcode = Stad en postcode
+register_label_streetAndHousenumber = Straat en huisnummer
+
+# Languages
+index_Select_Language_de_DE = Duits
+index_Select_Language_en_EN = Engels
+index_Select_Language_fr_FR = Frans
+index_Select_Language_sp_SP = Spaans
+index_Select_Language_it_IT = Italiaans
+index_Select_Language_nl_NL = Nederlands

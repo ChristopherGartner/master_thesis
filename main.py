@@ -1,29 +1,22 @@
 import argparse
 import logging
 import os
-
 from flask import Flask, request, render_template, redirect, url_for, flash, make_response
-from flask_login import current_user, login_user, LoginManager, logout_user, login_manager
+from flask_login import current_user, login_user, LoginManager, logout_user
 from loguru import logger
-from werkzeug.security import check_password_hash
-
-#from backend.authorization.UserToDelete import UserToDelete, validate_username, validate_email, validate_role, validate_password
 from backend.db.Database import Database
 from backend.language.LanguageManager import LanguageManager
 from backend.util.RepositoryFactory import RepositoryFactory
 from backend.util.Toolbox import Toolbox
 from backend.internal_data.ConfigManager import ConfigManager
-from backend.campsite.Campsite import Campsite
 from backend.users.User import *
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 logger.add("latest.log")
 
-
 def read_args() -> dict:
-    parser = argparse.ArgumentParser(
-        description='TODO')
+    parser = argparse.ArgumentParser(description='TODO')
     parser.add_argument('dbhost')
     parser.add_argument('dbschema')
     parser.add_argument('dbuser')
@@ -31,33 +24,24 @@ def read_args() -> dict:
     args = vars(parser.parse_args())
     return args
 
-
 class FlaskApp:
-
     __repositoryFactory = None
-    __languageManager   = None
-    __toolbox           = None
-    __configManager     = None
-
+    __languageManager = None
+    __toolbox = None
+    __configManager = None
     FORCE_MOBILE = False
     DEBUG = True
 
     @logger.catch
     def __init__(self, dbhost=None, dbuser=None, dbpw=None, dbschema=None):
         logger.info("Starting up...")
-
         self.__configManager = ConfigManager()
-
         self._args = read_args()
-
         self.cachedGroups = ""
 
     def __setupDB(self, app: Flask) -> None:
         configDict = self.__configManager.getConfigValues(app)
-
-        self.db = Database(host=configDict['dbhost'], user=configDict['dbuser'], password=configDict['dbpw'], database=configDict['dbschema'],
-                           pool_size=15)
-
+        self.db = Database(host=configDict['dbhost'], user=configDict['dbuser'], password=configDict['dbpw'], database=configDict['dbschema'], pool_size=15)
 
     @logger.catch
     def create_app(self):
@@ -70,7 +54,6 @@ class FlaskApp:
         logger.info("DB Connection established!")
 
         logger.info("Setting up local classes...")
-        # initializing local classes
         self.__repositoryFactory = RepositoryFactory(self.db)
         self.__languageManager = LanguageManager()
         self.__toolbox = Toolbox()
@@ -80,10 +63,26 @@ class FlaskApp:
         self.login_manager.init_app(self.app)
         self.login_manager.login_view = 'login'
 
-        campsiteRepository = self.__repositoryFactory.getCampsiteRepository()
-        allCampsites = campsiteRepository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
-        languageValues = self.__languageManager.getLanguageValues(LanguageManager.LANGUAGE_GERMAN, self.app)
-
+        def getLanguageValues():
+            lang = request.cookies.get('language', LanguageManager.LANGUAGE_ENGLISH_ENGLISH)
+            if lang not in self.__languageManager.getLanguages():
+                logger.warning(
+                    f"Language {lang} not supported, falling back to {LanguageManager.LANGUAGE_ENGLISH_ENGLISH}")
+                lang = LanguageManager.LANGUAGE_ENGLISH_ENGLISH
+            language_values = self.__languageManager.getLanguageValues(lang, self.app)
+            language_codes = self.__languageManager.getLanguages()
+            sorted_languages = sorted(
+                language_codes,
+                key=lambda code: language_values.get(f'index_Select_Language_{code}', '').lower()
+            )
+            language_values['sorted_languages'] = [
+                {
+                    'code': code,
+                    'name': language_values.get(f'index_Select_Language_{code}', code)
+                }
+                for code in sorted_languages
+            ]
+            return language_values
 
         @self.login_manager.user_loader
         def load_user(userId):
@@ -94,6 +93,7 @@ class FlaskApp:
             currentUser: User = current_user
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
             all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
+            languageValues = getLanguageValues()
             if currentUser.is_authenticated:
                 if currentUser.getRole() == "User":
                     pass
@@ -106,57 +106,59 @@ class FlaskApp:
             return render_template("index.html", allCampsites=all_campsites, languageValues=languageValues)
 
         def index_campsite():
-            return render_template("campsite_detail.html")
+            languageValues = getLanguageValues()
+            return render_template("campsite_detail.html", languageValues=languageValues)
 
         def index_admin():
-            return render_template("index_admin.html")
+            languageValues = getLanguageValues()
+            return render_template("index_admin.html", languageValues=languageValues)
 
-
-        @self.app.route("/login", methods = ['GET', 'POST'])
-        def login():
-            if current_user.is_authenticated:
+        @self.app.route("/set_language/<lang>", methods=['GET'])
+        def set_language(lang):
+            if lang in self.__languageManager.getLanguages():
+                response = make_response(redirect(request.referrer or url_for('index')))
+                response.set_cookie('language', lang, max_age=60 * 60 * 24 * 30)
+                return response
+            else:
+                flash('Language not supported')
                 return redirect(url_for('index'))
 
+        @self.app.route("/login", methods=['GET', 'POST'])
+        def login():
+            languageValues = getLanguageValues()
+            if current_user.is_authenticated:
+                return redirect(url_for('index'))
             if request.method == 'POST':
                 username = request.form.get('username')
                 password = request.form.get('password')
-
                 user = self.__repositoryFactory.getUserRepository().getUserByUsername(username)
                 if user is None or not check_password_hash(user.getPasswordHash(), password):
                     flash('Invalid username or password')
                     return redirect(url_for('login'))
-
                 login_user(user)
                 return redirect(url_for('index'))
-
-            return render_template('login.html')
+            return render_template('login.html', languageValues=languageValues)
 
         @self.app.route('/register', methods=['GET', 'POST'])
         def register():
+            languageValues = getLanguageValues()
             if current_user.is_authenticated:
                 return redirect(url_for('index'))
-
             if request.method == 'POST':
                 role = "User"
-
-                username         = request.form.get('username')
-                email            = request.form.get('email')
+                username = request.form.get('username')
+                email = request.form.get('email')
                 passwordUnhashed = request.form.get('password')
-                firstname        = request.form.get('first_name')
-                lastname         = request.form.get('last_name')
-
-                # three fields for birthdate
-                birthday_day   = request.form.get('birth_day')
+                firstname = request.form.get('first_name')
+                lastname = request.form.get('last_name')
+                birthday_day = request.form.get('birth_day')
                 birthday_month = request.form.get('birth_month')
-                birthday_year  = request.form.get('birth_year')
-
-                country     = request.form.get('country')
-                city        = request.form.get('city')
-                postCode    = request.form.get('zip_code')
-                streetName  = request.form.get('street')
+                birthday_year = request.form.get('birth_year')
+                country = request.form.get('country')
+                city = request.form.get('city')
+                postCode = request.form.get('zip_code')
+                streetName = request.form.get('street')
                 houseNumber = request.form.get('house_number')
-
-                # some minor validations
                 err = ""
                 err += validateUsername(username)
                 err += validate_email(email)
@@ -165,7 +167,6 @@ class FlaskApp:
                 if err != "":
                     flash(err)
                     return make_response('', 400)
-
                 userObject = User()
                 userObject.setUsername(username)
                 userObject.setEmail(email)
@@ -174,39 +175,30 @@ class FlaskApp:
                 userObject.setBirthday(f"{birthday_year}-{birthday_month}-{birthday_day}")
                 userObject.setAddress(streetName, houseNumber, city, postCode, country)
                 userObject.setRole('User')
-
-                # Check if user with given username or email exists
-                userWithName  = self.__repositoryFactory.getUserRepository().getUserByUsername(username)
+                userWithName = self.__repositoryFactory.getUserRepository().getUserByUsername(username)
                 userWithEmail = self.__repositoryFactory.getUserRepository().getUserByEmail(email)
-
                 if userWithName:
                     flash('Username already exists.')
                     return redirect(url_for('register'))
-
                 if userWithEmail:
                     flash('Email already registered.')
                     return redirect(url_for('register'))
-
                 try:
                     userObject.setPasswordHash(generateHashedPassword(passwordUnhashed))
-                    # Create new user
                     userId = self.__repositoryFactory.getUserRepository().saveUserObject(self.__repositoryFactory.getAddressRepository(), userObject)
                     userObject.setId(userId)
-
                     login_user(userObject)
-
                     flash('Registration successful!')
-
                     return redirect(url_for('index'))
                 except Exception as e:
                     flash(f'An error occurred during registration: {str(e)}')
                     return redirect(url_for('register'))
-
-            return render_template('register.html')
+            return render_template('register.html', languageValues=languageValues)
 
         @self.app.route("/campsite/<campsite_id>")
         def campsite_detail(campsite_id):
             logger.info(f"Requested campsite_id: {campsite_id} (type: {type(campsite_id)})")
+            languageValues = getLanguageValues()
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
             all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
             logger.info(f"All campsites: {[c['id'] for c in all_campsites]}")
@@ -216,8 +208,6 @@ class FlaskApp:
                 flash('Campsite not found')
                 return redirect(url_for('index'))
             logger.info(f"Found campsite: {campsite['name']}")
-
-            # Map module names to logos and URLs (temporary hardcoded solution)
             module_metadata = {
                 "Bread": {
                     "logo": "pictogram_breadModule.png",
@@ -228,9 +218,7 @@ class FlaskApp:
                     "url": f"/campsite/{campsite_id}/booking_module"
                 }
             }
-
-            # Get modules from the campsite and enrich with metadata
-            modules = campsite["modules"] or []  # Ensure it's not None
+            modules = campsite["modules"] or []
             enriched_modules = []
             for module in modules:
                 module_data = module.getDataObject() if module else {}
@@ -241,14 +229,13 @@ class FlaskApp:
                     "logo": metadata.get("logo"),
                     "url": metadata.get("url")
                 })
-
-            return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules)
+            return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules, languageValues=languageValues)
 
         @self.app.route("/campsite/<campsite_id>/module/<module_id>")
         def module(campsite_id, module_id):
-            module_id = 1 #todo change later
-            return render_template("module.html")
-
+            languageValues = getLanguageValues()
+            module_id = 1  # todo change later
+            return render_template("module.html", languageValues=languageValues)
 
         @self.app.route("/logout")
         def logout():
@@ -263,7 +250,6 @@ class FlaskApp:
             self.app.run(host='0.0.0.0', port=9000)
         else:
             return self.app
-
 
 if __name__ == '__main__':
     fa = FlaskApp()

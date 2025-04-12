@@ -1,38 +1,13 @@
 {% extends "base.html" %}
-{% block body %}
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+{% block title %}{{ languageValues['register_label_register'] }}{% endblock %}
+{% block extra_head %}
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #f5f5f5;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
-        }
-        /* Moderne Türkise Leiste */
-        .top-bar {
-            background: linear-gradient(135deg, #26a69a, #4dd0e1);
-            padding: 12px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        .top-bar:hover {
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
         /* Register-Container */
         .register-container {
@@ -42,7 +17,10 @@
             padding: 40px;
             width: 100%;
             max-width: 800px;
-            margin-top: 80px;
+            margin: 40px auto; /* Zentriert ohne Flex */
+            display: block;
+            position: relative;
+            z-index: 10;
         }
         .register-container h1 {
             margin: 0 0 40px;
@@ -66,7 +44,8 @@
             font-size: 16px;
             margin-bottom: 5px;
         }
-        .form-group input, .form-group select {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -76,7 +55,8 @@
             transition: border-color 0.2s ease;
             color: #00695c;
         }
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             border-color: #26a69a;
             outline: none;
         }
@@ -91,14 +71,14 @@
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 5px;
-            color: #004d40; /* Dunkleres Türkis für das ausgewählte Element */
+            color: #004d40;
             cursor: pointer;
         }
         .date-group select:hover {
             border-color: #26a69a;
         }
         .date-group select option {
-            color: #00251a; /* Noch dunkler für die Dropdown-Optionen */
+            color: #00251a;
         }
         /* Stadt und PLZ zusammen */
         .city-zip-group {
@@ -136,68 +116,63 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
     </style>
-</head>
-<body>
-    <!-- Moderne Türkise Leiste (ohne Button) -->
-    <div class="top-bar">
-    </div>
-
-    <!-- Register-Formular -->
+{% endblock %}
+{% block body %}
     <div class="register-container">
-        <h1>Registrieren</h1>
+        <h1>{{ languageValues['register_label_register'] }}</h1>
         <form method="POST">
             <div class="form-columns">
-                <!-- Left column -->
+                <!-- Linke Spalte -->
                 <div class="column">
                     <div class="form-group">
-                        <label for="username">Username</label>
+                        <label for="username">{{ languageValues['register_label_username'] }}</label>
                         <input type="text" id="username" name="username" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">{{ languageValues['register_label_eMail'] }}</label>
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">{{ languageValues['register_label_password'] }}</label>
                         <input type="password" id="password" name="password" required>
                     </div>
                     <div class="form-group">
-                        <label for="first_name">Vorname</label>
+                        <label for="first_name">{{ languageValues['register_label_firstName'] }}</label>
                         <input type="text" id="first_name" name="first_name" required>
                     </div>
                     <div class="form-group">
-                        <label for="last_name">Nachname</label>
+                        <label for="last_name">{{ languageValues['register_label_lastName'] }}</label>
                         <input type="text" id="last_name" name="last_name" required>
                     </div>
                 </div>
-                <!-- Rright column -->
+                <!-- Rechte Spalte -->
                 <div class="column">
                     <div class="form-group">
-                        <label>Geburtsdatum</label>
+                        <label>{{ languageValues['register_label_birthDate'] }}</label>
                         <div class="date-group">
                             <select name="birth_day" required>
-                                <option value="">Tag</option>
+                                <option value="">{{ languageValues['register_label_birthDate_day'] }}</option>
                                 {% for day in range(1, 32) %}
                                     <option value="{{ day }}">{{ day }}</option>
                                 {% endfor %}
                             </select>
                             <select name="birth_month" required>
-                                <option value="">Monat</option>
-                                <option value="1">Januar</option>
-                                <option value="2">Februar</option>
-                                <option value="3">März</option>
-                                <option value="4">April</option>
-                                <option value="5">Mai</option>
-                                <option value="6">Juni</option>
-                                <option value="7">Juli</option>
-                                <option value="8">August</option>
-                                <option value="9">September</option>
-                                <option value="10">Oktober</option>
-                                <option value="11">November</option>
-                                <option value="12">Dezember</option>
+                                <option value="">{{ languageValues['register_label_birthDate_month'] }}</option>
+                                <option value="1">{{ languageValues['register_label_birthDate_month_january'] }}</option>
+                                <option value="2">{{ languageValues['register_label_birthDate_month_february'] }}</option>
+                                <option value="3">{{ languageValues['register_label_birthDate_month_march'] }}</option>
+                                <option value="4">{{ languageValues['register_label_birthDate_month_april'] }}</option>
+                                <option value="5">{{ languageValues['register_label_birthDate_month_may'] }}</option>
+                                <option value="6">{{ languageValues['register_label_birthDate_month_june'] }}</option>
+                                <option value="7">{{ languageValues['register_label_birthDate_month_july'] }}</option>
+                                <option value="8">{{ languageValues['register_label_birthDate_month_august'] }}</option>
+                                <option value="9">{{ languageValues['register_label_birthDate_month_september'] }}</option>
+                                <option value="10">{{ languageValues['register_label_birthDate_month_october'] }}</option>
+                                <option value="11">{{ languageValues['register_label_birthDate_month_november'] }}</option>
+                                <option value="12">{{ languageValues['register_label_birthDate_month_december'] }}</option>
                             </select>
                             <select name="birth_year" required>
-                                <option value="">Jahr</option>
+                                <option value="">{{ languageValues['register_label_birthDate_year'] }}</option>
                                 {% for year in range(1900, 2026) %}
                                     <option value="{{ year }}">{{ year }}</option>
                                 {% endfor %}
@@ -205,28 +180,26 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="country">Land</label>
+                        <label for="country">{{ languageValues['register_label_country'] }}</label>
                         <input type="text" id="country" name="country" required>
                     </div>
                     <div class="form-group">
-                        <label>Stadt und Postleitzahl</label>
+                        <label>{{ languageValues['register_label_cityAndPostcode'] }}</label>
                         <div class="city-zip-group">
-                            <input type="text" id="city" name="city" placeholder="Stadt" required>
-                            <input type="text" id="zip_code" name="zip_code" placeholder="PLZ" required>
+                            <input type="text" id="city" name="city" placeholder="City" required>
+                            <input type="text" id="zip_code" name="zip_code" placeholder="Postcode" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Straße und Hausnummer</label>
+                        <label>{{ languageValues['register_label_streetAndHousenumber'] }}</label>
                         <div class="street-number-group">
-                            <input type="text" id="street" name="street" placeholder="Straße" required>
+                            <input type="text" id="street" name="street" placeholder="Street" required>
                             <input type="text" id="house_number" name="house_number" placeholder="Nr." required>
                         </div>
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn">Register</button>
+            <button type="submit" class="btn">{{ languageValues['register_label_register'] }}</button>
         </form>
     </div>
-</body>
-</html>
 {% endblock %}
