@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://TODO"/>
     <style>
         * {
-            box-sizing: border-box; /* Konsistente Breitenberechnung */
+            box-sizing: border-box;
         }
         body {
             font-family: 'Lora', serif;
@@ -29,7 +29,7 @@
         /* Header */
         .header {
             background: linear-gradient(135deg, #00695c, #8e24aa);
-            padding: 15px 20px; /* Reduziertes Padding */
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -41,33 +41,87 @@
             width: 100%;
             z-index: 1000;
         }
+        .header .nav-links {
+            display: flex;
+            align-items: center;
+        }
         .header a {
             color: #fff;
             text-decoration: none;
             font-size: 18px;
             font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 30px;
+            padding: 10px 20px; /* Adjusted padding for oval shape */
+            background: rgba(255, 255, 255, 0.1); /* Same subtle background as settings icon */
+            border-radius: 30px; /* Oval shape with high border-radius */
             transition: background 0.3s ease;
             margin-right: 10px;
+            display: inline-block; /* Ensures proper centering */
+            text-align: center;
         }
         .header a:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.25); /* Same hover effect as settings icon */
         }
-        .header .nav-links {
-            display: flex;
-            align-items: center;
+        /* Settings Menu */
+        .settings-container {
+            position: relative;
+            display: inline-block;
+        }
+        .settings-icon {
+            color: #fff;
+            font-size: 30px;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.3s ease, transform 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .settings-icon:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(90deg);
+        }
+        .settings-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: #fafafa;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid #80cbc4;
+            min-width: 240px;
+            z-index: 1001;
+            padding: 15px 0;
+        }
+        .settings-dropdown a, .settings-dropdown .language-container {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        .settings-dropdown a {
+            color: #00695c;
+            font-weight: 600;
+            border-radius: 10px;
+            margin: 5px 10px;
+            background: #e0f2f1;
+        }
+        .settings-dropdown a:hover {
+            background: #b2dfdb;
+            color: #263238;
+        }
+        .language-container {
+            padding: 8px 20px;
         }
         .language-select {
             background: #fff;
             border: none;
-            padding: 8px 12px; /* Reduziertes Padding */
+            padding: 8px 12px;
             border-radius: 20px;
             font-size: 16px;
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            max-width: 150px; /* Begrenzte Breite */
-            width: auto;
+            width: 100%;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -75,24 +129,35 @@
         .language-select:hover {
             background: #f0f0f0;
         }
-        /* Responsive Anpassungen */
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
             .header {
                 padding: 10px 15px;
-                flex-wrap: wrap; /* Verhindert Überlaufen */
+                flex-wrap: wrap;
+            }
+            .settings-icon {
+                font-size: 26px;
+                padding: 6px;
+            }
+            .settings-dropdown {
+                min-width: 200px;
+            }
+            .settings-dropdown a, .settings-dropdown .language-container {
+                font-size: 14px;
+                padding: 10px 15px;
             }
             .language-select {
-                max-width: 120px;
+                max-width: 100%;
                 font-size: 14px;
                 padding: 6px 10px;
             }
             .header a {
                 font-size: 16px;
-                padding: 8px 15px;
+                padding: 8px 15px; /* Slightly smaller padding for mobile */
             }
         }
         .content {
-            margin-top: 80px; /* Platz für fixed Header */
+            margin-top: 80px;
             padding: 20px;
             position: relative;
             z-index: 1;
@@ -120,19 +185,55 @@
                 <a href="{{ url_for('index') }}">{{ languageValues['campsiteDetail_button_backToIndexPage'] }}</a>
             {% endif %}
         </div>
-        <div class="language-container">
-            <select class="language-select" onchange="console.log('Language changed to: ' + this.value); location = '/set_language/' + this.value;">
-                {% for lang in languageValues['sorted_languages'] %}
-                    <option value="{{ lang.code }}" {% if request.cookies.get('language', 'de_DE') == lang.code %}selected{% endif %}>{{ lang.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="settings-container">
+            <span class="settings-icon">⚙️</span>
+            <div class="settings-dropdown">
+                <div class="language-container">
+                    <select class="language-select" onchange="console.log('Language changed to: ' + this.value); location = '/set_language/' + this.value;">
+                        {% for lang in languageValues['sorted_languages'] %}
+                            <option value="{{ lang.code }}" {% if request.cookies.get('language', 'de_DE') == lang.code %}selected{% endif %}>{{ lang.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <a href="{{ url_for('edit_user') if current_user.is_authenticated else url_for('login') }}">{{ languageValues.get('settings_edit_user', 'Edit User') }}</a>
+                <a href="#" class="change-theme">{{ languageValues.get('settings_change_theme', 'Change Theme') }}</a>
+            </div>
         </div>
     </div>
     <div class="content">
         {% block body %}
         {% endblock %}
     </div>
+
+    <!-- JavaScript for Dropdown Toggle -->
+    <script>
+        $(document).ready(function() {
+            $('.settings-icon').click(function(e) {
+                e.stopPropagation();
+                $('.settings-dropdown').slideToggle(200);
+            });
+
+            $(document).click(function(e) {
+                if (!$(e.target).closest('.settings-container').length) {
+                    $('.settings-dropdown').slideUp(200);
+                }
+            });
+
+            $('.settings-dropdown').click(function(e) {
+                e.stopPropagation();
+            });
+
+            $('.change-theme').click(function(e) {
+                e.preventDefault();
+                alert('Theme change functionality is not yet implemented.');
+                $('.settings-dropdown').slideUp(200);
+            });
+        });
+    </script>
+
+    <!-- Existing scripts -->
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92f2575fb92cdd1e',t:'MTc0NDQ1Njg5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92f26dae2e40b06f',t:'MTc0NDQ1NzgxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92f33498ecb14529',t:'MTc0NDQ2NTk1OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
