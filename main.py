@@ -89,12 +89,25 @@ class FlaskApp:
             ]
             return language_values
 
-        def getThemeValues():
+        def getThemeValues(language_values):
             theme = request.cookies.get('theme', ThemeManager.THEME_DEFAULT)
             if theme not in self.__themeManager.getThemes():
                 logger.warning(f"Theme {theme} not supported, falling back to {ThemeManager.THEME_DEFAULT}")
                 theme = ThemeManager.THEME_DEFAULT
-            return self.__themeManager.getThemeValues(theme, self.app)
+            theme_colors = self.__themeManager.getThemeValues(theme, self.app)
+            theme_codes = self.__themeManager.getThemes()
+            sorted_themes = sorted(
+                theme_codes,
+                key=lambda code: language_values.get(f'settings_themes_{code}', '').lower()
+            )
+            theme_colors['sorted_themes'] = [
+                {
+                    'code': code,
+                    'name': language_values.get(f'settings_themes_{code}', code.capitalize())
+                }
+                for code in sorted_themes
+            ]
+            return theme_colors
 
         @self.login_manager.user_loader
         def load_user(userId):
@@ -102,33 +115,31 @@ class FlaskApp:
 
         @self.app.route("/")
         def index():
-            languageValues = getLanguageValues()
-            theme_colors = getThemeValues()
-            currentUser: User = current_user
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
+            current_user_obj: User = current_user
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
             all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
-            if currentUser.is_authenticated:
-                if currentUser.getRole() == "User":
+            if current_user_obj.is_authenticated:
+                if current_user_obj.getRole() == "User":
                     pass
-                elif currentUser.getRole() == "Campsite":
+                elif current_user_obj.getRole() == "Campsite":
                     return index_campsite()
-                elif currentUser.getRole() == "Admin":
+                elif current_user_obj.getRole() == "Admin":
                     return index_admin()
                 else:
                     raise Exception("Unknown user role")
-            return render_template("index.html", allCampsites=all_campsites, languageValues=languageValues, theme_colors=theme_colors)
+            return render_template("index.html", allCampsites=all_campsites, languageValues=language_values, theme_colors=theme_colors)
 
         def index_campsite():
-            languageValues = getLanguageValues()
-            theme_colors   = getThemeValues()
-
-            return render_template("campsite_detail.html", languageValues=languageValues, theme_colors=theme_colors)
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
+            return render_template("campsite_detail.html", languageValues=language_values, theme_colors=theme_colors)
 
         def index_admin():
-            languageValues = getLanguageValues()
-            theme_colors   = getThemeValues()
-
-            return render_template("index_admin.html", languageValues=languageValues, theme_colors=theme_colors)
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
+            return render_template("index_admin.html", languageValues=language_values, theme_colors=theme_colors)
 
         @self.app.route("/set_language/<lang>", methods=['GET'])
         def set_language(lang):
@@ -152,9 +163,8 @@ class FlaskApp:
 
         @self.app.route("/login", methods=['GET', 'POST'])
         def login():
-            languageValues = getLanguageValues()
-            theme_colors   = getThemeValues()
-
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
             if current_user.is_authenticated:
                 return redirect(url_for('index'))
             if request.method == 'POST':
@@ -166,20 +176,19 @@ class FlaskApp:
                     return redirect(url_for('login'))
                 login_user(user)
                 return redirect(url_for('index'))
-            return render_template('login.html', languageValues=languageValues, theme_colors=theme_colors)
+            return render_template('login.html', languageValues=language_values, theme_colors=theme_colors)
 
         @self.app.route('/register', methods=['GET', 'POST'])
         def register():
-            languageValues = getLanguageValues()
-            theme_colors   = getThemeValues()
-
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
             if current_user.is_authenticated:
                 return redirect(url_for('index'))
             if request.method == 'POST':
                 role = "User"
                 username = request.form.get('username')
                 email = request.form.get('email')
-                passwordUnhashed = request.form.get('password')
+                password_unhashed = request.form.get('password')
                 firstname = request.form.get('first_name')
                 lastname = request.form.get('last_name')
                 birthday_day = request.form.get('birth_day')
@@ -187,51 +196,50 @@ class FlaskApp:
                 birthday_year = request.form.get('birth_year')
                 country = request.form.get('country')
                 city = request.form.get('city')
-                postCode = request.form.get('zip_code')
-                streetName = request.form.get('street')
-                houseNumber = request.form.get('house_number')
+                postcode = request.form.get('zip_code')
+                street_name = request.form.get('street')
+                house_number = request.form.get('house_number')
                 err = ""
                 err += validateUsername(username)
                 err += validate_email(email)
-                err += validate_password(passwordUnhashed)
+                err += validate_password(password_unhashed)
                 err += validate_role(role)
                 if err != "":
                     flash(err)
                     return make_response('', 400)
-                userObject = User()
-                userObject.setUsername(username)
-                userObject.setEmail(email)
-                userObject.setFirstName(firstname)
-                userObject.setLastName(lastname)
-                userObject.setBirthday(f"{birthday_year}-{birthday_month}-{birthday_day}")
-                userObject.setAddress(streetName, houseNumber, city, postCode, country)
-                userObject.setRole('User')
-                userWithName = self.__repositoryFactory.getUserRepository().getUserByUsername(username)
-                userWithEmail = self.__repositoryFactory.getUserRepository().getUserByEmail(email)
-                if userWithName:
+                user_object = User()
+                user_object.setUsername(username)
+                user_object.setEmail(email)
+                user_object.setFirstName(firstname)
+                user_object.setLastName(lastname)
+                user_object.setBirthday(f"{birthday_year}-{birthday_month}-{birthday_day}")
+                user_object.setAddress(street_name, house_number, city, postcode, country)
+                user_object.setRole('User')
+                user_with_name = self.__repositoryFactory.getUserRepository().getUserByUsername(username)
+                user_with_email = self.__repositoryFactory.getUserRepository().getUserByEmail(email)
+                if user_with_name:
                     flash('Username already exists.')
                     return redirect(url_for('register'))
-                if userWithEmail:
+                if user_with_email:
                     flash('Email already registered.')
                     return redirect(url_for('register'))
                 try:
-                    userObject.setPasswordHash(generateHashedPassword(passwordUnhashed))
-                    userId = self.__repositoryFactory.getUserRepository().saveUserObject(self.__repositoryFactory.getAddressRepository(), userObject)
-                    userObject.setId(userId)
-                    login_user(userObject)
+                    user_object.setPasswordHash(generateHashedPassword(password_unhashed))
+                    user_id = self.__repositoryFactory.getUserRepository().saveUserObject(self.__repositoryFactory.getAddressRepository(), user_object)
+                    user_object.setId(user_id)
+                    login_user(user_object)
                     flash('Registration successful!')
                     return redirect(url_for('index'))
                 except Exception as e:
                     flash(f'An error occurred during registration: {str(e)}')
                     return redirect(url_for('register'))
-            return render_template('register.html', languageValues=languageValues, theme_colors=theme_colors)
+            return render_template('register.html', languageValues=language_values, theme_colors=theme_colors)
 
         @self.app.route("/campsite/<campsite_id>")
         def campsite_detail(campsite_id):
             logger.info(f"Requested campsite_id: {campsite_id} (type: {type(campsite_id)})")
-            languageValues = getLanguageValues()
-            theme_colors   = getThemeValues()
-
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
             all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
             logger.info(f"All campsites: {[c['id'] for c in all_campsites]}")
@@ -262,13 +270,14 @@ class FlaskApp:
                     "logo": metadata.get("logo"),
                     "url": metadata.get("url")
                 })
-            return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules, languageValues=languageValues, theme_colors=theme_colors)
+            return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules, languageValues=language_values, theme_colors=theme_colors)
 
         @self.app.route("/campsite/<campsite_id>/module/<module_id>")
         def module(campsite_id, module_id):
-            languageValues = getLanguageValues()
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
             module_id = 1  # todo change later
-            return render_template("module.html", languageValues=languageValues)
+            return render_template("module.html", languageValues=language_values, theme_colors=theme_colors)
 
         @self.app.route("/logout")
         def logout():

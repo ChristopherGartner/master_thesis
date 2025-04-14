@@ -16,6 +16,20 @@
     --dropdown-background: #fafafa;
     --description-background: #e0f2f1;
     --info-background: #f5f7fa;
+    --label-color: #004d40;
+    --header-gradient-start: #00695c;
+    --header-gradient-end: #8e24aa;
+    --header-link-color: #ffffff;
+    --header-link-background: rgba(255, 255, 255, 0.2);
+    --header-link-hover: rgba(255, 255, 255, 0.4);
+    --settings-icon-color: #ffffff;
+    --settings-icon-background: rgba(255, 255, 255, 0.2);
+    --settings-icon-hover: rgba(255, 255, 255, 0.4);
+    --description-text-color: #546e7a; /* Default */
+    --dropdown-link-color: #00695c; /* Default */
+    --dropdown-link-hover-color: #263238; /* Default */
+    --dropdown-glow-color: rgba(0, 105, 92, 0.2); /* Default */
+    --header-text-shadow: rgba(0, 0, 0, 0.3); /* Default */
 }
 
 * {
@@ -34,7 +48,7 @@ body {
 
 /* Header */
 .header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--header-gradient-start), var(--header-gradient-end));
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
@@ -54,12 +68,12 @@ body {
 }
 
 .header a {
-    color: #fff;
+    color: var(--header-link-color);
     text-decoration: none;
     font-size: 18px;
     font-weight: 500;
     padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--header-link-background);
     border-radius: 30px;
     transition: background 0.3s ease;
     margin-right: 10px;
@@ -68,7 +82,7 @@ body {
 }
 
 .header a:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: var(--header-link-hover);
 }
 
 /* Settings Menu */
@@ -78,18 +92,68 @@ body {
 }
 
 .settings-icon {
-    color: #fff;
+    color: var(--settings-icon-color);
     font-size: 30px;
     padding: 8px;
     cursor: pointer;
     border-radius: 50%;
     transition: background 0.3s ease, transform 0.3s ease;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--settings-icon-background);
 }
 
 .settings-icon:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: var(--settings-icon-hover);
     transform: rotate(90deg);
+}
+
+/* Settings Menu Labels */
+.dropdown-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--label-color, var(--text-color));
+    margin: 5px 10px 8px;
+    padding: 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    cursor: default;
+    transition: color 0.3s ease;
+}
+
+/* Underscoring-Animation for Label */
+.dropdown-label::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 10px;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.language-container:hover .dropdown-label::after,
+.theme-container:hover .dropdown-label::after {
+    width: calc(100% - 20px); /* Underscoring grows while hovering */
+}
+
+/* Glowing-Effect for Dropdown-Felder */
+.language-select,
+.theme-select {
+    background: var(--card-background);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px var(--card-shadow);
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--text-color);
+    transition: box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .settings-dropdown {
@@ -117,16 +181,20 @@ body {
 }
 
 .settings-dropdown a {
-    color: var(--primary-color);
+    color: var(--dropdown-link-color);
     font-weight: 600;
     border-radius: 10px;
     margin: 5px 10px;
+    padding: 12px 10px;
     background: var(--description-background);
+    display: block;
+    text-align: left;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .settings-dropdown a:hover {
     background: var(--background-gradient-start);
-    color: var(--text-color);
+    color: var(--dropdown-link-hover-color);
 }
 
 .language-container,
@@ -153,6 +221,7 @@ body {
 .language-select:hover,
 .theme-select:hover {
     background: var(--description-background);
+    box-shadow: 0 4px 12px var(--dropdown-glow-color); /* Slight Glowing-Effect */
 }
 
 /* Content */
@@ -201,6 +270,10 @@ body {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+.campsite-header h2, .module-header h3, .campsite-detail h1 {
+    text-shadow: 0 1px 3px var(--header-text-shadow);
+}
+
 .campsite-info {
     padding: 20px;
 }
@@ -219,6 +292,10 @@ body {
     padding: 10px;
     border-radius: 10px;
     margin-top: 15px;
+}
+
+.campsite-info .description, .campsite-detail .description {
+    color: var(--description-text-color);
 }
 
 .campsite-actions {
@@ -555,11 +632,23 @@ body {
     .settings-dropdown {
         min-width: 200px;
     }
+    .dropdown-label {
+        font-size: 12px;
+        margin: 5px 10px 6px;
+        padding: 0 10px;
+    }
+    .dropdown-label::after {
+        left: 10px;
+    }
+    .language-container:hover .dropdown-label::after,
+    .theme-container:hover .dropdown-label::after {
+        width: calc(100% - 20px);
+    }
     .settings-dropdown a,
     .settings-dropdown .language-container,
     .settings-dropdown .theme-container {
         font-size: 14px;
-        padding: 10px 15px;
+        padding: 10px 10px;
     }
     .language-select,
     .theme-select {

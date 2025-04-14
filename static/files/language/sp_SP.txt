@@ -50,10 +50,20 @@ register_label_country = País
 register_label_cityAndPostcode = Ciudad y código postal
 register_label_streetAndHousenumber = Calle y número de casa
 
-# Languages
+# Settings
 index_Select_Language_de_DE = Alemán
 index_Select_Language_en_EN = Inglés
 index_Select_Language_fr_FR = Francés
 index_Select_Language_sp_SP = Español
 index_Select_Language_it_IT = Italiano
 index_Select_Language_nl_NL = Neerlandés
+settings_language_label = Idiomas
+settings_theme_label = Temas visuales
+settings_themes_default = Por defecto
+settings_themes_dark = Oscuro
+settings_themes_bright = Brillante
+settings_themes_minimal = Mínimo
+settings_themes_natural = Natural
+settings_themes_neon = Neon
+settings_themes_playful = Juguetón
+settings_themes_w11 = W11

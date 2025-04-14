@@ -8,13 +8,23 @@ class ThemeManager:
     FOLDER_PATH_THEMES = "\\files\\themes"
 
     THEME_DEFAULT = "default"
-    THEME_DARK = "dark"
-    THEME_BRIGHT = "bright"
+    THEME_DARK    = "dark"
+    THEME_BRIGHT  = "bright"
+    THEME_MINIMAL = "minimal"
+    THEME_NATURAL = "natural"
+    THEME_NEON    = "neon"
+    THEME_PLAYFUL = "playful"
+    THEME_W11     = "w11"
 
     __themes = [
         THEME_DEFAULT,
         THEME_DARK,
         THEME_BRIGHT,
+        THEME_MINIMAL,
+        THEME_NATURAL,
+        THEME_NEON,
+        THEME_PLAYFUL,
+        THEME_W11
     ]
 
     def getThemes(self) -> List[str]:
