@@ -10,6 +10,7 @@ from backend.util.RepositoryFactory import RepositoryFactory
 from backend.util.Toolbox import Toolbox
 from backend.internal_data.ConfigManager import ConfigManager
 from backend.users.User import *
+from backend.theme.ThemeManager import ThemeManager
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -26,11 +27,13 @@ def read_args() -> dict:
 
 class FlaskApp:
     __repositoryFactory = None
-    __languageManager = None
-    __toolbox = None
-    __configManager = None
+    __languageManager   = None
+    __themeManager      = None
+    __toolbox           = None
+    __configManager     = None
+
     FORCE_MOBILE = False
-    DEBUG = True
+    DEBUG        = True
 
     @logger.catch
     def __init__(self, dbhost=None, dbuser=None, dbpw=None, dbschema=None):
@@ -49,14 +52,16 @@ class FlaskApp:
         self.app = Flask(__name__, static_url_path='', static_folder='static')
         self.app.jinja_env.globals['hasattr'] = hasattr
         self.app.config['SECRET_KEY'] = os.urandom(24).hex()
-        if self.DEBUG: self.__configManager.overrideDBargs(self._args)
+        if self.DEBUG:
+            self.__configManager.overrideDBargs(self._args)
         self.__setupDB(self.app)
         logger.info("DB Connection established!")
 
         logger.info("Setting up local classes...")
         self.__repositoryFactory = RepositoryFactory(self.db)
-        self.__languageManager = LanguageManager()
-        self.__toolbox = Toolbox()
+        self.__languageManager   = LanguageManager()
+        self.__themeManager      = ThemeManager()
+        self.__toolbox           = Toolbox()
         logger.info("Local classes set up successfully")
 
         self.login_manager = LoginManager()
@@ -84,16 +89,24 @@ class FlaskApp:
             ]
             return language_values
 
+        def getThemeValues():
+            theme = request.cookies.get('theme', ThemeManager.THEME_DEFAULT)
+            if theme not in self.__themeManager.getThemes():
+                logger.warning(f"Theme {theme} not supported, falling back to {ThemeManager.THEME_DEFAULT}")
+                theme = ThemeManager.THEME_DEFAULT
+            return self.__themeManager.getThemeValues(theme, self.app)
+
         @self.login_manager.user_loader
         def load_user(userId):
             return self.__repositoryFactory.getUserRepository().getUserById(userId)
 
         @self.app.route("/")
         def index():
+            languageValues = getLanguageValues()
+            theme_colors = getThemeValues()
             currentUser: User = current_user
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
             all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
-            languageValues = getLanguageValues()
             if currentUser.is_authenticated:
                 if currentUser.getRole() == "User":
                     pass
@@ -103,15 +116,19 @@ class FlaskApp:
                     return index_admin()
                 else:
                     raise Exception("Unknown user role")
-            return render_template("index.html", allCampsites=all_campsites, languageValues=languageValues)
+            return render_template("index.html", allCampsites=all_campsites, languageValues=languageValues, theme_colors=theme_colors)
 
         def index_campsite():
             languageValues = getLanguageValues()
-            return render_template("campsite_detail.html", languageValues=languageValues)
+            theme_colors   = getThemeValues()
+
+            return render_template("campsite_detail.html", languageValues=languageValues, theme_colors=theme_colors)
 
         def index_admin():
             languageValues = getLanguageValues()
-            return render_template("index_admin.html", languageValues=languageValues)
+            theme_colors   = getThemeValues()
+
+            return render_template("index_admin.html", languageValues=languageValues, theme_colors=theme_colors)
 
         @self.app.route("/set_language/<lang>", methods=['GET'])
         def set_language(lang):
@@ -123,9 +140,21 @@ class FlaskApp:
                 flash('Language not supported')
                 return redirect(url_for('index'))
 
+        @self.app.route("/set_theme/<theme>", methods=['GET'])
+        def set_theme(theme):
+            if theme in self.__themeManager.getThemes():
+                response = make_response(redirect(request.referrer or url_for('index')))
+                response.set_cookie('theme', theme, max_age=60 * 60 * 24 * 30)
+                return response
+            else:
+                flash('Theme not supported')
+                return redirect(url_for('index'))
+
         @self.app.route("/login", methods=['GET', 'POST'])
         def login():
             languageValues = getLanguageValues()
+            theme_colors   = getThemeValues()
+
             if current_user.is_authenticated:
                 return redirect(url_for('index'))
             if request.method == 'POST':
@@ -137,11 +166,13 @@ class FlaskApp:
                     return redirect(url_for('login'))
                 login_user(user)
                 return redirect(url_for('index'))
-            return render_template('login.html', languageValues=languageValues)
+            return render_template('login.html', languageValues=languageValues, theme_colors=theme_colors)
 
         @self.app.route('/register', methods=['GET', 'POST'])
         def register():
             languageValues = getLanguageValues()
+            theme_colors   = getThemeValues()
+
             if current_user.is_authenticated:
                 return redirect(url_for('index'))
             if request.method == 'POST':
@@ -193,12 +224,14 @@ class FlaskApp:
                 except Exception as e:
                     flash(f'An error occurred during registration: {str(e)}')
                     return redirect(url_for('register'))
-            return render_template('register.html', languageValues=languageValues)
+            return render_template('register.html', languageValues=languageValues, theme_colors=theme_colors)
 
         @self.app.route("/campsite/<campsite_id>")
         def campsite_detail(campsite_id):
             logger.info(f"Requested campsite_id: {campsite_id} (type: {type(campsite_id)})")
             languageValues = getLanguageValues()
+            theme_colors   = getThemeValues()
+
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
             all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
             logger.info(f"All campsites: {[c['id'] for c in all_campsites]}")
@@ -229,7 +262,7 @@ class FlaskApp:
                     "logo": metadata.get("logo"),
                     "url": metadata.get("url")
                 })
-            return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules, languageValues=languageValues)
+            return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules, languageValues=languageValues, theme_colors=theme_colors)
 
         @self.app.route("/campsite/<campsite_id>/module/<module_id>")
         def module(campsite_id, module_id):

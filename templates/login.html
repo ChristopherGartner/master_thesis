@@ -1,72 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ languageValues['login_label_login'] }}{% endblock %}
 {% block extra_head %}
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-        }
-        .login-container {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
-            margin: 40px auto; /* Zentriert ohne Flex */
-            display: block;
-            position: relative;
-            z-index: 10;
-        }
-        .login-container h1 {
-            margin: 0 0 20px;
-            font-size: 28px;
-            color: #333;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            color: #333;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-            transition: border-color 0.2s ease;
-            color: #00695c;
-        }
-        .form-group input:focus {
-            border-color: #26a69a;
-            outline: none;
-        }
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #26a69a, #4dd0e1);
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .btn:hover {
-            background: linear-gradient(135deg, #4dd0e1, #26a69a);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        }
-    </style>
+    <!-- Add only unique styles if necessary -->
 {% endblock %}
 {% block body %}
     <div class="login-container">

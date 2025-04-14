@@ -1,0 +1,16 @@
+primary-color = #00695c
+secondary-color = #8e24aa
+background-gradient-start = #b2dfdb
+background-gradient-end = #eceff1
+text-color = #263238
+card-background = #fafafa
+card-shadow = rgba(0, 0, 0, 0.08)
+card-border = #80cbc4
+button-hover = #6a1b9a
+input-border = #ddd
+input-focus = #26a69a
+flash-background = #f8bbd0
+flash-text = #c2185b
+dropdown-background = #fafafa
+description-background = #e0f2f1
+info-background = #f5f7fa
