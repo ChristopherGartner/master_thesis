@@ -11,6 +11,7 @@ from backend.util.Toolbox import Toolbox
 from backend.internal_data.ConfigManager import ConfigManager
 from backend.users.User import *
 from backend.theme.ThemeManager import ThemeManager
+from flask import render_template_string
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -235,13 +236,19 @@ class FlaskApp:
                     return redirect(url_for('register'))
             return render_template('register.html', languageValues=language_values, theme_colors=theme_colors)
 
+        def load_svg(filename):
+            with open(os.path.join(self.app.static_folder, 'images', filename), 'r') as f:
+                return f.read()
+
         @self.app.route("/campsite/<campsite_id>")
         def campsite_detail(campsite_id):
             logger.info(f"Requested campsite_id: {campsite_id} (type: {type(campsite_id)})")
             language_values = getLanguageValues()
             theme_colors = getThemeValues(language_values)
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
-            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
+            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db,
+                                                                          self.__repositoryFactory.getCampsiteModuleRepository(),
+                                                                          self.__repositoryFactory.getModuleRepository())
             logger.info(f"All campsites: {[c['id'] for c in all_campsites]}")
             campsite = next((c for c in all_campsites if str(c["id"]) == str(campsite_id)), None)
             if campsite is None:
@@ -251,12 +258,16 @@ class FlaskApp:
             logger.info(f"Found campsite: {campsite['name']}")
             module_metadata = {
                 "Bread": {
-                    "logo": "pictogram_breadModule.png",
+                    "logo": "pictogram_breadModule.svg",
                     "url": f"/campsite/{campsite_id}/bread_module"
                 },
                 "Booking": {
-                    "logo": "pictogram_bookingModule.png",
+                    "logo": "pictogram_bookingModule.svg",
                     "url": f"/campsite/{campsite_id}/booking_module"
+                },
+                "Settings": {
+                    "logo": "pictogram_settings.svg",
+                    "url": "#"
                 }
             }
             modules = campsite["modules"] or []
@@ -264,10 +275,16 @@ class FlaskApp:
             for module in modules:
                 module_data = module.getDataObject() if module else {}
                 metadata = module_metadata.get(module_data.get("name", ""), {})
+                logo_path = os.path.join(self.app.static_folder, "images", metadata.get("logo", ""))
+                if os.path.exists(logo_path):
+                    logger.info(f"Loading pictogram: {logo_path}")
+                else:
+                    logger.warning(f"Pictogram not found: {logo_path}, falling back to default")
+                    metadata["logo"] = "default_module.svg"  # Fallback-Picture (SVG)
                 enriched_modules.append({
                     "id": module_data.get("id"),
                     "name": module_data.get("name"),
-                    "logo": metadata.get("logo"),
+                    "logo": load_svg(metadata.get("logo")) if metadata.get("logo") else None,
                     "url": metadata.get("url")
                 })
             return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules, languageValues=language_values, theme_colors=theme_colors)

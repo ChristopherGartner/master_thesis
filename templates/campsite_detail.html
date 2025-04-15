@@ -20,7 +20,7 @@
         </div>
 
         <div class="modules-container">
-            <h2 style="text-align: center; color: #00695c; margin: 30px 0 20px;">{{ languageValues['campsiteDetail_label_availableModules'] }}:</h2>
+            <h2 style="text-align: center; color: var(--primary-color); margin: 30px 0 20px;">{{ languageValues['campsiteDetail_label_availableModules'] }}:</h2>
             {% if modules %}
                 <div class="module-grid">
                     {% for module in modules %}
@@ -30,9 +30,11 @@
                             </div>
                             <div class="module-info">
                                 {% if module.logo %}
-                                    <img src="{{ url_for('static', filename='/images/' + module.logo) }}" alt="{{ module.name }} Logo" style="max-width: 100px; height: auto; display: block; margin: 0 auto;">
+                                    <div class="module-pictogram">
+                                        {{ module.logo | safe }}
+                                    </div>
                                 {% else %}
-                                    <p style="color: #546e7a;">{{ languageValues['campsiteDetail_label_module_logo_notAvailable'] }}</p>
+                                    <p style="color: var(--description-text-color);">{{ languageValues['campsiteDetail_label_module_logo_notAvailable'] }}</p>
                                 {% endif %}
                             </div>
                             <div class="module-actions">
@@ -42,7 +44,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <p style="text-align: center; color: #546e7a;">{{ languageValues['campsiteDetail_label_module_nonAvailable'] }}</p>
+                <p style="text-align: center; color: var(--description-text-color);">{{ languageValues['campsiteDetail_label_module_nonAvailable'] }}</p>
             {% endif %}
         </div>
 

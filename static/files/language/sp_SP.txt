@@ -67,3 +67,4 @@ settings_themes_natural = Natural
 settings_themes_neon = Neon
 settings_themes_playful = Juguetón
 settings_themes_w11 = W11
+settings_themes_w11_dark = W11-Oscuro

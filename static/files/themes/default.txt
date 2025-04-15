@@ -28,3 +28,5 @@ dropdown-link-color = #00695c
 dropdown-link-hover-color = #263238
 dropdown-glow-color = rgba(0, 105, 92, 0.2)
 header-text-shadow = rgba(0, 0, 0, 0.3)
+isLightTheme = True
+pictogram-color = #004d40
