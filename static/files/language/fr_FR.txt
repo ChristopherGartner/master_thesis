@@ -50,6 +50,35 @@ register_label_country = Pays
 register_label_cityAndPostcode = Ville et code postal
 register_label_streetAndHousenumber = Rue et numéro de maison
 
+# Edit User Page
+edit_user_label_edit_user = Modifier l’utilisateur
+edit_user_label_username = Nom d'utilisateur
+edit_user_label_email = E-Mail
+edit_user_label_password = Mot de passe
+edit_user_label_password_placeholder = Nouveau mot de passe (facultatif)
+edit_user_label_first_name = Prénom
+edit_user_label_last_name = Nom de famille
+edit_user_label_birth_date = Date de naissance
+edit_user_label_birth_date_day = Jour
+edit_user_label_birth_date_month = Mois
+edit_user_label_birth_date_year = Année
+edit_user_label_birth_date_month_january = Janvier
+edit_user_label_birth_date_month_february = Février
+edit_user_label_birth_date_month_march = Mars
+edit_user_label_birth_date_month_april = Avril
+edit_user_label_birth_date_month_may = Peut
+edit_user_label_birth_date_month_june = Juin
+edit_user_label_birth_date_month_july = Juillet
+edit_user_label_birth_date_month_august = Août
+edit_user_label_birth_date_month_september = Septembre
+edit_user_label_birth_date_month_october = Octobre
+edit_user_label_birth_date_month_november = Novembre
+edit_user_label_birth_date_month_december = Décembre
+edit_user_label_country = Pays
+edit_user_label_city_and_postcode = Ville et code postal
+edit_user_label_street_and_housenumber = Rue et numéro de maison
+edit_user_button_save = Sauvegarder
+
 # Settings
 index_Select_Language_de_DE = Allemand
 index_Select_Language_en_EN = Anglaise

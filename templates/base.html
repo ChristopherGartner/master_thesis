@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ request.cookies.get('language', 'en_EN')[:2] }}">
+<html lang="{{ request.cookies.get('language', 'en_EN')[:2] }}" data-theme="{{ request.cookies.get('theme', 'default') }}">
 <head>
     <meta charset="UTF-8">
     {% block meta %}{% endblock %}
@@ -61,7 +61,9 @@
                         {% endfor %}
                     </select>
                 </div>
-                <a href="{{ url_for('edit_user') if current_user.is_authenticated else url_for('login') }}">{{ languageValues.get('settings_edit_user', 'Benutzer bearbeiten') }}</a>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('edit_user') }}" class="edit-user-btn" aria-label="{{ languageValues.get('settings_edit_user', 'Benutzer bearbeiten') }}">{{ languageValues.get('settings_edit_user', 'Benutzer bearbeiten') }}</a>
+                {% endif %}
             </div>
         </div>
     </div>

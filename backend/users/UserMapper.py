@@ -23,9 +23,8 @@ class UserMapper:
                 f"INNER JOIN country ON city.fk_country = country.id"
             )
 
-            # Create campsite objects
+            # Create user objects
             for userTuple in selectedUsers:
-
                 userId           = userTuple[0]
                 userUsername     = userTuple[1]
                 userEmail        = userTuple[2]
@@ -58,18 +57,20 @@ class UserMapper:
 
     def __saveUser(self, username: str, email: str, passwordHash: str, role: str, fk_address: int, firstName: str, lastName: str, birthday: str, db: Database) -> None:
         db.execute(
-            f"INSERT INTO users (username, email, passwordhash, role, fk_address, firstname, lastname, birthday) "
-            f"VALUES ('{username}', '{email}', '{passwordHash}', '{role}', {fk_address}, '{firstName}', '{lastName}', '{birthday}')",
+            "INSERT INTO users (username, email, passwordhash, role, fk_address, firstname, lastname, birthday) "
+            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+            (username, email, passwordHash, role, fk_address, firstName, lastName, birthday),
             commit=True
         )
 
     def __getUserId(self, username: str, email: str, passwordHash: str, role: str, fk_address: int, firstName: str, lastName: str, birthday: str, db: Database) -> int|None:
         result = db.execute(
-            f"SELECT users.id "
-            f"FROM users "
-            f"WHERE users.username = '{username}' AND users.email = '{email}' "
-            f"AND users.passwordhash = '{passwordHash}' AND users.role = '{role}' AND users.fk_address = {fk_address} "
-            f"AND users.firstname = '{firstName}' AND users.lastname = '{lastName}' AND users.birthday = '{birthday}'"
+            "SELECT users.id "
+            "FROM users "
+            "WHERE users.username = %s AND users.email = %s "
+            "AND users.passwordhash = %s AND users.role = %s AND users.fk_address = %s "
+            "AND users.firstname = %s AND users.lastname = %s AND users.birthday = %s",
+            (username, email, passwordHash, role, fk_address, firstName, lastName, birthday)
         )
 
         # Check, whether result exists and extract id
@@ -79,7 +80,29 @@ class UserMapper:
 
     def saveUser(self, userObject: User, addressRepository: AddressRepository, db: Database) -> int:
         addressId = addressRepository.saveAddressObject(userObject.getAddress(), db)
-
         self.__saveUser(userObject.getUsername(), userObject.getEmail(), userObject.getPasswordHash(), userObject.getRole(), addressId, userObject.getFirstName(), userObject.getLastName(), userObject.getBirthday(), db)
-        return self.__getUserId(userObject.getUsername(), userObject.getEmail(), userObject.getPasswordHash(), userObject.getRole(), addressId, userObject.getFirstName(), userObject.getLastName(), userObject.getBirthday(), db)
+        userId = self.__getUserId(userObject.getUsername(), userObject.getEmail(), userObject.getPasswordHash(), userObject.getRole(), addressId, userObject.getFirstName(), userObject.getLastName(), userObject.getBirthday(), db)
+        # Cache aktualisieren
+        self.getUserObjects(db, rebuildObjects=True)
+        return userId
 
+    def updateUser(self, userObject: User, addressRepository: AddressRepository, db: Database) -> None:
+        # update address
+        addressId = addressRepository.saveAddressObject(userObject.getAddress(), db)
+
+        # update user data
+        db.execute(
+            "UPDATE users SET "
+            "username = %s, "
+            "email = %s, "
+            "passwordhash = %s, "
+            "firstname = %s, "
+            "lastname = %s, "
+            "birthday = %s, "
+            "fk_address = %s "
+            "WHERE id = %s",
+            (userObject.getUsername(), userObject.getEmail(), userObject.getPasswordHash(), userObject.getFirstName(), userObject.getLastName(), userObject.getBirthday(), addressId, userObject.getId()),
+            commit=True
+        )
+        # Cache update
+        self.getUserObjects(db, rebuildObjects=True)

@@ -5768,3 +5768,481 @@ AttributeError: 'NoneType' object has no attribute 'overrideDBargs'
 2025-04-15 20:53:11.994 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
 2025-04-15 20:53:12.178 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
 2025-04-15 20:53:12.995 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 21:09:12.778 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-15 21:09:12.779 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-15 21:09:15.919 | INFO     | __main__:create_app:59 - DB Connection established!
+2025-04-15 21:09:15.920 | INFO     | __main__:create_app:61 - Setting up local classes...
+2025-04-15 21:09:15.920 | INFO     | __main__:create_app:66 - Local classes set up successfully
+2025-04-15 21:09:17.966 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-15 21:09:19.377 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 21:09:19.428 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 21:09:19.729 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 21:09:19.830 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 21:09:19.934 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 21:09:20.800 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 21:10:04.360 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/dark
+2025-04-15 21:10:04.665 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-15 21:10:05.331 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 21:10:05.331 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 21:10:05.331 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 21:10:05.332 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 21:10:05.632 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 21:10:06.881 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 21:10:09.599 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/1
+2025-04-15 21:10:09.901 | INFO     | __main__:campsite_detail:245 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-15 21:10:09.902 | INFO     | __main__:campsite_detail:252 - All campsites: [7, 6, 5, 4, 1, 3, 2]
+2025-04-15 21:10:09.902 | INFO     | __main__:campsite_detail:258 - Found campsite: Berlin-Campingplatz
+2025-04-15 21:10:09.902 | INFO     | __main__:campsite_detail:280 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_bookingModule.svg
+2025-04-15 21:10:09.903 | INFO     | __main__:campsite_detail:280 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_breadModule.svg
+2025-04-15 21:10:09.957 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 21:10:10.006 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 21:10:10.388 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 21:10:10.498 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 21:10:10.771 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 21:10:11.643 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/TODO
+2025-04-15 21:10:11.723 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 21:10:12.090 | INFO     | __main__:campsite_detail:245 - Requested campsite_id: TODO (type: <class 'str'>)
+2025-04-15 21:10:12.091 | INFO     | __main__:campsite_detail:252 - All campsites: [7, 6, 5, 4, 1, 3, 2]
+2025-04-15 21:10:12.091 | WARNING  | __main__:campsite_detail:255 - Campsite with ID TODO not found in 7 campsites
+2025-04-15 21:10:12.096 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-15 21:10:19.607 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/neon
+2025-04-15 21:10:19.908 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/1
+2025-04-15 21:10:20.216 | INFO     | __main__:campsite_detail:245 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-15 21:10:20.218 | INFO     | __main__:campsite_detail:252 - All campsites: [7, 6, 5, 4, 1, 3, 2]
+2025-04-15 21:10:20.218 | INFO     | __main__:campsite_detail:258 - Found campsite: Berlin-Campingplatz
+2025-04-15 21:10:20.218 | INFO     | __main__:campsite_detail:280 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_bookingModule.svg
+2025-04-15 21:10:20.218 | INFO     | __main__:campsite_detail:280 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_breadModule.svg
+2025-04-15 21:10:20.264 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 21:10:20.572 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 21:10:20.573 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 21:10:20.574 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 21:10:20.659 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 21:10:21.835 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/TODO
+2025-04-15 21:10:21.908 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 21:10:22.208 | INFO     | __main__:campsite_detail:245 - Requested campsite_id: TODO (type: <class 'str'>)
+2025-04-15 21:10:22.256 | INFO     | __main__:campsite_detail:252 - All campsites: [7, 6, 5, 4, 1, 3, 2]
+2025-04-15 21:10:22.256 | WARNING  | __main__:campsite_detail:255 - Campsite with ID TODO not found in 7 campsites
+2025-04-15 21:10:22.259 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-15 21:10:33.321 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/w11
+2025-04-15 21:10:33.612 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/1
+2025-04-15 21:10:33.927 | INFO     | __main__:campsite_detail:245 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-15 21:10:33.928 | INFO     | __main__:campsite_detail:252 - All campsites: [7, 6, 5, 4, 1, 3, 2]
+2025-04-15 21:10:33.928 | INFO     | __main__:campsite_detail:258 - Found campsite: Berlin-Campingplatz
+2025-04-15 21:10:33.928 | INFO     | __main__:campsite_detail:280 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_bookingModule.svg
+2025-04-15 21:10:33.928 | INFO     | __main__:campsite_detail:280 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_breadModule.svg
+2025-04-15 21:10:33.994 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 21:10:34.299 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 21:10:34.299 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 21:10:34.299 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 21:10:34.335 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 21:10:35.456 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 21:10:35.798 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 21:10:36.154 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/TODO
+2025-04-15 21:10:36.396 | INFO     | __main__:campsite_detail:245 - Requested campsite_id: TODO (type: <class 'str'>)
+2025-04-15 21:10:36.397 | INFO     | __main__:campsite_detail:252 - All campsites: [7, 6, 5, 4, 1, 3, 2]
+2025-04-15 21:10:36.397 | WARNING  | __main__:campsite_detail:255 - Campsite with ID TODO not found in 7 campsites
+2025-04-15 21:10:36.710 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-15 21:10:40.561 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/natural
+2025-04-15 21:10:40.980 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/1
+2025-04-15 21:10:41.351 | INFO     | __main__:campsite_detail:245 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-15 21:10:41.352 | INFO     | __main__:campsite_detail:252 - All campsites: [7, 6, 5, 4, 1, 3, 2]
+2025-04-15 21:10:41.352 | INFO     | __main__:campsite_detail:258 - Found campsite: Berlin-Campingplatz
+2025-04-15 21:10:41.352 | INFO     | __main__:campsite_detail:280 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_bookingModule.svg
+2025-04-15 21:10:41.352 | INFO     | __main__:campsite_detail:280 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_breadModule.svg
+2025-04-15 21:10:41.695 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 21:10:41.811 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 21:10:41.896 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 21:10:42.303 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 21:10:42.352 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 21:10:42.978 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 21:10:43.337 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/TODO
+2025-04-15 21:10:43.734 | INFO     | __main__:campsite_detail:245 - Requested campsite_id: TODO (type: <class 'str'>)
+2025-04-15 21:10:43.735 | INFO     | __main__:campsite_detail:252 - All campsites: [7, 6, 5, 4, 1, 3, 2]
+2025-04-15 21:10:43.735 | WARNING  | __main__:campsite_detail:255 - Campsite with ID TODO not found in 7 campsites
+2025-04-15 21:10:44.041 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-15 23:48:09.072 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-15 23:48:09.074 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-15 23:48:12.006 | INFO     | __main__:create_app:59 - DB Connection established!
+2025-04-15 23:48:12.006 | INFO     | __main__:create_app:61 - Setting up local classes...
+2025-04-15 23:48:12.006 | INFO     | __main__:create_app:66 - Local classes set up successfully
+2025-04-15 23:48:26.373 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-15 23:48:27.502 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 23:48:27.538 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 23:48:27.902 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 23:48:28.005 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 23:48:28.173 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 23:48:28.981 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 23:48:35.279 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/w11
+2025-04-15 23:48:35.603 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-15 23:48:36.261 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 23:48:36.262 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 23:48:36.262 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 23:48:36.263 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 23:48:36.737 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 23:48:37.629 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 23:48:40.407 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-15 23:48:40.775 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 23:48:40.821 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 23:48:41.225 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 23:48:41.346 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 23:48:41.420 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 23:48:42.280 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 23:48:43.902 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-15 23:48:44.604 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-15 23:48:45.251 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 23:48:45.338 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 23:48:45.505 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 23:48:45.785 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 23:48:45.786 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 23:48:46.442 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 23:48:49.218 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-15 23:48:49.584 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 23:48:49.666 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 23:48:50.006 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 23:48:50.134 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 23:48:50.169 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 23:48:51.011 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-15 23:48:51.821 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-15 23:48:52.272 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-15 23:48:52.954 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-15 23:48:53.049 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-15 23:48:53.256 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-15 23:48:53.511 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-15 23:48:53.641 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-15 23:48:54.233 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:12:30.263 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-16 00:12:30.264 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-16 00:12:33.370 | INFO     | __main__:create_app:59 - DB Connection established!
+2025-04-16 00:12:33.370 | INFO     | __main__:create_app:61 - Setting up local classes...
+2025-04-16 00:12:33.370 | INFO     | __main__:create_app:66 - Local classes set up successfully
+2025-04-16 00:12:42.903 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:12:43.966 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:12:44.015 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:12:44.459 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:12:44.578 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:12:44.687 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:12:45.551 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:12:49.525 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:12:49.899 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:12:50.220 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:12:50.308 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:12:50.476 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:12:50.696 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:12:51.485 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:12:52.160 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:12:52.876 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:12:53.556 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:12:53.664 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:12:53.885 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:12:54.094 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:12:54.234 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:12:54.833 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:17:12.529 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-16 00:17:12.529 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-16 00:17:15.726 | INFO     | __main__:create_app:59 - DB Connection established!
+2025-04-16 00:17:15.726 | INFO     | __main__:create_app:61 - Setting up local classes...
+2025-04-16 00:17:15.726 | INFO     | __main__:create_app:66 - Local classes set up successfully
+2025-04-16 00:17:18.318 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:17:19.426 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:17:19.454 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:17:19.796 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:17:19.876 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:17:20.175 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:17:20.954 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:17:21.767 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:17:22.119 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:17:22.439 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:17:22.440 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:17:22.440 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:17:22.471 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:17:23.679 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:17:24.391 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:17:24.688 | INFO     | __main__:login:175 - Login attempt for username: ChriGart
+2025-04-16 00:17:25.072 | INFO     | __main__:login:181 - User ChriGart authenticated, logging in
+2025-04-16 00:17:25.072 | INFO     | __main__:login:183 - User ChriGart logged in, redirecting to index
+2025-04-16 00:17:25.079 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:17:25.749 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:17:25.856 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:17:25.998 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:17:26.171 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:17:26.498 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:17:27.019 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:18:47.975 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-16 00:18:47.975 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-16 00:18:51.041 | INFO     | __main__:create_app:59 - DB Connection established!
+2025-04-16 00:18:51.042 | INFO     | __main__:create_app:61 - Setting up local classes...
+2025-04-16 00:18:51.042 | INFO     | __main__:create_app:66 - Local classes set up successfully
+2025-04-16 00:18:51.702 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:18:52.775 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:18:52.811 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:18:53.247 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:18:53.371 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:18:53.539 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:18:54.352 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:18:56.304 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:18:56.674 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:18:56.990 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:18:57.079 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:18:57.251 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:18:57.542 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:18:58.385 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:18:59.310 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:18:59.622 | INFO     | __main__:login:175 - Login attempt for username: ChriGart
+2025-04-16 00:18:59.993 | INFO     | __main__:login:181 - User ChriGart authenticated, logging in
+2025-04-16 00:18:59.994 | INFO     | __main__:login:183 - User ChriGart logged in, redirecting to index
+2025-04-16 00:18:59.999 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:19:00.669 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:19:00.759 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:19:00.838 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:19:01.272 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:19:01.455 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:19:01.859 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:23:01.186 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-16 00:23:01.192 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-16 00:23:04.211 | INFO     | __main__:create_app:61 - DB Connection established!
+2025-04-16 00:23:04.211 | INFO     | __main__:create_app:63 - Setting up local classes...
+2025-04-16 00:23:04.211 | INFO     | __main__:create_app:68 - Local classes set up successfully
+2025-04-16 00:23:05.666 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:23:06.894 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:23:06.896 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:23:07.325 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:23:07.446 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:23:07.635 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:23:08.564 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:23:10.005 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:23:10.372 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:23:10.690 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:23:10.767 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:23:10.949 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:23:11.159 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:23:12.012 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:23:12.609 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:23:12.925 | INFO     | __main__:login:177 - Login attempt for username: ChriGart
+2025-04-16 00:23:13.028 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:23:13.411 | INFO     | __main__:login:177 - Login attempt for username: ChriGart
+2025-04-16 00:23:13.540 | INFO     | __main__:login:183 - User ChriGart authenticated, logging in
+2025-04-16 00:23:13.542 | INFO     | __main__:login:185 - User ChriGart logged in, redirecting to index
+2025-04-16 00:23:13.594 | INFO     | __main__:login:183 - User ChriGart authenticated, logging in
+2025-04-16 00:23:13.594 | INFO     | __main__:login:185 - User ChriGart logged in, redirecting to index
+2025-04-16 00:23:13.601 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:25:06.888 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-16 00:25:06.894 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-16 00:25:09.873 | INFO     | __main__:create_app:61 - DB Connection established!
+2025-04-16 00:25:09.873 | INFO     | __main__:create_app:63 - Setting up local classes...
+2025-04-16 00:25:09.874 | INFO     | __main__:create_app:68 - Local classes set up successfully
+2025-04-16 00:25:10.391 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:25:11.712 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:25:11.755 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:25:12.171 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:25:12.292 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:25:12.645 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:25:13.394 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:25:13.824 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:25:14.202 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:25:14.524 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:25:14.612 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:25:14.692 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:25:15.228 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:25:15.961 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:25:16.564 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:25:16.855 | INFO     | __main__:login:178 - Login attempt for username: ChriGart
+2025-04-16 00:25:17.256 | INFO     | __main__:login:184 - User ChriGart authenticated, logging in
+2025-04-16 00:25:17.257 | INFO     | __main__:login:186 - User ChriGart logged in, redirecting to index
+2025-04-16 00:25:17.266 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:30:50.658 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-16 00:30:50.659 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-16 00:30:53.654 | INFO     | __main__:create_app:64 - DB Connection established!
+2025-04-16 00:30:53.654 | INFO     | __main__:create_app:66 - Setting up local classes...
+2025-04-16 00:30:53.654 | INFO     | __main__:create_app:71 - Local classes set up successfully
+2025-04-16 00:31:03.120 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:31:22.865 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-16 00:31:22.867 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-16 00:31:25.629 | INFO     | __main__:create_app:64 - DB Connection established!
+2025-04-16 00:31:25.629 | INFO     | __main__:create_app:66 - Setting up local classes...
+2025-04-16 00:31:25.630 | INFO     | __main__:create_app:71 - Local classes set up successfully
+2025-04-16 00:31:29.299 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:33:06.016 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-16 00:33:06.016 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-16 00:33:08.772 | INFO     | __main__:create_app:64 - DB Connection established!
+2025-04-16 00:33:08.773 | INFO     | __main__:create_app:66 - Setting up local classes...
+2025-04-16 00:33:08.773 | INFO     | __main__:create_app:71 - Local classes set up successfully
+2025-04-16 00:33:27.502 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:33:27.861 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:33:27.891 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:33:28.331 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:33:28.404 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:33:28.581 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:33:29.390 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:33:30.401 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:33:30.632 | INFO     | __main__:login:198 - Login attempt for username: ChriGart
+2025-04-16 00:33:30.996 | INFO     | __main__:login:204 - User ChriGart authenticated, logging in
+2025-04-16 00:33:30.996 | INFO     | __main__:login:206 - User ChriGart logged in, session: None
+2025-04-16 00:33:30.996 | INFO     | __main__:login:207 - Current user after login: True, ID: 3
+2025-04-16 00:33:31.002 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:37:52.490 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-16 00:37:52.491 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-16 00:37:55.184 | INFO     | __main__:create_app:64 - DB Connection established!
+2025-04-16 00:37:55.184 | INFO     | __main__:create_app:66 - Setting up local classes...
+2025-04-16 00:37:55.184 | INFO     | __main__:create_app:71 - Local classes set up successfully
+2025-04-16 00:37:57.569 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:37:57.829 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:37:58.059 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:37:58.060 | INFO     | __main__:index:138 - Index accessed, authenticated: True, user: ChriGart, session user_id: None
+2025-04-16 00:37:58.774 | INFO     | __main__:index:145 - User role: User
+2025-04-16 00:37:58.825 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:37:58.879 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:37:59.205 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:37:59.320 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:37:59.484 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:38:00.317 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:38:02.513 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /logout
+2025-04-16 00:38:02.817 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:38:02.817 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:38:02.822 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:38:03.106 | INFO     | __main__:index:138 - Index accessed, authenticated: False, user: None, session user_id: None
+2025-04-16 00:38:03.454 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:38:03.454 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:38:03.509 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:38:03.601 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:38:03.804 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:38:04.781 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:38:06.372 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:38:06.730 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:38:06.772 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:38:07.153 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:38:07.190 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:38:07.256 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:38:08.183 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:38:09.238 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-16 00:38:09.498 | INFO     | __main__:login:196 - Login attempt for username: ChriGart
+2025-04-16 00:38:09.640 | INFO     | __main__:login:202 - User ChriGart authenticated, logging in
+2025-04-16 00:38:09.640 | INFO     | __main__:login:204 - User ChriGart logged in, session: None
+2025-04-16 00:38:09.640 | INFO     | __main__:login:205 - Current user after login: True, ID: 3
+2025-04-16 00:38:09.646 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:38:09.950 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:38:09.950 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:38:09.950 | INFO     | __main__:index:138 - Index accessed, authenticated: True, user: ChriGart, session user_id: None
+2025-04-16 00:38:09.950 | INFO     | __main__:index:145 - User role: User
+2025-04-16 00:38:10.296 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:38:10.401 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:38:10.568 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:38:10.788 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:38:11.149 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:38:11.605 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:38:13.994 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/5
+2025-04-16 00:38:14.293 | INFO     | __main__:campsite_detail:336 - Requested campsite_id: 5 (type: <class 'str'>)
+2025-04-16 00:38:14.294 | INFO     | __main__:campsite_detail:343 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-16 00:38:14.294 | INFO     | __main__:campsite_detail:349 - Found campsite: Test 2
+2025-04-16 00:38:14.304 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:38:14.304 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:38:14.356 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:38:14.420 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:38:14.761 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:38:14.878 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:38:14.912 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:38:15.913 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/TODO
+2025-04-16 00:38:15.989 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:38:16.365 | INFO     | __main__:campsite_detail:336 - Requested campsite_id: TODO (type: <class 'str'>)
+2025-04-16 00:38:16.366 | INFO     | __main__:campsite_detail:343 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-16 00:38:16.366 | WARNING  | __main__:campsite_detail:346 - Campsite with ID TODO not found in 7 campsites
+2025-04-16 00:38:16.370 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:38:16.674 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:38:16.674 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:38:16.674 | INFO     | __main__:index:138 - Index accessed, authenticated: True, user: ChriGart, session user_id: None
+2025-04-16 00:38:16.674 | INFO     | __main__:index:145 - User role: User
+2025-04-16 00:38:17.247 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:38:17.566 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:38:17.566 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:38:17.566 | INFO     | __main__:index:138 - Index accessed, authenticated: True, user: ChriGart, session user_id: None
+2025-04-16 00:38:17.566 | INFO     | __main__:index:145 - User role: User
+2025-04-16 00:38:17.612 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:38:17.700 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:38:18.014 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:38:18.133 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:38:18.164 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:38:19.110 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:38:25.292 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /edit_user
+2025-04-16 00:38:25.608 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:38:25.608 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:50:27.081 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-16 00:50:27.083 | INFO     | __main__:create_app:52 - Creating Server...
+2025-04-16 00:50:30.197 | INFO     | __main__:create_app:64 - DB Connection established!
+2025-04-16 00:50:30.197 | INFO     | __main__:create_app:66 - Setting up local classes...
+2025-04-16 00:50:30.197 | INFO     | __main__:create_app:71 - Local classes set up successfully
+2025-04-16 00:50:33.227 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:50:33.499 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:50:33.767 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:50:33.767 | INFO     | __main__:index:138 - Index accessed, authenticated: True, user: ChriGart, session user_id: None
+2025-04-16 00:50:34.477 | INFO     | __main__:index:145 - User role: User
+2025-04-16 00:50:34.537 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:50:34.613 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:50:34.962 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:50:35.050 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:50:35.126 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:50:36.059 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:50:38.868 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /edit_user
+2025-04-16 00:50:39.181 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:50:39.181 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:50:39.251 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:50:39.572 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:50:39.666 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:50:39.789 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:50:40.076 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:50:40.839 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:50:51.322 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /edit_user
+2025-04-16 00:50:51.670 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:50:51.670 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:50:53.844 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:50:54.146 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:50:54.146 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:50:54.146 | INFO     | __main__:index:138 - Index accessed, authenticated: True, user: ChriGart, session user_id: None
+2025-04-16 00:50:54.146 | INFO     | __main__:index:145 - User role: User
+2025-04-16 00:50:54.496 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:50:54.582 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:50:54.849 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:50:55.025 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:50:55.281 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:50:55.747 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:52:06.723 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/natural
+2025-04-16 00:52:07.042 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:52:07.291 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:52:07.291 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:52:07.291 | INFO     | __main__:index:138 - Index accessed, authenticated: True, user: ChriGart, session user_id: None
+2025-04-16 00:52:07.291 | INFO     | __main__:index:145 - User role: User
+2025-04-16 00:52:07.343 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:52:07.656 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:52:07.657 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:52:07.657 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:52:07.876 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:52:08.953 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:52:11.567 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/neon
+2025-04-16 00:52:11.885 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-16 00:52:12.213 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:52:12.213 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:52:12.213 | INFO     | __main__:index:138 - Index accessed, authenticated: True, user: ChriGart, session user_id: None
+2025-04-16 00:52:12.213 | INFO     | __main__:index:145 - User role: User
+2025-04-16 00:52:12.558 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:52:12.559 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:52:12.559 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:52:12.559 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:52:12.637 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:52:13.796 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:52:18.527 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /edit_user
+2025-04-16 00:52:18.840 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:52:18.840 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:52:18.890 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:52:18.969 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:52:19.318 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:52:19.441 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:52:19.761 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:52:20.489 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-16 00:52:33.376 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/default
+2025-04-16 00:52:33.730 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /edit_user
+2025-04-16 00:52:34.039 | INFO     | __main__:load_user:120 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-16 00:52:34.039 | INFO     | __main__:load_user:130 - Loaded user: ChriGart (ID: 3)
+2025-04-16 00:52:34.380 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-16 00:52:34.580 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-16 00:52:34.765 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-16 00:52:35.096 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-16 00:52:35.343 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-16 00:52:35.735 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js

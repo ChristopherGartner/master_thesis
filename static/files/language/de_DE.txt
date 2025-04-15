@@ -50,6 +50,35 @@ register_label_country = Land
 register_label_cityAndPostcode = Stadt und Postleitzahl
 register_label_streetAndHousenumber = Straße und Hausnummer
 
+# Edit User Page
+edit_user_label_edit_user = Benutzer bearbeiten
+edit_user_label_username = Benutzername
+edit_user_label_email = E-Mail
+edit_user_label_password = Passwort
+edit_user_label_password_placeholder = Neues Passwort (optional)
+edit_user_label_first_name = Vorname
+edit_user_label_last_name = Nachname
+edit_user_label_birth_date = Geburtsdatum
+edit_user_label_birth_date_day = Tag
+edit_user_label_birth_date_month = Monat
+edit_user_label_birth_date_year = Jahr
+edit_user_label_birth_date_month_january = Januar
+edit_user_label_birth_date_month_february = Februar
+edit_user_label_birth_date_month_march = März
+edit_user_label_birth_date_month_april = April
+edit_user_label_birth_date_month_may = Mai
+edit_user_label_birth_date_month_june = Juni
+edit_user_label_birth_date_month_july = Juli
+edit_user_label_birth_date_month_august = August
+edit_user_label_birth_date_month_september = September
+edit_user_label_birth_date_month_october = Oktober
+edit_user_label_birth_date_month_november = November
+edit_user_label_birth_date_month_december = Dezember
+edit_user_label_country = Land
+edit_user_label_city_and_postcode = Stadt und Postleitzahl
+edit_user_label_street_and_housenumber = Straße und Hausnummer
+edit_user_button_save = Speichern
+
 # Settings
 index_Select_Language_de_DE = Deutsch
 index_Select_Language_en_EN = Englisch

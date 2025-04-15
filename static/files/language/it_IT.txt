@@ -25,7 +25,7 @@ login_button_login = Accedi
 
 # Register Page
 register_label_register = Registrati
-register_label_username = Nome utente
+register_label_username = Nome Utente
 register_label_eMail = E-Mail
 register_label_password = Password
 register_label_firstName = Nome
@@ -49,6 +49,35 @@ register_label_birthDate_year = Anno
 register_label_country = Paese
 register_label_cityAndPostcode = Città e codice postale
 register_label_streetAndHousenumber = Via e numero civico
+
+# Edit User Page
+edit_user_label_edit_user = Modifica utente
+edit_user_label_username = Nome Utente
+edit_user_label_email = E-Mail
+edit_user_label_password = Password
+edit_user_label_password_placeholder = Nuova password (opzionale)
+edit_user_label_first_name = Nome
+edit_user_label_last_name = Cognome
+edit_user_label_birth_date = Data di nascita
+edit_user_label_birth_date_day = Giorno
+edit_user_label_birth_date_month = Mese
+edit_user_label_birth_date_year = Anno
+edit_user_label_birth_date_month_january = Gennaio
+edit_user_label_birth_date_month_february = Febbraio
+edit_user_label_birth_date_month_march = Marzo
+edit_user_label_birth_date_month_april = Aprile
+edit_user_label_birth_date_month_may = Maggio
+edit_user_label_birth_date_month_june = Giugno
+edit_user_label_birth_date_month_july = Luglio
+edit_user_label_birth_date_month_august = Agosto
+edit_user_label_birth_date_month_september = Settembre
+edit_user_label_birth_date_month_october = Ottobre
+edit_user_label_birth_date_month_november = Novembre
+edit_user_label_birth_date_month_december = Dicembre
+edit_user_label_country = Paese
+edit_user_label_city_and_postcode = Città e codice postale
+edit_user_label_street_and_housenumber = Via e numero civico
+edit_user_button_save = Salvare
 
 # Settings
 index_Select_Language_de_DE = Tedesco

@@ -1,7 +1,7 @@
 import argparse
 import logging
 import os
-from flask import Flask, request, render_template, redirect, url_for, flash, make_response
+from flask import Flask, request, render_template, redirect, url_for, flash, make_response, session
 from flask_login import current_user, login_user, LoginManager, logout_user
 from loguru import logger
 from backend.db.Database import Database
@@ -11,7 +11,7 @@ from backend.util.Toolbox import Toolbox
 from backend.internal_data.ConfigManager import ConfigManager
 from backend.users.User import *
 from backend.theme.ThemeManager import ThemeManager
-from flask import render_template_string
+from flask_login import login_required
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -52,7 +52,12 @@ class FlaskApp:
         logger.info("Creating Server...")
         self.app = Flask(__name__, static_url_path='', static_folder='static')
         self.app.jinja_env.globals['hasattr'] = hasattr
-        self.app.config['SECRET_KEY'] = os.urandom(24).hex()
+        self.app.config['SECRET_KEY'] = 'my-fixed-secret-key-12345'
+        self.app.config['SESSION_PERMANENT'] = True
+        self.app.config['PERMANENT_SESSION_LIFETIME'] = 3600
+        self.app.config['SESSION_COOKIE_SECURE'] = False
+        self.app.config['SESSION_COOKIE_HTTPONLY'] = True
+        self.app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
         if self.DEBUG:
             self.__configManager.overrideDBargs(self._args)
         self.__setupDB(self.app)
@@ -112,16 +117,32 @@ class FlaskApp:
 
         @self.login_manager.user_loader
         def load_user(userId):
-            return self.__repositoryFactory.getUserRepository().getUserById(userId)
+            logger.info(f"Attempting to load user with ID: {userId} (type: {type(userId)})")
+            try:
+                userId = int(userId)  # Konvertiere String zu Integer
+            except ValueError:
+                logger.warning(f"Invalid userId format: {userId}")
+                return None
+            user = self.__repositoryFactory.getUserRepository().getUserById(userId)
+            if user is None:
+                logger.warning(f"No user found for ID: {userId}")
+            else:
+                logger.info(f"Loaded user: {user.getUsername()} (ID: {userId})")
+            return user
 
         @self.app.route("/")
         def index():
             language_values = getLanguageValues()
             theme_colors = getThemeValues(language_values)
             current_user_obj: User = current_user
+            logger.info(
+                f"Index accessed, authenticated: {current_user_obj.is_authenticated}, user: {current_user_obj.getUsername() if current_user_obj.is_authenticated else 'None'}, session user_id: {session.get('user_id')}")
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
-            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db, self.__repositoryFactory.getCampsiteModuleRepository(), self.__repositoryFactory.getModuleRepository())
+            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db,
+                                                                          self.__repositoryFactory.getCampsiteModuleRepository(),
+                                                                          self.__repositoryFactory.getModuleRepository())
             if current_user_obj.is_authenticated:
+                logger.info(f"User role: {current_user_obj.getRole()}")
                 if current_user_obj.getRole() == "User":
                     pass
                 elif current_user_obj.getRole() == "Campsite":
@@ -167,15 +188,21 @@ class FlaskApp:
             language_values = getLanguageValues()
             theme_colors = getThemeValues(language_values)
             if current_user.is_authenticated:
+                logger.info("User already authenticated, redirecting to index")
                 return redirect(url_for('index'))
             if request.method == 'POST':
                 username = request.form.get('username')
                 password = request.form.get('password')
+                logger.info(f"Login attempt for username: {username}")
                 user = self.__repositoryFactory.getUserRepository().getUserByUsername(username)
                 if user is None or not check_password_hash(user.getPasswordHash(), password):
+                    logger.warning(f"Invalid username or password for username: {username}")
                     flash('Invalid username or password')
                     return redirect(url_for('login'))
-                login_user(user)
+                logger.info(f"User {username} authenticated, logging in")
+                login_user(user, remember=True)
+                logger.info(f"User {username} logged in, session: {session.get('user_id')}")
+                logger.info(f"Current user after login: {current_user.is_authenticated}, ID: {current_user.getId() if current_user.is_authenticated else 'None'}")
                 return redirect(url_for('index'))
             return render_template('login.html', languageValues=language_values, theme_colors=theme_colors)
 
@@ -228,7 +255,7 @@ class FlaskApp:
                     user_object.setPasswordHash(generateHashedPassword(password_unhashed))
                     user_id = self.__repositoryFactory.getUserRepository().saveUserObject(self.__repositoryFactory.getAddressRepository(), user_object)
                     user_object.setId(user_id)
-                    login_user(user_object)
+                    login_user(user_object, remember=True)
                     flash('Registration successful!')
                     return redirect(url_for('index'))
                 except Exception as e:
@@ -239,6 +266,70 @@ class FlaskApp:
         def load_svg(filename):
             with open(os.path.join(self.app.static_folder, 'images', filename), 'r') as f:
                 return f.read()
+
+        @self.app.route("/edit_user", methods=['GET', 'POST'])
+        @login_required
+        def edit_user():
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
+            if request.method == 'POST':
+                username = request.form.get('username')
+                email = request.form.get('email')
+                password = request.form.get('password')
+                first_name = request.form.get('first_name')
+                last_name = request.form.get('last_name')
+                birthday_day = request.form.get('birth_day')
+                birthday_month = request.form.get('birth_month')
+                birthday_year = request.form.get('birth_year')
+                country = request.form.get('country')
+                city = request.form.get('city')
+                postcode = request.form.get('zip_code')
+                street_name = request.form.get('street')
+                house_number = request.form.get('house_number')
+
+                err = ""
+                err += validateUsername(username)
+                err += validate_email(email)
+                if password:
+                    err += validate_password(password)
+
+                # Check, whether username or E-Mail exists at other users
+                user_with_name = self.__repositoryFactory.getUserRepository().getUserByUsername(username)
+                user_with_email = self.__repositoryFactory.getUserRepository().getUserByEmail(email)
+                if user_with_name and user_with_name.getId() != current_user.getId():
+                    flash('Username already exists.')
+                    return redirect(url_for('edit_user'))
+                if user_with_email and user_with_email.getId() != current_user.getId():
+                    flash('Email already registered.')
+                    return redirect(url_for('edit_user'))
+
+                if err:
+                    flash(err)
+                    return redirect(url_for('edit_user'))
+
+                try:
+                    # update User-object
+                    user_object = current_user
+                    user_object.setUsername(username)
+                    user_object.setEmail(email)
+                    if password:
+                        user_object.setPasswordHash(generateHashedPassword(password))
+                    user_object.setFirstName(first_name)
+                    user_object.setLastName(last_name)
+                    user_object.setBirthday(f"{birthday_year}-{birthday_month}-{birthday_day}")
+                    user_object.setAddress(street_name, house_number, city, postcode, country)
+
+                    # Save user object
+                    self.__repositoryFactory.getUserRepository().updateUserObject(
+                        self.__repositoryFactory.getAddressRepository(), user_object
+                    )
+                    flash('Profile updated successfully!')
+                    return redirect(url_for('index'))
+                except Exception as e:
+                    flash(f'An error occurred during update: {str(e)}')
+                    return redirect(url_for('edit_user'))
+
+            return render_template('edit_user.html', languageValues=language_values, theme_colors=theme_colors)
 
         @self.app.route("/campsite/<campsite_id>")
         def campsite_detail(campsite_id):

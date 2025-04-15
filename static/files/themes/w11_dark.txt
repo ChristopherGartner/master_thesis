@@ -30,3 +30,6 @@ dropdown-glow-color = rgba(0, 120, 212, 0.4)
 header-text-shadow = rgba(0, 0, 0, 0.4)
 isLightTheme = False
 pictogram-color = #8ab4f8
+input-glow = rgba(0, 120, 212, 0.5)
+button-shadow = rgba(0, 0, 0, 0.6)
+edit-user-btn-background = #404040

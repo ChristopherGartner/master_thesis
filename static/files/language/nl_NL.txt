@@ -50,6 +50,35 @@ register_label_country = Land
 register_label_cityAndPostcode = Stad en postcode
 register_label_streetAndHousenumber = Straat en huisnummer
 
+# Edit User Page
+edit_user_label_edit_user = Gebruiker bewerken
+edit_user_label_username = Gebruikersnaam
+edit_user_label_email = E-Mail
+edit_user_label_password = Wachtwoord
+edit_user_label_password_placeholder = Nieuw wachtwoord (optioneel)
+edit_user_label_first_name = Voornaam
+edit_user_label_last_name = Achternaam
+edit_user_label_birth_date = Geboortedatum
+edit_user_label_birth_date_day = Dag
+edit_user_label_birth_date_month = Maand
+edit_user_label_birth_date_year = Jaar
+edit_user_label_birth_date_month_january = Januari
+edit_user_label_birth_date_month_february = Februari
+edit_user_label_birth_date_month_march = Maart
+edit_user_label_birth_date_month_april = April
+edit_user_label_birth_date_month_may = Mei
+edit_user_label_birth_date_month_june = Juni
+edit_user_label_birth_date_month_july = Juli
+edit_user_label_birth_date_month_august = Augustus
+edit_user_label_birth_date_month_september = September
+edit_user_label_birth_date_month_october = Oktober
+edit_user_label_birth_date_month_november = November
+edit_user_label_birth_date_month_december = December
+edit_user_label_country = Land
+edit_user_label_city_and_postcode = Stad en postcode
+edit_user_label_street_and_housenumber = Straat en huisnummer
+edit_user_button_save = Redden
+
 # Settings
 index_Select_Language_de_DE = Duits
 index_Select_Language_en_EN = Engels
