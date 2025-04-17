@@ -38,7 +38,7 @@
             {% elif request.endpoint == 'register' %}
                 <a href="{{ url_for('login') }}">{{ languageValues['index_Button_Login'] }}</a>
             {% endif %}
-            {% if request.endpoint == 'campsite_detail' %}
+            {% if request.endpoint != 'index' %}
                 <a href="{{ url_for('index') }}">{{ languageValues['campsiteDetail_button_backToIndexPage'] }}</a>
             {% endif %}
         </div>

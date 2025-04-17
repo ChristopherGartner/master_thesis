@@ -506,8 +506,9 @@ body {
     background: var(--button-hover);
 }
 
-/* Register (register.html) */
-.register-container {
+/* Register (register.html) and Edit User (edit_user.html) */
+.register-container,
+.edit-user-container {
     background: var(--card-background);
     border-radius: 10px;
     box-shadow: 0 2px 5px var(--card-shadow);
@@ -520,7 +521,8 @@ body {
     z-index: 10;
 }
 
-.register-container h1 {
+.register-container h1,
+.edit-user-container h1 {
     margin: 0 0 40px;
     font-size: 28px;
     color: var(--text-color);
@@ -542,7 +544,7 @@ body {
 
 .form-group label {
     display: block;
-    color: var(--text-color);
+    color: var(--label-color);
     font-size: 16px;
     margin-bottom: 5px;
 }
@@ -555,13 +557,40 @@ body {
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box;
-    transition: border-color 0.2s ease;
-    color: var(--primary-color);
+    background: var(--card-background);
+    color: var(--text-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.form-group input[type="password"] {
+    -webkit-appearance: none; /* Override browser-specific styling */
+    -moz-appearance: none;
+    appearance: none;
+    background: var(--card-background) !important; /* Enforce theme background */
+    color: var(--text-color) !important; /* Enforce theme text color */
+}
+
+/* Handle browser autofill styles */
+.form-group input[type="password"]:-webkit-autofill,
+.form-group input[type="password"]:-webkit-autofill:hover,
+.form-group input[type="password"]:-webkit-autofill:focus,
+.form-group input[type="password"]:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px var(--card-background) inset !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+    border: 1px solid var(--input-border) !important;
+    transition: background-color 5000s ease-in-out 0s; /* Prevent autofill animation */
+}
+
+.form-group input::placeholder {
+    color: var(--text-color);
+    opacity: 0.6; /* Slightly faded for placeholder */
 }
 
 .form-group input:focus,
 .form-group select:focus {
     border-color: var(--input-focus);
+    box-shadow: 0 0 8px var(--input-glow);
+    transform: scale(1.02);
     outline: none;
 }
 
@@ -576,16 +605,25 @@ body {
     background: var(--card-background);
     border: 1px solid var(--input-border);
     border-radius: 5px;
-    color: var(--primary-color);
+    color: var(--text-color);
     cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .date-group select:hover {
     border-color: var(--input-focus);
+    box-shadow: 0 2px 5px var(--input-glow);
+}
+
+.date-group select:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 8px var(--input-glow);
+    outline: none;
 }
 
 .date-group select option {
     color: var(--text-color);
+    background: var(--card-background);
 }
 
 .city-zip-group {
@@ -620,12 +658,13 @@ body {
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn:hover {
     background: linear-gradient(135deg, var(--input-focus), var(--primary-color));
-    box-shadow: 0 4px 10px var(--card-shadow);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--button-shadow);
 }
 
 /* Edit User Button */
@@ -728,27 +767,6 @@ body {
 
 .edit-user-btn:hover::after {
     opacity: 1;
-}
-
-/* Edit User (edit_user.html) */
-.edit-user-container {
-    background: var(--card-background);
-    border-radius: 10px;
-    box-shadow: 0 2px 5px var(--card-shadow);
-    padding: 40px;
-    width: 100%;
-    max-width: 800px;
-    margin: 40px auto;
-    display: block;
-    position: relative;
-    z-index: 10;
-}
-
-.edit-user-container h1 {
-    margin: 0 0 40px;
-    font-size: 28px;
-    color: var(--text-color);
-    text-align: center;
 }
 
 /* Login (login.html) */
