@@ -134,11 +134,15 @@ body {
     background: var(--settings-icon-hover);
 }
 
-.user-icon img {
+.user-icon .pictogram svg {
     width: 24px;
     height: 24px;
-    vertical-align: middle;
-    filter: brightness(0) saturate(100%) hue-rotate(calc(var(--pictogram-hue, 0deg)));
+    fill: var(--pictogram-color, var(--primary-color));
+    transition: fill 0.3s ease;
+}
+
+.user-icon:hover .pictogram svg {
+    fill: var(--secondary-color);
 }
 
 .user-dropdown {
@@ -186,14 +190,6 @@ body {
 
 .user-dropdown .dropdown-row:hover::after {
     width: calc(100% - 20px);
-}
-
-.user-dropdown .dropdown-row img {
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-    flex-shrink: 0;
-    filter: brightness(0) saturate(100%) hue-rotate(calc(var(--pictogram-hue, 0deg)));
 }
 
 .user-dropdown .dropdown-row strong {
@@ -368,11 +364,25 @@ body {
     box-shadow: 0 2px 5px var(--card-shadow);
 }
 
-.edit-user-btn img {
+.edit-user-btn .pictogram svg {
     width: 16px;
     height: 16px;
     vertical-align: middle;
-    filter: brightness(0) saturate(100%) hue-rotate(calc(var(--pictogram-hue, 0deg)));
+    fill: var(--pictogram-color, var(--primary-color));
+    transition: fill 0.3s ease;
+}
+.edit-user-btn:hover .pictogram svg {
+    fill: var(--secondary-color);
+}
+.user-dropdown .dropdown-row .pictogram svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    fill: var(--pictogram-color, var(--primary-color));
+    transition: fill 0.3s ease;
+}
+.user-dropdown .dropdown-row:hover .pictogram svg {
+    fill: var(--secondary-color);
 }
 
 .edit-user-btn:hover {
@@ -404,6 +414,9 @@ body {
 
 /* Theme-specific Changes */
 :root {
+    {% for key, value in theme_colors.items() %}
+        --{{ key }}: {{ value }};
+    {% endfor %}
     /* Neon-Theme: Strong Glowing effect */
     &[data-theme="neon"] {
         --pictogram-hue: 165deg;
@@ -973,6 +986,17 @@ body {
         width: 90px;
         margin-right: 12px;
     }
+    .user-dropdown .dropdown-row .pictogram svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    fill: var(--pictogram-color, var(--primary-color));
+    transition: fill 0.3s ease;
+}
+
+.user-dropdown .dropdown-row:hover .pictogram svg {
+    fill: var(--secondary-color);
+}
     .settings-icon {
         font-size: 26px;
         padding: 6px;

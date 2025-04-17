@@ -47,11 +47,16 @@ class FlaskApp:
         configDict = self.__configManager.getConfigValues(app)
         self.db = Database(host=configDict['dbhost'], user=configDict['dbuser'], password=configDict['dbpw'], database=configDict['dbschema'], pool_size=15)
 
+    def load_svg(self, filename):
+        with open(os.path.join(self.app.static_folder, 'images', filename), 'r') as f:
+            return f.read()
+
     @logger.catch
     def create_app(self):
         logger.info("Creating Server...")
         self.app = Flask(__name__, static_url_path='', static_folder='static')
         self.app.jinja_env.globals['hasattr'] = hasattr
+        self.app.jinja_env.globals['load_svg'] = self.load_svg  # Registriere load_svg als Jinja2-Global
         self.app.config['SECRET_KEY'] = 'my-fixed-secret-key-12345'
         self.app.config['SESSION_PERMANENT'] = True
         self.app.config['PERMANENT_SESSION_LIFETIME'] = 3600
