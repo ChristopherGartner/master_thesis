@@ -25,22 +25,53 @@
 </head>
 <body>
     <div class="header">
-        <div class="nav-links">
-            {% if request.endpoint != 'login' and request.endpoint != 'register' %}
-                {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('logout') }}">{{ languageValues['campsiteDetail_button_logout'] }}</a>
-                {% else %}
-                    <a href="{{ url_for('login') }}">{{ languageValues['index_Button_Login'] }}</a>
+        <div class="header-left">
+            {% if current_user.is_authenticated %}
+                <div class="user-container">
+                    <span class="user-icon">
+                        <img src="{{ url_for('static', filename='images/pictogram_userSymbol.svg') }}" alt="User">
+                    </span>
+                    <div class="user-dropdown">
+                        <div class="dropdown-row">
+                            <img src="{{ url_for('static', filename='images/pictogram_userSymbol.svg') }}" alt="Username Icon">
+                            <strong>{{ languageValues.get('edit_user_label_username', 'Username') }}:</strong>
+                            <span>{{ current_user.getUsername() }}</span>
+                        </div>
+                        <div class="dropdown-row">
+                            <img src="{{ url_for('static', filename='images/pictogram_email.svg') }}" alt="Email Icon">
+                            <strong>{{ languageValues.get('edit_user_label_email', 'E-Mail') }}:</strong>
+                            <span>{{ current_user.getEmail() }}</span>
+                        </div>
+                        <div class="dropdown-row">
+                            <img src="{{ url_for('static', filename='images/pictogram_firstName.svg') }}" alt="First Name Icon">
+                            <strong>{{ languageValues.get('edit_user_label_first_name', 'First Name') }}:</strong>
+                            <span>{{ current_user.getFirstName() }}</span>
+                        </div>
+                        <div class="dropdown-row">
+                            <img src="{{ url_for('static', filename='images/pictogram_lastName.svg') }}" alt="Last Name Icon">
+                            <strong>{{ languageValues.get('edit_user_label_last_name', 'Last Name') }}:</strong>
+                            <span>{{ current_user.getLastName() }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="nav-links">
+                {% if request.endpoint != 'login' and request.endpoint != 'register' %}
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('logout') }}">{{ languageValues['campsiteDetail_button_logout'] }}</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}">{{ languageValues['index_Button_Login'] }}</a>
+                        <a href="{{ url_for('register') }}">{{ languageValues['register_label_register'] }}</a>
+                    {% endif %}
+                {% elif request.endpoint == 'login' %}
                     <a href="{{ url_for('register') }}">{{ languageValues['register_label_register'] }}</a>
+                {% elif request.endpoint == 'register' %}
+                    <a href="{{ url_for('login') }}">{{ languageValues['index_Button_Login'] }}</a>
                 {% endif %}
-            {% elif request.endpoint == 'login' %}
-                <a href="{{ url_for('register') }}">{{ languageValues['register_label_register'] }}</a>
-            {% elif request.endpoint == 'register' %}
-                <a href="{{ url_for('login') }}">{{ languageValues['index_Button_Login'] }}</a>
-            {% endif %}
-            {% if request.endpoint != 'index' %}
-                <a href="{{ url_for('index') }}">{{ languageValues['campsiteDetail_button_backToIndexPage'] }}</a>
-            {% endif %}
+                {% if request.endpoint != 'index' %}
+                    <a href="{{ url_for('index') }}">{{ languageValues['campsiteDetail_button_backToIndexPage'] }}</a>
+                {% endif %}
+            </div>
         </div>
         <div class="settings-container">
             <span class="settings-icon">⚙️</span>
@@ -62,7 +93,10 @@
                     </select>
                 </div>
                 {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('edit_user') }}" class="edit-user-btn" aria-label="{{ languageValues.get('settings_edit_user', 'Benutzer bearbeiten') }}">{{ languageValues.get('settings_edit_user', 'Benutzer bearbeiten') }}</a>
+                    <a href="{{ url_for('edit_user') }}" class="edit-user-btn" aria-label="{{ languageValues.get('settings_edit_user', 'Benutzer bearbeiten') }}">
+                        <img src="{{ url_for('static', filename='images/pictogram_editUser.svg') }}" alt="Edit User">
+                        {{ languageValues.get('settings_edit_user', 'Benutzer bearbeiten') }}
+                    </a>
                 {% endif %}
             </div>
         </div>
@@ -73,20 +107,44 @@
     </div>
     <!-- JavaScript for Dropdown Toggle -->
     <script>
-        $(document).ready(function() {
-            $('.settings-icon').click(function(e) {
-                e.stopPropagation();
-                $('.settings-dropdown').slideToggle(200);
+        (function($) {
+            $(document).ready(function() {
+                // Settings dropdown
+                $('.settings-icon').on('click', function(e) {
+                    e.stopPropagation();
+                    console.log('Settings icon clicked');
+                    $('.settings-dropdown').slideToggle(200);
+                    $('.user-dropdown').slideUp(200); // Close user dropdown if open
+                });
+
+                // User dropdown
+                $('.user-icon').on('click', function(e) {
+                    e.stopPropagation();
+                    console.log('User icon clicked');
+                    $('.user-dropdown').slideToggle(200);
+                    $('.settings-dropdown').slideUp(200); // Close settings dropdown if open
+                });
+
+                // Close dropdowns when clicking outside
+                $(document).on('click', function(e) {
+                    if (!$(e.target).closest('.settings-container').length) {
+                        $('.settings-dropdown').slideUp(200);
+                    }
+                    if (!$(e.target).closest('.user-container').length) {
+                        $('.user-dropdown').slideUp(200);
+                    }
+                });
+
+                // Prevent dropdowns from closing when clicking inside
+                $('.settings-dropdown').on('click', function(e) {
+                    e.stopPropagation();
+                });
+                $('.user-dropdown').on('click', function(e) {
+                    e.stopPropagation();
+                });
             });
-            $(document).click(function(e) {
-                if (!$(e.target).closest('.settings-container').length) {
-                    $('.settings-dropdown').slideUp(200);
-                }
-            });
-            $('.settings-dropdown').click(function(e) {
-                e.stopPropagation();
-            });
-        });
+        })(jQuery);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93047180ea039acc',t:'MTc0NDY0NjcxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93047180ea039acc',t:'MTc0NDY0NjcxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'931b1d30bd91bd52',t:'MTc0NDg4NDQzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
 </html>
