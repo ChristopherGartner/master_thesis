@@ -5,14 +5,11 @@ from ...db.Database import Database
 from ...modules.ModuleRepository import ModuleRepository
 from ...modules.Module import Module
 
-# holds and provides all campsite-module-connection objects
 class CampsiteModuleRepository:
     __campsiteModules      = []
     __campsiteModuleMapper = None
 
-# Get methods
     def getCampsiteModules(self, db: Database) -> List[CampsiteModule]:
-        # If the campsite-modules aren't loaded yet, they should be loaded
         if len(self.__campsiteModules) == 0:
             self.setCampsiteModules(self.getCampsiteModuleMapper().getCampsiteModules(db))
         return self.__campsiteModules
@@ -22,9 +19,8 @@ class CampsiteModuleRepository:
             self.__campsiteModuleMapper = CampsiteModuleMapper()
         return self.__campsiteModuleMapper
 
-    def getCampsiteModulesForCampsiteId(self, campsiteId: int, db: Database, moduleRepository: ModuleRepository) -> List[Module]:
-        # If the campsite-modules aren't loaded yet, they should be loaded
-        if len(self.__campsiteModules) == 0:
+    def getCampsiteModulesForCampsiteId(self, campsiteId: int, db: Database, moduleRepository: ModuleRepository, rebuildCampsiteModules = False) -> List[Module]:
+        if len(self.__campsiteModules) == 0 or rebuildCampsiteModules:
             self.setCampsiteModules(self.getCampsiteModuleMapper().getCampsiteModules(db))
 
         modulesForCampsite = []
@@ -34,9 +30,28 @@ class CampsiteModuleRepository:
                 modulesForCampsite.append(moduleRepository.getModuleForModuleId(campsiteModule.getFkModuleId(), db))
         return modulesForCampsite
 
-# Set methods
+    def getModulesByCampsiteId(self, campsiteId: int, db: Database) -> List[Module]:
+        return self.getCampsiteModulesForCampsiteId(campsiteId, db, ModuleRepository(db), True)
+
     def setCampsiteModules(self, campsiteModules: List[CampsiteModule]) -> None:
         self.__campsiteModules = campsiteModules
 
     def setCampsiteModuleMapper(self, campsiteModuleMapper: CampsiteModuleMapper) -> None:
         self.__campsiteModuleMapper = campsiteModuleMapper
+
+    def updateCampsiteModules(self, campsite_id: int, module_ids: List[str], db: Database, campsiteRepository) -> None:
+        db.execute(
+            "DELETE FROM campsiteModules WHERE fk_campsiteId = %s",
+            (campsite_id,),
+            commit=True
+        )
+        for module_id in module_ids:
+            if module_id:
+                db.execute(
+                    "INSERT INTO campsiteModules (fk_campsiteId, fk_modulesId) VALUES (%s, %s)",
+                    (campsite_id, int(module_id)),
+                    commit=True
+                )
+        self.setCampsiteModules(self.getCampsiteModuleMapper().getCampsiteModules(db, rebuildObjects=True))
+        # Update modules of campsite
+        campsiteRepository.updateCampsiteModules(campsite_id, db, self)

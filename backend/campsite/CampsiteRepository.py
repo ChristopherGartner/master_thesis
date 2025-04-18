@@ -4,6 +4,7 @@ from .Campsite import Campsite
 from ..db.Database import Database
 from .module_campsite.CampsiteModuleRepository import CampsiteModuleRepository
 from ..modules.ModuleRepository import ModuleRepository
+from ..address.AddressRepository import AddressRepository
 
 
 # holds and provides all campsite objects
@@ -32,9 +33,40 @@ class CampsiteRepository:
 
         return campsiteDataObjects
 
+    def getCampsiteById(self, campsite_id: int, db: Database, campsiteModuleRepository: CampsiteModuleRepository,
+                        moduleRepository: ModuleRepository) -> Campsite | None:
+        campsites = self.getCampsites(db, campsiteModuleRepository, moduleRepository)
+        for campsite in campsites:
+            if str(campsite.getId()) == str(campsite_id):
+                if campsite.getAddress() is None:
+                    campsite.setAddress("", "", "", "", "")  # Fallback-Address
+                return campsite
+        return None
+
 # Set methods
     def setCampsites(self, campsites: List[Campsite]) -> None:
         self.__campsites = campsites
 
     def setCampsiteMapper(self, campSiteMapper: CampsiteMapper) -> None:
         self.__campsiteMapper = campSiteMapper
+
+# Other methods
+    def updateCampsiteObject(self, addressRepository: AddressRepository, campsiteObject: Campsite, db: Database) -> None:
+        addressId = addressRepository.saveAddressObject(campsiteObject.getAddress(), db)
+        db.execute(
+            "UPDATE campsite SET "
+            "name = %s, "
+            "description = %s, "
+            "fk_address = %s "
+            "WHERE id = %s",
+            (campsiteObject.getName(), campsiteObject.getDescription(), addressId, campsiteObject.getId()),
+            commit=True
+        )
+
+    # Updates the modules of specific campsite in the cache
+    def updateCampsiteModules(self, campsite_id: int, db: Database, campsite_module_repository: CampsiteModuleRepository) -> None:
+        for campsite in self.__campsites:
+            if str(campsite.getId()) == str(campsite_id):
+                # Reload modules
+                campsite.setModules(campsite_module_repository.getModulesByCampsiteId(campsite_id, db))
+                break

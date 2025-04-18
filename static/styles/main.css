@@ -26,14 +26,14 @@
     --settings-icon-background: rgba(255, 255, 255, 0.2);
     --settings-icon-hover: rgba(255, 255, 255, 0.4);
     --description-text-color: #546e7a;
-    --dropdown-link-color: #00695c;
+    --dropdown-link-color: #d32f2f; /* Matches screenshot text color */
     --dropdown-link-hover-color: #263238;
     --dropdown-glow-color: rgba(0, 105, 92, 0.2);
     --header-text-shadow: rgba(0, 0, 0, 0.3);
     --input-glow: rgba(38, 166, 154, 0.5);
     --button-shadow: rgba(0, 0, 0, 0.2);
     --pictogram-color: #004d40;
-    --edit-user-btn-background: #e0f2f1;
+    --edit-user-btn-background: #ffcdd2; /* Matches screenshot background */
 }
 
 * {
@@ -206,6 +206,131 @@ body {
     white-space: nowrap;
 }
 
+/* Admin Menu */
+.admin-container {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.admin-icon {
+    cursor: pointer;
+    font-size: 30px;
+    padding: 8px;
+    border-radius: 50%;
+    background: var(--settings-icon-background);
+    transition: background 0.2s ease;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-icon:hover {
+    background: var(--settings-icon-hover);
+}
+
+.admin-icon .pictogram svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--pictogram-color, var(--primary-color));
+    transition: fill 0.3s ease;
+}
+
+.admin-icon:hover .pictogram svg {
+    fill: var(--secondary-color);
+}
+
+.admin-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: linear-gradient(to bottom, var(--dropdown-background), var(--description-background));
+    border: 1px solid var(--card-border);
+    box-shadow: 0 6px 12px var(--dropdown-glow-color);
+    padding: 15px;
+    z-index: 1000;
+    min-width: 240px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 12px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dropdown-link-color) !important;
+    background: var(--edit-user-btn-background);
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px var(--card-shadow);
+    border: 1px solid red; /* Debugging: Remove after confirming changes */
+}
+
+.admin-link:hover {
+    background: var(--background-gradient-start);
+    color: var(--dropdown-link-hover-color) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--dropdown-glow-color);
+}
+
+.admin-link .pictogram {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px !important;
+    order: 2 !important; /* Ensure pictogram is after text */
+}
+
+.admin-link .pictogram svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--pictogram-color, var(--primary-color));
+    transition: fill 0.3s ease;
+}
+
+.admin-link:hover .pictogram svg {
+    fill: var(--secondary-color);
+}
+
+.admin-link .link-text {
+    flex: 1;
+    text-align: left;
+    line-height: 16px; /* Match SVG height for vertical centering */
+    order: 1 !important; /* Ensure text is before pictogram */
+}
+
+.admin-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    pointer-events: none;
+}
+
+.admin-link:active::before {
+    width: 200%;
+    height: 200%;
+}
+
 /* Settings Menu */
 .settings-container {
     position: relative;
@@ -371,9 +496,11 @@ body {
     fill: var(--pictogram-color, var(--primary-color));
     transition: fill 0.3s ease;
 }
+
 .edit-user-btn:hover .pictogram svg {
     fill: var(--secondary-color);
 }
+
 .user-dropdown .dropdown-row .pictogram svg {
     width: 16px;
     height: 16px;
@@ -381,6 +508,7 @@ body {
     fill: var(--pictogram-color, var(--primary-color));
     transition: fill 0.3s ease;
 }
+
 .user-dropdown .dropdown-row:hover .pictogram svg {
     fill: var(--secondary-color);
 }
@@ -422,13 +550,16 @@ body {
         --pictogram-hue: 165deg;
     }
     &[data-theme="neon"] .edit-user-btn,
-    &[data-theme="neon"] .user-dropdown {
+    &[data-theme="neon"] .user-dropdown,
+    &[data-theme="neon"] .admin-dropdown {
         border: 1px solid var(--primary-color);
         box-shadow: 0 4px 15px var(--input-glow);
     }
     &[data-theme="neon"] .edit-user-btn:hover,
     &[data-theme="neon"] .user-icon:hover,
-    &[data-theme="neon"] .user-dropdown .dropdown-row:hover {
+    &[data-theme="neon"] .admin-icon:hover,
+    &[data-theme="neon"] .user-dropdown .dropdown-row:hover,
+    &[data-theme="neon"] .admin-link:hover {
         box-shadow: 0 8px 20px var(--dropdown-glow-color);
     }
 
@@ -438,12 +569,16 @@ body {
     }
     &[data-theme="playful"] .edit-user-btn,
     &[data-theme="playful"] .user-icon,
-    &[data-theme="playful"] .user-dropdown .dropdown-row {
+    &[data-theme="playful"] .admin-icon,
+    &[data-theme="playful"] .user-dropdown .dropdown-row,
+    &[data-theme="playful"] .admin-link {
         transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
     &[data-theme="playful"] .edit-user-btn:hover,
     &[data-theme="playful"] .user-icon:hover,
-    &[data-theme="playful"] .user-dropdown .dropdown-row:hover {
+    &[data-theme="playful"] .admin-icon:hover,
+    &[data-theme="playful"] .user-dropdown .dropdown-row:hover,
+    &[data-theme="playful"] .admin-link:hover {
         transform: translateY(-2px) rotate(2deg);
     }
 
@@ -455,7 +590,9 @@ body {
     &[data-theme="dark"],
     &[data-theme="w11_dark"] .edit-user-btn,
     &[data-theme="dark"],
-    &[data-theme="w11_dark"] .user-dropdown {
+    &[data-theme="w11_dark"] .user-dropdown,
+    &[data-theme="dark"],
+    &[data-theme="w11_dark"] .admin-dropdown {
         color: var(--label-color);
         box-shadow: 0 4px 12px var(--button-shadow);
     }
@@ -464,7 +601,11 @@ body {
     &[data-theme="dark"],
     &[data-theme="w11_dark"] .user-icon:hover,
     &[data-theme="dark"],
-    &[data-theme="w11_dark"] .user-dropdown .dropdown-row:hover {
+    &[data-theme="w11_dark"] .admin-icon:hover,
+    &[data-theme="dark"],
+    &[data-theme="w11_dark"] .user-dropdown .dropdown-row:hover,
+    &[data-theme="dark"],
+    &[data-theme="w11_dark"] .admin-link:hover {
         color: var(--dropdown-link-hover-color);
         box-shadow: 0 6px 20px var(--dropdown-glow-color);
     }
@@ -474,7 +615,8 @@ body {
         --pictogram-hue: 215deg;
     }
     &[data-theme="w11"] .edit-user-btn,
-    &[data-theme="w11"] .user-dropdown {
+    &[data-theme="w11"] .user-dropdown,
+    &[data-theme="w11"] .admin-dropdown {
         border: 1px solid var(--card-border);
     }
 
@@ -955,48 +1097,42 @@ body {
     .header-left {
         flex-wrap: wrap;
     }
-    .user-container {
+    .user-container,
+    .admin-container {
         margin-right: 5px;
     }
-    .user-icon {
+    .user-icon,
+    .admin-icon {
         font-size: 26px;
         padding: 6px;
         width: 38px;
         height: 38px;
     }
-    .user-icon img {
+    .user-icon .pictogram svg,
+    .admin-icon .pictogram svg {
         width: 22px;
         height: 22px;
     }
-    .user-dropdown {
+    .user-dropdown,
+    .admin-dropdown {
         min-width: 260px;
         padding: 1rem;
     }
-    .user-dropdown .dropdown-row {
+    .user-dropdown .dropdown-row,
+    .admin-link {
         font-size: 0.9rem;
         padding: 4px 8px;
         margin: 0.5rem 0;
     }
-    .user-dropdown .dropdown-row img {
+    .user-dropdown .dropdown-row .pictogram svg,
+    .admin-link .pictogram svg {
         width: 14px;
         height: 14px;
-        margin-right: 6px;
     }
     .user-dropdown .dropdown-row strong {
         width: 90px;
         margin-right: 12px;
     }
-    .user-dropdown .dropdown-row .pictogram svg {
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-    fill: var(--pictogram-color, var(--primary-color));
-    transition: fill 0.3s ease;
-}
-
-.user-dropdown .dropdown-row:hover .pictogram svg {
-    fill: var(--secondary-color);
-}
     .settings-icon {
         font-size: 26px;
         padding: 6px;
@@ -1026,7 +1162,7 @@ body {
         padding: 10px 15px;
         font-size: 14px;
     }
-    .edit-user-btn img {
+    .edit-user-btn .pictogram svg {
         width: 14px;
         height: 14px;
     }

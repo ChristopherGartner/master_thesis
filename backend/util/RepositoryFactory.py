@@ -18,7 +18,7 @@ class RepositoryFactory:
         self.__campsiteRepository       = CampsiteRepository()
         self.__userRepository           = UserRepository(db)
         self.__addressRepository        = AddressRepository()
-        self.__moduleRepository         = ModuleRepository()
+        self.__moduleRepository         = ModuleRepository(db)
         self.__campsiteModuleRepository = CampsiteModuleRepository()
 
 # Get methods

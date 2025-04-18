@@ -42,13 +42,11 @@ class Campsite:
 
     def setAddress(self, street, houseNumber, city, postCode, country) -> None:
         address = Address()
-
-        address.setStreet(street)
-        address.setHouseNumber(houseNumber)
-        address.setCity(city)
-        address.setPostCode(postCode)
-        address.setCountry(country)
-
+        address.setStreet(street or "")
+        address.setHouseNumber(houseNumber or "")
+        address.setCity(city or "")
+        address.setPostCode(postCode or "")
+        address.setCountry(country or "")
         self.__address = address
 
     def setDescription(self, description) -> None:

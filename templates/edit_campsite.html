@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+{% block title %}{{ languageValues['edit_campsite_title'] }}{% endblock %}
+{% block body %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages" style="background-color: {{ theme_colors['flash-background'] }}; color: {{ theme_colors['flash-text'] }};">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="edit-user-container" style="background: {{ theme_colors['background-gradient-start'] }};">
+        <h1 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_title'] }}: {{ campsite.getName() }}</h1>
+        <form method="POST" action="{{ url_for('edit_campsite', campsite_id=campsite.getId()) }}">
+            <div class="form-columns">
+                <div class="column">
+                    <div class="form-group">
+                        <label for="name" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_name'] }}</label>
+                        <input type="text" id="name" name="name" value="{{ campsite.getName() or 'Unnamed Campsite' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                    </div>
+                    <div class="form-group">
+                        <label for="description" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_description'] }}</label>
+                        <textarea id="description" name="description" rows="4" style="border-color: {{ theme_colors['input-border'] }};">{{ campsite.getDescription() or '' }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="street" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_street'] }}</label>
+                        <input type="text" id="street" name="street" value="{{ campsite.getAddress().getStreet() if campsite.getAddress() else '' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                    </div>
+                    <div class="form-group">
+                        <label for="house_number" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_house_number'] }}</label>
+                        <input type="text" id="house_number" name="house_number" value="{{ campsite.getAddress().getHouseNumber() if campsite.getAddress() else '' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <label for="city" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_city'] }}</label>
+                        <input type="text" id="city" name="city" value="{{ campsite.getAddress().getCity() if campsite.getAddress() else '' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                    </div>
+                    <div class="form-group">
+                        <label for="zip_code" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_zip_code'] }}</label>
+                        <input type="text" id="zip_code" name="zip_code" value="{{ campsite.getAddress().getPostCode() if campsite.getAddress() else '' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                    </div>
+                    <div class="form-group">
+                        <label for="country" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_country'] }}</label>
+                        <input type="text" id="country" name="country" value="{{ campsite.getAddress().getCountry() if campsite.getAddress() else '' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Separate Module Assignment Section -->
+            <div class="module-assignment-section">
+                <h2 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_label_modules'] }}</h2>
+                <div class="module-lists">
+                    <div class="module-list-container">
+                        <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_available_modules'] }}</h3>
+                        <ul id="available-modules" class="module-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
+                            {% for module in all_modules %}
+                                {% if module.getId() not in assigned_module_ids %}
+                                    <li data-module-id="{{ module.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
+                                        <span class="module-name">{{ module.getName() }}</span>
+                                        <button type="button" class="move-right" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Add {{ module.getName() }}">→ {{ module.getName() }}</button>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="module-list-container">
+                        <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_assigned_modules'] }}</h3>
+                        <ul id="assigned-modules" class="module-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
+                            {% for module in all_modules %}
+                                {% if module.getId() in assigned_module_ids %}
+                                    <li data-module-id="{{ module.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
+                                        <span class="module-name">{{ module.getName() }}</span>
+                                        <button type="button" class="move-left" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Remove {{ module.getName() }}">← {{ module.getName() }}</button>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- Hidden input to store selected module IDs -->
+                <input type="hidden" id="modules" name="modules" value="">
+            </div>
+
+            <button type="submit" class="btn" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }}; box-shadow: {{ theme_colors['button-shadow'] }};">{{ languageValues['edit_campsite_button_save'] }}</button>
+        </form>
+    </div>
+
+    <style>
+        .module-assignment-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: {{ theme_colors['card-background'] }};
+            border-radius: 10px;
+            border: 1px solid {{ theme_colors['card-border'] }};
+        }
+
+        .module-lists {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .module-list-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-list {
+            flex: 1;
+            min-height: 200px;
+            max-height: 300px;
+            padding: 10px;
+            border: 1px solid;
+            border-radius: 5px;
+            list-style: none;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+
+        .module-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.2s;
+        }
+
+        .module-list li:hover {
+            transform: scale(1.02);
+            background: {{ theme_colors['button-hover'] }} !important;
+        }
+
+        .module-name {
+            flex: 1;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .move-right, .move-left {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .move-right:hover, .move-left:hover {
+            background: {{ theme_colors['button-hover'] }} !important;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const availableList = document.getElementById('available-modules');
+            const assignedList = document.getElementById('assigned-modules');
+            const modulesInput = document.getElementById('modules');
+
+            // Update hidden input with assigned module IDs
+            function updateModulesInput() {
+                const assignedModules = assignedList.querySelectorAll('li');
+                const moduleIds = Array.from(assignedModules).map(item => item.dataset.moduleId);
+                modulesInput.value = moduleIds.join(',');
+            }
+
+            // Move module from one list to another
+            function moveModule(item, targetList) {
+                item.style.transform = 'scale(0.8)';
+                item.style.opacity = '0.5';
+                setTimeout(() => {
+                    targetList.appendChild(item);
+                    item.style.transform = 'scale(1)';
+                    item.style.opacity = '1';
+                    updateModulesInput();
+                }, 300);
+            }
+
+            // Handle move right
+            availableList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('move-right')) {
+                    const item = e.target.parentElement;
+                    moveModule(item, assignedList);
+                    item.querySelector('button').classList.remove('move-right');
+                    item.querySelector('button').classList.add('move-left');
+                    item.querySelector('button').innerHTML = `← ${item.querySelector('.module-name').textContent}`;
+                    item.querySelector('button').title = `Remove ${item.querySelector('.module-name').textContent}`;
+                }
+            });
+
+            // Handle move left
+            assignedList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('move-left')) {
+                    const item = e.target.parentElement;
+                    moveModule(item, availableList);
+                    item.querySelector('button').classList.remove('move-left');
+                    item.querySelector('button').classList.add('move-right');
+                    item.querySelector('button').innerHTML = `→ ${item.querySelector('.module-name').textContent}`;
+                    item.querySelector('button').title = `Add ${item.querySelector('.module-name').textContent}`;
+                }
+            });
+
+            // Initialize modules input
+            updateModulesInput();
+        });
+    </script>
+{% endblock %}

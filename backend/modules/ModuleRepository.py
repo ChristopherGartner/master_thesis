@@ -3,14 +3,18 @@ from .Module import Module
 from typing import List
 from ..db.Database import Database
 
-# holds and provides all address objects
 class ModuleRepository:
-    __modules      = []
+    __modules = []
     __moduleMapper = None
+    __db = None
 
-# Get methods
-    def getModules(self, db: Database) -> List[Module]:
-        # If the modules aren't loaded yet, they should be loaded
+    def __init__(self, db: Database):
+        self.__db = db
+
+    # Get methods
+    def getModules(self, db: Database = None) -> List[Module]:
+        # Verwende die im Konstruktor übergebene db, falls keine db übergeben wurde
+        db = db or self.__db
         if len(self.__modules) == 0:
             self.setModules(self.getModuleMapper().getModuleObjects(db))
         return self.__modules
@@ -20,16 +24,16 @@ class ModuleRepository:
             self.__moduleMapper = ModuleMapper()
         return self.__moduleMapper
 
-    def getModuleForModuleId(self, moduleId: int, db: Database) -> Module|None:
-        # If the modules aren't loaded yet, they should be loaded
+    def getModuleForModuleId(self, moduleId: int, db: Database = None) -> Module | None:
+        db = db or self.__db
         if len(self.__modules) == 0:
             self.setModules(self.getModuleMapper().getModuleObjects(db))
-
         for module in self.__modules:
             if module.getId() == moduleId:
                 return module
+        return None
 
-# Set methods
+    # Set methods
     def setModules(self, modules: List[Module]) -> None:
         self.__modules = modules
 

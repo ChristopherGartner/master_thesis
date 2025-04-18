@@ -1,14 +1,14 @@
 # Index Page
-index_Button_Login = Einloggen
-index_Campsite_Description_NotFound = Keine Campingplatz-Beschreibung verfügbar
-index_Campsite_Clickable_ViewDetails = Details einsehen
-index_Campsites_NotFound = Keine Campingplätze gefunden
+index_Button_Login = Anmelden
+index_Campsite_Description_NotFound = Keine Campingplatzbeschreibung verfügbar
+index_Campsite_Clickable_ViewDetails = Details anzeigen
+index_Campsites_NotFound = Kein Campingplatz gefunden
 
 # Campsite_Detail Page
 campsiteDetail_name_Label_Details = - Details
-campsiteDetail_button_backToIndexPage = Zurück zur Campingplatz-Übersicht
-campsiteDetail_button_logout = Ausloggen
-campsiteDetail_button_login = Einloggen
+campsiteDetail_button_backToIndexPage = Zurück zur Campingplatzübersicht
+campsiteDetail_button_logout = Abmelden
+campsiteDetail_button_login = Anmelden
 campsiteDetail_label_address = Adresse
 campsiteDetail_label_description = Beschreibung
 campsiteDetail_label_description_nonExistent = Keine Beschreibung verfügbar
@@ -18,10 +18,10 @@ campsiteDetail_label_module_access = Modul öffnen
 campsiteDetail_label_module_nonAvailable = Keine Module verfügbar
 
 # Login Page
-login_label_login = Einloggen
+login_label_login = Anmelden
 login_label_username = Benutzername
 login_label_password = Passwort
-login_button_login = Einloggen
+login_button_login = Anmelden
 
 # Register Page
 register_label_register = Registrieren
@@ -79,6 +79,34 @@ edit_user_label_city_and_postcode = Stadt und Postleitzahl
 edit_user_label_street_and_housenumber = Straße und Hausnummer
 edit_user_button_save = Speichern
 
+# Edit Campsites Page
+edit_campsites_title = Campingplätze bearbeiten
+edit_campsites_label = Campingplätze bearbeiten
+edit_campsites_edit_button = Bearbeiten
+
+# Edit Campsite Page
+edit_campsite_title = Campingplatz bearbeiten
+edit_campsite_label_name = Name
+edit_campsite_label_description = Beschreibung
+edit_campsite_label_street = Straße
+edit_campsite_label_house_number = Hausnummer
+edit_campsite_label_city = Stadt
+edit_campsite_label_zip_code = Postleitzahl
+edit_campsite_label_country = Land
+edit_campsite_label_modules = Module
+edit_campsite_button_save = Speichern
+edit_campsite_available_modules = Verfügbare Module
+edit_campsite_assigned_modules = Zugewiesene Module
+
+# Edit Users Page
+edit_users_title = Benutzerliste
+edit_users_label = Benutzer bearbeiten
+edit_users_edit_button = Bearbeiten
+
+# Edit User Admin Page
+edit_user_admin_title = Benutzer bearbeiten
+edit_user_label_role = Rolle
+
 # Settings
 index_Select_Language_de_DE = Deutsch
 index_Select_Language_en_EN = Englisch
@@ -87,13 +115,14 @@ index_Select_Language_sp_SP = Spanisch
 index_Select_Language_it_IT = Italienisch
 index_Select_Language_nl_NL = Niederländisch
 settings_language_label = Sprachen
-settings_theme_label = Optische-Themes
+settings_theme_label = Designthemen
 settings_themes_default = Standard
 settings_themes_dark = Dunkel
 settings_themes_bright = Hell
 settings_themes_minimal = Minimal
 settings_themes_natural = Natürlich
 settings_themes_neon = Neon
-settings_themes_playful = Spielerisch
+settings_themes_playful = Verspielt
 settings_themes_w11 = W11
 settings_themes_w11_dark = W11-Dunkel
+settings_themes_admin = Administrator

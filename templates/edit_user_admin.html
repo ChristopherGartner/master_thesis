@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}{{ languageValues['edit_user_admin_title'] }}{% endblock %}
+{% block body %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="edit-user-container">
+        <h1>{{ languageValues['edit_user_admin_title'] }}</h1>
+        <form method="POST" action="{{ url_for('edit_user_admin', user_id=user.getId()) }}">
+            <div class="form-columns">
+                <div class="column">
+                    <div class="form-group">
+                        <label for="username">{{ languageValues['edit_user_label_username'] }}</label>
+                        <input type="text" id="username" name="username" value="{{ user.getUsername() }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">{{ languageValues['edit_user_label_email'] }}</label>
+                        <input type="email" id="email" name="email" value="{{ user.getEmail() }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">{{ languageValues['edit_user_label_password'] }}</label>
+                        <input type="password" id="password" name="password" placeholder="{{ languageValues['edit_user_label_password_placeholder'] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="role">{{ languageValues['edit_user_label_role'] }}</label>
+                        <select id="role" name="role">
+                            <option value="User" {% if user.getRole() == 'User' %}selected{% endif %}>User</option>
+                            <option value="Campsite" {% if user.getRole() == 'Campsite' %}selected{% endif %}>Campsite</option>
+                            <option value="Admin" {% if user.getRole() == 'Admin' %}selected{% endif %}>Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <label for="first_name">{{ languageValues['edit_user_label_first_name'] }}</label>
+                        <input type="text" id="first_name" name="first_name" value="{{ user.getFirstName() }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">{{ languageValues['edit_user_label_last_name'] }}</label>
+                        <input type="text" id="last_name" name="last_name" value="{{ user.getLastName() }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ languageValues['edit_user_label_birth_date'] }}</label>
+                        <div class="date-group">
+                            <select id="birth_day" name="birth_day" required>
+                                <option value="">{{ languageValues['edit_user_label_birth_date_day'] }}</option>
+                                {% for day in range(1, 32) %}
+                                    <option value="{{ day }}" {% if user.getBirthday() and user.getBirthday().day == day %}selected{% endif %}>{{ day }}</option>
+                                {% endfor %}
+                            </select>
+                            <select id="birth_month" name="birth_month" required>
+                                <option value="">{{ languageValues['edit_user_label_birth_date_month'] }}</option>
+                                <option value="1" {% if user.getBirthday() and user.getBirthday().month == 1 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_january'] }}</option>
+                                <option value="2" {% if user.getBirthday() and user.getBirthday().month == 2 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_february'] }}</option>
+                                <option value="3" {% if user.getBirthday() and user.getBirthday().month == 3 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_march'] }}</option>
+                                <option value="4" {% if user.getBirthday() and user.getBirthday().month == 4 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_april'] }}</option>
+                                <option value="5" {% if user.getBirthday() and user.getBirthday().month == 5 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_may'] }}</option>
+                                <option value="6" {% if user.getBirthday() and user.getBirthday().month == 6 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_june'] }}</option>
+                                <option value="7" {% if user.getBirthday() and user.getBirthday().month == 7 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_july'] }}</option>
+                                <option value="8" {% if user.getBirthday() and user.getBirthday().month == 8 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_august'] }}</option>
+                                <option value="9" {% if user.getBirthday() and user.getBirthday().month == 9 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_september'] }}</option>
+                                <option value="10" {% if user.getBirthday() and user.getBirthday().month == 10 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_october'] }}</option>
+                                <option value="11" {% if user.getBirthday() and user.getBirthday().month == 11 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_november'] }}</option>
+                                <option value="12" {% if user.getBirthday() and user.getBirthday().month == 12 %}selected{% endif %}>{{ languageValues['edit_user_label_birth_date_month_december'] }}</option>
+                            </select>
+                            <select id="birth_year" name="birth_year" required>
+                                <option value="">{{ languageValues['edit_user_label_birth_date_year'] }}</option>
+                                {% for year in range(1900, 2026) %}
+                                    <option value="{{ year }}" {% if user.getBirthday() and user.getBirthday().year == year %}selected{% endif %}>{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">{{ languageValues['edit_user_label_country'] }}</label>
+                        <input type="text" id="country" name="country" value="{{ user.getAddress().getCountry() }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ languageValues['edit_user_label_city_and_postcode'] }}</label>
+                        <div class="city-zip-group">
+                            <input type="text" id="city" name="city" value="{{ user.getAddress().getCity() }}" placeholder="{{ languageValues['register_label_cityAndPostcode'] }}" required>
+                            <input type="text" id="zip_code" name="zip_code" value="{{ user.getAddress().getPostCode() }}" placeholder="{{ languageValues['register_label_cityAndPostcode'] }}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ languageValues['edit_user_label_street_and_housenumber'] }}</label>
+                        <div class="street-number-group">
+                            <input type="text" id="street" name="street" value="{{ user.getAddress().getStreet() }}" placeholder="{{ languageValues['register_label_streetAndHousenumber'] }}" required>
+                            <input type="text" id="house_number" name="house_number" value="{{ user.getAddress().getHouseNumber() }}" placeholder="{{ languageValues['register_label_streetAndHousenumber'] }}" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn">{{ languageValues['edit_user_button_save'] }}</button>
+        </form>
+    </div>
+{% endblock %}

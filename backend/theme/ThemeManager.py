@@ -8,6 +8,10 @@ class ThemeManager:
 
     KEY_IS_LIGHT_THEME = "isLightTheme"
 
+    # Admin Themes
+    THEME_ADMIN = "admin"
+
+    # Normal Themes
     THEME_DEFAULT  = "default"
     THEME_DARK     = "dark"
     THEME_BRIGHT   = "bright"
@@ -19,6 +23,7 @@ class ThemeManager:
     THEME_W11_DARK = "w11_dark"
 
     __themes = [
+        THEME_ADMIN,
         THEME_DEFAULT,
         THEME_DARK,
         THEME_BRIGHT,

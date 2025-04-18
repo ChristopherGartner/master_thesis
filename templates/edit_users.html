@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}{{ languageValues['edit_users_title'] }}{% endblock %}
+{% block body %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="edit-user-container">
+        <h1>{{ languageValues['edit_users_title'] }}</h1>
+        <div class="user-list">
+            {% for user in users %}
+                <div class="user-card">
+                    <div class="user-info">
+                        <div class="dropdown-row">
+                            <strong>{{ languageValues['edit_user_label_username'] }}:</strong>
+                            <span>{{ user.getUsername() }}</span>
+                        </div>
+                        <div class="dropdown-row">
+                            <strong>{{ languageValues['edit_user_label_email'] }}:</strong>
+                            <span>{{ user.getEmail() }}</span>
+                        </div>
+                        <div class="dropdown-row">
+                            <strong>{{ languageValues['edit_user_label_first_name'] }}:</strong>
+                            <span>{{ user.getFirstName() }}</span>
+                        </div>
+                        <div class="dropdown-row">
+                            <strong>{{ languageValues['edit_user_label_last_name'] }}:</strong>
+                            <span>{{ user.getLastName() }}</span>
+                        </div>
+                        <div class="dropdown-row">
+                            <strong>{{ languageValues['edit_user_label_role'] }}:</strong>
+                            <span>{{ user.getRole() }}</span>
+                        </div>
+                    </div>
+                    <div class="user-actions">
+                        <a href="{{ url_for('edit_user_admin', user_id=user.getId()) }}" class="edit-user-btn">
+                            <span class="pictogram">
+                                {{ load_svg('pictogram_editUser.svg') | safe }}
+                            </span>
+                            {{ languageValues['edit_users_edit_button'] }}
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <style>
+        .user-list {
+            display: grid;
+            gap: 20px;
+        }
+        .user-card {
+            background: var(--card-background);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px var(--card-shadow);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .user-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px var(--card-shadow);
+        }
+        .user-info {
+            flex: 1;
+        }
+        .user-actions {
+            text-align: right;
+        }
+    </style>
+{% endblock %}

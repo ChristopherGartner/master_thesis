@@ -77,7 +77,35 @@ edit_user_label_birth_date_month_december = December
 edit_user_label_country = Land
 edit_user_label_city_and_postcode = Stad en postcode
 edit_user_label_street_and_housenumber = Straat en huisnummer
-edit_user_button_save = Redden
+edit_user_button_save = Opslaan
+
+# Edit Campsites Page
+edit_campsites_title = Campings bewerken
+edit_campsites_label = Campings bewerken
+edit_campsites_edit_button = Bewerken
+
+# Edit Campsite Page
+edit_campsite_title = Camping bewerken
+edit_campsite_label_name = Naam
+edit_campsite_label_description = Beschrijving
+edit_campsite_label_street = Straat
+edit_campsite_label_house_number = Huisnummer
+edit_campsite_label_city = Stad
+edit_campsite_label_zip_code = Postcode
+edit_campsite_label_country = Land
+edit_campsite_label_modules = Modules
+edit_campsite_button_save = Opslaan
+edit_campsite_available_modules = Beschikbare modules
+edit_campsite_assigned_modules = Toegewezen modules
+
+# Edit Users Page
+edit_users_title = Gebruikerslijst
+edit_users_label = Gebruikers bewerken
+edit_users_edit_button = Bewerken
+
+# Edit User Admin Page
+edit_user_admin_title = Gebruiker bewerken
+edit_user_label_role = Rol
 
 # Settings
 index_Select_Language_de_DE = Duits
@@ -97,3 +125,4 @@ settings_themes_neon = Neon
 settings_themes_playful = Speels
 settings_themes_w11 = W11
 settings_themes_w11_dark = W11-Donker
+settings_themes_admin = Beheerder

@@ -79,6 +79,34 @@ edit_user_label_city_and_postcode = Ciudad y código postal
 edit_user_label_street_and_housenumber = Calle y número de casa
 edit_user_button_save = Salvar
 
+# Edit Campsites Page
+edit_campsites_title = Editar campings
+edit_campsites_label = Editar campings
+edit_campsites_edit_button = Editar
+
+# Edit Campsite Page
+edit_campsite_title = Editar camping
+edit_campsite_label_name = Nombre
+edit_campsite_label_description = Descripción
+edit_campsite_label_street = Calle
+edit_campsite_label_house_number = Número de casa
+edit_campsite_label_city = Ciudad
+edit_campsite_label_zip_code = Código postal
+edit_campsite_label_country = País
+edit_campsite_label_modules = Módulos
+edit_campsite_button_save = Salvar
+edit_campsite_available_modules = Módulos disponibles
+edit_campsite_assigned_modules = Módulos asignados
+
+# Edit Users Page
+edit_users_title = Lista de usuarios
+edit_users_label = Editar usuarios
+edit_users_edit_button = Editar
+
+# Edit User Admin Page
+edit_user_admin_title = Editar usuario
+edit_user_label_role = Rol
+
 # Settings
 index_Select_Language_de_DE = Alemán
 index_Select_Language_en_EN = Inglés
@@ -97,3 +125,4 @@ settings_themes_neon = Neon
 settings_themes_playful = Juguetón
 settings_themes_w11 = W11
 settings_themes_w11_dark = W11-Oscuro
+settings_themes_admin = Administrador

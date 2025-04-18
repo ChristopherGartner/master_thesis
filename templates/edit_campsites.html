@@ -1,15 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Campsites - Natur erleben{% endblock %}
-{% block extra_head %}
-    <style>
-        .no-campsites {
-            text-align: center;
-            color: var(--description-text-color, #546e7a);
-            font-size: 1.2em;
-            margin: 2em 0;
-        }
-    </style>
-{% endblock %}
+{% block title %}{{ languageValues['edit_campsites_title'] }}{% endblock %}
 {% block body %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -20,6 +10,7 @@
             </div>
         {% endif %}
     {% endwith %}
+
     <div class="campsite-container">
         {% if allCampsites %}
             {% for campsite in allCampsites %}
@@ -28,10 +19,9 @@
                         <h2>{{ campsite.name }}</h2>
                     </div>
                     <div class="campsite-info">
-                        <p>
-                            {{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }},<br>
-                            {{ campsite.address.getCity()}}, {{ campsite.address.getPostCode() }},<br>
-                            {{ campsite.address.getCountry() }}
+                        <p>{{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }},<br>
+                           {{ campsite.address.getCity()}}, {{ campsite.address.getPostCode() }},<br>
+                           {{ campsite.address.getCountry() }}
                         </p>
                         <p class="description">
                             {% if campsite.description %}
@@ -42,12 +32,12 @@
                         </p>
                     </div>
                     <div class="campsite-actions">
-                        <a href="{{ url_for('campsite_detail', campsite_id=campsite['id']) }}">{{ languageValues['index_Campsite_Clickable_ViewDetails'] }}</a>
+                        <a href="{{ url_for('edit_campsite', campsite_id=campsite['id']) }}">{{ languageValues['edit_campsites_edit_button'] }}</a>
                     </div>
                 </div>
             {% endfor %}
         {% else %}
-            <p class="no-campsites">{{ languageValues['index_Campsites_NotFound'] }}</p>
+            <p style="text-align: center; color: var(--description-text-color);">{{ languageValues['index_Campsites_NotFound'] }}</p>
         {% endif %}
     </div>
 {% endblock %}
