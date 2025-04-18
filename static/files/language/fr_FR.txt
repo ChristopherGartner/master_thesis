@@ -97,6 +97,10 @@ edit_campsite_label_modules = Modules
 edit_campsite_button_save = Sauvegarder
 edit_campsite_available_modules = Modules disponibles
 edit_campsite_assigned_modules = Modules assignés
+edit_campsite_label_admins = Assigner des admins
+edit_campsite_available_admins = Utilisateurs disponibles
+edit_campsite_assigned_admins = Admins assignés
+edit_campsite_search_admins = Rechercher des utilisateurs...
 
 # Edit Users Page
 edit_users_title = Liste des utilisateurs
@@ -114,6 +118,7 @@ index_Select_Language_fr_FR = Français
 index_Select_Language_sp_SP = Espagnol
 index_Select_Language_it_IT = Italien
 index_Select_Language_nl_NL = Néerlandais
+index_Select_Language_pl_PL = Polonais
 settings_language_label = Langages
 settings_theme_label = Thèmes visuels
 settings_themes_default = Défaut

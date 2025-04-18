@@ -166,12 +166,21 @@ class FlaskApp:
                 for campsite in all_campsites:
                     logger.debug(f"Campsite: {campsite.get('name', 'Unknown')}")
 
+                # Get campsite IDs where the current user is an admin
+                admin_campsite_ids = []
+                if current_user.is_authenticated:
+                    campsite_admin_repository = self.__repositoryFactory.getCampsiteAdminRepository()
+                    admin_assignments = campsite_admin_repository.getAdminsByUserId(current_user.getId())
+                    admin_campsite_ids = [assignment['campsite_id'] for assignment in admin_assignments]
+                    logger.debug(f"Admin campsite IDs for user {current_user.getUsername()}: {admin_campsite_ids}")
+
                 if current_user.is_authenticated:
                     logger.debug(f"User: {current_user.getUsername()}, Role: {current_user.getRole()}")
 
                 return render_template(
                     "index.html",
                     allCampsites=all_campsites,
+                    admin_campsite_ids=admin_campsite_ids,
                     languageValues=language_values,
                     theme_colors=theme_colors
                 )
@@ -181,6 +190,7 @@ class FlaskApp:
                 return render_template(
                     "index.html",
                     allCampsites=[],
+                    admin_campsite_ids=[],
                     languageValues=language_values,
                     theme_colors=theme_colors
                 )
@@ -458,7 +468,14 @@ class FlaskApp:
                 self.__repositoryFactory.getCampsiteModuleRepository(),
                 self.__repositoryFactory.getModuleRepository()
             )
-            return render_template("edit_campsites.html", allCampsites=all_campsites, languageValues=language_values,
+            # Get campsite IDs where the current user is an admin
+            admin_campsite_ids = []
+            if current_user.is_authenticated:
+                campsite_admin_repository = self.__repositoryFactory.getCampsiteAdminRepository()
+                admin_assignments = campsite_admin_repository.getAdminsByUserId(current_user.getId())
+                admin_campsite_ids = [assignment['campsite_id'] for assignment in admin_assignments]
+                logger.debug(f"Admin campsite IDs for user {current_user.getUsername()}: {admin_campsite_ids}")
+            return render_template("edit_campsites.html", allCampsites=all_campsites, admin_campsite_ids=admin_campsite_ids, languageValues=language_values,
                                    theme_colors=theme_colors)
 
         @self.app.route("/edit_campsite/<campsite_id>", methods=['GET', 'POST'])
@@ -482,13 +499,19 @@ class FlaskApp:
 
             logger.debug(f"Loaded campsite ID={campsite_id}: name={campsite.getName()}, description={campsite.getDescription()}")
 
-            campsite_repository        = self.__repositoryFactory.getCampsiteRepository()
-            module_repository          = self.__repositoryFactory.getModuleRepository()
+            campsite_repository = self.__repositoryFactory.getCampsiteRepository()
+            module_repository = self.__repositoryFactory.getModuleRepository()
             campsite_module_repository = self.__repositoryFactory.getCampsiteModuleRepository()
+            user_repository = self.__repositoryFactory.getUserRepository()
+            campsite_admin_repository = self.__repositoryFactory.getCampsiteAdminRepository()
 
             all_modules = module_repository.getModules(self.db)
             assigned_modules = campsite_module_repository.getModulesByCampsiteId(int(campsite_id), self.db)
             assigned_module_ids = [module.getId() for module in assigned_modules]
+
+            all_users = user_repository.getUsers()
+            assigned_admins = campsite_admin_repository.getAdminsByCampsiteId(int(campsite_id))
+            assigned_admin_ids = [str(admin.getId()) for admin in assigned_admins]
 
             if request.method == 'POST':
                 try:
@@ -500,7 +523,9 @@ class FlaskApp:
                     zip_code = request.form.get('zip_code')
                     country = request.form.get('country')
                     modules_str = request.form.get('modules', '')
+                    admins_str = request.form.get('admins', '')
                     selected_module_ids = modules_str.split(',') if modules_str else []
+                    selected_admin_ids = admins_str.split(',') if admins_str else []
 
                     campsite.setName(name)
                     campsite.setDescription(description)
@@ -508,6 +533,7 @@ class FlaskApp:
                     campsite_repository.updateCampsiteObject(self.__repositoryFactory.getAddressRepository(), campsite, self.db)
 
                     campsite_module_repository.updateCampsiteModules(int(campsite_id), selected_module_ids, self.db, campsite_repository)
+                    campsite_admin_repository.updateCampsiteAdmins(int(campsite_id), selected_admin_ids)
 
                     flash('Campsite updated successfully!')
                     return redirect(url_for('edit_campsites'))
@@ -520,6 +546,8 @@ class FlaskApp:
                 campsite=campsite,
                 all_modules=all_modules,
                 assigned_module_ids=assigned_module_ids,
+                all_users=all_users,
+                assigned_admin_ids=assigned_admin_ids,
                 languageValues=language_values,
                 theme_colors=theme_colors
             )
@@ -547,7 +575,7 @@ class FlaskApp:
                 },
                 "Booking": {
                     "logo": "pictogram_bookingModule.svg",
-                    "url": f"/campsite/{campsite_id}/booking_module"
+                    "url": f"/campsite/{campsite_id}/booking_module SLOPPY CODE: UserRepository getUserReplacementRepository() not found"
                 },
                 "Settings": {
                     "logo": "pictogram_settings.svg",

@@ -33,3 +33,5 @@ pictogram-color = #b71c1c
 input-glow = rgba(239, 83, 80, 0.5)
 button-shadow = rgba(0, 0, 0, 0.3)
 edit-user-btn-background = #ffcdd2
+pictogram-hue = 180deg
+admin-border-glow = rgba(239, 83, 80, 0.7)

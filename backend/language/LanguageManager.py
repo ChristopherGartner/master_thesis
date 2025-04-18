@@ -16,6 +16,7 @@ class LanguageManager:
     LANGUAGE_SPAIN           = "sp_SP" # basic spain language
     LANGUAGE_ITALIAN         = "it_IT" # basic italian language
     LANGUAGE_DUTCH           = "nl_NL" # basic dutch language
+    LANGUAGE_POLISH          = "pl_PL" # basic polish language
 
     __languages = [
         LANGUAGE_GERMAN,
@@ -24,6 +25,7 @@ class LanguageManager:
         LANGUAGE_SPAIN,
         LANGUAGE_ITALIAN,
         LANGUAGE_DUTCH,
+        LANGUAGE_POLISH,
     ]
 
 # Get methods

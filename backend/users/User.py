@@ -51,6 +51,7 @@ class User(UserMixin):
     __firstname = None
     __lastname = None
     __birthday = None
+    __fk_campsiteAdmin = None
 
     # Get methods
     def getId(self) -> int:
@@ -79,6 +80,9 @@ class User(UserMixin):
 
     def getBirthday(self) -> str:
         return self.__birthday
+
+    def getCampsiteAdminId(self) -> int | None:
+        return self.__fk_campsiteAdmin
 
     # Set methods
     def setId(self, id) -> None:
@@ -120,6 +124,9 @@ class User(UserMixin):
     def setBirthday(self, birthday: str) -> None:
         self.__birthday = birthday
 
+    def setCampsiteAdminId(self, campsite_id: int | None) -> None:
+        self.__fk_campsiteAdmin = int(campsite_id) if campsite_id is not None else None
+
     # Override get_id() to return the ID as a string
     def get_id(self) -> str:
         return str(self.__id) if self.__id is not None else None
@@ -134,6 +141,7 @@ class User(UserMixin):
             "address": self.__address,
             "firstname": self.__firstname,
             "lastname": self.__lastname,
-            "birthday": self.__birthday
+            "birthday": self.__birthday,
+            "fk_campsiteAdmin": self.getCampsiteAdminId()
         }
         return dataObject

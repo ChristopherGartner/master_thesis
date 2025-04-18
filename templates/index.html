@@ -23,7 +23,7 @@
     <div class="campsite-container">
         {% if allCampsites %}
             {% for campsite in allCampsites %}
-                <div class="campsite-card">
+                <div class="campsite-card {% if campsite.id in admin_campsite_ids %}admin-campsite{% endif %}">
                     <div class="campsite-header">
                         <h2>{{ campsite.name }}</h2>
                     </div>

@@ -97,6 +97,10 @@ edit_campsite_label_modules = Modules
 edit_campsite_button_save = Opslaan
 edit_campsite_available_modules = Beschikbare modules
 edit_campsite_assigned_modules = Toegewezen modules
+edit_campsite_label_admins = Beheerders toewijzen
+edit_campsite_available_admins = Beschikbare gebruikers
+edit_campsite_assigned_admins = Toegewezen beheerders
+edit_campsite_search_admins = Zoek gebruikers...
 
 # Edit Users Page
 edit_users_title = Gebruikerslijst
@@ -114,6 +118,7 @@ index_Select_Language_fr_FR = Frans
 index_Select_Language_sp_SP = Spaans
 index_Select_Language_it_IT = Italiaans
 index_Select_Language_nl_NL = Nederlands
+index_Select_Language_pl_PL = Pools
 settings_language_label = Talen
 settings_theme_label = Visuele Thema's
 settings_themes_default = Standaard

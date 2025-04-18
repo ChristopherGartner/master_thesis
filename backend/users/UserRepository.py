@@ -3,7 +3,6 @@ from .User import *
 from ..db.Database import Database
 from ..address.AddressRepository import AddressRepository
 
-
 # holds and provides all user objects
 class UserRepository:
     __users = []
@@ -26,14 +25,14 @@ class UserRepository:
         return self.__userMapper
 
     def getUserById(self, id) -> User | None:
-        # Konvertiere id zu Integer, falls es ein String ist
+        # Convert id to int if not string
         try:
             id = int(id)
         except (ValueError, TypeError):
             print(f"Invalid ID format: {id}")
             return None
 
-        # Prüfe die zwischengespeicherte Liste
+        # Check list
         if len(self.__users) == 0:
             self.initializeUsers()
         for userObject in self.__users:
@@ -48,11 +47,11 @@ class UserRepository:
         print(f"User with ID {id} not found in cache, querying database")
         result = self.__db.execute(
             f"SELECT users.id, users.username, users.email, users.passwordhash, users.role, users.firstname, users.lastname, users.birthday, "
-            f"address.streetName, address.houseNumber, city.name AS cityName, city.postCode, country.name AS countryName "
+            f"address.streetName, address.houseNumber, city.name AS cityName, city.postCode, country.name AS countryName, users.fk_campsiteAdmin "
             f"FROM users "
-            f"INNER JOIN address ON users.fk_address = address.id "
-            f"INNER JOIN city ON address.fk_city = city.id "
-            f"INNER JOIN country ON city.fk_country = country.id "
+            f"LEFT JOIN address ON users.fk_address = address.id "
+            f"LEFT JOIN city ON address.fk_city = city.id "
+            f"LEFT JOIN country ON city.fk_country = country.id "
             f"WHERE users.id = %s", (id,)
         )
 
@@ -67,9 +66,10 @@ class UserRepository:
             userObject.setFirstName(userTuple[5])
             userObject.setLastName(userTuple[6])
             userObject.setBirthday(userTuple[7])
-            userObject.setAddress(userTuple[8], userTuple[9], userTuple[10], userTuple[11], userTuple[12])
+            userObject.setAddress(userTuple[8] or "", userTuple[9] or "", userTuple[10] or "", userTuple[11] or "", userTuple[12] or "")
+            userObject.setCampsiteAdminId(userTuple[13])
             print(f"Loaded user from database: {userObject.getUsername()} (ID: {id})")
-            self.__users.append(userObject)  # Cache aktualisieren
+            self.__users.append(userObject)  # Update cache
             return userObject
 
         print(f"No user found for ID: {id}")
@@ -81,14 +81,14 @@ class UserRepository:
         for userObject in self.__users:
             if userObject.getUsername() == username:
                 return userObject
-        # Fallback: Direkte Datenbankabfrage
+        # Fallback: Direct database access
         result = self.__db.execute(
             f"SELECT users.id, users.username, users.email, users.passwordhash, users.role, users.firstname, users.lastname, users.birthday, "
-            f"address.streetName, address.houseNumber, city.name AS cityName, city.postCode, country.name AS countryName "
+            f"address.streetName, address.houseNumber, city.name AS cityName, city.postCode, country.name AS countryName, users.fk_campsiteAdmin "
             f"FROM users "
-            f"INNER JOIN address ON users.fk_address = address.id "
-            f"INNER JOIN city ON address.fk_city = city.id "
-            f"INNER JOIN country ON city.fk_country = country.id "
+            f"LEFT JOIN address ON users.fk_address = address.id "
+            f"LEFT JOIN city ON address.fk_city = city.id "
+            f"LEFT JOIN country ON city.fk_country = country.id "
             f"WHERE users.username = %s", (username,)
         )
         if result:
@@ -102,17 +102,43 @@ class UserRepository:
             userObject.setFirstName(userTuple[5])
             userObject.setLastName(userTuple[6])
             userObject.setBirthday(userTuple[7])
-            userObject.setAddress(userTuple[8], userTuple[9], userTuple[10], userTuple[11], userTuple[12])
+            userObject.setAddress(userTuple[8] or "", userTuple[9] or "", userTuple[10] or "", userTuple[11] or "", userTuple[12] or "")
+            userObject.setCampsiteAdminId(userTuple[13])
             self.__users.append(userObject)  # Cache aktualisieren
             return userObject
         return None
 
-    def getUserByEmail(self, username) -> User | None:
+    def getUserByEmail(self, email) -> User | None:
         if len(self.__users) == 0:
             self.initializeUsers()
         for userObject in self.__users:
-            if userObject.getEmail() == username:
+            if userObject.getEmail() == email:
                 return userObject
+        # Fallback: Direct database access
+        result = self.__db.execute(
+            f"SELECT users.id, users.username, users.email, users.passwordhash, users.role, users.firstname, users.lastname, users.birthday, "
+            f"address.streetName, address.houseNumber, city.name AS cityName, city.postCode, country.name AS countryName, users.fk_campsiteAdmin "
+            f"FROM users "
+            f"LEFT JOIN address ON users.fk_address = address.id "
+            f"LEFT JOIN city ON address.fk_city = city.id "
+            f"LEFT JOIN country ON city.fk_country = country.id "
+            f"WHERE users.email = %s", (email,)
+        )
+        if result:
+            userTuple = result[0]
+            userObject = User()
+            userObject.setId(userTuple[0])
+            userObject.setUsername(userTuple[1])
+            userObject.setEmail(userTuple[2])
+            userObject.setPasswordHash(userTuple[3])
+            userObject.setRole(userTuple[4])
+            userObject.setFirstName(userTuple[5])
+            userObject.setLastName(userTuple[6])
+            userObject.setBirthday(userTuple[7])
+            userObject.setAddress(userTuple[8] or "", userTuple[9] or "", userTuple[10] or "", userTuple[11] or "", userTuple[12] or "")
+            userObject.setCampsiteAdminId(userTuple[13])
+            self.__users.append(userObject)  # Cache aktualisieren
+            return userObject
         return None
 
     def getDb(self) -> Database:

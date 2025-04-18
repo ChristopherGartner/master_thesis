@@ -1,54 +1,47 @@
-from ..campsite.CampsiteRepository import CampsiteRepository
-from ..users.UserRepository import UserRepository
-from ..address.AddressRepository import AddressRepository
 from ..db.Database import Database
-from ..modules.ModuleRepository import ModuleRepository
+from ..users.UserRepository import UserRepository
+from ..campsite.CampsiteRepository import CampsiteRepository
 from ..campsite.module_campsite.CampsiteModuleRepository import CampsiteModuleRepository
+from ..modules.ModuleRepository import ModuleRepository
+from ..address.AddressRepository import AddressRepository
+from ..users.CampsiteAdminRepository import CampsiteAdminRepository
 
-# used for managing all repositories of the application
 class RepositoryFactory:
-    __campsiteRepository       = None
-    __userRepository           = None
-    __addressRepository        = None
-    __moduleRepository         = None
-    __campsiteModuleRepository = None
-
-    # All repositories need to be initialized here
     def __init__(self, db: Database):
-        self.__campsiteRepository       = CampsiteRepository()
-        self.__userRepository           = UserRepository(db)
-        self.__addressRepository        = AddressRepository()
-        self.__moduleRepository         = ModuleRepository(db)
-        self.__campsiteModuleRepository = CampsiteModuleRepository()
-
-# Get methods
-    def getCampsiteRepository(self) -> CampsiteRepository:
-        return self.__campsiteRepository
+        self.__db = db
+        self.__user_repository = None
+        self.__campsite_repository = None
+        self.__campsite_module_repository = None
+        self.__module_repository = None
+        self.__address_repository = None
+        self.__campsite_admin_repository = None
 
     def getUserRepository(self) -> UserRepository:
-        return self.__userRepository
+        if self.__user_repository is None:
+            self.__user_repository = UserRepository(self.__db)
+        return self.__user_repository
 
-    def getAddressRepository(self) -> AddressRepository:
-        return self.__addressRepository
-
-    def getModuleRepository(self) -> ModuleRepository:
-        return self.__moduleRepository
+    def getCampsiteRepository(self) -> CampsiteRepository:
+        if self.__campsite_repository is None:
+            self.__campsite_repository = CampsiteRepository()
+        return self.__campsite_repository
 
     def getCampsiteModuleRepository(self) -> CampsiteModuleRepository:
-        return self.__campsiteModuleRepository
+        if self.__campsite_module_repository is None:
+            self.__campsite_module_repository = CampsiteModuleRepository()
+        return self.__campsite_module_repository
 
-# Set methods
-    def setCampsiteRepository(self, campsiteRepository: CampsiteRepository) -> None:
-        self.__campsiteRepository = campsiteRepository
+    def getModuleRepository(self) -> ModuleRepository:
+        if self.__module_repository is None:
+            self.__module_repository = ModuleRepository(self.__db)
+        return self.__module_repository
 
-    def setUserRepository(self, userRepository: UserRepository) -> None:
-        self.__userRepository = userRepository
+    def getAddressRepository(self) -> AddressRepository:
+        if self.__address_repository is None:
+            self.__address_repository = AddressRepository()
+        return self.__address_repository
 
-    def setAddressRepository(self, addressRepository: AddressRepository) -> None:
-        self.__addressRepository = addressRepository
-
-    def setModuleRepository(self, moduleRepository: ModuleRepository) -> None:
-        self.__moduleRepository = moduleRepository
-
-    def setCampsiteModuleRepository(self, campsiteModuleRepository: CampsiteModuleRepository) -> None:
-        self.__campsiteModuleRepository = campsiteModuleRepository
+    def getCampsiteAdminRepository(self) -> CampsiteAdminRepository:
+        if self.__campsite_admin_repository is None:
+            self.__campsite_admin_repository = CampsiteAdminRepository(self.__db, self.getUserRepository())
+        return self.__campsite_admin_repository

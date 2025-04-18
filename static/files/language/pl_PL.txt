@@ -1,0 +1,133 @@
+# Index Page
+index_Button_Login = Zaloguj się
+index_Campsite_Description_NotFound = Brak dostępnego opisu kempingu
+index_Campsite_Clickable_ViewDetails = Zobacz szczegóły
+index_Campsites_NotFound = Nie znaleziono kempingu
+
+# Campsite_Detail Page
+campsiteDetail_name_Label_Details = - Szczegóły
+campsiteDetail_button_backToIndexPage = Powrót do przeglądu kempingów
+campsiteDetail_button_logout = Wyloguj
+campsiteDetail_button_login = Zaloguj się
+campsiteDetail_label_address = Adres
+campsiteDetail_label_description = Opis
+campsiteDetail_label_description_nonExistent = Brak dostępnego opisu
+campsiteDetail_label_availableModules = Dostępne moduły
+campsiteDetail_label_module_logo_notAvailable = Logo modułu niedostępne
+campsiteDetail_label_module_access = Dostęp do modułu
+campsiteDetail_label_module_nonAvailable = Brak dostępnych modułów
+
+# Login Page
+login_label_login = Logowanie
+login_label_username = Nazwa użytkownika
+login_label_password = Hasło
+login_button_login = Zaloguj się
+
+# Register Page
+register_label_register = Rejestracja
+register_label_username = Nazwa użytkownika
+register_label_eMail = E-mail
+register_label_password = Hasło
+register_label_firstName = Imię
+register_label_lastName = Nazwisko
+register_label_birthDate = Data urodzenia
+register_label_birthDate_day = Dzień
+register_label_birthDate_month = Miesiąc
+register_label_birthDate_month_january = Styczeń
+register_label_birthDate_month_february = Luty
+register_label_birthDate_month_march = Marzec
+register_label_birthDate_month_april = Kwiecień
+register_label_birthDate_month_may = Maj
+register_label_birthDate_month_june = Czerwiec
+register_label_birthDate_month_july = Lipiec
+register_label_birthDate_month_august = Sierpień
+register_label_birthDate_month_september = Wrzesień
+register_label_birthDate_month_october = Październik
+register_label_birthDate_month_november = Listopad
+register_label_birthDate_month_december = Grudzień
+register_label_birthDate_year = Rok
+register_label_country = Kraj
+register_label_cityAndPostcode = Miasto i kod pocztowy
+register_label_streetAndHousenumber = Ulica i numer domu
+
+# Edit User Page
+edit_user_label_edit_user = Edytuj użytkownika
+edit_user_label_username = Nazwa użytkownika
+edit_user_label_email = E-mail
+edit_user_label_password = Hasło
+edit_user_label_password_placeholder = Nowe hasło (opcjonalne)
+edit_user_label_first_name = Imię
+edit_user_label_last_name = Nazwisko
+edit_user_label_birth_date = Data urodzenia
+edit_user_label_birth_date_day = Dzień
+edit_user_label_birth_date_month = Miesiąc
+edit_user_label_birth_date_year = Rok
+edit_user_label_birth_date_month_january = Styczeń
+edit_user_label_birth_date_month_february = Luty
+edit_user_label_birth_date_month_march = Marzec
+edit_user_label_birth_date_month_april = Kwiecień
+edit_user_label_birth_date_month_may = Maj
+edit_user_label_birth_date_month_june = Czerwiec
+edit_user_label_birth_date_month_july = Lipiec
+edit_user_label_birth_date_month_august = Sierpień
+edit_user_label_birth_date_month_september = Wrzesień
+edit_user_label_birth_date_month_october = Październik
+edit_user_label_birth_date_month_november = Listopad
+edit_user_label_birth_date_month_december = Grudzień
+edit_user_label_country = Kraj
+edit_user_label_city_and_postcode = Miasto i kod pocztowy
+edit_user_label_street_and_housenumber = Ulica i numer domu
+edit_user_button_save = Zapisz
+
+# Edit Campsites Page
+edit_campsites_title = Edytuj kempingi
+edit_campsites_label = Edytuj kempingi
+edit_campsites_edit_button = Edytuj
+
+# Edit Campsite Page
+edit_campsite_title = Edytuj kemping
+edit_campsite_label_name = Nazwa
+edit_campsite_label_description = Opis
+edit_campsite_label_street = Ulica
+edit_campsite_label_house_number = Numer domu
+edit_campsite_label_city = Miasto
+edit_campsite_label_zip_code = Kod pocztowy
+edit_campsite_label_country = Kraj
+edit_campsite_label_modules = Moduły
+edit_campsite_button_save = Zapisz
+edit_campsite_available_modules = Dostępne moduły
+edit_campsite_assigned_modules = Przypisane moduły
+edit_campsite_label_admins = Przypisz administratorów
+edit_campsite_available_admins = Dostępni użytkownicy
+edit_campsite_assigned_admins = Przypisani administratorzy
+edit_campsite_search_admins = Szukaj użytkowników...
+
+# Edit Users Page
+edit_users_title = Lista użytkowników
+edit_users_label = Edytuj użytkowników
+edit_users_edit_button = Edytuj
+
+# Edit User Admin Page
+edit_user_admin_title = Edytuj użytkownika
+edit_user_label_role = Rola
+
+# Settings
+index_Select_Language_de_DE = Niemiecki
+index_Select_Language_en_EN = Angielski
+index_Select_Language_fr_FR = Francuski
+index_Select_Language_sp_SP = Hiszpański
+index_Select_Language_it_IT = Włoski
+index_Select_Language_nl_NL = Holenderski
+index_Select_Language_pl_PL = Polski
+settings_language_label = Języki
+settings_theme_label = Motywy projektowania
+settings_themes_default = Domyślny
+settings_themes_dark = Ciemny
+settings_themes_bright = Jasny
+settings_themes_minimal = Minimalistyczny
+settings_themes_natural = Naturalny
+settings_themes_neon = Neonowy
+settings_themes_playful = Radosny
+settings_themes_w11 = W11
+settings_themes_w11_dark = W11-Ciemny
+settings_themes_admin = Administrator
