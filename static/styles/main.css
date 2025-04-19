@@ -991,6 +991,10 @@ body {
     z-index: 10;
 }
 
+.edit-user-container .btn {
+    margin-top: 40px;
+}
+
 .register-container h1,
 .edit-user-container h1 {
     margin: 0 0 40px;
@@ -1017,6 +1021,14 @@ body {
     color: var(--label-color);
     font-size: 16px;
     margin-bottom: 5px;
+}
+
+.form-group select {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.form-group select:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 8px var(--input-glow);
 }
 
 .form-group input,

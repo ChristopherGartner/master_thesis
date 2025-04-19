@@ -552,6 +552,128 @@ class FlaskApp:
                 theme_colors=theme_colors
             )
 
+        @self.app.route("/create_campsite", methods=['GET', 'POST'])
+        @login_required
+        def create_campsite():
+            if current_user.getRole() != "Admin":
+                flash('Access denied')
+                return redirect(url_for('index'))
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
+            campsite_repository = self.__repositoryFactory.getCampsiteRepository()
+            module_repository = self.__repositoryFactory.getModuleRepository()
+            campsite_module_repository = self.__repositoryFactory.getCampsiteModuleRepository()
+            user_repository = self.__repositoryFactory.getUserRepository()
+            campsite_admin_repository = self.__repositoryFactory.getCampsiteAdminRepository()
+
+            all_modules = module_repository.getModules(self.db)
+            all_users = user_repository.getUsers()
+
+            if request.method == 'POST':
+                try:
+                    name = request.form.get('name')
+                    description = request.form.get('description')
+                    street = request.form.get('street')
+                    house_number = request.form.get('house_number')
+                    city = request.form.get('city')
+                    zip_code = request.form.get('zip_code')
+                    country = request.form.get('country')
+                    modules_str = request.form.get('modules', '')
+                    admins_str = request.form.get('admins', '')
+                    selected_module_ids = modules_str.split(',') if modules_str else []
+                    selected_admin_ids = admins_str.split(',') if admins_str else []
+
+                    campsite = Campsite()
+                    campsite.setName(name)
+                    campsite.setDescription(description)
+                    campsite.setAddress(street, house_number, city, zip_code, country)
+                    campsite.setActive(True)
+
+                    address_repository = self.__repositoryFactory.getAddressRepository()
+                    address_id = address_repository.saveAddressObject(campsite.getAddress(), self.db)
+                    campsite_id = self.db.execute(
+                        "INSERT INTO campsite (name, description, fk_address, isActive) VALUES (%s, %s, %s, %s) RETURNING id",
+                        (name, description, address_id, True),
+                        commit=True
+                    )[0][0]
+                    campsite.setId(campsite_id)
+
+                    campsite_module_repository.updateCampsiteModules(campsite_id, selected_module_ids, self.db, campsite_repository)
+                    campsite_admin_repository.updateCampsiteAdmins(campsite_id, selected_admin_ids)
+
+                    flash('Campsite created successfully!')
+                    return redirect(url_for('edit_campsites'))
+                except Exception as e:
+                    flash(f'An error occurred: {str(e)}')
+                    return redirect(url_for('create_campsite'))
+
+            return render_template(
+                "create_campsite.html",
+                all_modules=all_modules,
+                assigned_module_ids=[],
+                all_users=all_users,
+                assigned_admin_ids=[],
+                languageValues=language_values,
+                theme_colors=theme_colors
+            )
+
+        @self.app.route("/create_user", methods=['GET', 'POST'])
+        @login_required
+        def create_user():
+            if current_user.getRole() != "Admin":
+                flash('Access denied')
+                return redirect(url_for('index'))
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
+            if request.method == 'POST':
+                username = request.form.get('username')
+                email = request.form.get('email')
+                password_unhashed = request.form.get('password')
+                role = request.form.get('role', 'User')
+                firstname = request.form.get('first_name')
+                lastname = request.form.get('last_name')
+                birthday_day = request.form.get('birth_day')
+                birthday_month = request.form.get('birth_month')
+                birthday_year = request.form.get('birth_year')
+                country = request.form.get('country')
+                city = request.form.get('city')
+                postcode = request.form.get('zip_code')
+                street_name = request.form.get('street')
+                house_number = request.form.get('house_number')
+                err = ""
+                err += validateUsername(username)
+                err += validate_email(email)
+                err += validate_password(password_unhashed)
+                err += validate_role(role)
+                if err != "":
+                    flash(err)
+                    return redirect(url_for('create_user'))
+                user_object = User()
+                user_object.setUsername(username)
+                user_object.setEmail(email)
+                user_object.setFirstName(firstname)
+                user_object.setLastName(lastname)
+                user_object.setBirthday(f"{birthday_year}-{birthday_month}-{birthday_day}")
+                user_object.setAddress(street_name, house_number, city, postcode, country)
+                user_object.setRole(role)
+                user_with_name = self.__repositoryFactory.getUserRepository().getUserByUsername(username)
+                user_with_email = self.__repositoryFactory.getUserRepository().getUserByEmail(email)
+                if user_with_name:
+                    flash('Username already exists.')
+                    return redirect(url_for('create_user'))
+                if user_with_email:
+                    flash('Email already registered.')
+                    return redirect(url_for('create_user'))
+                try:
+                    user_object.setPasswordHash(generateHashedPassword(password_unhashed))
+                    user_id = self.__repositoryFactory.getUserRepository().saveUserObject(self.__repositoryFactory.getAddressRepository(), user_object)
+                    flash('User created successfully!')
+                    return redirect(url_for('edit_users'))
+                except Exception as e:
+                    flash(f'An error occurred during user creation: {str(e)}')
+                    return redirect(url_for('create_user'))
+            return render_template('create_user.html', languageValues=language_values, theme_colors=theme_colors)
+
         @self.app.route("/campsite/<campsite_id>")
         def campsite_detail(campsite_id):
             logger.info(f"Requested campsite_id: {campsite_id} (type: {type(campsite_id)})")

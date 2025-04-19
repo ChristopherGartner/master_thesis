@@ -10778,3 +10778,973 @@ AttributeError: 'NoneType' object has no attribute 'overrideDBargs'
 2025-04-18 18:18:11.773 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
 2025-04-18 18:18:12.089 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
 2025-04-18 18:18:12.996 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /cdn-cgi/challenge-platform/scripts/jsd/main.js
+2025-04-18 18:40:40.052 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-18 18:40:40.053 | INFO     | __main__:create_app:56 - Creating Server...
+2025-04-18 18:40:43.009 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-18 18:40:43.009 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-18 18:40:43.009 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-18 18:41:08.630 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 18:41:08.933 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 18:41:08.934 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 18:41:09.188 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 18:41:09.196 | DEBUG    | __main__:index:153 - Theme colors loaded:  #00695c
+2025-04-18 18:41:09.904 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 18:41:09.904 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 18:41:09.904 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 18:41:09.904 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 18:41:09.904 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 18:41:09.904 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 18:41:09.904 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 18:41:09.904 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 18:41:10.144 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 18:41:10.145 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 18:41:10.285 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 18:41:10.366 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 18:41:10.728 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 18:41:10.843 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 18:41:10.993 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 18:41:14.035 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /logout
+2025-04-18 18:41:14.300 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 18:41:14.300 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 18:41:14.306 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 18:41:14.604 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 18:41:14.605 | DEBUG    | __main__:index:153 - Theme colors loaded:  #00695c
+2025-04-18 18:41:14.605 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 18:41:14.605 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 18:41:14.605 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 18:41:14.605 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 18:41:14.605 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 18:41:14.605 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 18:41:14.605 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 18:41:14.605 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 18:41:14.649 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 18:41:14.956 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 18:41:14.957 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 18:41:14.957 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 18:41:14.957 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 18:41:17.413 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 18:41:17.778 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 18:41:17.814 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 18:41:18.224 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 18:41:18.321 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 18:41:18.434 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 18:41:21.599 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 18:41:21.916 | INFO     | __main__:login:238 - Login attempt for username: admin
+2025-04-18 18:41:22.059 | INFO     | __main__:login:244 - User admin authenticated, logging in
+2025-04-18 18:41:22.060 | INFO     | __main__:login:246 - User admin logged in, session: None
+2025-04-18 18:41:22.060 | INFO     | __main__:login:247 - Current user after login: True, ID: 5
+2025-04-18 18:41:22.069 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 18:41:22.375 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 18:41:22.375 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 18:41:22.375 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 18:41:22.383 | DEBUG    | __main__:index:153 - Theme colors loaded:  #d32f2f
+2025-04-18 18:41:22.383 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 18:41:22.384 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 18:41:22.384 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 18:41:22.384 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 18:41:22.384 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 18:41:22.384 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 18:41:22.384 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 18:41:22.384 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 18:41:22.620 | DEBUG    | __main__:index:175 - Admin campsite IDs for user admin: []
+2025-04-18 18:41:22.620 | DEBUG    | __main__:index:178 - User: admin, Role: Admin
+2025-04-18 18:41:22.686 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 18:41:23.013 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 18:41:23.013 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 18:41:23.013 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 18:41:23.245 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 18:41:33.925 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /create_user
+2025-04-18 18:41:34.251 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 18:41:34.251 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 18:41:34.302 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 18:41:34.390 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 18:41:34.739 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 18:41:34.862 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 18:41:35.061 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 18:42:24.581 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 18:42:24.887 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 18:42:24.888 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 18:42:24.888 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 18:42:24.888 | DEBUG    | __main__:index:153 - Theme colors loaded:  #d32f2f
+2025-04-18 18:42:24.888 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 18:42:24.888 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 18:42:24.888 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 18:42:24.888 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 18:42:24.888 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 18:42:24.888 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 18:42:24.888 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 18:42:24.888 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 18:42:25.131 | DEBUG    | __main__:index:175 - Admin campsite IDs for user admin: []
+2025-04-18 18:42:25.131 | DEBUG    | __main__:index:178 - User: admin, Role: Admin
+2025-04-18 18:42:25.198 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 18:42:25.247 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 18:42:25.524 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 18:42:25.621 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 18:42:25.745 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 18:42:33.535 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /logout
+2025-04-18 18:42:33.856 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 18:42:33.856 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 18:42:33.861 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 18:42:34.167 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 18:42:34.168 | DEBUG    | __main__:index:153 - Theme colors loaded:  #00695c
+2025-04-18 18:42:34.168 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 18:42:34.168 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 18:42:34.168 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 18:42:34.168 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 18:42:34.168 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 18:42:34.168 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 18:42:34.168 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 18:42:34.168 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 18:42:34.206 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 18:42:34.513 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 18:42:34.514 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 18:42:34.677 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 18:42:35.104 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 18:42:38.248 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 18:42:38.621 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 18:42:38.934 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 18:42:39.022 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 18:42:39.055 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 18:42:39.477 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:29:28.830 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-18 19:29:28.832 | INFO     | __main__:create_app:56 - Creating Server...
+2025-04-18 19:29:30.537 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-18 19:29:30.537 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-18 19:29:30.537 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-18 19:29:48.821 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:29:49.081 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:29:49.096 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:29:49.395 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:29:49.396 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:29:49.409 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:29:50.136 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:29:50.299 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:29:50.411 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:29:50.612 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:29:50.627 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:29:50.706 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:30:08.561 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:30:08.673 | INFO     | __main__:login:238 - Login attempt for username: ChriGart
+2025-04-18 19:30:09.107 | INFO     | __main__:login:244 - User ChriGart authenticated, logging in
+2025-04-18 19:30:09.108 | INFO     | __main__:login:246 - User ChriGart logged in, session: None
+2025-04-18 19:30:09.108 | INFO     | __main__:login:247 - Current user after login: True, ID: 3
+2025-04-18 19:30:09.121 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:30:09.228 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:30:09.228 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:30:09.228 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:30:09.229 | DEBUG    | __main__:index:153 - Theme colors loaded:  #00695c
+2025-04-18 19:30:09.501 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:30:09.501 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:30:09.501 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:30:09.501 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:30:09.501 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:30:09.502 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:30:09.502 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:30:09.502 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:30:09.590 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:30:09.591 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:30:09.725 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:30:10.044 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:30:10.087 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:30:10.141 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:30:10.222 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:31:15.672 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_language/en_EN
+2025-04-18 19:31:15.795 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:31:15.923 | DEBUG    | __main__:index:150 - Language values loaded:  No campsite found
+2025-04-18 19:31:15.923 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:31:15.924 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:31:15.925 | DEBUG    | __main__:index:153 - Theme colors loaded:  #00695c
+2025-04-18 19:31:15.925 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:31:15.925 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:31:15.925 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:31:15.925 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:31:15.926 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:31:15.926 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:31:15.926 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:31:15.926 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:31:16.018 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:31:16.018 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:31:16.106 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:31:16.425 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:31:16.425 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:31:16.426 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:31:16.427 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:31:31.341 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_language/de_DE
+2025-04-18 19:31:31.456 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:31:31.565 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:31:31.565 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:31:31.566 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:31:31.566 | DEBUG    | __main__:index:153 - Theme colors loaded:  #00695c
+2025-04-18 19:31:31.566 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:31:31.567 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:31:31.567 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:31:31.567 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:31:31.567 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:31:31.567 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:31:31.567 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:31:31.567 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:31:31.656 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:31:31.656 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:31:31.744 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:31:32.059 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:31:32.086 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:31:32.164 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:31:32.241 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:31:51.154 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/dark
+2025-04-18 19:31:51.271 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:31:51.380 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:31:51.380 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:31:51.380 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:31:51.403 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0288d1
+2025-04-18 19:31:51.404 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:31:51.404 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:31:51.404 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:31:51.404 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:31:51.404 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:31:51.404 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:31:51.405 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:31:51.405 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:31:51.495 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:31:51.495 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:31:51.598 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:31:51.937 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:31:51.950 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:31:51.964 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:31:51.964 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:32:01.982 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/bright
+2025-04-18 19:32:02.111 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:32:02.220 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:32:02.220 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:32:02.220 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:32:02.240 | DEBUG    | __main__:index:153 - Theme colors loaded:  #00acc1
+2025-04-18 19:32:02.240 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:32:02.240 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:32:02.240 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:32:02.240 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:32:02.240 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:32:02.240 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:32:02.241 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:32:02.241 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:32:02.329 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:32:02.329 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:32:02.406 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:32:02.727 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:32:02.755 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:32:02.806 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:32:02.885 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:32:09.635 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/minimal
+2025-04-18 19:32:09.768 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:32:09.873 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:32:09.874 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:32:09.874 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:32:09.895 | DEBUG    | __main__:index:153 - Theme colors loaded:  #4a4a4a
+2025-04-18 19:32:09.895 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:32:09.895 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:32:09.895 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:32:09.896 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:32:09.896 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:32:09.896 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:32:09.896 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:32:09.896 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:32:09.988 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:32:09.988 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:32:10.083 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:32:10.400 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:32:10.401 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:32:10.401 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:32:10.402 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:32:16.544 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/natural
+2025-04-18 19:32:16.657 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:32:16.761 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:32:16.762 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:32:16.762 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:32:16.783 | DEBUG    | __main__:index:153 - Theme colors loaded:  #4a7043
+2025-04-18 19:32:16.784 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:32:16.784 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:32:16.784 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:32:16.784 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:32:16.785 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:32:16.785 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:32:16.785 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:32:16.785 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:32:16.873 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:32:16.874 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:32:16.957 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:32:17.273 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:32:17.316 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:32:17.443 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:32:17.457 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:32:24.030 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/neon
+2025-04-18 19:32:24.146 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:32:24.252 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:32:24.252 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:32:24.252 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:32:24.270 | DEBUG    | __main__:index:153 - Theme colors loaded:  #00ffcc
+2025-04-18 19:32:24.271 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:32:24.271 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:32:24.271 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:32:24.271 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:32:24.271 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:32:24.271 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:32:24.271 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:32:24.271 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:32:24.359 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:32:24.360 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:32:24.457 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:32:24.778 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:32:24.778 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:32:24.778 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:32:24.780 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:32:52.358 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/default
+2025-04-18 19:32:52.475 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:32:52.582 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:32:52.583 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:32:52.583 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:32:52.584 | DEBUG    | __main__:index:153 - Theme colors loaded:  #00695c
+2025-04-18 19:32:52.584 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:32:52.584 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:32:52.585 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:32:52.585 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:32:52.585 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:32:52.585 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:32:52.585 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:32:52.585 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:32:52.675 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:32:52.676 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:32:52.757 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:32:53.084 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:32:53.085 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:32:53.086 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:32:53.242 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:32:59.632 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/playful
+2025-04-18 19:32:59.749 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:32:59.856 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:32:59.857 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:32:59.857 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:32:59.879 | DEBUG    | __main__:index:153 - Theme colors loaded:  #ff4081
+2025-04-18 19:32:59.879 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:32:59.879 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:32:59.879 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:32:59.880 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:32:59.880 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:32:59.880 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:32:59.880 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:32:59.880 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:32:59.968 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:32:59.968 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:33:00.077 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:33:00.403 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:33:00.404 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:33:00.404 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:33:00.404 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:33:23.461 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/w11
+2025-04-18 19:33:23.575 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:33:23.679 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:33:23.680 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:33:23.680 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:33:23.699 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:33:23.699 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:33:23.699 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:33:23.700 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:33:23.700 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:33:23.700 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:33:23.700 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:33:23.700 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:33:23.700 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:33:23.788 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:33:23.788 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:33:23.867 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:33:24.180 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:33:24.208 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:33:24.210 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:33:24.368 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:33:29.942 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/w11_dark
+2025-04-18 19:33:30.060 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:33:30.167 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:33:30.168 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:33:30.168 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:33:30.187 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:33:30.187 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:33:30.187 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:33:30.187 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:33:30.188 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:33:30.188 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:33:30.188 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:33:30.188 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:33:30.188 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:33:30.278 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:33:30.278 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:33:30.363 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:33:30.677 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:33:30.678 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:33:30.678 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:33:30.678 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:33:31.325 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:33:42.042 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/1
+2025-04-18 19:33:42.160 | INFO     | __main__:campsite_detail:679 - Requested campsite_id: 1 (type: <class 'str'>)
+2025-04-18 19:33:42.161 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:33:42.161 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:33:42.162 | INFO     | __main__:campsite_detail:686 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-18 19:33:42.162 | INFO     | __main__:campsite_detail:692 - Found campsite: Berlin-Campingplatz
+2025-04-18 19:33:42.162 | INFO     | __main__:campsite_detail:714 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_bookingModule.svg
+2025-04-18 19:33:42.190 | INFO     | __main__:campsite_detail:714 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_breadModule.svg
+2025-04-18 19:33:42.349 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:33:42.628 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:33:42.660 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:33:42.660 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:33:42.674 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:33:58.990 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/1/booking_module%20SLOPPY%20CODE:%20UserRepository%20getUserReplacementRepository()%20not%20found
+2025-04-18 19:34:08.766 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/3
+2025-04-18 19:34:08.896 | INFO     | __main__:campsite_detail:679 - Requested campsite_id: 3 (type: <class 'str'>)
+2025-04-18 19:34:08.897 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:34:08.897 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:34:08.898 | INFO     | __main__:campsite_detail:686 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-18 19:34:08.898 | INFO     | __main__:campsite_detail:692 - Found campsite: London-Campsite
+2025-04-18 19:34:08.898 | INFO     | __main__:campsite_detail:714 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_bookingModule.svg
+2025-04-18 19:34:08.983 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:34:09.297 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:34:09.328 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:34:09.329 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:34:09.501 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:34:20.536 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:34:20.655 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:34:20.655 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:34:20.655 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:34:20.656 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:34:20.656 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:34:20.656 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:34:20.656 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:34:20.656 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:34:20.657 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:34:20.657 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:34:20.657 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:34:20.657 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:34:20.753 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:34:20.753 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:34:20.857 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:34:20.885 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:34:21.190 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:34:21.216 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:34:21.310 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:34:25.038 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/7
+2025-04-18 19:34:25.143 | INFO     | __main__:campsite_detail:679 - Requested campsite_id: 7 (type: <class 'str'>)
+2025-04-18 19:34:25.144 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:34:25.144 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:34:25.145 | INFO     | __main__:campsite_detail:686 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-18 19:34:25.145 | INFO     | __main__:campsite_detail:692 - Found campsite: Test 4
+2025-04-18 19:34:25.145 | INFO     | __main__:campsite_detail:714 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_breadModule.svg
+2025-04-18 19:34:25.223 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:34:25.304 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:34:25.569 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:34:25.569 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:34:25.570 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:34:28.317 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:34:28.420 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:34:28.420 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:34:28.420 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:34:28.421 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:34:28.421 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:34:28.421 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:34:28.421 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:34:28.421 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:34:28.421 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:34:28.421 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:34:28.421 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:34:28.422 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:34:28.517 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:34:28.517 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:34:28.630 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:34:28.656 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:34:28.989 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:34:28.990 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:34:29.096 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:34:31.574 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /campsite/6
+2025-04-18 19:34:31.679 | INFO     | __main__:campsite_detail:679 - Requested campsite_id: 6 (type: <class 'str'>)
+2025-04-18 19:34:31.680 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:34:31.680 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:34:31.681 | INFO     | __main__:campsite_detail:686 - All campsites: [1, 2, 3, 4, 5, 6, 7]
+2025-04-18 19:34:31.681 | INFO     | __main__:campsite_detail:692 - Found campsite: Test 3
+2025-04-18 19:34:31.681 | INFO     | __main__:campsite_detail:714 - Loading pictogram: C:\Users\chris\OneDrive\Desktop\Masterarbeit neu\project\static\images\pictogram_breadModule.svg
+2025-04-18 19:34:31.762 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:34:31.862 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:34:32.073 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:34:32.073 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:34:32.127 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:34:34.948 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:34:35.066 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:34:35.066 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:34:35.066 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:34:35.068 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:34:35.068 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:34:35.068 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:34:35.068 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:34:35.068 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:34:35.068 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:34:35.068 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:34:35.068 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:34:35.068 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:34:35.154 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:34:35.155 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:34:35.264 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:34:35.297 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:34:35.617 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:34:35.618 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:34:35.667 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:34:39.753 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /logout
+2025-04-18 19:34:39.876 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:34:39.876 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:34:39.885 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:34:40.005 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:34:40.007 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:34:40.007 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:34:40.007 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:34:40.007 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:34:40.008 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:34:40.008 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:34:40.008 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:34:40.008 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:34:40.008 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:34:40.107 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:34:40.424 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:34:40.424 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:34:40.562 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:34:40.643 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:34:42.118 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /register
+2025-04-18 19:34:42.409 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:34:42.434 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:34:42.739 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:34:42.740 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:34:42.766 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:34:48.222 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_theme/w11
+2025-04-18 19:34:48.350 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /register
+2025-04-18 19:34:48.552 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:34:48.871 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:34:48.902 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:34:48.903 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:34:48.903 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:35:01.717 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_language/fr_FR
+2025-04-18 19:35:01.833 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /register
+2025-04-18 19:35:02.043 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:35:02.354 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:35:02.381 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:35:02.470 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:35:02.534 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:35:10.153 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /set_language/de_DE
+2025-04-18 19:35:10.277 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /register
+2025-04-18 19:35:10.456 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:35:10.770 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:35:10.798 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:35:10.906 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:35:10.907 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:35:59.764 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /register
+2025-04-18 19:36:02.047 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /register
+2025-04-18 19:36:34.839 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:36:34.969 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:36:34.970 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:36:34.970 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:36:34.970 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:36:34.970 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:36:34.970 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:36:34.970 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:36:34.970 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:36:34.970 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:36:34.970 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:36:35.137 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:36:35.386 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:36:35.387 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:36:35.388 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:36:35.389 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:36:37.638 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:36:37.827 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:36:37.911 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:36:38.152 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:36:38.153 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:36:38.275 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:36:39.891 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:36:40.011 | INFO     | __main__:login:238 - Login attempt for username: ChriGart
+2025-04-18 19:36:40.321 | INFO     | __main__:login:244 - User ChriGart authenticated, logging in
+2025-04-18 19:36:40.321 | INFO     | __main__:login:246 - User ChriGart logged in, session: None
+2025-04-18 19:36:40.321 | INFO     | __main__:login:247 - Current user after login: True, ID: 3
+2025-04-18 19:36:40.332 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:36:40.461 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:36:40.461 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:36:40.461 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:36:40.462 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:36:40.462 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:36:40.462 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:36:40.462 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:36:40.462 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:36:40.463 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:36:40.463 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:36:40.463 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:36:40.463 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:36:40.552 | DEBUG    | __main__:index:175 - Admin campsite IDs for user ChriGart: [1]
+2025-04-18 19:36:40.552 | DEBUG    | __main__:index:178 - User: ChriGart, Role: User
+2025-04-18 19:36:40.669 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:36:40.995 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:36:40.996 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:36:40.996 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:36:40.996 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:36:54.258 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /logout
+2025-04-18 19:36:54.384 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 3 (type: <class 'str'>)
+2025-04-18 19:36:54.385 | INFO     | __main__:load_user:144 - Loaded user: ChriGart (ID: 3)
+2025-04-18 19:36:54.397 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:36:54.504 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:36:54.505 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:36:54.505 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:36:54.505 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:36:54.505 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:36:54.505 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:36:54.505 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:36:54.506 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:36:54.506 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:36:54.506 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:36:54.587 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:36:54.899 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:36:54.931 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:36:54.931 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:36:55.015 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:36:59.247 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:36:59.465 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:36:59.545 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:36:59.809 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:36:59.809 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:36:59.810 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:37:13.299 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:37:13.407 | INFO     | __main__:login:238 - Login attempt for username: admin
+2025-04-18 19:37:13.682 | INFO     | __main__:login:244 - User admin authenticated, logging in
+2025-04-18 19:37:13.683 | INFO     | __main__:login:246 - User admin logged in, session: None
+2025-04-18 19:37:13.683 | INFO     | __main__:login:247 - Current user after login: True, ID: 5
+2025-04-18 19:37:13.692 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:37:13.818 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:37:13.818 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:37:13.819 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:37:13.821 | DEBUG    | __main__:index:153 - Theme colors loaded:  #d32f2f
+2025-04-18 19:37:13.821 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:37:13.822 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:37:13.822 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:37:13.822 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:37:13.822 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:37:13.822 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:37:13.823 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:37:13.823 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:37:13.909 | DEBUG    | __main__:index:175 - Admin campsite IDs for user admin: []
+2025-04-18 19:37:13.910 | DEBUG    | __main__:index:178 - User: admin, Role: Admin
+2025-04-18 19:37:13.983 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:37:14.308 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:37:14.310 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:37:14.310 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:37:14.363 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:37:27.430 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /edit_users
+2025-04-18 19:37:27.548 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:37:27.548 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:37:27.670 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:37:27.699 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:37:27.989 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:37:27.989 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:37:28.055 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:37:36.091 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /edit_campsites
+2025-04-18 19:37:36.211 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:37:36.211 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:37:36.300 | DEBUG    | __main__:edit_campsites:477 - Admin campsite IDs for user admin: []
+2025-04-18 19:37:36.435 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:37:36.463 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:37:36.755 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:37:36.756 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:37:36.756 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:37:39.606 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /edit_campsite/1
+2025-04-18 19:37:39.725 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:37:39.725 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:37:39.727 | DEBUG    | __main__:edit_campsite:500 - Loaded campsite ID=1: name=Berlin-Campingplatz, description=Sehr toller deutscher Campingplatz
+2025-04-18 19:37:40.102 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:37:40.130 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:37:40.427 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:37:40.428 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:37:40.570 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:38:32.696 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:38:32.807 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:38:32.807 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:38:32.807 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:38:32.808 | DEBUG    | __main__:index:153 - Theme colors loaded:  #d32f2f
+2025-04-18 19:38:32.808 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:38:32.808 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:38:32.808 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:38:32.808 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:38:32.808 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:38:32.808 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:38:32.808 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:38:32.810 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:38:32.899 | DEBUG    | __main__:index:175 - Admin campsite IDs for user admin: []
+2025-04-18 19:38:32.899 | DEBUG    | __main__:index:178 - User: admin, Role: Admin
+2025-04-18 19:38:33.015 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:38:33.042 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:38:33.796 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:38:33.837 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:38:33.967 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:38:42.620 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /logout
+2025-04-18 19:38:42.724 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:38:42.724 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:38:42.790 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:38:42.896 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:38:42.897 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:38:42.897 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:38:42.897 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:38:42.898 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:38:42.898 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:38:42.898 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:38:42.898 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:38:42.898 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:38:42.899 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:38:42.991 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:38:43.316 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:38:43.317 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:38:43.317 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:38:43.318 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:40:13.124 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-18 19:40:13.125 | INFO     | __main__:create_app:56 - Creating Server...
+2025-04-18 19:40:15.467 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-18 19:40:15.467 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-18 19:40:15.468 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-18 19:40:18.314 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:40:18.418 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:40:18.420 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:40:18.744 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:40:18.745 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:40:18.745 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:40:18.745 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:40:18.745 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:40:18.745 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:40:18.745 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:40:18.745 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:40:18.916 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:40:18.947 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:40:19.234 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:40:19.264 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:40:19.344 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:40:23.790 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:40:23.972 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:40:24.054 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:40:24.319 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:40:24.320 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:40:24.371 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:40:26.867 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:40:26.986 | INFO     | __main__:login:238 - Login attempt for username: admin
+2025-04-18 19:40:27.369 | INFO     | __main__:login:244 - User admin authenticated, logging in
+2025-04-18 19:40:27.370 | INFO     | __main__:login:246 - User admin logged in, session: None
+2025-04-18 19:40:27.370 | INFO     | __main__:login:247 - Current user after login: True, ID: 5
+2025-04-18 19:40:27.378 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:40:27.491 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:40:27.492 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:40:27.492 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:40:27.492 | DEBUG    | __main__:index:153 - Theme colors loaded:  #d32f2f
+2025-04-18 19:40:27.492 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:40:27.492 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:40:27.492 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:40:27.492 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:40:27.494 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:40:27.494 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:40:27.494 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:40:27.494 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:40:27.580 | DEBUG    | __main__:index:175 - Admin campsite IDs for user admin: []
+2025-04-18 19:40:27.580 | DEBUG    | __main__:index:178 - User: admin, Role: Admin
+2025-04-18 19:40:27.587 | ERROR    | __main__:index:188 - Error in index route: [Errno 2] No such file or directory: 'C:\\Users\\chris\\OneDrive\\Desktop\\Masterarbeit neu\\project\\static\\image\\pictogram_userSymbol.svg'
+2025-04-18 19:41:55.126 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-18 19:41:55.128 | INFO     | __main__:create_app:56 - Creating Server...
+2025-04-18 19:41:56.725 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-18 19:41:56.725 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-18 19:41:56.726 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-18 19:42:02.708 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:42:02.812 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:42:02.813 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:42:02.902 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:42:02.904 | DEBUG    | __main__:index:153 - Theme colors loaded:  #d32f2f
+2025-04-18 19:42:03.168 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:42:03.168 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:42:03.168 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:42:03.169 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:42:03.169 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:42:03.169 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:42:03.169 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:42:03.169 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:42:03.257 | DEBUG    | __main__:index:175 - Admin campsite IDs for user admin: []
+2025-04-18 19:42:03.257 | DEBUG    | __main__:index:178 - User: admin, Role: Admin
+2025-04-18 19:42:03.410 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:42:03.426 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:42:03.716 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:42:03.716 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:42:03.717 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:42:21.685 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:42:21.793 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:42:21.793 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:42:21.793 | INFO     | __main__:login:233 - User already authenticated, redirecting to index
+2025-04-18 19:42:21.800 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:42:21.904 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:42:21.906 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:42:21.906 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:42:21.907 | DEBUG    | __main__:index:153 - Theme colors loaded:  #d32f2f
+2025-04-18 19:42:21.907 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:42:21.907 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:42:21.907 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:42:21.907 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:42:21.907 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:42:21.907 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:42:21.907 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:42:21.907 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:42:21.998 | DEBUG    | __main__:index:175 - Admin campsite IDs for user admin: []
+2025-04-18 19:42:21.998 | DEBUG    | __main__:index:178 - User: admin, Role: Admin
+2025-04-18 19:42:22.075 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:42:22.398 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:42:22.426 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:42:22.531 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:42:22.603 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:42:24.475 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /logout
+2025-04-18 19:42:24.604 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-18 19:42:24.605 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-18 19:42:24.626 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-18 19:42:24.728 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-18 19:42:24.731 | DEBUG    | __main__:index:153 - Theme colors loaded:  #0078d4
+2025-04-18 19:42:24.731 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-18 19:42:24.731 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-18 19:42:24.732 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-18 19:42:24.732 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-18 19:42:24.732 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-18 19:42:24.732 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-18 19:42:24.732 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-18 19:42:24.732 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-18 19:42:24.820 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:42:25.140 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:42:25.142 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:42:25.289 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:42:25.330 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-18 19:42:28.745 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-18 19:42:28.945 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-18 19:42:29.024 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-18 19:42:29.275 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-18 19:42:29.302 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-18 19:42:29.418 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-19 13:22:26.448 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-19 13:22:26.448 | INFO     | __main__:create_app:56 - Creating Server...
+2025-04-19 13:22:30.113 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-19 13:22:30.113 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-19 13:22:30.113 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-19 13:22:31.545 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-19 13:22:31.927 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-19 13:22:31.958 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-19 13:22:32.334 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-19 13:22:32.449 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-19 13:22:32.669 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-19 13:22:35.157 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /login
+2025-04-19 13:22:35.442 | INFO     | __main__:login:238 - Login attempt for username: admin
+2025-04-19 13:22:35.806 | INFO     | __main__:login:244 - User admin authenticated, logging in
+2025-04-19 13:22:35.806 | INFO     | __main__:login:246 - User admin logged in, session: None
+2025-04-19 13:22:35.807 | INFO     | __main__:login:247 - Current user after login: True, ID: 5
+2025-04-19 13:22:35.814 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-19 13:22:36.118 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-19 13:22:36.118 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-19 13:22:36.118 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-19 13:22:36.121 | DEBUG    | __main__:index:153 - Theme colors loaded:  #d32f2f
+2025-04-19 13:22:36.803 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-19 13:22:36.803 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-19 13:22:36.803 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-19 13:22:36.803 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-19 13:22:36.803 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-19 13:22:36.803 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-19 13:22:36.803 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-19 13:22:36.803 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-19 13:22:37.050 | DEBUG    | __main__:index:175 - Admin campsite IDs for user admin: []
+2025-04-19 13:22:37.050 | DEBUG    | __main__:index:178 - User: admin, Role: Admin
+2025-04-19 13:22:37.134 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-19 13:22:37.450 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-19 13:22:37.525 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-19 13:22:37.604 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-19 13:22:37.914 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-19 13:22:50.917 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /create_campsite
+2025-04-19 13:22:51.183 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-19 13:22:51.184 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-19 13:22:51.276 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-19 13:22:51.363 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-19 13:22:51.724 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-19 13:22:51.845 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-19 13:22:52.060 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-19 13:24:39.185 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /create_user
+2025-04-19 13:24:39.502 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-19 13:24:39.502 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-19 13:24:39.581 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-19 13:24:39.659 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-19 13:24:40.010 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-19 13:24:40.132 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-19 13:24:40.295 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-19 13:34:13.220 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-19 13:34:13.221 | INFO     | __main__:create_app:56 - Creating Server...
+2025-04-19 13:34:15.977 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-19 13:34:15.977 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-19 13:34:15.977 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-19 13:34:25.677 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-19 13:34:25.929 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-19 13:34:25.929 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-19 13:34:26.120 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-19 13:34:26.120 | DEBUG    | __main__:index:153 - Theme colors loaded:  #d32f2f
+2025-04-19 13:34:26.740 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-19 13:34:26.740 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-19 13:34:26.740 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-19 13:34:26.740 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-19 13:34:26.740 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-19 13:34:26.740 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-19 13:34:26.741 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-19 13:34:26.741 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-19 13:34:26.954 | DEBUG    | __main__:index:175 - Admin campsite IDs for user admin: []
+2025-04-19 13:34:26.954 | DEBUG    | __main__:index:178 - User: admin, Role: Admin
+2025-04-19 13:34:27.053 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-19 13:34:27.125 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-19 13:34:27.486 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-19 13:34:27.540 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-19 13:34:27.670 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-19 13:34:31.537 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /create_campsite
+2025-04-19 13:34:31.811 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-19 13:34:31.813 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-19 13:34:31.875 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-19 13:34:31.941 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-19 13:34:32.275 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-19 13:34:32.402 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-19 13:34:32.403 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-19 13:35:00.864 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /create_user
+2025-04-19 13:35:01.142 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-19 13:35:01.142 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-19 13:35:01.200 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-19 13:35:01.233 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-19 13:35:01.606 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-19 13:35:01.698 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-19 13:35:01.893 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-19 13:36:40.580 | INFO     | __main__:__init__:41 - Starting up...
+2025-04-19 13:36:40.581 | INFO     | __main__:create_app:56 - Creating Server...
+2025-04-19 13:36:43.455 | INFO     | __main__:create_app:69 - DB Connection established!
+2025-04-19 13:36:43.455 | INFO     | __main__:create_app:71 - Setting up local classes...
+2025-04-19 13:36:43.455 | INFO     | __main__:create_app:76 - Local classes set up successfully
+2025-04-19 13:36:43.722 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /create_user
+2025-04-19 13:36:44.018 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-19 13:36:44.224 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-19 13:36:44.301 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-19 13:36:44.356 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-19 13:36:44.659 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-19 13:36:44.711 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-19 13:36:44.791 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js
+2025-04-19 13:36:57.884 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /
+2025-04-19 13:36:58.198 | DEBUG    | __main__:index:150 - Language values loaded:  Kein Campingplatz gefunden
+2025-04-19 13:36:58.199 | INFO     | __main__:load_user:134 - Attempting to load user with ID: 5 (type: <class 'str'>)
+2025-04-19 13:36:58.199 | INFO     | __main__:load_user:144 - Loaded user: admin (ID: 5)
+2025-04-19 13:36:58.199 | DEBUG    | __main__:index:153 - Theme colors loaded:  #d32f2f
+2025-04-19 13:36:58.903 | DEBUG    | __main__:index:165 - Campsites retrieved: 7 campsites
+2025-04-19 13:36:58.904 | DEBUG    | __main__:index:167 - Campsite: Berlin-Campingplatz
+2025-04-19 13:36:58.904 | DEBUG    | __main__:index:167 - Campsite: Amsterdam-Campsite
+2025-04-19 13:36:58.904 | DEBUG    | __main__:index:167 - Campsite: London-Campsite
+2025-04-19 13:36:58.904 | DEBUG    | __main__:index:167 - Campsite: Änderungs-Campingplatz
+2025-04-19 13:36:58.904 | DEBUG    | __main__:index:167 - Campsite: Test 2
+2025-04-19 13:36:58.904 | DEBUG    | __main__:index:167 - Campsite: Test 3
+2025-04-19 13:36:58.904 | DEBUG    | __main__:index:167 - Campsite: Test 4
+2025-04-19 13:36:59.130 | DEBUG    | __main__:index:175 - Admin campsite IDs for user admin: []
+2025-04-19 13:36:59.130 | DEBUG    | __main__:index:178 - User: admin, Role: Admin
+2025-04-19 13:36:59.484 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /styles/main.css
+2025-04-19 13:36:59.691 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/jquery.cookie-1.4.1.min.js
+2025-04-19 13:36:59.886 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/tinycolor.js
+2025-04-19 13:37:00.184 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/build.js
+2025-04-19 13:37:00.453 | INFO     | backend.util.Toolbox:logToDatabase:44 - 127.0.0.1 /scripts/mobile.js

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}{{ languageValues.get('create_user_title', 'Create User') }}{% endblock %}
+{% block body %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages" style="background-color: {{ theme_colors['flash-background'] }}; color: {{ theme_colors['flash-text'] }};">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="edit-user-container">
+    <h1>{{ languageValues.get('create_user_title', 'Create User') }}</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages" style="background-color: {{ theme_colors['flash-background'] }}; color: {{ theme_colors['flash-text'] }};">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('create_user') }}">
+        <div class="form-columns">
+            <div class="column">
+                <div class="form-group">
+                    <label for="username">{{ languageValues['edit_user_label_username'] }}</label>
+                    <input type="text" id="username" name="username" value="" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">{{ languageValues['edit_user_label_email'] }}</label>
+                    <input type="email" id="email" name="email" value="" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">{{ languageValues['edit_user_label_password'] }}</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">{{ languageValues['edit_user_label_role'] }}</label>
+                    <select id="role" name="role">
+                        <option value="User" selected>{{ languageValues.get('edit_user_admin_role_user', 'User') }}</option>
+                        <option value="Admin">{{ languageValues.get('edit_user_admin_role_admin', 'Admin') }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="first_name">{{ languageValues['edit_user_label_first_name'] }}</label>
+                    <input type="text" id="first_name" name="first_name" value="">
+                </div>
+                <div class="form-group">
+                    <label for="last_name">{{ languageValues['edit_user_label_last_name'] }}</label>
+                    <input type="text" id="last_name" name="last_name" value="">
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <label>{{ languageValues['edit_user_label_birth_date'] }}</label>
+                    <div class="date-group">
+                        <select name="birth_day" required>
+                            <option value="">{{ languageValues['edit_user_label_birth_date_day'] }}</option>
+                            {% for day in range(1, 32) %}
+                                <option value="{{ day }}">{{ day }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="birth_month" required>
+                            <option value="">{{ languageValues['edit_user_label_birth_date_month'] }}</option>
+                            <option value="1">{{ languageValues['edit_user_label_birth_date_month_january'] }}</option>
+                            <option value="2">{{ languageValues['edit_user_label_birth_date_month_february'] }}</option>
+                            <option value="3">{{ languageValues['edit_user_label_birth_date_month_march'] }}</option>
+                            <option value="4">{{ languageValues['edit_user_label_birth_date_month_april'] }}</option>
+                            <option value="5">{{ languageValues['edit_user_label_birth_date_month_may'] }}</option>
+                            <option value="6">{{ languageValues['edit_user_label_birth_date_month_june'] }}</option>
+                            <option value="7">{{ languageValues['edit_user_label_birth_date_month_july'] }}</option>
+                            <option value="8">{{ languageValues['edit_user_label_birth_date_month_august'] }}</option>
+                            <option value="9">{{ languageValues['edit_user_label_birth_date_month_september'] }}</option>
+                            <option value="10">{{ languageValues['edit_user_label_birth_date_month_october'] }}</option>
+                            <option value="11">{{ languageValues['edit_user_label_birth_date_month_november'] }}</option>
+                            <option value="12">{{ languageValues['edit_user_label_birth_date_month_december'] }}</option>
+                        </select>
+                        <select name="birth_year" required>
+                            <option value="">{{ languageValues['edit_user_label_birth_date_year'] }}</option>
+                            {% for year in range(1900, 2026) %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{ languageValues['edit_user_label_street_and_housenumber'] }}</label>
+                    <div class="street-number-group">
+                        <input type="text" id="street" name="street" placeholder="Street" value="">
+                        <input type="text" id="house_number" name="house_number" placeholder="Nr." value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{ languageValues['edit_user_label_city_and_postcode'] }}</label>
+                    <div class="city-zip-group">
+                        <input type="text" id="city" name="city" placeholder="City" value="">
+                        <input type="text" id="zip_code" name="zip_code" placeholder="Postcode" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="country">{{ languageValues['edit_user_label_country'] }}</label>
+                    <input type="text" id="country" name="country" value="">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn">{{ languageValues.get('create_user_button_save', 'Create User') }}</button>
+    </form>
+</div>
+{% endblock %}

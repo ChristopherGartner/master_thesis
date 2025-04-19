@@ -84,6 +84,18 @@
                                     {{ load_svg('pictogram_adminSymbol.svg') | safe }}
                                 </span>
                             </a>
+                            <a href="{{ url_for('create_campsite') }}" class="admin-link">
+                                <span class="link-text">{{ languageValues.get('create_campsite_label', 'Create Campsite') }}</span>
+                                <span class="pictogram">
+                                    {{ load_svg('pictogram_adminSymbol.svg') | safe }}
+                                </span>
+                            </a>
+                            <a href="{{ url_for('create_user') }}" class="admin-link">
+                                <span class="link-text">{{ languageValues.get('create_user_label', 'Create User') }}</span>
+                                <span class="pictogram">
+                                    {{ load_svg('pictogram_adminSymbol.svg') | safe }}
+                                </span>
+                            </a>
                         </div>
                     </div>
                 {% endif %}
@@ -144,6 +156,11 @@
     <script>
         (function($) {
             $(document).ready(function() {
+                // Ensure all dropdowns are hidden on page load
+                $('.settings-dropdown').hide();
+                $('.user-dropdown').hide();
+                $('.admin-dropdown').hide();
+
                 // Debug SVG loading
                 console.log('Admin SVG loaded:', $('.admin-icon .pictogram svg').length > 0);
                 console.log('User SVG loaded:', $('.user-icon .pictogram svg').length > 0);
@@ -202,5 +219,5 @@
             });
         })(jQuery);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9324d3fb2fb332fb',t:'MTc0NDk4NjI5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
