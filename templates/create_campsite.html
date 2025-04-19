@@ -13,7 +13,7 @@
 
     <div class="edit-user-container" style="background: {{ theme_colors['background-gradient-start'] }};">
         <h1 style="color: {{ theme_colors['text-color'] }};">{{ languageValues.get('create_campsite_title', 'Create Campsite') }}</h1>
-        <form method="POST" action="{{ url_for('create_campsite') }}">
+        <form method="POST" action="{{ url_for('create_campsite') }}" enctype="multipart/form-data">
             <div class="form-columns">
                 <div class="column">
                     <div class="form-group">
@@ -23,6 +23,10 @@
                     <div class="form-group">
                         <label for="description" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_description'] }}</label>
                         <textarea id="description" name="description" rows="4" style="border-color: {{ theme_colors['input-border'] }};"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="logo" style="color: {{ theme_colors['label-color'] }};">{{ languageValues.get('edit_campsite_label_logo', 'Campsite Logo') }}</label>
+                        <input type="file" id="logo" name="logo" accept="image/*" style="border-color: {{ theme_colors['input-border'] }};">
                     </div>
                     <div class="form-group">
                         <label for="street" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_street'] }}</label>
@@ -49,7 +53,6 @@
                 </div>
             </div>
 
-            <!-- Module Assignment Section -->
             <div class="module-assignment-section">
                 <h2 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_label_modules'] }}</h2>
                 <div class="module-lists">
@@ -70,11 +73,9 @@
                         </ul>
                     </div>
                 </div>
-                <!-- Hidden input to store selected module IDs -->
                 <input type="hidden" id="modules" name="modules" value="">
             </div>
 
-            <!-- Admin Assignment Section -->
             <div class="admin-assignment-section">
                 <h2 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_label_admins'] }}</h2>
                 <div class="admin-lists">
@@ -97,7 +98,6 @@
                         </ul>
                     </div>
                 </div>
-                <!-- Hidden input to store selected admin IDs -->
                 <input type="hidden" id="admins" name="admins" value="">
             </div>
 
@@ -107,33 +107,27 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Module Assignment
             const availableModulesList = document.getElementById('available-modules');
             const assignedModulesList = document.getElementById('assigned-modules');
             const modulesInput = document.getElementById('modules');
-
-            // Admin Assignment
             const availableAdminsList = document.getElementById('available-admins');
             const assignedAdminsList = document.getElementById('assigned-admins');
             const adminsInput = document.getElementById('admins');
             const availableAdminsSearch = document.getElementById('available-admins-search');
             const assignedAdminsSearch = document.getElementById('assigned-admins-search');
 
-            // Update hidden input for modules
             function updateModulesInput() {
                 const assignedModules = assignedModulesList.querySelectorAll('li');
                 const moduleIds = Array.from(assignedModules).map(item => item.dataset.moduleId);
                 modulesInput.value = moduleIds.join(',');
             }
 
-            // Update hidden input for admins
             function updateAdminsInput() {
                 const assignedAdmins = assignedAdminsList.querySelectorAll('li');
                 const adminIds = Array.from(assignedAdmins).map(item => item.dataset.adminId);
                 adminsInput.value = adminIds.join(',');
             }
 
-            // Move item from one list to another
             function moveItem(item, targetList, isModule = true) {
                 item.style.transform = 'scale(0.8)';
                 item.style.opacity = '0.5';
@@ -149,7 +143,6 @@
                 }, 300);
             }
 
-            // Handle move right for modules
             availableModulesList.addEventListener('click', (e) => {
                 if (e.target.classList.contains('move-right')) {
                     const item = e.target.parentElement;
@@ -161,7 +154,6 @@
                 }
             });
 
-            // Handle move left for modules
             assignedModulesList.addEventListener('click', (e) => {
                 if (e.target.classList.contains('move-left')) {
                     const item = e.target.parentElement;
@@ -173,7 +165,6 @@
                 }
             });
 
-            // Handle move right for admins
             availableAdminsList.addEventListener('click', (e) => {
                 if (e.target.classList.contains('move-right')) {
                     const item = e.target.parentElement;
@@ -185,7 +176,6 @@
                 }
             });
 
-            // Handle move left for admins
             assignedAdminsList.addEventListener('click', (e) => {
                 if (e.target.classList.contains('move-left')) {
                     const item = e.target.parentElement;
@@ -197,7 +187,6 @@
                 }
             });
 
-            // Search functionality for available admins
             availableAdminsSearch.addEventListener('input', () => {
                 const searchTerm = availableAdminsSearch.value.toLowerCase();
                 const items = availableAdminsList.querySelectorAll('li');
@@ -207,7 +196,6 @@
                 });
             });
 
-            // Search functionality for assigned admins
             assignedAdminsSearch.addEventListener('input', () => {
                 const searchTerm = assignedAdminsSearch.value.toLowerCase();
                 const items = assignedAdminsList.querySelectorAll('li');
@@ -217,7 +205,6 @@
                 });
             });
 
-            // Initialize inputs
             updateModulesInput();
             updateAdminsInput();
         });

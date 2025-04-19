@@ -1,9 +1,10 @@
 import argparse
 import logging
 import os
-from flask import Flask, request, render_template, redirect, url_for, flash, make_response, session
+from flask import Flask, request, render_template, send_from_directory, redirect, url_for, flash, make_response, session
 from flask_login import current_user, login_user, LoginManager, logout_user
 from loguru import logger
+from werkzeug.utils import secure_filename
 
 from backend.campsite.Campsite import Campsite
 from backend.db.Database import Database
@@ -80,6 +81,16 @@ class FlaskApp:
         self.login_manager = LoginManager()
         self.login_manager.init_app(self.app)
         self.login_manager.login_view = 'login'
+
+        # Ensure upload folder exists
+        UPLOAD_FOLDER = os.path.join(self.app.static_folder, 'uploads', 'campsites')
+        if not os.path.exists(UPLOAD_FOLDER):
+            os.makedirs(UPLOAD_FOLDER)
+        self.app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+        ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+        def allowed_file(filename):
+            return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
         def getLanguageValues():
             lang = request.cookies.get('language', LanguageManager.LANGUAGE_ENGLISH_ENGLISH)
@@ -164,9 +175,17 @@ class FlaskApp:
                     campsite_module_repository,
                     module_repository
                 )
+                campsite_repository.getCampsiteMapper().getCampsiteObjects(
+                    self.db,
+                    campsite_module_repository,
+                    module_repository,
+                    rebuildObjects=True
+                )
                 logger.debug(f"Campsites retrieved: {len(all_campsites)} campsites")
                 for campsite in all_campsites:
-                    logger.debug(f"Campsite: {campsite.get('name', 'Unknown')}")
+                    logger.debug(f"Campsite type (index): {type(campsite)}")
+                    logger.debug(f"Campsite structure (index): {campsite}")
+                    logger.debug(f"Campsite address (index): {getattr(campsite, 'address', 'N/A')}")
 
                 # Get campsite IDs where the current user is an admin
                 admin_campsite_ids = []
@@ -307,9 +326,16 @@ class FlaskApp:
                     return redirect(url_for('register'))
             return render_template('register.html', languageValues=language_values, theme_colors=theme_colors)
 
-        def load_svg(filename):
-            with open(os.path.join(self.app.static_folder, 'images', filename), 'r') as f:
-                return f.read()
+        def load_svg(self, filename):
+            possible_paths = [
+                os.path.join(self.app.static_folder, 'uploads', 'campsites', filename),
+                os.path.join(self.app.static_folder, 'images', filename)
+            ]
+            for path in possible_paths:
+                if os.path.exists(path):
+                    with open(path, 'r') as f:
+                        return f.read()
+            return None
 
         @self.app.route("/edit_user", methods=['GET', 'POST'])
         @login_required
@@ -470,6 +496,11 @@ class FlaskApp:
                 self.__repositoryFactory.getCampsiteModuleRepository(),
                 self.__repositoryFactory.getModuleRepository()
             )
+            # Debug log to inspect campsite structure and type
+            for campsite in all_campsites:
+                logger.debug(f"Campsite type (edit_campsites): {type(campsite)}")
+                logger.debug(f"Campsite structure (edit_campsites): {campsite}")
+                logger.debug(f"Campsite address (edit_campsites): {getattr(campsite, 'address', 'N/A')}")
             # Get campsite IDs where the current user is an admin
             admin_campsite_ids = []
             if current_user.is_authenticated:
@@ -477,13 +508,13 @@ class FlaskApp:
                 admin_assignments = campsite_admin_repository.getAdminsByUserId(current_user.getId())
                 admin_campsite_ids = [assignment['campsite_id'] for assignment in admin_assignments]
                 logger.debug(f"Admin campsite IDs for user {current_user.getUsername()}: {admin_campsite_ids}")
-            return render_template("edit_campsites.html", allCampsites=all_campsites, admin_campsite_ids=admin_campsite_ids, languageValues=language_values,
+            return render_template("edit_campsites.html", allCampsites=all_campsites,
+                                   admin_campsite_ids=admin_campsite_ids, languageValues=language_values,
                                    theme_colors=theme_colors)
 
         @self.app.route("/edit_campsite/<campsite_id>", methods=['GET', 'POST'])
         @login_required
         def edit_campsite(campsite_id):
-            # Check if user is a global admin or a campsite admin
             campsite_admin_repository = self.__repositoryFactory.getCampsiteAdminRepository()
             admin_assignments = campsite_admin_repository.getAdminsByUserId(current_user.getId())
             admin_campsite_ids = [assignment['campsite_id'] for assignment in admin_assignments]
@@ -531,13 +562,26 @@ class FlaskApp:
                     zip_code = request.form.get('zip_code')
                     country = request.form.get('country')
 
+                    logo_path = campsite.getLogoPath()
+                    if 'logo' in request.files:
+                        file = request.files['logo']
+                        if file and allowed_file(file.filename):
+                            filename = secure_filename(file.filename)
+                            file_path = os.path.join(self.app.config['UPLOAD_FOLDER'],
+                                                     f"campsite_{campsite_id}_{filename}")
+                            file.save(file_path)
+                            logo_path = f"/uploads/campsites/campsite_{campsite_id}_{filename}"
+
                     campsite.setName(name)
                     campsite.setDescription(description)
                     campsite.setAddress(street, house_number, city, zip_code, country)
-                    campsite_repository.updateCampsiteObject(self.__repositoryFactory.getAddressRepository(), campsite,
-                                                             self.db)
+                    campsite_repository.updateCampsiteObject(
+                        self.__repositoryFactory.getAddressRepository(),
+                        campsite,
+                        self.db,
+                        logo_path
+                    )
 
-                    # Only update modules and admins if the user is a global admin
                     if current_user.getRole() == "Admin":
                         modules_str = request.form.get('modules', '')
                         admins_str = request.form.get('admins', '')
@@ -545,8 +589,11 @@ class FlaskApp:
                         selected_admin_ids = admins_str.split(',') if admins_str else []
                         campsite_module_repository.updateCampsiteModules(int(campsite_id), selected_module_ids, self.db,
                                                                          campsite_repository)
-                        campsite_admin_repository.updateCampsiteAdmins(int(campsite_id), selected_admin_ids)
+                        if admins_str:  # Only update admins if the admins field is provided
+                            campsite_admin_repository.updateCampsiteAdmins(int(campsite_id), selected_admin_ids)
 
+                    campsite_repository.clearCache()
+                    campsite_module_repository.clearCache()
                     flash('Campsite updated successfully!')
                     return redirect(url_for('edit_campsites'))
                 except Exception as e:
@@ -601,16 +648,39 @@ class FlaskApp:
                     campsite.setAddress(street, house_number, city, zip_code, country)
                     campsite.setActive(True)
 
+                    logo_path = None
+                    if 'logo' in request.files:
+                        file = request.files['logo']
+                        if file and allowed_file(file.filename):
+                            filename = secure_filename(file.filename)
+                            file_path = os.path.join(self.app.config['UPLOAD_FOLDER'], f"new_campsite_{filename}")
+                            file.save(file_path)
+                            logo_path = f"/uploads/campsites/new_campsite_{filename}"
+
                     address_repository = self.__repositoryFactory.getAddressRepository()
                     address_id = address_repository.saveAddressObject(campsite.getAddress(), self.db)
                     campsite_id = self.db.execute(
-                        "INSERT INTO campsite (name, description, fk_address, isActive) VALUES (%s, %s, %s, %s) RETURNING id",
-                        (name, description, address_id, True),
+                        "INSERT INTO campsite (name, description, fk_address, isActive, logo_path) VALUES (%s, %s, %s, %s, %s) RETURNING id",
+                        (name, description, address_id, True, logo_path),
                         commit=True
                     )[0][0]
                     campsite.setId(campsite_id)
 
-                    campsite_module_repository.updateCampsiteModules(campsite_id, selected_module_ids, self.db, campsite_repository)
+                    if logo_path:
+                        # Update logo path with campsite ID
+                        new_logo_path = f"/uploads/campsites/campsite_{campsite_id}_{filename}"
+                        os.rename(
+                            os.path.join(self.app.config['UPLOAD_FOLDER'], f"new_campsite_{filename}"),
+                            os.path.join(self.app.config['UPLOAD_FOLDER'], f"campsite_{campsite_id}_{filename}")
+                        )
+                        self.db.execute(
+                            "UPDATE campsite SET logo_path = %s WHERE id = %s",
+                            (new_logo_path, campsite_id),
+                            commit=True
+                        )
+
+                    campsite_module_repository.updateCampsiteModules(campsite_id, selected_module_ids, self.db,
+                                                                     campsite_repository)
                     campsite_admin_repository.updateCampsiteAdmins(campsite_id, selected_admin_ids)
 
                     flash('Campsite created successfully!')
@@ -729,17 +799,29 @@ class FlaskApp:
             enriched_modules = []
             for module in modules:
                 module_data = module.getDataObject() if module else {}
-                metadata = module_metadata.get(module_data.get("name", ""), {})
-                logo_path = os.path.join(self.app.static_folder, "images", metadata.get("logo", ""))
-                if os.path.exists(logo_path):
-                    logger.info(f"Loading pictogram: {logo_path}")
+                module_name = module_data.get("name", "")
+                metadata = module_metadata.get(module_name, {})
+                logo_filename = metadata.get("logo")
+
+                # Debugging-Log
+                logger.debug(f"Processing module: {module_name}, logo: {logo_filename}")
+
+                if logo_filename:
+                    logo_path = os.path.join(self.app.static_folder, "images", logo_filename)
+                    if os.path.exists(logo_path):
+                        logger.info(f"Loading pictogram: {logo_path}")
+                    else:
+                        logger.warning(f"Pictogram not found: {logo_path}, falling back to default")
+                        logo_filename = "default_module.svg"
+                    logo_content = self.load_svg(logo_filename)
                 else:
-                    logger.warning(f"Pictogram not found: {logo_path}, falling back to default")
-                    metadata["logo"] = "default_module.svg"
+                    logger.warning(f"No logo defined for module: {module_name}")
+                    logo_content = None
+
                 enriched_modules.append({
                     "id": module_data.get("id"),
                     "name": module_data.get("name"),
-                    "logo": load_svg(metadata.get("logo")) if metadata.get("logo") else None,
+                    "logo": logo_content,
                     "url": metadata.get("url")
                 })
             return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules,

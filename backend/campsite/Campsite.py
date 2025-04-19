@@ -2,7 +2,6 @@ from ..address.Address import Address
 from ..modules.Module import Module
 from typing import List
 
-# Data class for campsites*
 class Campsite:
     __id          = None
     __name        = None
@@ -10,6 +9,7 @@ class Campsite:
     __description = None
     __isActive    = None
     __modules     = None
+    __logo_path   = None  # New attribute for logo path
 
 # Get methods
     def getId(self) -> str:
@@ -25,10 +25,13 @@ class Campsite:
         return self.__description
 
     def isActive(self) -> bool:
-        return self.isActive()
+        return self.__isActive
 
     def getModules(self) -> List[Module]:
         return self.__modules
+
+    def getLogoPath(self) -> str:
+        return self.__logo_path or "/static/images/pictogram_campsite_logo_missing.svg"  # Default SVG if none set
 
 # Set methods
     def setId(self, id: str) -> None:
@@ -58,15 +61,17 @@ class Campsite:
     def setModules(self, modules: List[Module]) -> None:
         self.__modules = modules
 
+    def setLogoPath(self, logo_path: str) -> None:
+        self.__logo_path = logo_path
+
 # Other methods
-    # transforms this object in a data object only containing the relevant data
     def getDataObject(self) -> dict:
         dataObject = {
             "id": self.getId(),
             "name": self.getName(),
             "address": self.getAddress(),
             "description": self.getDescription(),
-            "modules": self.getModules()
+            "modules": self.getModules(),
+            "logo_path": self.getLogoPath()  # Include logo path in data object
         }
-
         return dataObject

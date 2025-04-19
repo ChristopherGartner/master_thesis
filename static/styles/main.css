@@ -35,18 +35,32 @@
     --pictogram-color: #004d40;
     --edit-user-btn-background: #ffcdd2;
     --admin-border-glow: rgba(38, 166, 154, 0.7);
+
+    /* New variables for modern campsite card design */
+    --card-hover-shadow: rgba(0, 0, 0, 0.15);
+    --card-overlay-background: rgba(0, 0, 0, 0.05);
+    --label-background: var(--card-background); /* Changed to match input field background */
+    --action-button-background: var(--secondary-color);
+    --action-button-hover: var(--button-hover);
+    --card-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Keyframe for glowing animation */
-@keyframes admin-glow {
+/* New keyframe for elegant admin card animation */
+@keyframes admin-elegant-glow {
     0% {
-        box-shadow: 0 0 10px var(--admin-border-glow), 0 0 20px var(--admin-border-glow);
+        box-shadow: 0 6px 20px var(--admin-border-glow), 0 0 10px var(--admin-border-glow);
+        transform: scale(1) rotate(0deg);
+        border-color: var(--admin-border-glow);
     }
     50% {
-        box-shadow: 0 0 20px var(--admin-border-glow), 0 0 30px var(--admin-border-glow);
+        box-shadow: 0 12px 30px var(--admin-border-glow), 0 0 20px var(--admin-border-glow);
+        transform: scale(1.02) rotate(0.5deg);
+        border-color: var(--primary-color);
     }
     100% {
-        box-shadow: 0 0 10px var(--admin-border-glow), 0 0 20px var(--admin-border-glow);
+        box-shadow: 0 6px 20px var(--admin-border-glow), 0 0 10px var(--admin-border-glow);
+        transform: scale(1) rotate(0deg);
+        border-color: var(--admin-border-glow);
     }
 }
 
@@ -54,18 +68,18 @@
 .campsite-card.admin-campsite {
     position: relative;
     border: 2px solid var(--admin-border-glow);
-    animation: admin-glow 2s ease-in-out infinite;
+    animation: admin-elegant-glow 3s ease-in-out infinite;
 }
 
 /* Enhance neon theme glow */
 :root[data-theme="neon"] .campsite-card.admin-campsite {
-    animation: admin-glow 1.5s ease-in-out infinite;
+    animation: admin-elegant-glow 2.5s ease-in-out infinite;
     box-shadow: 0 0 20px var(--admin-border-glow), 0 0 40px var(--admin-border-glow);
 }
 
 /* Playful theme: Add slight rotation */
 :root[data-theme="playful"] .campsite-card.admin-campsite {
-    animation: admin-glow 2s ease-in-out infinite, playful-wobble 4s ease-in-out infinite;
+    animation: admin-elegant-glow 3s ease-in-out infinite, playful-wobble 4s ease-in-out infinite;
 }
 @keyframes playful-wobble {
     0%, 100% {
@@ -83,7 +97,7 @@
 :root[data-theme="dark"] .campsite-card.admin-campsite,
 :root[data-theme="w11_dark"] .campsite-card.admin-campsite {
     border: 3px solid var(--admin-border-glow);
-    animation: admin-glow 2s ease-in-out infinite;
+    animation: admin-elegant-glow 3s ease-in-out infinite;
 }
 
 /* Existing styles (unchanged, included for completeness) */
@@ -255,6 +269,54 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+/* Create campsite */
+.no-campsites {
+    text-align: center;
+    color: var(--description-text-color, #546e7a);
+    font-size: 1.2em;
+    margin: 2em 0;
+}
+.create-campsite-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: var(--primary-color);
+    color: var(--header-link-color);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 30px;
+    margin: 20px 0;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+.create-campsite-btn:hover {
+    background: var(--button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--button-shadow);
+}
+.edit-action {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--secondary-color);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 30px;
+    margin-left: 10px;
+    transition: background 0.3s ease;
+}
+.edit-action:hover {
+    background: var(--button-hover);
+}
+.campsite-logo svg {
+    width: 100px;
+    height: 100px;
+    fill: var(--pictogram-color, var(--primary-color));
+    transition: fill 0.3s ease;
+}
+.campsite-logo svg:hover {
+    fill: var(--secondary-color);
 }
 
 /* Admin Menu */
@@ -716,17 +778,20 @@ body {
 }
 
 .campsite-card {
-    background: var(--card-background);
+    background: var(--card-background) !important;
     border-radius: 20px;
     box-shadow: 0 6px 20px var(--card-shadow);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid var(--card-border);
+    position: relative;
 }
 
 .campsite-card:hover {
     transform: scale(1.03);
     box-shadow: 0 10px 30px var(--card-shadow);
+    position: relative;
+    z-index: 1;
 }
 
 .campsite-header {
@@ -747,7 +812,10 @@ body {
 }
 
 .campsite-info {
+    background: var(--card-background);
     padding: 20px;
+    position: relative;
+    z-index: 0;
 }
 
 .campsite-info p {
@@ -771,8 +839,11 @@ body {
 }
 
 .campsite-actions {
+    background: var(--card-background);
     padding: 0 20px 20px;
     text-align: center;
+    position: relative;
+    z-index: 0;
 }
 
 .campsite-actions a {
@@ -863,7 +934,7 @@ body {
 
 .campsite-detail .actions {
     text-align: center;
-    margin-top: 30px;
+    margin: 30px;
 }
 
 .campsite-detail .back-btn,
@@ -1312,6 +1383,17 @@ body {
     opacity: 0.6;
 }
 
+.campsite-logo svg {
+    width: 100px;
+    height: 100px;
+    fill: var(--pictogram-color, var(--primary-color));
+    transition: fill 0.3s ease;
+}
+
+.campsite-logo svg:hover {
+    fill: var(--secondary-color);
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .header {
@@ -1422,6 +1504,424 @@ body {
     .move-right,
     .move-left {
         min-width: 100px;
+        font-size: 13px;
+    }
+}
+
+/* Edit Campsite Form */
+.form-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid var(--input-border);
+    background: var(--card-background);
+    color: var(--text-color);
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.form-input:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 8px var(--input-glow);
+    transform: scale(1.01);
+    outline: none;
+}
+
+.form-input[type="textarea"] {
+    resize: vertical;
+    min-height: 80px;
+    max-height: 150px;
+}
+
+.form-input[type="file"] {
+    padding: 8px;
+    border: none;
+    background: transparent;
+}
+
+.logo-group {
+    margin-bottom: 25px;
+}
+
+.current-logo-label {
+    color: var(--label-color);
+    font-size: 14px;
+    margin: 10px 0 5px;
+}
+
+.current-logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--card-border);
+}
+
+.logo-svg {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.logo-svg svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--pictogram-color);
+    transition: fill 0.3s ease;
+}
+
+.logo-svg svg:hover {
+    fill: var(--secondary-color);
+}
+
+.form-columns {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.left-column,
+.right-column {
+    flex: 1;
+    min-width: 0;
+}
+
+.submit-btn {
+    margin-top: 30px;
+    padding: 14px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary-color), var(--input-focus));
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, var(--input-focus), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px var(--button-shadow);
+}
+
+.module-assignment-section,
+.admin-assignment-section {
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.module-list-container h3,
+.admin-list-container h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.module-list li,
+.admin-list li {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 8px 0;
+}
+
+.move-right,
+.move-left {
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    min-width: 140px;
+}
+
+@media (max-width: 768px) {
+    .form-columns {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .left-column,
+    .right-column {
+        flex: none;
+        width: 100%;
+    }
+
+    .form-input {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .submit-btn {
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+
+    .logo-img,
+    .logo-svg {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* New animations for modern campsite cards */
+@keyframes card-lift {
+    0% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 6px 20px var(--card-shadow);
+    }
+    100% {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 12px 30px var(--card-hover-shadow);
+    }
+}
+
+@keyframes logo-pulse {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 2px 4px var(--card-shadow));
+    }
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 4px 8px var(--card-shadow));
+    }
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 2px 4px var(--card-shadow));
+    }
+}
+
+/* Modern Campsite Card Styling (Added) */
+.campsite-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 30px;
+}
+
+.campsite-card {
+    background: var(--card-background);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    overflow: hidden;
+    transition: var(--card-transition);
+    border: 1px solid var(--card-border);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    animation: fade-in 0.5s ease-out;
+}
+
+.campsite-card:hover {
+    animation: card-lift 0.3s forwards;
+}
+
+.campsite-card-logo {
+    position: relative;
+    height: 200px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.campsite-card-logo img,
+.campsite-card-logo svg {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    transition: var(--card-transition);
+    filter: drop-shadow(0 2px 4px var(--card-shadow));
+}
+
+.campsite-card-logo svg {
+    fill: var(--header-link-color);
+}
+
+.campsite-card:hover .campsite-card-logo img,
+.campsite-card:hover .campsite-card-logo svg {
+    animation: logo-pulse 1.5s infinite;
+}
+
+.campsite-card-logo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--card-overlay-background);
+    opacity: 0;
+    transition: var(--card-transition);
+}
+
+.campsite-card:hover .campsite-card-logo::after {
+    opacity: 1;
+}
+
+.campsite-card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.campsite-card-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.2;
+    text-shadow: 0 1px 2px var(--header-text-shadow);
+}
+
+.campsite-card-description {
+    background: var(--description-background);
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--description-text-color);
+    line-height: 1.6;
+    font-style: normal;
+    box-shadow: inset 0 2px 4px var(--card-shadow);
+    transition: var(--card-transition);
+}
+
+.campsite-card:hover .campsite-card-description {
+    background: var(--info-background);
+}
+
+.campsite-card-address {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campsite-card-address-item {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.campsite-card-address-item span.label {
+    background: var(--label-background);
+    color: var(--label-color);
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: var(--card-transition);
+}
+
+.campsite-card:hover .campsite-card-address-item span.label {
+    background: var(--primary-color);
+    color: var(--header-link-color);
+}
+
+.campsite-card-actions {
+    margin-top: auto;
+    padding: 15px 20px;
+    text-align: center;
+    background: var(--card-background);
+}
+
+.campsite-card-actions a {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--action-button-background);
+    color: var(--header-link-color);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 30px;
+    transition: var(--card-transition);
+    box-shadow: 0 2px 5px var(--button-shadow);
+}
+
+.campsite-card-actions a:hover {
+    background: var(--action-button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--button-shadow);
+}
+
+.campsite-card-actions a.edit-action {
+    background: var(--primary-color);
+}
+
+.campsite-card-actions a.edit-action:hover {
+    background: var(--input-focus);
+}
+
+/* Theme-specific adjustments for modern campsite cards */
+:root[data-theme="neon"] .campsite-card {
+    box-shadow: 0 6px 20px var(--dropdown-glow-color);
+}
+
+:root[data-theme="neon"] .campsite-card:hover {
+    box-shadow: 0 12px 30px var(--dropdown-glow-color);
+}
+
+:root[data-theme="playful"] .campsite-card:hover {
+    transform: translateY(-10px) rotate(1deg) scale(1.02);
+}
+
+:root[data-theme="dark"],
+:root[data-theme="w11_dark"] .campsite-card {
+    --card-background: #2e2e2e;
+    --text-color: #e0e0e0;
+    --description-background: #424242;
+    --info-background: #616161;
+    --label-background: var(--card-background);
+}
+
+:root[data-theme="natural"] .campsite-card-logo {
+    background: linear-gradient(135deg, #2e7d32, #689f38);
+}
+
+:root[data-theme="admin"] .campsite-card {
+    --action-button-background: var(--primary-color);
+    --action-button-hover: var(--input-focus);
+}
+
+/* Responsive adjustments for modern campsite cards */
+@media (max-width: 768px) {
+    .campsite-container {
+        grid-template-columns: 1fr;
+    }
+
+    .campsite-card-logo {
+        height: 180px;
+    }
+
+    .campsite-card-logo img,
+    .campsite-card-logo svg {
+        width: 100px;
+        height: 100px;
+    }
+
+    .campsite-card-title {
+        font-size: 24px;
+    }
+
+    .campsite-card-description {
+        font-size: 15px;
+    }
+
+    .campsite-card-address-item {
+        font-size: 15px;
+    }
+
+    .campsite-card-address-item span.label {
         font-size: 13px;
     }
 }

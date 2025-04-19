@@ -13,38 +13,52 @@
 
     <div class="edit-user-container" style="background: {{ theme_colors['background-gradient-start'] }};">
         <h1 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_title'] }}: {{ campsite.getName() }}</h1>
-        <form method="POST" action="{{ url_for('edit_campsite', campsite_id=campsite.getId()) }}">
+        <form method="POST" action="{{ url_for('edit_campsite', campsite_id=campsite.getId()) }}" enctype="multipart/form-data">
             <div class="form-columns">
-                <div class="column">
+                <div class="column left-column">
                     <div class="form-group">
                         <label for="name" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_name'] }}</label>
-                        <input type="text" id="name" name="name" value="{{ campsite.getName() or 'Unnamed Campsite' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                        <input type="text" id="name" name="name" value="{{ campsite.getName() or 'Unnamed Campsite' }}" required class="form-input">
                     </div>
                     <div class="form-group">
                         <label for="description" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_description'] }}</label>
-                        <textarea id="description" name="description" rows="4" style="border-color: {{ theme_colors['input-border'] }};">{{ campsite.getDescription() or '' }}</textarea>
+                        <textarea id="description" name="description" rows="4" class="form-input">{{ campsite.getDescription() or '' }}</textarea>
+                    </div>
+                    <div class="form-group logo-group">
+                        <label for="logo" style="color: {{ theme_colors['label-color'] }};">{{ languageValues.get('edit_campsite_label_logo', 'Campsite Logo') }}</label>
+                        <input type="file" id="logo" name="logo" accept="image/*" class="form-input">
+                        {% if campsite.getLogoPath() %}
+                            <p class="current-logo-label">Current Logo:</p>
+                            <div class="current-logo">
+                                {% if campsite.getLogoPath().endswith('.svg') %}
+                                    <div class="logo-svg">{{ load_svg(campsite.getLogoPath().split('/')[-1]) | safe }}</div>
+                                {% else %}
+                                    <img src="{{ campsite.getLogoPath() }}" alt="Campsite Logo" class="logo-img">
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="form-group">
                         <label for="street" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_street'] }}</label>
-                        <input type="text" id="street" name="street" value="{{ campsite.getAddress().getStreet() if campsite.getAddress() else '' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                        <input type="text" id="street" name="street" value="{{ campsite.getAddress().getStreet() if campsite.getAddress() else '' }}" required class="form-input">
                     </div>
                     <div class="form-group">
                         <label for="house_number" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_house_number'] }}</label>
-                        <input type="text" id="house_number" name="house_number" value="{{ campsite.getAddress().getHouseNumber() if campsite.getAddress() else '' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                        <input type="text" id="house_number" name="house_number" value="{{ campsite.getAddress().getHouseNumber() if campsite.getAddress() else '' }}" required class="form-input">
                     </div>
                 </div>
-                <div class="column">
+                <div class="column right-column">
                     <div class="form-group">
                         <label for="city" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_city'] }}</label>
-                        <input type="text" id="city" name="city" value="{{ campsite.getAddress().getCity() if campsite.getAddress() else '' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                        <input type="text" id="city" name="city" value="{{ campsite.getAddress().getCity() if campsite.getAddress() else '' }}" required class="form-input">
                     </div>
                     <div class="form-group">
                         <label for="zip_code" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_zip_code'] }}</label>
-                        <input type="text" id="zip_code" name="zip_code" value="{{ campsite.getAddress().getPostCode() if campsite.getAddress() else '' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                        <input type="text" id="zip_code" name="zip_code" value="{{ campsite.getAddress().getPostCode() if campsite.getAddress() else '' }}" required class="form-input">
                     </div>
                     <div class="form-group">
                         <label for="country" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_country'] }}</label>
-                        <input type="text" id="country" name="country" value="{{ campsite.getAddress().getCountry() if campsite.getAddress() else '' }}" required style="border-color: {{ theme_colors['input-border'] }};">
+                        <input type="text" id="country" name="country" value="{{ campsite.getAddress().getCountry() if campsite.getAddress() else '' }}" required class="form-input">
                     </div>
                 </div>
             </div>
@@ -81,7 +95,6 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- Hidden input to store selected module IDs -->
                     <input type="hidden" id="modules" name="modules" value="">
                 </div>
 
@@ -118,12 +131,11 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- Hidden input to store selected admin IDs -->
                     <input type="hidden" id="admins" name="admins" value="">
                 </div>
             {% endif %}
 
-            <button type="submit" class="btn" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }}; box-shadow: {{ theme_colors['button-shadow'] }};">{{ languageValues['edit_campsite_button_save'] }}</button>
+            <button type="submit" class="btn submit-btn" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }}; box-shadow: {{ theme_colors['button-shadow'] }};">{{ languageValues['edit_campsite_button_save'] }}</button>
         </form>
     </div>
 
@@ -142,21 +154,24 @@
                 const availableSearch = document.getElementById('available-admins-search');
                 const assignedSearch = document.getElementById('assigned-admins-search');
 
-                // Update hidden input for modules
                 function updateModulesInput() {
                     const assignedModules = assignedList.querySelectorAll('li');
                     const moduleIds = Array.from(assignedModules).map(item => item.dataset.moduleId);
                     modulesInput.value = moduleIds.join(',');
                 }
 
-                // Update hidden input for admins
                 function updateAdminsInput() {
                     const assignedAdmins = assignedAdminsList.querySelectorAll('li');
                     const adminIds = Array.from(assignedAdmins).map(item => item.dataset.adminId);
-                    adminsInput.value = adminIds.join(',');
+                    console.log("Admin IDs:", adminIds); // Debug log
+                    if (adminIds.some(id => !id || typeof id !== 'string')) {
+                        console.error("Invalid admin IDs detected:", adminIds);
+                        adminsInput.value = ''; // Clear invalid input
+                    } else {
+                        adminsInput.value = adminIds.join(',');
+                    }
                 }
 
-                // Move item from one list to another
                 function moveItem(item, targetList, isModule = true) {
                     item.style.transform = 'scale(0.8)';
                     item.style.opacity = '0.5';
@@ -172,7 +187,6 @@
                     }, 300);
                 }
 
-                // Handle move right for modules
                 availableList.addEventListener('click', (e) => {
                     if (e.target.classList.contains('move-right')) {
                         const item = e.target.parentElement;
@@ -184,7 +198,6 @@
                     }
                 });
 
-                // Handle move left for modules
                 assignedList.addEventListener('click', (e) => {
                     if (e.target.classList.contains('move-left')) {
                         const item = e.target.parentElement;
@@ -196,7 +209,6 @@
                     }
                 });
 
-                // Handle move right for admins
                 availableAdminsList.addEventListener('click', (e) => {
                     if (e.target.classList.contains('move-right')) {
                         const item = e.target.parentElement;
@@ -208,7 +220,6 @@
                     }
                 });
 
-                // Handle move left for admins
                 assignedAdminsList.addEventListener('click', (e) => {
                     if (e.target.classList.contains('move-left')) {
                         const item = e.target.parentElement;
@@ -220,7 +231,6 @@
                     }
                 });
 
-                // Search functionality for available admins
                 availableSearch.addEventListener('input', () => {
                     const searchTerm = availableSearch.value.toLowerCase();
                     const items = availableAdminsList.querySelectorAll('li');
@@ -230,7 +240,6 @@
                     });
                 });
 
-                // Search functionality for assigned admins
                 assignedSearch.addEventListener('input', () => {
                     const searchTerm = assignedSearch.value.toLowerCase();
                     const items = assignedAdminsList.querySelectorAll('li');
@@ -240,7 +249,6 @@
                     });
                 });
 
-                // Initialize inputs
                 updateModulesInput();
                 updateAdminsInput();
             {% endif %}

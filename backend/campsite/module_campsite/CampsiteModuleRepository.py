@@ -55,3 +55,6 @@ class CampsiteModuleRepository:
         self.setCampsiteModules(self.getCampsiteModuleMapper().getCampsiteModules(db, rebuildObjects=True))
         # Update modules of campsite
         campsiteRepository.updateCampsiteModules(campsite_id, db, self)
+
+    def clearCache(self) -> None:
+        self.__campsiteModules = []

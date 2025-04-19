@@ -1,43 +1,81 @@
 {% extends "base.html" %}
 {% block title %}{{ languageValues['edit_campsites_title'] }}{% endblock %}
+{% block extra_head %}
+    <style>
+        .no-campsites {
+            text-align: center;
+            color: var(--description-text-color, #546e7a);
+            font-size: 1.2em;
+            margin: 2em 0;
+        }
+        .header-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
 {% block body %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <div class="flash-messages">
+            <div class="flash-messages" style="background-color: {{ theme_colors['flash-background'] }}; color: {{ theme_colors['flash-text'] }};">
                 {% for message in messages %}
                     <p>{{ message }}</p>
                 {% endfor %}
             </div>
         {% endif %}
     {% endwith %}
-
+    <div class="header-section">
+        <h1 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsites_title'] }}</h1>
+    </div>
     <div class="campsite-container">
         {% if allCampsites %}
             {% for campsite in allCampsites %}
                 <div class="campsite-card {% if campsite.id in admin_campsite_ids %}admin-campsite{% endif %}">
-                    <div class="campsite-header">
-                        <h2>{{ campsite.name }}</h2>
+                    <div class="campsite-card-logo">
+                        {% if campsite.logo_path.endswith('.svg') %}
+                            {% set svg_content = load_svg(campsite.logo_path.split('/')[-1]) %}
+                            {% if svg_content %}
+                                {{ svg_content | safe }}
+                            {% else %}
+                                <img src="/static/images/pictogram_campsite_logo_missing.svg" alt="Missing Logo">
+                            {% endif %}
+                        {% else %}
+                            <img src="{{ campsite.logo_path }}" alt="{{ campsite.name }} Logo">
+                        {% endif %}
                     </div>
-                    <div class="campsite-info">
-                        <p>{{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }},<br>
-                           {{ campsite.address.getCity()}}, {{ campsite.address.getPostCode() }},<br>
-                           {{ campsite.address.getCountry() }}
-                        </p>
-                        <p class="description">
+                    <div class="campsite-card-content">
+                        <h2 class="campsite-card-title">{{ campsite.name }}</h2>
+                        <div class="campsite-card-description">
                             {% if campsite.description %}
                                 {{ campsite.description }}
                             {% else %}
                                 {{ languageValues['index_Campsite_Description_NotFound'] }}
                             {% endif %}
-                        </p>
+                        </div>
+                        <div class="campsite-card-address">
+                            <div class="campsite-card-address-item">
+                                <span class="label">{{ languageValues['campsiteDetail_label_address'] }}</span>
+                                {{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }}
+                            </div>
+                            <div class="campsite-card-address-item">
+                                <span class="label">{{ languageValues['register_label_cityAndPostcode'] }}</span>
+                                {{ campsite.address.getCity()}}, {{ campsite.address.getPostCode() }}
+                            </div>
+                            <div class="campsite-card-address-item">
+                                <span class="label">{{ languageValues['register_label_country'] }}</span>
+                                {{ campsite.address.getCountry() }}
+                            </div>
+                        </div>
                     </div>
-                    <div class="campsite-actions">
-                        <a href="{{ url_for('edit_campsite', campsite_id=campsite['id']) }}">{{ languageValues['edit_campsites_edit_button'] }}</a>
+                    <div class="campsite-card-actions">
+                        {% if current_user.getRole() == "Admin" or campsite.id in admin_campsite_ids %}
+                            <a href="{{ url_for('edit_campsite', campsite_id=campsite.id) }}" class="edit-action">{{ languageValues['edit_campsites_edit_button'] }}</a>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
         {% else %}
-            <p style="text-align: center; color: var(--description-text-color);">{{ languageValues['index_Campsites_NotFound'] }}</p>
+            <p class="no-campsites">{{ languageValues['index_Campsites_NotFound'] }}</p>
         {% endif %}
     </div>
 {% endblock %}

@@ -24,25 +24,44 @@
         {% if allCampsites %}
             {% for campsite in allCampsites %}
                 <div class="campsite-card {% if campsite.id in admin_campsite_ids %}admin-campsite{% endif %}">
-                    <div class="campsite-header">
-                        <h2>{{ campsite.name }}</h2>
+                    <div class="campsite-card-logo">
+                        {% if campsite.logo_path.endswith('.svg') %}
+                            {% set svg_content = load_svg(campsite.logo_path.split('/')[-1]) %}
+                            {% if svg_content %}
+                                {{ svg_content | safe }}
+                            {% else %}
+                                <img src="/static/images/pictogram_campsite_logo_missing.svg" alt="Missing Logo">
+                            {% endif %}
+                        {% else %}
+                            <img src="{{ campsite.logo_path }}" alt="{{ campsite.name }} Logo">
+                        {% endif %}
                     </div>
-                    <div class="campsite-info">
-                        <p>
-                            {{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }},<br>
-                            {{ campsite.address.getCity()}}, {{ campsite.address.getPostCode() }},<br>
-                            {{ campsite.address.getCountry() }}
-                        </p>
-                        <p class="description">
+                    <div class="campsite-card-content">
+                        <h2 class="campsite-card-title">{{ campsite.name }}</h2>
+                        <div class="campsite-card-description">
                             {% if campsite.description %}
                                 {{ campsite.description }}
                             {% else %}
                                 {{ languageValues['index_Campsite_Description_NotFound'] }}
                             {% endif %}
-                        </p>
+                        </div>
+                        <div class="campsite-card-address">
+                            <div class="campsite-card-address-item">
+                                <span class="label">{{ languageValues['campsiteDetail_label_address'] }}</span>
+                                {{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }}
+                            </div>
+                            <div class="campsite-card-address-item">
+                                <span class="label">{{ languageValues['register_label_cityAndPostcode'] }}</span>
+                                {{ campsite.address.getCity()}}, {{ campsite.address.getPostCode() }}
+                            </div>
+                            <div class="campsite-card-address-item">
+                                <span class="label">{{ languageValues['register_label_country'] }}</span>
+                                {{ campsite.address.getCountry() }}
+                            </div>
+                        </div>
                     </div>
-                    <div class="campsite-actions">
-                        <a href="{{ url_for('campsite_detail', campsite_id=campsite['id']) }}">{{ languageValues['index_Campsite_Clickable_ViewDetails'] }}</a>
+                    <div class="campsite-card-actions">
+                        <a href="{{ url_for('campsite_detail', campsite_id=campsite.id) }}">{{ languageValues['index_Campsite_Clickable_ViewDetails'] }}</a>
                     </div>
                 </div>
             {% endfor %}
