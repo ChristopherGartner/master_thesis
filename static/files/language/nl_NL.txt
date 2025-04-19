@@ -9,6 +9,7 @@ campsiteDetail_name_Label_Details = - Details
 campsiteDetail_button_backToIndexPage = Terug naar campingoverzicht
 campsiteDetail_button_logout = Uitloggen
 campsiteDetail_button_login = Inloggen
+campsiteDetail_button_editCampsite = Bewerk camping
 campsiteDetail_label_address = Adres
 campsiteDetail_label_description = Beschrijving
 campsiteDetail_label_description_nonExistent = Geen beschrijving beschikbaar

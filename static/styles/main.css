@@ -866,7 +866,8 @@ body {
     margin-top: 30px;
 }
 
-.campsite-detail .back-btn {
+.campsite-detail .back-btn,
+.campsite-detail .edit-btn {
     display: inline-block;
     padding: 12px 30px;
     background: var(--secondary-color);
@@ -874,11 +875,21 @@ body {
     text-decoration: none;
     font-weight: 600;
     border-radius: 30px;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin: 0 10px;
 }
 
-.campsite-detail .back-btn:hover {
+.campsite-detail .back-btn:hover,
+.campsite-detail .edit-btn:hover {
     background: var(--button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--button-shadow);
+}
+
+.campsite-detail .back-btn:active,
+.campsite-detail .edit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px var(--button-shadow);
 }
 
 .modules-container {

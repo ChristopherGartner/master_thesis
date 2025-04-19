@@ -50,6 +50,9 @@
 
         <div class="actions">
             <a href="{{ url_for('index') }}" class="back-btn">{{ languageValues['campsiteDetail_button_backToIndexPage'] }}</a>
+            {% if current_user.is_authenticated and (current_user.getRole() == "Admin" or campsite.id in admin_campsite_ids) %}
+                <a href="{{ url_for('edit_campsite', campsite_id=campsite.id) }}" class="edit-btn">{{ languageValues.get('campsiteDetail_button_editCampsite', 'Edit Campsite') }}</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

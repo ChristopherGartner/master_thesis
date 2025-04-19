@@ -4,6 +4,8 @@ import os
 from flask import Flask, request, render_template, redirect, url_for, flash, make_response, session
 from flask_login import current_user, login_user, LoginManager, logout_user
 from loguru import logger
+
+from backend.campsite.Campsite import Campsite
 from backend.db.Database import Database
 from backend.language.LanguageManager import LanguageManager
 from backend.util.RepositoryFactory import RepositoryFactory
@@ -481,9 +483,14 @@ class FlaskApp:
         @self.app.route("/edit_campsite/<campsite_id>", methods=['GET', 'POST'])
         @login_required
         def edit_campsite(campsite_id):
-            if current_user.getRole() != "Admin":
+            # Check if user is a global admin or a campsite admin
+            campsite_admin_repository = self.__repositoryFactory.getCampsiteAdminRepository()
+            admin_assignments = campsite_admin_repository.getAdminsByUserId(current_user.getId())
+            admin_campsite_ids = [assignment['campsite_id'] for assignment in admin_assignments]
+            if current_user.getRole() != "Admin" and int(campsite_id) not in admin_campsite_ids:
                 flash('Access denied')
                 return redirect(url_for('index'))
+
             language_values = getLanguageValues()
             theme_colors = getThemeValues(language_values)
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
@@ -497,7 +504,8 @@ class FlaskApp:
                 flash('Campsite not found')
                 return redirect(url_for('edit_campsites'))
 
-            logger.debug(f"Loaded campsite ID={campsite_id}: name={campsite.getName()}, description={campsite.getDescription()}")
+            logger.debug(
+                f"Loaded campsite ID={campsite_id}: name={campsite.getName()}, description={campsite.getDescription()}")
 
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
             module_repository = self.__repositoryFactory.getModuleRepository()
@@ -522,18 +530,22 @@ class FlaskApp:
                     city = request.form.get('city')
                     zip_code = request.form.get('zip_code')
                     country = request.form.get('country')
-                    modules_str = request.form.get('modules', '')
-                    admins_str = request.form.get('admins', '')
-                    selected_module_ids = modules_str.split(',') if modules_str else []
-                    selected_admin_ids = admins_str.split(',') if admins_str else []
 
                     campsite.setName(name)
                     campsite.setDescription(description)
                     campsite.setAddress(street, house_number, city, zip_code, country)
-                    campsite_repository.updateCampsiteObject(self.__repositoryFactory.getAddressRepository(), campsite, self.db)
+                    campsite_repository.updateCampsiteObject(self.__repositoryFactory.getAddressRepository(), campsite,
+                                                             self.db)
 
-                    campsite_module_repository.updateCampsiteModules(int(campsite_id), selected_module_ids, self.db, campsite_repository)
-                    campsite_admin_repository.updateCampsiteAdmins(int(campsite_id), selected_admin_ids)
+                    # Only update modules and admins if the user is a global admin
+                    if current_user.getRole() == "Admin":
+                        modules_str = request.form.get('modules', '')
+                        admins_str = request.form.get('admins', '')
+                        selected_module_ids = modules_str.split(',') if modules_str else []
+                        selected_admin_ids = admins_str.split(',') if admins_str else []
+                        campsite_module_repository.updateCampsiteModules(int(campsite_id), selected_module_ids, self.db,
+                                                                         campsite_repository)
+                        campsite_admin_repository.updateCampsiteAdmins(int(campsite_id), selected_admin_ids)
 
                     flash('Campsite updated successfully!')
                     return redirect(url_for('edit_campsites'))
@@ -690,6 +702,15 @@ class FlaskApp:
                 flash('Campsite not found')
                 return redirect(url_for('index'))
             logger.info(f"Found campsite: {campsite['name']}")
+
+            # Get campsite IDs where the current user is an admin
+            admin_campsite_ids = []
+            if current_user.is_authenticated:
+                campsite_admin_repository = self.__repositoryFactory.getCampsiteAdminRepository()
+                admin_assignments = campsite_admin_repository.getAdminsByUserId(current_user.getId())
+                admin_campsite_ids = [assignment['campsite_id'] for assignment in admin_assignments]
+                logger.debug(f"Admin campsite IDs for user {current_user.getUsername()}: {admin_campsite_ids}")
+
             module_metadata = {
                 "Bread": {
                     "logo": "pictogram_breadModule.svg",
@@ -721,7 +742,9 @@ class FlaskApp:
                     "logo": load_svg(metadata.get("logo")) if metadata.get("logo") else None,
                     "url": metadata.get("url")
                 })
-            return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules, languageValues=language_values, theme_colors=theme_colors)
+            return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules,
+                                   admin_campsite_ids=admin_campsite_ids, languageValues=language_values,
+                                   theme_colors=theme_colors)
 
         @self.app.route("/campsite/<campsite_id>/module/<module_id>")
         def module(campsite_id, module_id):

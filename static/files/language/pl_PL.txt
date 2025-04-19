@@ -9,6 +9,7 @@ campsiteDetail_name_Label_Details = - Szczegóły
 campsiteDetail_button_backToIndexPage = Powrót do przeglądu kempingów
 campsiteDetail_button_logout = Wyloguj
 campsiteDetail_button_login = Zaloguj się
+campsiteDetail_button_editCampsite = Edytuj kemping
 campsiteDetail_label_address = Adres
 campsiteDetail_label_description = Opis
 campsiteDetail_label_description_nonExistent = Brak dostępnego opisu

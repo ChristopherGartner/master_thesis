@@ -9,6 +9,7 @@ campsiteDetail_name_Label_Details = - Détails
 campsiteDetail_button_backToIndexPage = Retour à l'aperçu du camping
 campsiteDetail_button_logout = Déconnexion
 campsiteDetail_button_login = Connecter
+campsiteDetail_button_editCampsite = Modifier le camping
 campsiteDetail_label_address = Adresse
 campsiteDetail_label_description = Description
 campsiteDetail_label_description_nonExistent = Aucune description disponible

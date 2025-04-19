@@ -49,77 +49,79 @@
                 </div>
             </div>
 
-            <!-- Module Assignment Section -->
-            <div class="module-assignment-section">
-                <h2 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_label_modules'] }}</h2>
-                <div class="module-lists">
-                    <div class="module-list-container">
-                        <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_available_modules'] }}</h3>
-                        <ul id="available-modules" class="module-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
-                            {% for module in all_modules %}
-                                {% if module.getId() not in assigned_module_ids %}
-                                    <li data-module-id="{{ module.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
-                                        <span class="module-name">{{ module.getName() }}</span>
-                                        <button type="button" class="move-right" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Add {{ module.getName() }}">→ {{ module.getName() }}</button>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
+            {% if current_user.getRole() == "Admin" %}
+                <!-- Module Assignment Section -->
+                <div class="module-assignment-section">
+                    <h2 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_label_modules'] }}</h2>
+                    <div class="module-lists">
+                        <div class="module-list-container">
+                            <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_available_modules'] }}</h3>
+                            <ul id="available-modules" class="module-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
+                                {% for module in all_modules %}
+                                    {% if module.getId() not in assigned_module_ids %}
+                                        <li data-module-id="{{ module.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
+                                            <span class="module-name">{{ module.getName() }}</span>
+                                            <button type="button" class="move-right" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Add {{ module.getName() }}">→ {{ module.getName() }}</button>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="module-list-container">
+                            <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_assigned_modules'] }}</h3>
+                            <ul id="assigned-modules" class="module-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
+                                {% for module in all_modules %}
+                                    {% if module.getId() in assigned_module_ids %}
+                                        <li data-module-id="{{ module.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
+                                            <span class="module-name">{{ module.getName() }}</span>
+                                            <button type="button" class="move-left" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Remove {{ module.getName() }}">← {{ module.getName() }}</button>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
-                    <div class="module-list-container">
-                        <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_assigned_modules'] }}</h3>
-                        <ul id="assigned-modules" class="module-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
-                            {% for module in all_modules %}
-                                {% if module.getId() in assigned_module_ids %}
-                                    <li data-module-id="{{ module.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
-                                        <span class="module-name">{{ module.getName() }}</span>
-                                        <button type="button" class="move-left" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Remove {{ module.getName() }}">← {{ module.getName() }}</button>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
+                    <!-- Hidden input to store selected module IDs -->
+                    <input type="hidden" id="modules" name="modules" value="">
                 </div>
-                <!-- Hidden input to store selected module IDs -->
-                <input type="hidden" id="modules" name="modules" value="">
-            </div>
 
-            <!-- Admin Assignment Section -->
-            <div class="admin-assignment-section">
-                <h2 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_label_admins'] }}</h2>
-                <div class="admin-lists">
-                    <div class="admin-list-container">
-                        <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_available_admins'] }}</h3>
-                        <input type="text" id="available-admins-search" class="search-input" placeholder="{{ languageValues['edit_campsite_search_admins'] }}" style="border-color: {{ theme_colors['input-border'] }};">
-                        <ul id="available-admins" class="admin-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
-                            {% for user in all_users %}
-                                {% if user.getId()|string not in assigned_admin_ids %}
-                                    <li data-admin-id="{{ user.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
-                                        <span class="admin-name">{{ user.getUsername() }} ({{ user.getFirstName() }} {{ user.getLastName() }})</span>
-                                        <button type="button" class="move-right" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Add {{ user.getUsername() }}">→ {{ user.getUsername() }}</button>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
+                <!-- Admin Assignment Section -->
+                <div class="admin-assignment-section">
+                    <h2 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_label_admins'] }}</h2>
+                    <div class="admin-lists">
+                        <div class="admin-list-container">
+                            <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_available_admins'] }}</h3>
+                            <input type="text" id="available-admins-search" class="search-input" placeholder="{{ languageValues['edit_campsite_search_admins'] }}" style="border-color: {{ theme_colors['input-border'] }};">
+                            <ul id="available-admins" class="admin-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
+                                {% for user in all_users %}
+                                    {% if user.getId()|string not in assigned_admin_ids %}
+                                        <li data-admin-id="{{ user.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
+                                            <span class="admin-name">{{ user.getUsername() }} ({{ user.getFirstName() }} {{ user.getLastName() }})</span>
+                                            <button type="button" class="move-right" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Add {{ user.getUsername() }}">→ {{ user.getUsername() }}</button>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="admin-list-container">
+                            <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_assigned_admins'] }}</h3>
+                            <input type="text" id="assigned-admins-search" class="search-input" placeholder="{{ languageValues['edit_campsite_search_admins'] }}" style="border-color: {{ theme_colors['input-border'] }};">
+                            <ul id="assigned-admins" class="admin-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
+                                {% for user in all_users %}
+                                    {% if user.getId()|string in assigned_admin_ids %}
+                                        <li data-admin-id="{{ user.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
+                                            <span class="admin-name">{{ user.getUsername() }} ({{ user.getFirstName() }} {{ user.getLastName() }})</span>
+                                            <button type="button" class="move-left" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Remove {{ user.getUsername() }}">← {{ user.getUsername() }}</button>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
-                    <div class="admin-list-container">
-                        <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_assigned_admins'] }}</h3>
-                        <input type="text" id="assigned-admins-search" class="search-input" placeholder="{{ languageValues['edit_campsite_search_admins'] }}" style="border-color: {{ theme_colors['input-border'] }};">
-                        <ul id="assigned-admins" class="admin-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
-                            {% for user in all_users %}
-                                {% if user.getId()|string in assigned_admin_ids %}
-                                    <li data-admin-id="{{ user.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
-                                        <span class="admin-name">{{ user.getUsername() }} ({{ user.getFirstName() }} {{ user.getLastName() }})</span>
-                                        <button type="button" class="move-left" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Remove {{ user.getUsername() }}">← {{ user.getUsername() }}</button>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
+                    <!-- Hidden input to store selected admin IDs -->
+                    <input type="hidden" id="admins" name="admins" value="">
                 </div>
-                <!-- Hidden input to store selected admin IDs -->
-                <input type="hidden" id="admins" name="admins" value="">
-            </div>
+            {% endif %}
 
             <button type="submit" class="btn" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }}; box-shadow: {{ theme_colors['button-shadow'] }};">{{ languageValues['edit_campsite_button_save'] }}</button>
         </form>
@@ -127,119 +129,121 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Module Assignment
-            const availableList = document.getElementById('available-modules');
-            const assignedList = document.getElementById('assigned-modules');
-            const modulesInput = document.getElementById('modules');
+            {% if current_user.getRole() == "Admin" %}
+                // Module Assignment
+                const availableList = document.getElementById('available-modules');
+                const assignedList = document.getElementById('assigned-modules');
+                const modulesInput = document.getElementById('modules');
 
-            // Admin Assignment
-            const availableAdminsList = document.getElementById('available-admins');
-            const assignedAdminsList = document.getElementById('assigned-admins');
-            const adminsInput = document.getElementById('admins');
-            const availableSearch = document.getElementById('available-admins-search');
-            const assignedSearch = document.getElementById('assigned-admins-search');
+                // Admin Assignment
+                const availableAdminsList = document.getElementById('available-admins');
+                const assignedAdminsList = document.getElementById('assigned-admins');
+                const adminsInput = document.getElementById('admins');
+                const availableSearch = document.getElementById('available-admins-search');
+                const assignedSearch = document.getElementById('assigned-admins-search');
 
-            // Update hidden input for modules
-            function updateModulesInput() {
-                const assignedModules = assignedList.querySelectorAll('li');
-                const moduleIds = Array.from(assignedModules).map(item => item.dataset.moduleId);
-                modulesInput.value = moduleIds.join(',');
-            }
+                // Update hidden input for modules
+                function updateModulesInput() {
+                    const assignedModules = assignedList.querySelectorAll('li');
+                    const moduleIds = Array.from(assignedModules).map(item => item.dataset.moduleId);
+                    modulesInput.value = moduleIds.join(',');
+                }
 
-            // Update hidden input for admins
-            function updateAdminsInput() {
-                const assignedAdmins = assignedAdminsList.querySelectorAll('li');
-                const adminIds = Array.from(assignedAdmins).map(item => item.dataset.adminId);
-                adminsInput.value = adminIds.join(',');
-            }
+                // Update hidden input for admins
+                function updateAdminsInput() {
+                    const assignedAdmins = assignedAdminsList.querySelectorAll('li');
+                    const adminIds = Array.from(assignedAdmins).map(item => item.dataset.adminId);
+                    adminsInput.value = adminIds.join(',');
+                }
 
-            // Move item from one list to another
-            function moveItem(item, targetList, isModule = true) {
-                item.style.transform = 'scale(0.8)';
-                item.style.opacity = '0.5';
-                setTimeout(() => {
-                    targetList.appendChild(item);
-                    item.style.transform = 'scale(1)';
-                    item.style.opacity = '1';
-                    if (isModule) {
-                        updateModulesInput();
-                    } else {
-                        updateAdminsInput();
+                // Move item from one list to another
+                function moveItem(item, targetList, isModule = true) {
+                    item.style.transform = 'scale(0.8)';
+                    item.style.opacity = '0.5';
+                    setTimeout(() => {
+                        targetList.appendChild(item);
+                        item.style.transform = 'scale(1)';
+                        item.style.opacity = '1';
+                        if (isModule) {
+                            updateModulesInput();
+                        } else {
+                            updateAdminsInput();
+                        }
+                    }, 300);
+                }
+
+                // Handle move right for modules
+                availableList.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('move-right')) {
+                        const item = e.target.parentElement;
+                        moveItem(item, assignedList, true);
+                        item.querySelector('button').classList.remove('move-right');
+                        item.querySelector('button').classList.add('move-left');
+                        item.querySelector('button').innerHTML = `← ${item.querySelector('.module-name').textContent}`;
+                        item.querySelector('button').title = `Remove ${item.querySelector('.module-name').textContent}`;
                     }
-                }, 300);
-            }
-
-            // Handle move right for modules
-            availableList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('move-right')) {
-                    const item = e.target.parentElement;
-                    moveItem(item, assignedList, true);
-                    item.querySelector('button').classList.remove('move-right');
-                    item.querySelector('button').classList.add('move-left');
-                    item.querySelector('button').innerHTML = `← ${item.querySelector('.module-name').textContent}`;
-                    item.querySelector('button').title = `Remove ${item.querySelector('.module-name').textContent}`;
-                }
-            });
-
-            // Handle move left for modules
-            assignedList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('move-left')) {
-                    const item = e.target.parentElement;
-                    moveItem(item, availableList, true);
-                    item.querySelector('button').classList.remove('move-left');
-                    item.querySelector('button').classList.add('move-right');
-                    item.querySelector('button').innerHTML = `→ ${item.querySelector('.module-name').textContent}`;
-                    item.querySelector('button').title = `Add ${item.querySelector('.module-name').textContent}`;
-                }
-            });
-
-            // Handle move right for admins
-            availableAdminsList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('move-right')) {
-                    const item = e.target.parentElement;
-                    moveItem(item, assignedAdminsList, false);
-                    item.querySelector('button').classList.remove('move-right');
-                    item.querySelector('button').classList.add('move-left');
-                    item.querySelector('button').innerHTML = `← ${item.querySelector('.admin-name').textContent.split(' (')[0]}`;
-                    item.querySelector('button').title = `Remove ${item.querySelector('.admin-name').textContent}`;
-                }
-            });
-
-            // Handle move left for admins
-            assignedAdminsList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('move-left')) {
-                    const item = e.target.parentElement;
-                    moveItem(item, availableAdminsList, false);
-                    item.querySelector('button').classList.remove('move-left');
-                    item.querySelector('button').classList.add('move-right');
-                    item.querySelector('button').innerHTML = `→ ${item.querySelector('.admin-name').textContent.split(' (')[0]}`;
-                    item.querySelector('button').title = `Add ${item.querySelector('.admin-name').textContent}`;
-                }
-            });
-
-            // Search functionality for available admins
-            availableSearch.addEventListener('input', () => {
-                const searchTerm = availableSearch.value.toLowerCase();
-                const items = availableAdminsList.querySelectorAll('li');
-                items.forEach(item => {
-                    const name = item.querySelector('.admin-name').textContent.toLowerCase();
-                    item.style.display = name.includes(searchTerm) ? '' : 'none';
                 });
-            });
 
-            // Search functionality for assigned admins
-            assignedSearch.addEventListener('input', () => {
-                const searchTerm = assignedSearch.value.toLowerCase();
-                const items = assignedAdminsList.querySelectorAll('li');
-                items.forEach(item => {
-                    const name = item.querySelector('.admin-name').textContent.toLowerCase();
-                    item.style.display = name.includes(searchTerm) ? '' : 'none';
+                // Handle move left for modules
+                assignedList.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('move-left')) {
+                        const item = e.target.parentElement;
+                        moveItem(item, availableList, true);
+                        item.querySelector('button').classList.remove('move-left');
+                        item.querySelector('button').classList.add('move-right');
+                        item.querySelector('button').innerHTML = `→ ${item.querySelector('.module-name').textContent}`;
+                        item.querySelector('button').title = `Add ${item.querySelector('.module-name').textContent}`;
+                    }
                 });
-            });
 
-            // Initialize inputs
-            updateModulesInput();
-            updateAdminsInput();
+                // Handle move right for admins
+                availableAdminsList.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('move-right')) {
+                        const item = e.target.parentElement;
+                        moveItem(item, assignedAdminsList, false);
+                        item.querySelector('button').classList.remove('move-right');
+                        item.querySelector('button').classList.add('move-left');
+                        item.querySelector('button').innerHTML = `← ${item.querySelector('.admin-name').textContent.split(' (')[0]}`;
+                        item.querySelector('button').title = `Remove ${item.querySelector('.admin-name').textContent}`;
+                    }
+                });
+
+                // Handle move left for admins
+                assignedAdminsList.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('move-left')) {
+                        const item = e.target.parentElement;
+                        moveItem(item, availableAdminsList, false);
+                        item.querySelector('button').classList.remove('move-left');
+                        item.querySelector('button').classList.add('move-right');
+                        item.querySelector('button').innerHTML = `→ ${item.querySelector('.admin-name').textContent.split(' (')[0]}`;
+                        item.querySelector('button').title = `Add ${item.querySelector('.admin-name').textContent}`;
+                    }
+                });
+
+                // Search functionality for available admins
+                availableSearch.addEventListener('input', () => {
+                    const searchTerm = availableSearch.value.toLowerCase();
+                    const items = availableAdminsList.querySelectorAll('li');
+                    items.forEach(item => {
+                        const name = item.querySelector('.admin-name').textContent.toLowerCase();
+                        item.style.display = name.includes(searchTerm) ? '' : 'none';
+                    });
+                });
+
+                // Search functionality for assigned admins
+                assignedSearch.addEventListener('input', () => {
+                    const searchTerm = assignedSearch.value.toLowerCase();
+                    const items = assignedAdminsList.querySelectorAll('li');
+                    items.forEach(item => {
+                        const name = item.querySelector('.admin-name').textContent.toLowerCase();
+                        item.style.display = name.includes(searchTerm) ? '' : 'none';
+                    });
+                });
+
+                // Initialize inputs
+                updateModulesInput();
+                updateAdminsInput();
+            {% endif %}
         });
     </script>
 {% endblock %}
