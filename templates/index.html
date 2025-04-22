@@ -1,72 +1,1024 @@
 {% extends "base.html" %}
 {% block title %}Campsites - Natur erleben{% endblock %}
 {% block extra_head %}
-    <style>
-        .no-campsites {
-            text-align: center;
-            color: var(--description-text-color, #546e7a);
-            font-size: 1.2em;
-            margin: 2em 0;
-        }
-    </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<style>
+.no-campsites {
+    text-align: center;
+    color: var(--description-text-color, #546e7a);
+    font-size: 1.2em;
+    margin: 2em 0;
+}
+.tab-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+.tab-nav {
+    display: flex;
+    border-bottom: 2px solid var(--card-border);
+    margin-bottom: 20px;
+}
+.tab-nav button {
+    flex: 1;
+    padding: 15px 30px;
+    background: var(--card-background);
+    color: var(--text-color);
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: var(--card-transition);
+}
+.tab-nav button.active {
+    border-bottom: 3px solid var(--primary-color);
+    background: var(--description-background);
+    color: var(--label-color);
+}
+.tab-nav button:hover {
+    background: var(--info-background);
+    color: var(--label-color);
+}
+.tab-content {
+    display: flex;
+    width: 200%;
+    transition: transform 0.5s ease;
+    overflow: hidden;
+}
+.tab-content.campsites-active {
+    transform: translateX(0);
+}
+.tab-content.map-active {
+    transform: translateX(-50%);
+}
+.tab-pane {
+    width: 50%;
+    padding: 0 40px;
+    box-sizing: border-box;
+    min-height: 600px;
+}
+#map-container {
+    width: 100%;
+    position: relative;
+}
+#map {
+    height: 500px;
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    z-index: 1;
+    margin-top: 20px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+#map:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 25px var(--card-hover-shadow);
+}
+.leaflet-popup-content-wrapper {
+    background: var(--card-background);
+    color: var(--text-color);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    padding: 0;
+    max-width: 350px;
+    overflow: hidden;
+    animation: popup-appear 0.3s ease-out;
+    border: 1px solid var(--card-border);
+    position: relative;
+}
+.leaflet-popup-tip {
+    background: var(--card-background);
+    border-left: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+}
+.leaflet-popup-content {
+    margin: 0;
+    padding: 20px;
+    position: relative;
+    background: var(--card-background);
+}
+.leaflet-popup-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    opacity: 0.1;
+    z-index: 0;
+}
+.leaflet-popup-content > * {
+    position: relative;
+    z-index: 1;
+}
+.leaflet-popup-content h3 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: var(--primary-color);
+    font-weight: 700;
+    text-shadow: 0 1px 2px var(--header-text-shadow);
+    animation: slide-in 0.5s ease-out;
+}
+.leaflet-popup-content .campsite-popup-description {
+    font-size: 0.95em;
+    color: var(--description-text-color);
+    margin-bottom: 15px;
+    line-height: 1.5;
+    max-height: 80px;
+    overflow-y: auto;
+    background: var(--description-background);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 4px var(--card-shadow);
+    animation: fade-in 0.7s ease-out;
+}
+.leaflet-popup-content .campsite-popup-address {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    animation: slide-in 0.9s ease-out;
+}
+.leaflet-popup-content .campsite-popup-address div {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+.leaflet-popup-content .campsite-popup-address .label {
+    font-weight: 600;
+    color: var(--label-color);
+    width: 100px;
+    background: var(--label-background);
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: var(--card-transition);
+}
+.leaflet-popup-content:hover .campsite-popup-address .label {
+    background: var(--primary-color);
+    color: var(--header-link-color);
+}
+.leaflet-popup-content a.popup-action {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: var(--header-link-color);
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: var(--card-transition);
+    box-shadow: 0 2px 5px var(--button-shadow);
+    animation: bounce-in 1.1s ease-out;
+}
+.leaflet-popup-content a.popup-action:hover {
+    background: var(--input-focus);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--button-shadow);
+}
+:root[data-theme="neon"] .leaflet-popup-content-wrapper {
+    animation: neon-popup-glow 1s infinite alternate;
+    box-shadow: 0 0 20px var(--dropdown-glow-color);
+}
+:root[data-theme="neon"] .leaflet-popup-content::before {
+    opacity: 0.2;
+}
+:root[data-theme="playful"] .leaflet-popup-content-wrapper {
+    animation: playful-popup-bounce 0.5s ease;
+}
+:root[data-theme="playful"] .leaflet-popup-content h3 {
+    animation: playful-wobble 1.5s infinite;
+}
+:root[data-theme="dark"], :root[data-theme="w11_dark"] .leaflet-popup-content-wrapper {
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+    --card-background: #2e2e2e;
+    --text-color: #e0e0e0;
+    --description-background: #424242;
+    --label-background: #2e2e2e;
+}
+:root[data-theme="dark"], :root[data-theme="w11_dark"] {
+    --tab-nav-background: #424242;
+}
+:root[data-theme="neon"] .tab-nav button.active {
+    box-shadow: 0 0 10px var(--dropdown-glow-color);
+}
+:root[data-theme="playful"] .tab-nav button:hover {
+    transform: scale(1.05) rotate(1deg);
+}
+.tab-content {
+    display: flex;
+    width: 200%;
+    transition: transform 0.5s ease;
+    overflow: hidden;
+}
+.tab-content.campsites-active {
+    transform: translateX(0);
+}
+.tab-content.map-active {
+    transform: translateX(-50%);
+}
+.tab-pane {
+    width: 50%;
+    padding: 0 40px;
+    box-sizing: border-box;
+    min-height: 600px;
+}
+#map-container {
+    width: 100%;
+    position: relative;
+}
+#map {
+    height: 500px;
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    z-index: 1;
+    margin-top: 20px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+#map:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 25px var(--card-hover-shadow);
+}
+.leaflet-popup-content-wrapper {
+    background: var(--card-background);
+    color: var(--text-color);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    padding: 0;
+    max-width: 350px;
+    overflow: hidden;
+    animation: popup-appear 0.3s ease-out;
+}
+.leaflet-popup-tip {
+    background: var(--card-background);
+}
+.leaflet-popup-content {
+    margin: 0;
+    padding: 20px;
+}
+.leaflet-popup-content h3 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+.leaflet-popup-content .campsite-popup-description {
+    font-size: 0.95em;
+    color: var(--description-text-color);
+    margin-bottom: 15px;
+    line-height: 1.5;
+    max-height: 80px;
+    overflow-y: auto;
+}
+.leaflet-popup-content .campsite-popup-address {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+.leaflet-popup-content .campsite-popup-address div {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+.leaflet-popup-content .campsite-popup-address .label {
+    font-weight: 600;
+    color: var(--label-color);
+    width: 100px;
+}
+.leaflet-popup-content a.popup-action {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: var(--header-link-color);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: var(--card-transition);
+}
+.leaflet-popup-content a.popup-action:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+:root[data-theme="neon"] .leaflet-popup-content-wrapper {
+    animation: neon-popup-glow 1s infinite alternate;
+}
+:root[data-theme="playful"] .leaflet-popup-content-wrapper {
+    animation: playful-popup-bounce 0.5s ease;
+}
+:root[data-theme="dark"], :root[data-theme="w11_dark"] .leaflet-popup-content-wrapper {
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+}
+:root[data-theme="dark"], :root[data-theme="w11_dark"] {
+    --tab-nav-background: #424242;
+}
+:root[data-theme="neon"] .tab-nav button.active {
+    box-shadow: 0 0 10px var(--dropdown-glow-color);
+}
+:root[data-theme="playful"] .tab-nav button:hover {
+    transform: scale(1.05) rotate(1deg);
+}
+.campsite-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.campsite-card-actions a {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: var(--card-transition);
+}
+.campsite-card-actions a.view-action {
+    background: var(--primary-color);
+    color: var(--header-link-color);
+}
+.campsite-card-actions a.edit-action {
+    background: var(--info-background);
+    color: var(--label-color);
+}
+.campsite-card-actions a:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+.campsite-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+.campsite-card {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    position: relative;
+}
+.show-on-map {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--card-transition);
+    z-index: 10;
+}
+.show-on-map:hover {
+    background: var(--info-background);
+    transform: scale(1.1) rotate(360deg);
+    box-shadow: 0 0 8px var(--card-shadow);
+}
+.show-on-map svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--pictogram-color, var(--primary-color));
+    position: relative;
+    z-index: 11;
+}
+:root[data-theme="neon"] .show-on-map {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+:root[data-theme="neon"] .show-on-map:hover {
+    box-shadow: 0 0 10px var(--dropdown-glow-color);
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+}
+:root[data-theme="playful"] .show-on-map {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+:root[data-theme="playful"] .show-on-map:hover {
+    transform: scale(1.1) rotate(360deg);
+    animation: playful-bounce 0.5s ease;
+}
+:root[data-theme="dark"], :root[data-theme="w11_dark"] .show-on-map {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+:root[data-theme="natural"] .show-on-map {
+    background: linear-gradient(135deg, #2e7d32, #689f38);
+}
+:root[data-theme="admin"] .show-on-map {
+    background: linear-gradient(135deg, var(--primary-color), var(--input-focus));
+}
+.header-section {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    padding: 20px 0;
+}
+.header-section h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-color);
+    text-shadow: 0 2px 4px var(--header-text-shadow);
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    transition: var(--card-transition);
+    letter-spacing: 1px;
+}
+.header-section h1:hover {
+    transform: scale(1.05);
+    color: var(--primary-color);
+}
+.header-section h1::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--primary-color);
+    transition: width 0.4s ease, left 0.4s ease;
+}
+.header-section h1:hover::before {
+    width: 100%;
+    left: 0;
+}
+.address-wrapper {
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+    z-index: 1000;
+}
+.autocomplete-suggestions {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background: var(--card-background);
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    box-shadow: 0 6px 15px var(--card-shadow);
+    z-index: 2000;
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+    animation: slide-down 0.3s ease-out;
+}
+.autocomplete-suggestions div {
+    padding: 12px 15px;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 15px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--input-border);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.autocomplete-suggestions div:last-child {
+    border-bottom: none;
+}
+.autocomplete-suggestions div:hover {
+    background: var(--info-background);
+    color: var(--label-color);
+    transform: translateX(5px);
+}
+:root[data-theme="neon"] .autocomplete-suggestions div:hover {
+    box-shadow: 0 0 8px var(--dropdown-glow-color);
+    transform: translateX(5px) scale(1.02);
+}
+:root[data-theme="playful"] .autocomplete-suggestions div:hover {
+    transform: translateX(5px) rotate(1deg);
+    animation: playful-bounce 0.5s ease;
+}
+:root[data-theme="neon"] .map-address-display {
+    border: 1px solid var(--primary-color);
+    animation: slide-down 0.5s ease-out, glow-pulse 2s infinite;
+}
+:root[data-theme="playful"] .map-address-display {
+    animation: slide-down 0.5s ease-out, playful-bounce 1.5s infinite;
+}
+:root[data-theme="dark"], :root[data-theme="w11_dark"] .map-address-display {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+.map-address-display {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid var(--input-border);
+    border-radius: 30px;
+    background: var(--card-background);
+    color: var(--text-color);
+    font-size: 16px;
+    box-shadow: 0 4px 12px var(--card-shadow);
+    transition: var(--card-transition);
+    animation: slide-down 0.5s ease-out;
+    display: block;
+    position: relative;
+    z-index: 1000;
+}
+.map-address-display:focus {
+    outline: none;
+    border-color: var(--input-focus);
+    box-shadow: 0 0 8px var(--input-glow);
+}
+.map-address-display:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px var(--card-hover-shadow);
+}
+@keyframes slide-down {
+    0% { transform: translateY(-10px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes glow-pulse {
+    0% { box-shadow: 0 0 5px var(--dropdown-glow-color); }
+    50% { box-shadow: 0 0 15px var(--dropdown-glow-color); }
+    100% { box-shadow: 0 0 5px var(--dropdown-glow-color); }
+}
+@keyframes playful-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+@keyframes popup-appear {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes neon-popup-glow {
+    0% { box-shadow: 0 0 5px var(--dropdown-glow-color); border: 1px solid var(--primary-color); }
+    100% { box-shadow: 0 0 15px var(--dropdown-glow-color); border: 1px solid var(--primary-color); }
+}
+@keyframes playful-popup-bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px) rotate(2deg); }
+    100% { transform: translateY(0); }
+}
+@keyframes slide-in {
+    0% { transform: translateX(-20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes bounce-in {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+.campsite-card-address {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.campsite-card-address-item {
+    display: flex;
+    align-items: flex-start;
+}
+.campsite-card-address-item .label {
+    width: 100px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--label-color);
+}
+.campsite-card-address-item span:not(.label) {
+    flex: 1;
+    text-align: left;
+}
+</style>
 {% endblock %}
 {% block body %}
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="flash-messages">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-    <div class="campsite-container">
-        {% if allCampsites %}
-            {% for campsite in allCampsites %}
-                <div class="campsite-card {% if campsite.id in admin_campsite_ids %}admin-campsite{% endif %}">
-                    <div class="campsite-card-logo">
-                        {% if campsite.logo_path.endswith('.svg') %}
-                            {% set svg_content = load_svg(campsite.logo_path.split('/')[-1]) %}
-                            {% if svg_content %}
-                                {{ svg_content | safe }}
-                            {% else %}
-                                <img src="/static/images/pictogram_campsite_logo_missing.svg" alt="Missing Logo">
-                            {% endif %}
-                        {% else %}
-                            <img src="{{ campsite.logo_path }}" alt="{{ campsite.name }} Logo">
-                        {% endif %}
-                    </div>
-                    <div class="campsite-card-content">
-                        <h2 class="campsite-card-title">{{ campsite.name }}</h2>
-                        <div class="campsite-card-description">
-                            {% if campsite.description %}
-                                {{ campsite.description }}
-                            {% else %}
-                                {{ languageValues['index_Campsite_Description_NotFound'] }}
-                            {% endif %}
-                        </div>
-                        <div class="campsite-card-address">
-                            <div class="campsite-card-address-item">
-                                <span class="label">{{ languageValues['campsiteDetail_label_address'] }}</span>
-                                {{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }}
-                            </div>
-                            <div class="campsite-card-address-item">
-                                <span class="label">{{ languageValues['register_label_cityAndPostcode'] }}</span>
-                                {{ campsite.address.getCity()}}, {{ campsite.address.getPostCode() }}
-                            </div>
-                            <div class="campsite-card-address-item">
-                                <span class="label">{{ languageValues['register_label_country'] }}</span>
-                                {{ campsite.address.getCountry() }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="campsite-card-actions">
-                        <a href="{{ url_for('campsite_detail', campsite_id=campsite.id) }}">{{ languageValues['index_Campsite_Clickable_ViewDetails'] }}</a>
-                    </div>
-                </div>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-messages" style="background-color: {{ theme_colors['flash-background'] }}; color: {{ theme_colors['flash-text'] }};">
+            {% for message in messages %}
+                <p>{{ message }}</p>
             {% endfor %}
-        {% else %}
-            <p class="no-campsites">{{ languageValues['index_Campsites_NotFound'] }}</p>
-        {% endif %}
+        </div>
+    {% endif %}
+{% endwith %}
+<div class="tab-container">
+    <div class="header-section">
+        <h1>{{ languageValues['index_Campsites_Title'] }}</h1>
     </div>
+    <div class="tab-nav">
+        <button class="tab-button active" data-tab="campsites">{{ languageValues['index_tab_campsites'] }}</button>
+        <button class="tab-button" data-tab="map">{{ languageValues['index_tab_map'] }}</button>
+    </div>
+    <div class="tab-content campsites-active">
+        <div class="tab-pane" id="campsites">
+            <div class="campsite-container">
+                {% if allCampsites %}
+                    {% for campsite in allCampsites %}
+                        <div class="campsite-card {% if campsite.id in admin_campsite_ids %}admin-campsite{% endif %}">
+                            <div class="show-on-map" data-campsite-id="{{ campsite.id }}">
+                                {{ load_svg('pictogram_showOnMap.svg') | safe }}
+                            </div>
+                            <div class="campsite-card-logo">
+                                {% if campsite.logo_path.endswith('.svg') %}
+                                    {% set svg_content = load_svg(campsite.logo_path.split('/')[-1]) %}
+                                    {% if svg_content %}
+                                        {{ svg_content | safe }}
+                                    {% else %}
+                                    <img src="/static/images/pictogram_campsite_logo_missing.svg" alt="Missing Logo">
+                                {% endif %}
+                                {% else %}
+                                    <img src="{{ campsite.logo_path }}" alt="{{ campsite.name }} Logo">
+                                {% endif %}
+                            </div>
+                            <div class="campsite-card-content">
+                                <h2 class="campsite-card-title">{{ campsite.name }}</h2>
+                                <div class="campsite-card-description">
+                                    {% if campsite.description %}
+                                        {{ campsite.description }}
+                                    {% else %}
+                                        {{ languageValues['index_Campsite_Description_NotFound'] }}
+                                    {% endif %}
+                                </div>
+                                <div class="campsite-card-address">
+                                    <div class="campsite-card-address-item">
+                                        <span class="label">{{ languageValues['campsiteDetail_label_address'] }}</span>
+                                        <span>{{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }}</span>
+                                    </div>
+                                    <div class="campsite-card-address-item">
+                                        <span class="label">{{ languageValues['register_label_cityAndPostcode'] }}</span>
+                                        <span>{{ campsite.address.getCity()}}, {{ campsite.address.getPostCode() }}</span>
+                                    </div>
+                                    <div class="campsite-card-address-item">
+                                        <span class="label">{{ languageValues['register_label_country'] }}</span>
+                                        <span>{{ campsite.address.getCountry() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="campsite-card-actions">
+                                <a href="{{ url_for('campsite_detail', campsite_id=campsite.id) }}" class="view-action">{{ languageValues['index_Campsite_Clickable_ViewDetails'] }}</a>
+                                {% if current_user.is_authenticated and (current_user.getRole() == "Admin" or campsite.id in admin_campsite_ids) %}
+                                    <a href="{{ url_for('edit_campsite', campsite_id=campsite.id) }}" class="edit-action">{{ languageValues['edit_campsites_edit_button'] }}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-campsites">{{ languageValues['index_Campsites_NotFound'] }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="tab-pane" id="map-pane">
+        <div id="map-container">
+            <div class="address-wrapper">
+                <input type="text" id="address-input" class="map-address-display" placeholder="{{ languageValues.get('search_enter_address', 'Enter address') }}">
+            </div>
+            <div id="map" style="height: 500px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet-geosearch@3.10.0/dist/bundle.min.js"></script>
+<script>
+    const languageValues = {
+        'index_Campsite_Clickable_ViewDetails': '{{ languageValues["index_Campsite_Clickable_ViewDetails"] | e }}',
+        'search_address': '{{ languageValues.get("search_address", "Enter address") | e }}',
+        'campsiteDetail_label_address': '{{ languageValues["campsiteDetail_label_address"] | e }}',
+        'register_label_cityAndPostcode': '{{ languageValues["register_label_cityAndPostcode"] | e }}',
+        'register_label_country': '{{ languageValues["register_label_country"] | e }}'
+    };
+    document.addEventListener('DOMContentLoaded', () => {
+        let map = null;
+        let clickMarker = null;
+        const provider = new GeoSearch.OpenStreetMapProvider();
+        const markers = [];
+        const markerMap = new Map();
+        let selectedMarker = null;
+        const defaultIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+            shadowSize: [41, 41]
+        });
+        const selectedIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+            shadowSize: [41, 41]
+        });
+        function initializeMap() {
+            if (map) return;
+            map = L.map('map').setView([51.505, -0.09], 3);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                maxZoom: 18,
+            }).addTo(map);
+            document.getElementById('map').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--card-background').trim();
+            const handleMapClick = debounce((e) => {
+                const { lat, lng } = e.latlng;
+                console.log('Map clicked at:', lat, lng);
+                const fallbackAddress = {
+                    street: '',
+                    house_number: '',
+                    city: '',
+                    zip_code: '',
+                    country: '',
+                    lat: lat.toFixed(6),
+                    lng: lng.toFixed(6)
+                };
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`, {
+                    headers: { 'User-Agent': 'CampsiteApp/1.0' }
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                        return response.json();
+                    })
+                    .then(data => {
+                        const address = parseAddress(data);
+                        placeMarker(lat, lng, address, data.display_name);
+                    })
+                    .catch(err => {
+                        console.error('Reverse geocoding error:', err);
+                        placeMarker(lat, lng, fallbackAddress);
+                    });
+            }, 1000);
+            map.on('click', handleMapClick);
+            Promise.all(campsites.map(campsite => addCampsiteMarker(campsite))).then(() => {
+                if (markers.length > 0) {
+                    const group = L.featureGroup(markers);
+                    map.fitBounds(group.getBounds(), { padding: [50, 50] });
+                }
+            });
+        }
+        function updateAddressDisplay(address, displayName = '') {
+            const addressInput = document.getElementById('address-input');
+            let addressString = '';
+            if (address.street || address.city || address.zip_code || address.country) {
+                addressString = [
+                    `${address.street || ''} ${address.house_number || ''}`.trim(),
+                    address.city,
+                    address.zip_code,
+                    address.country
+                ]
+                    .filter(part => part)
+                    .join(', ')
+                    .replace(/,\s*,/g, ',')
+                    .replace(/^\s*,/, '')
+                    .replace(/,\s*$/, '');
+            } else {
+                addressString = displayName || `Coordinates: ${address.lat}, ${address.lng}`;
+            }
+            addressInput.value = addressString;
+            console.log('Address display updated:', addressInput.value);
+        }
+        function placeMarker(lat, lng, address, displayName = '') {
+            if (clickMarker) map.removeLayer(clickMarker);
+            clickMarker = L.marker([lat, lng], {
+                icon: L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+                    shadowSize: [41, 41]
+                })
+            }).addTo(map);
+            map.setView([lat, lng], 16);
+            updateAddressDisplay(address, displayName);
+            console.log('Marker placed at:', lat, lng, 'Address:', address);
+        }
+        function debounce(func, wait) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+        const addressInput = document.getElementById('address-input');
+        const addressWrapper = addressInput.parentNode;
+        let suggestionsContainer = document.createElement('div');
+        suggestionsContainer.className = 'autocomplete-suggestions';
+        addressWrapper.appendChild(suggestionsContainer);
+        console.log('Suggestions container inserted into address-wrapper:', suggestionsContainer);
+        const fetchSuggestions = debounce((query) => {
+            if (!query || query.length < 3) {
+                suggestionsContainer.innerHTML = '';
+                suggestionsContainer.style.display = 'none';
+                console.log('Suggestions cleared due to short query');
+                return;
+            }
+            console.log('Fetching suggestions for:', query);
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`, {
+                headers: { 'User-Agent': 'CampsiteApp/1.0' }
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Suggestions received:', data);
+                    suggestionsContainer.innerHTML = '';
+                    if (data.length > 0) {
+                        data.forEach(item => {
+                            const suggestion = document.createElement('div');
+                            suggestion.textContent = item.display_name;
+                            suggestion.addEventListener('click', () => {
+                                suggestionsContainer.innerHTML = '';
+                                suggestionsContainer.style.display = 'none';
+                                provider.search({ query: item.display_name }).then(results => {
+                                    if (results && results.length > 0) {
+                                        const { x: lng, y: lat } = results[0];
+                                        const address = parseAddress(results[0]);
+                                        placeMarker(lat, lng, address, item.display_name);
+                                        updateAddressDisplay(address, item.display_name);
+                                    }
+                                });
+                            });
+                            suggestionsContainer.appendChild(suggestion);
+                        });
+                        suggestionsContainer.style.display = 'block';
+                        console.log('Suggestions displayed:', suggestionsContainer.innerHTML);
+                    } else {
+                        suggestionsContainer.style.display = 'none';
+                        console.log('No suggestions to display');
+                    }
+                })
+                .catch(err => {
+                    console.error('Autocomplete error:', err);
+                    suggestionsContainer.innerHTML = '<div>Search temporarily unavailable. Please try a different query or try again later.</div>';
+                    suggestionsContainer.style.display = 'block';
+                    setTimeout(() => {
+                        suggestionsContainer.innerHTML = '';
+                        suggestionsContainer.style.display = 'none';
+                    }, 3000);
+                });
+        }, 300);
+        addressInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            console.log('Input changed:', query);
+            fetchSuggestions(query);
+        });
+        document.addEventListener('click', (e) => {
+            if (!addressWrapper.contains(e.target)) {
+                suggestionsContainer.innerHTML = '';
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+        addressInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = addressInput.value;
+                if (typeof query === 'string' && query.trim()) {
+                    console.log('Submitting search for:', query);
+                    provider.search({ query: query.trim() }).then(results => {
+                        if (results && results.length > 0) {
+                            console.log('Search results:', results);
+                            const { x: lng, y: lat } = results[0];
+                            const address = parseAddress(results[0]);
+                            placeMarker(lat, lng, address, results[0].raw?.display_name || results[0].display_name);
+                        } else {
+                            console.warn('No results for address:', query);
+                            addressInput.value = 'Address not found';
+                            setTimeout(() => { addressInput.value = ''; }, 2000);
+                        }
+                    }).catch(err => {
+                        console.error('Search error:', err);
+                        addressInput.value = 'Search error';
+                        setTimeout(() => { addressInput.value = ''; }, 2000);
+                    });
+                } else {
+                    console.warn('Invalid input:', query);
+                    addressInput.value = 'Invalid input';
+                    setTimeout(() => { addressInput.value = ''; }, 2000);
+                }
+                suggestionsContainer.innerHTML = '';
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+        addressInput.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        function parseAddress(raw) {
+            const address = {
+                street: '',
+                house_number: '',
+                city: '',
+                zip_code: '',
+                country: '',
+                lat: raw.lat || raw.y || '',
+                lng: raw.lon || raw.x || ''
+            };
+            const nominatimData = raw.raw || raw;
+            if (nominatimData.address) {
+                address.street = nominatimData.address.road || nominatimData.address.street || nominatimData.address.pedestrian || nominatimData.address.path || '';
+                address.house_number = nominatimData.address.house_number || '';
+                address.city = nominatimData.address.city || nominatimData.address.town || nominatimData.address.village || nominatimData.address.hamlet || nominatimData.address.suburb || '';
+                address.zip_code = nominatimData.address.postcode || '';
+                address.country = nominatimData.address.country || '';
+            }
+            if (!address.street && nominatimData.display_name) {
+                const parts = nominatimData.display_name.split(',').map(part => part.trim());
+                if (parts[0] && /^\d+$/.test(parts[0]) && parts[1]) {
+                    address.house_number = parts[0];
+                    address.street = parts[1];
+                } else {
+                    address.street = parts[0] || '';
+                }
+                address.city = parts.find(part => /^[A-Za-z\s-]+$/.test(part) && part !== address.street && part !== address.country && !part.includes('Rheinland')) || '';
+                address.zip_code = parts.find(part => /^\d{4,5}$/.test(part)) || '';
+                address.country = parts[parts.length - 1] || '';
+            }
+            console.log('Parsed address:', address);
+            return address;
+        }
+        const campsites = [
+            {% for campsite in allCampsites %}
+            {
+                id: "{{ campsite.id }}",
+                name: "{{ campsite.name | e }}",
+                description: "{{ campsite.description | e or '' }}",
+                address: "{{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }}, {{ campsite.address.getCity() }}, {{ campsite.address.getPostCode() }}, {{ campsite.address.getCountry() }}",
+                detailUrl: "{{ url_for('campsite_detail', campsite_id=campsite.id) }}"
+            }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+        async function addCampsiteMarker(campsite) {
+            try {
+                const results = await provider.search({ query: campsite.address });
+                if (results && results.length > 0) {
+                    const { x: lng, y: lat } = results[0];
+                    const marker = L.marker([lat, lng], { icon: defaultIcon }).addTo(map);
+                    const popupContent = `
+                        <h3>${campsite.name}</h3>
+                        <div class="campsite-popup-description">${campsite.description || languageValues['index_Campsite_Description_NotFound']}</div>
+                        <div class="campsite-popup-address">
+                            <div>
+                                <span class="label">${languageValues['campsiteDetail_label_address']}</span>
+                                <span>${campsite.address.split(',')[0]}</span>
+                            </div>
+                            <div>
+                                <span class="label">${languageValues['register_label_cityAndPostcode']}</span>
+                                <span>${campsite.address.split(',')[1].trim()}</span>
+                            </div>
+                            <div>
+                                <span class="label">${languageValues['register_label_country']}</span>
+                                <span>${campsite.address.split(',')[3].trim()}</span>
+                            </div>
+                        </div>
+                        <a href="${campsite.detailUrl}" class="popup-action">${languageValues['index_Campsite_Clickable_ViewDetails']}</a>
+                    `;
+                    marker.bindPopup(popupContent, {
+                        maxWidth: 350,
+                        className: 'campsite-popup'
+                    });
+                    marker.on('click', () => {
+                        if (selectedMarker && selectedMarker !== marker) {
+                            selectedMarker.setIcon(defaultIcon);
+                        }
+                        marker.setIcon(selectedIcon);
+                        selectedMarker = marker;
+                        console.log('Marker selected:', campsite.id);
+                    });
+                    markers.push(marker);
+                    markerMap.set(campsite.id, marker);
+                }
+            } catch (err) {
+                console.error(`Geocoding error for ${campsite.name}:`, err);
+            }
+        }
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContent = document.querySelector('.tab-content');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                console.log('Switching to tab:', button.getAttribute('data-tab'));
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const tab = button.getAttribute('data-tab');
+                tabContent.classList.remove('campsites-active', 'map-active');
+                tabContent.classList.add(`${tab}-active`);
+                if (tab === 'map' && !map) {
+                    initializeMap();
+                } else if (tab === 'map' && map) {
+                    map.invalidateSize();
+                }
+            });
+        });
+        document.querySelectorAll('.show-on-map').forEach(button => {
+            button.addEventListener('click', () => {
+                const campsiteId = button.getAttribute('data-campsite-id');
+                console.log('Show on map clicked for campsite:', campsiteId);
+                const mapButton = document.querySelector('.tab-button[data-tab="map"]');
+                if (mapButton) mapButton.click();
+                if (!map) initializeMap();
+                const marker = markerMap.get(campsiteId);
+                if (marker) {
+                    if (selectedMarker && selectedMarker !== marker) {
+                        selectedMarker.setIcon(defaultIcon);
+                    }
+                    marker.setIcon(selectedIcon);
+                    selectedMarker = marker;
+                    map.setView(marker.getLatLng(), 16);
+                    marker.openPopup();
+                    console.log('Zoomed to campsite:', campsiteId);
+                } else {
+                    console.warn('Marker not found for campsite:', campsiteId);
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

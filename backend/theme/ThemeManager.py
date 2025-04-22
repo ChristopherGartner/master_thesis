@@ -21,6 +21,8 @@ class ThemeManager:
     THEME_PLAYFUL  = "playful"
     THEME_W11      = "w11"
     THEME_W11_DARK = "w11_dark"
+    THEME_TWILIGHT = "twilight"
+    THEME_CITRUS   = "citrus"
 
     __themes = [
         THEME_ADMIN,
@@ -33,6 +35,8 @@ class ThemeManager:
         THEME_PLAYFUL,
         THEME_W11,
         THEME_W11_DARK,
+        THEME_TWILIGHT,
+        THEME_CITRUS,
     ]
 
     def getThemes(self) -> List[str]:

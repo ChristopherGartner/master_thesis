@@ -1,5 +1,113 @@
 {% extends "base.html" %}
 {% block title %}{{ languageValues['edit_user_admin_title'] }}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.10.0/dist/geosearch.css" />
+    <style>
+        #address-map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px var(--card-shadow);
+            margin-bottom: 20px;
+            margin-top: 10px;
+            z-index: 1;
+        }
+        .address-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 10px;
+            z-index: 1000;
+        }
+        .map-address-display {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid var(--input-border);
+            border-radius: 30px;
+            background: var(--card-background);
+            color: var(--text-color);
+            font-size: 16px;
+            box-shadow: 0 4px 12px var(--card-shadow);
+            transition: var(--card-transition);
+            animation: slide-down 0.5s ease-out;
+            display: block;
+            position: relative;
+            z-index: 1000;
+        }
+        .map-address-display:focus {
+            outline: none;
+            border-color: var(--input-focus);
+            box-shadow: 0 0 8px var(--input-glow);
+        }
+        .map-address-display:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px var(--card-hover-shadow);
+        }
+        .autocomplete-suggestions {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            width: 100%;
+            background: var(--card-background);
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px var(--card-shadow);
+            z-index: 2000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            animation: slide-down 0.3s ease-out;
+        }
+        .autocomplete-suggestions div {
+            padding: 12px 15px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 15px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--input-border);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .autocomplete-suggestions div:last-child {
+            border-bottom: none;
+        }
+        .autocomplete-suggestions div:hover {
+            background: var(--info-background);
+            color: var(--label-color);
+            transform: translateX(5px);
+        }
+        :root[data-theme="neon"] .map-address-display {
+            border: 1px solid var(--primary-color);
+            animation: slide-down 0.5s ease-out, glow-pulse 2s infinite;
+        }
+        :root[data-theme="neon"] .autocomplete-suggestions div:hover {
+            box-shadow: 0 0 8px var(--dropdown-glow-color);
+            transform: translateX(5px) scale(1.02);
+        }
+        :root[data-theme="playful"] .map-address-display {
+            animation: slide-down 0.5s ease-out, playful-bounce 1.5s infinite;
+        }
+        :root[data-theme="playful"] .autocomplete-suggestions div:hover {
+            transform: translateX(5px) rotate(1deg);
+            animation: playful-bounce 0.5s ease;
+        }
+        :root[data-theme="dark"], :root[data-theme="w11_dark"] .map-address-display {
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+        @keyframes slide-down {
+            0% { transform: translateY(-10px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes glow-pulse {
+            0% { box-shadow: 0 0 5px var(--dropdown-glow-color); }
+            50% { box-shadow: 0 0 15px var(--dropdown-glow-color); }
+            100% { box-shadow: 0 0 5px var(--dropdown-glow-color); }
+        }
+        @keyframes playful-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+    </style>
+{% endblock %}
 {% block body %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -10,7 +118,6 @@
             </div>
         {% endif %}
     {% endwith %}
-
     <div class="edit-user-container">
         <h1>{{ languageValues['edit_user_admin_title'] }}</h1>
         <form method="POST" action="{{ url_for('edit_user_admin', user_id=user.getId()) }}">
@@ -79,26 +186,439 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="country">{{ languageValues['edit_user_label_country'] }}</label>
-                        <input type="text" id="country" name="country" value="{{ user.getAddress().getCountry() }}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>{{ languageValues['edit_user_label_city_and_postcode'] }}</label>
-                        <div class="city-zip-group">
-                            <input type="text" id="city" name="city" value="{{ user.getAddress().getCity() }}" placeholder="{{ languageValues['register_label_cityAndPostcode'] }}" required>
-                            <input type="text" id="zip_code" name="zip_code" value="{{ user.getAddress().getPostCode() }}" placeholder="{{ languageValues['register_label_cityAndPostcode'] }}" required>
+                        <label style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_user_label_address'] }}</label>
+                        <div class="address-wrapper">
+                            <input type="text" id="address-input" class="map-address-display" placeholder="{{ languageValues.get('search_enter_address', 'Enter address') }}">
+                            <div class="autocomplete-suggestions"></div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label>{{ languageValues['edit_user_label_street_and_housenumber'] }}</label>
-                        <div class="street-number-group">
-                            <input type="text" id="street" name="street" value="{{ user.getAddress().getStreet() }}" placeholder="{{ languageValues['register_label_streetAndHousenumber'] }}" required>
-                            <input type="text" id="house_number" name="house_number" value="{{ user.getAddress().getHouseNumber() }}" placeholder="{{ languageValues['register_label_streetAndHousenumber'] }}" required>
-                        </div>
+                        <div id="address-map"></div>
+                        <input type="hidden" id="street" name="street" value="{{ user.getAddress().getStreet() if user.getAddress() else '' }}">
+                        <input type="hidden" id="house_number" name="house_number" value="{{ user.getAddress().getHouseNumber() if user.getAddress() else '' }}">
+                        <input type="hidden" id="city" name="city" value="{{ user.getAddress().getCity() if user.getAddress() else '' }}">
+                        <input type="hidden" id="zip_code" name="zip_code" value="{{ user.getAddress().getPostCode() if user.getAddress() else '' }}">
+                        <input type="hidden" id="country" name="country" value="{{ user.getAddress().getCountry() if user.getAddress() else '' }}">
                     </div>
                 </div>
             </div>
             <button type="submit" class="btn">{{ languageValues['edit_user_button_save'] }}</button>
         </form>
     </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-geosearch@3.10.0/dist/bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize the map
+            console.log('Initializing map...');
+            const map = L.map('address-map').setView([51.505, -0.09], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                maxZoom: 18,
+            }).addTo(map);
+            map.invalidateSize();
+            console.log('Map initialized and tile layer added:', map);
+
+            // Initialize marker
+            let marker = null;
+            const provider = new GeoSearch.OpenStreetMapProvider();
+            const addressInput = document.getElementById('address-input');
+            const addressWrapper = addressInput.parentNode;
+            const suggestionsContainer = addressWrapper.querySelector('.autocomplete-suggestions');
+
+            // Function to update hidden fields and address display
+            function updateAddressFields(address, displayName = '') {
+                document.getElementById('street').value = address.street || '';
+                document.getElementById('house_number').value = address.house_number || '';
+                document.getElementById('city').value = address.city || '';
+                document.getElementById('zip_code').value = address.zip_code || '';
+                document.getElementById('country').value = address.country || '';
+                let addressString = '';
+                if (address.street || address.city || address.zip_code || address.country) {
+                    addressString = [
+                        `${address.street || ''} ${address.house_number || ''}`.trim(),
+                        address.city,
+                        address.zip_code,
+                        address.country
+                    ].filter(part => part).join(', ').replace(/,\s*,/g, ',').replace(/^\s*,/, '').replace(/,\s*$/, '');
+                } else {
+                    addressString = displayName || `Coordinates: ${address.lat}, ${address.lng}`;
+                }
+                addressInput.value = addressString;
+                console.log('Address display updated:', addressInput.value);
+            }
+
+            // Function to place marker
+            function placeMarker(lat, lng, address, displayName = '') {
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+                marker = L.marker([lat, lng], {
+                    icon: L.icon({
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+                        shadowSize: [41, 41]
+                    })
+                }).addTo(map);
+                map.setView([lat, lng], 16);
+                updateAddressFields(address, displayName);
+                console.log('Marker placed at:', lat, lng, 'Address:', address);
+            }
+
+            // Parse address components (improved to ensure city is extracted properly)
+            function parseAddress(raw) {
+                const address = {
+                    street: '',
+                    house_number: '',
+                    city: '',
+                    zip_code: '',
+                    country: '',
+                    lat: raw.lat || raw.y || '',
+                    lng: raw.lon || raw.x || ''
+                };
+                const nominatimData = raw.raw || raw;
+                if (nominatimData.address) {
+                    address.street = nominatimData.address.road || nominatimData.address.street || nominatimData.address.pedestrian || nominatimData.address.path || '';
+                    address.house_number = nominatimData.address.house_number || '';
+                    address.city = nominatimData.address.city || nominatimData.address.town || nominatimData.address.village || nominatimData.address.hamlet || nominatimData.address.suburb || '';
+                    address.zip_code = nominatimData.address.postcode || '';
+                    address.country = nominatimData.address.country || '';
+                }
+                if (!address.street && nominatimData.display_name) {
+                    const parts = nominatimData.display_name.split(',').map(part => part.trim());
+                    if (parts[0] && /^\d+$/.test(parts[0]) && parts[1]) {
+                        address.house_number = parts[0];
+                        address.street = parts[1];
+                    } else {
+                        address.street = parts[0] || '';
+                    }
+                    // Improved city extraction
+                    address.city = parts.find(part => /^[A-Za-z\s-]+$/.test(part) && part !== address.street && part !== address.country && !part.includes('Rheinland') && part !== address.country) || '';
+                    address.zip_code = parts.find(part => /^\d{4,5}$/.test(part)) || '';
+                    address.country = parts[parts.length - 1] || '';
+                    // Ensure city is not the same as country
+                    if (address.city === address.country) {
+                        address.city = parts.find(part => /^[A-Za-z\s-]+$/.test(part) && part !== address.street && part !== address.country && part !== address.zip_code) || '';
+                    }
+                }
+                // Fallback: if city is still empty, try to infer from parts
+                if (!address.city && nominatimData.display_name) {
+                    const parts = nominatimData.display_name.split(',').map(part => part.trim());
+                    address.city = parts.find(part => /^[A-Za-z\s-]+$/.test(part) && part !== address.country) || '';
+                }
+                console.log('Parsed address:', address);
+                return address;
+            }
+
+            // Debounce function to limit API calls
+            function debounce(func, wait) {
+                let timeout;
+                return function (...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+
+            // Handle map click with reverse geocoding
+            const handleMapClick = debounce((e) => {
+                const { lat, lng } = e.latlng;
+                console.log('Map clicked at:', lat, lng);
+                const fallbackAddress = {
+                    street: '',
+                    house_number: '',
+                    city: '',
+                    zip_code: '',
+                    country: '',
+                    lat: lat.toFixed(6),
+                    lng: lng.toFixed(6)
+                };
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`, {
+                    headers: { 'User-Agent': 'CampsiteApp/1.0' }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        const address = parseAddress(data);
+                        placeMarker(lat, lng, address, data.display_name);
+                    })
+                    .catch(err => {
+                        console.error('Reverse geocoding error:', err);
+                        placeMarker(lat, lng, fallbackAddress);
+                    });
+            }, 1000);
+
+            map.on('click', handleMapClick);
+
+            // Autocomplete suggestions
+            const fetchSuggestions = debounce((query) => {
+                if (!query || query.length < 3) {
+                    suggestionsContainer.innerHTML = '';
+                    suggestionsContainer.style.display = 'none';
+                    console.log('Suggestions cleared due to short query');
+                    return;
+                }
+                console.log('Fetching suggestions for:', query);
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`, {
+                    headers: { 'User-Agent': 'CampsiteApp/1.0' }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Suggestions received:', data);
+                        suggestionsContainer.innerHTML = '';
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const suggestion = document.createElement('div');
+                                suggestion.textContent = item.display_name;
+                                suggestion.addEventListener('click', () => {
+                                    suggestionsContainer.innerHTML = '';
+                                    suggestionsContainer.style.display = 'none';
+                                    provider.search({ query: item.display_name }).then(results => {
+                                        if (results && results.length > 0) {
+                                            const { x: lng, y: lat } = results[0];
+                                            const address = parseAddress(results[0]);
+                                            placeMarker(lat, lng, address, item.display_name);
+                                        }
+                                    });
+                                });
+                                suggestionsContainer.appendChild(suggestion);
+                            });
+                            suggestionsContainer.style.display = 'block';
+                            console.log('Suggestions displayed:', suggestionsContainer.innerHTML);
+                        } else {
+                            suggestionsContainer.style.display = 'none';
+                            console.log('No suggestions to display');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Autocomplete error:', err);
+                        suggestionsContainer.innerHTML = '<div>Search temporarily unavailable. Please try a different query or try again later.</div>';
+                        suggestionsContainer.style.display = 'block';
+                        setTimeout(() => {
+                            suggestionsContainer.innerHTML = '';
+                            suggestionsContainer.style.display = 'none';
+                        }, 3000);
+                    });
+            }, 300);
+
+            addressInput.addEventListener('input', (e) => {
+                fetchSuggestions(e.target.value);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!addressWrapper.contains(e.target)) {
+                    suggestionsContainer.innerHTML = '';
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
+
+            addressInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const query = addressInput.value.trim();
+                    if (query) {
+                        provider.search({ query }).then(results => {
+                            if (results && results.length > 0) {
+                                const { x: lng, y: lat } = results[0];
+                                const address = parseAddress(results[0]);
+                                placeMarker(lat, lng, address, results[0].raw?.display_name || results[0].display_name);
+                            } else {
+                                console.warn('No results for address:', query);
+                                addressInput.value = 'Address not found';
+                                setTimeout(() => { addressInput.value = ''; }, 2000);
+                            }
+                        }).catch(err => {
+                            console.error('Search error:', err);
+                            addressInput.value = 'Search error';
+                            setTimeout(() => { addressInput.value = ''; }, 2000);
+                        });
+                    }
+                    suggestionsContainer.innerHTML = '';
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
+
+            addressInput.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            // Load initial address if available
+            const initialAddress = {
+                street: "{{ user.getAddress().getStreet() if user.getAddress() else '' }}",
+                house_number: "{{ user.getAddress().getHouseNumber() if user.getAddress() else '' }}",
+                city: "{{ user.getAddress().getCity() if user.getAddress() else '' }}",
+                zip_code: "{{ user.getAddress().getPostCode() if user.getAddress() else '' }}",
+                country: "{{ user.getAddress().getCountry() if user.getAddress() else '' }}"
+            };
+
+            console.log('Initial address:', initialAddress);
+
+            // Build the address query dynamically based on available fields
+            function buildAddressQuery(address) {
+                const parts = [
+                    `${address.street || ''} ${address.house_number || ''}`.trim(),
+                    address.zip_code ? `${address.zip_code} ${address.city || ''}`.trim() : address.city,
+                    address.country
+                ].filter(part => part);
+                return parts.join(', ');
+            }
+
+            function tryGeocodeAddress(query, fallbackQuery = null) {
+                if (!query) {
+                    console.log('No address parts available, falling back to default view');
+                    map.setView([51.505, -0.09], 13);
+                    return;
+                }
+                console.log('Geocoding address:', query);
+                provider.search({ query }).then(results => {
+                    if (results && results.length > 0) {
+                        const { x: lng, y: lat } = results[0];
+                        console.log('Address found:', results[0]);
+                        const address = parseAddress(results[0]);
+                        placeMarker(lat, lng, address, results[0].raw?.display_name || results[0].display_name);
+                    } else if (fallbackQuery) {
+                        console.warn('No results for address, trying fallback:', fallbackQuery);
+                        tryGeocodeAddress(fallbackQuery);
+                    } else {
+                        console.warn('No results for address and no fallback available:', query);
+                        map.setView([51.505, -0.09], 13);
+                    }
+                }).catch(err => {
+                    console.error('Error geocoding address:', err);
+                    if (fallbackQuery) {
+                        console.log('Trying fallback query:', fallbackQuery);
+                        tryGeocodeAddress(fallbackQuery);
+                    } else {
+                        map.setView([51.505, -0.09], 13);
+                    }
+                });
+            }
+
+            // Try geocoding with full address first, then fall back to city and country
+            const fullAddress = buildAddressQuery(initialAddress);
+            const fallbackAddress = [initialAddress.city, initialAddress.country].filter(part => part).join(', ');
+
+            if (fullAddress) {
+                tryGeocodeAddress(fullAddress, fallbackAddress);
+            } else if (fallbackAddress) {
+                tryGeocodeAddress(fallbackAddress);
+            } else {
+                console.log('No sufficient address data provided, setting default view');
+                map.setView([51.505, -0.09], 13);
+            }
+
+            // Theme integration
+            document.getElementById('address-map').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--card-background').trim();
+
+            {% if current_user.getRole() == "Admin" %}
+                // Module Assignment
+                const availableList = document.getElementById('available-modules');
+                const assignedList = document.getElementById('assigned-modules');
+                const modulesInput = document.getElementById('modules');
+
+                // Admin Assignment
+                const availableAdminsList = document.getElementById('available-admins');
+                const assignedAdminsList = document.getElementById('assigned-admins');
+                const adminsInput = document.getElementById('admins');
+                const availableSearch = document.getElementById('available-admins-search');
+                const assignedSearch = document.getElementById('assigned-admins-search');
+
+                function updateModulesInput() {
+                    const assignedModules = assignedList.querySelectorAll('li');
+                    const moduleIds = Array.from(assignedModules).map(item => item.dataset.moduleId);
+                    modulesInput.value = moduleIds.join(',');
+                }
+
+                function updateAdminsInput() {
+                    const assignedAdmins = assignedAdminsList.querySelectorAll('li');
+                    const adminIds = Array.from(assignedAdmins).map(item => item.dataset.adminId);
+                    if (adminIds.some(id => !id || typeof id !== 'string')) {
+                        console.error("Invalid admin IDs detected:", adminIds);
+                        adminsInput.value = '';
+                    } else {
+                        adminsInput.value = adminIds.join(',');
+                    }
+                }
+
+                function moveItem(item, targetList, isModule = true) {
+                    item.style.transform = 'scale(0.8)';
+                    item.style.opacity = '0.5';
+                    setTimeout(() => {
+                        targetList.appendChild(item);
+                        item.style.transform = 'scale(1)';
+                        item.style.opacity = '1';
+                        if (isModule) {
+                            updateModulesInput();
+                        } else {
+                            updateAdminsInput();
+                        }
+                    }, 300);
+                }
+
+                availableList.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('move-right')) {
+                        const item = e.target.parentElement;
+                        moveItem(item, assignedList, true);
+                        item.querySelector('button').classList.remove('move-right');
+                        item.querySelector('button').classList.add('move-left');
+                        item.querySelector('button').innerHTML = `← ${item.querySelector('.module-name').textContent}`;
+                        item.querySelector('button').title = `Remove ${item.querySelector('.module-name').textContent}`;
+                    }
+                });
+
+                assignedList.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('move-left')) {
+                        const item = e.target.parentElement;
+                        moveItem(item, availableList, true);
+                        item.querySelector('button').classList.remove('move-left');
+                        item.querySelector('button').classList.add('move-right');
+                        item.querySelector('button').innerHTML = `→ ${item.querySelector('.module-name').textContent}`;
+                        item.querySelector('button').title = `Add ${item.querySelector('.module-name').textContent}`;
+                    }
+                });
+
+                availableAdminsList.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('move-right')) {
+                        const item = e.target.parentElement;
+                        moveItem(item, assignedAdminsList, false);
+                        item.querySelector('button').classList.remove('move-right');
+                        item.querySelector('button').classList.add('move-left');
+                        item.querySelector('button').innerHTML = `← ${item.querySelector('.admin-name').textContent.split(' (')[0]}`;
+                        item.querySelector('button').title = `Remove ${item.querySelector('.admin-name').textContent}`;
+                    }
+                });
+
+                assignedAdminsList.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('move-left')) {
+                        const item = e.target.parentElement;
+                        moveItem(item, availableAdminsList, false);
+                        item.querySelector('button').classList.remove('move-left');
+                        item.querySelector('button').classList.add('move-right');
+                        item.querySelector('button').innerHTML = `→ ${item.querySelector('.admin-name').textContent.split(' (')[0]}`;
+                        item.querySelector('button').title = `Add ${item.querySelector('.admin-name').textContent}`;
+                    }
+                });
+
+                availableSearch.addEventListener('input', () => {
+                    const searchTerm = availableSearch.value.toLowerCase();
+                    const items = availableAdminsList.querySelectorAll('li');
+                    items.forEach(item => {
+                        const name = item.querySelector('.admin-name').textContent.toLowerCase();
+                        item.style.display = name.includes(searchTerm) ? '' : 'none';
+                    });
+                });
+
+                assignedSearch.addEventListener('input', () => {
+                    const searchTerm = assignedSearch.value.toLowerCase();
+                    const items = assignedAdminsList.querySelectorAll('li');
+                    items.forEach(item => {
+                        const name = item.querySelector('.admin-name').textContent.toLowerCase();
+                        item.style.display = name.includes(searchTerm) ? '' : 'none';
+                    });
+                });
+
+                updateModulesInput();
+                updateAdminsInput();
+            {% endif %}
+        });
+    </script>
 {% endblock %}

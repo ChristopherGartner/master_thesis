@@ -1,5 +1,113 @@
 {% extends "base.html" %}
 {% block title %}{{ languageValues.get('create_user_title', 'Create User') }}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.10.0/dist/geosearch.css" />
+    <style>
+        #address-map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px var(--card-shadow);
+            margin-bottom: 20px;
+            margin-top: 10px;
+            z-index: 1;
+        }
+        .address-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 10px;
+            z-index: 1000;
+        }
+        .map-address-display {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid var(--input-border);
+            border-radius: 30px;
+            background: var(--card-background);
+            color: var(--text-color);
+            font-size: 16px;
+            box-shadow: 0 4px 12px var(--card-shadow);
+            transition: var(--card-transition);
+            animation: slide-down 0.5s ease-out;
+            display: block;
+            position: relative;
+            z-index: 1000;
+        }
+        .map-address-display:focus {
+            outline: none;
+            border-color: var(--input-focus);
+            box-shadow: 0 0 8px var(--input-glow);
+        }
+        .map-address-display:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px var(--card-hover-shadow);
+        }
+        .autocomplete-suggestions {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            width: 100%;
+            background: var(--card-background);
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px var(--card-shadow);
+            z-index: 2000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            animation: slide-down 0.3s ease-out;
+        }
+        .autocomplete-suggestions div {
+            padding: 12px 15px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 15px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--input-border);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .autocomplete-suggestions div:last-child {
+            border-bottom: none;
+        }
+        .autocomplete-suggestions div:hover {
+            background: var(--info-background);
+            color: var(--label-color);
+            transform: translateX(5px);
+        }
+        :root[data-theme="neon"] .map-address-display {
+            border: 1px solid var(--primary-color);
+            animation: slide-down 0.5s ease-out, glow-pulse 2s infinite;
+        }
+        :root[data-theme="neon"] .autocomplete-suggestions div:hover {
+            box-shadow: 0 0 8px var(--dropdown-glow-color);
+            transform: translateX(5px) scale(1.02);
+        }
+        :root[data-theme="playful"] .map-address-display {
+            animation: slide-down 0.5s ease-out, playful-bounce 1.5s infinite;
+        }
+        :root[data-theme="playful"] .autocomplete-suggestions div:hover {
+            transform: translateX(5px) rotate(1deg);
+            animation: playful-bounce 0.5s ease;
+        }
+        :root[data-theme="dark"], :root[data-theme="w11_dark"] .map-address-display {
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+        @keyframes slide-down {
+            0% { transform: translateY(-10px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes glow-pulse {
+            0% { box-shadow: 0 0 5px var(--dropdown-glow-color); }
+            50% { box-shadow: 0 0 15px var(--dropdown-glow-color); }
+            100% { box-shadow: 0 0 5px var(--dropdown-glow-color); }
+        }
+        @keyframes playful-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+    </style>
+{% endblock %}
 {% block body %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -10,102 +118,330 @@
             </div>
         {% endif %}
     {% endwith %}
-    <div class="edit-user-container">
-    <h1>{{ languageValues.get('create_user_title', 'Create User') }}</h1>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="flash-messages" style="background-color: {{ theme_colors['flash-background'] }}; color: {{ theme_colors['flash-text'] }};">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-    <form method="POST" action="{{ url_for('create_user') }}">
-        <div class="form-columns">
-            <div class="column">
-                <div class="form-group">
-                    <label for="username">{{ languageValues['edit_user_label_username'] }}</label>
-                    <input type="text" id="username" name="username" value="" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">{{ languageValues['edit_user_label_email'] }}</label>
-                    <input type="email" id="email" name="email" value="" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">{{ languageValues['edit_user_label_password'] }}</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="role">{{ languageValues['edit_user_label_role'] }}</label>
-                    <select id="role" name="role">
-                        <option value="User" selected>{{ languageValues.get('edit_user_admin_role_user', 'User') }}</option>
-                        <option value="Admin">{{ languageValues.get('edit_user_admin_role_admin', 'Admin') }}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="first_name">{{ languageValues['edit_user_label_first_name'] }}</label>
-                    <input type="text" id="first_name" name="first_name" value="">
-                </div>
-                <div class="form-group">
-                    <label for="last_name">{{ languageValues['edit_user_label_last_name'] }}</label>
-                    <input type="text" id="last_name" name="last_name" value="">
-                </div>
-            </div>
-            <div class="column">
-                <div class="form-group">
-                    <label>{{ languageValues['edit_user_label_birth_date'] }}</label>
-                    <div class="date-group">
-                        <select name="birth_day" required>
-                            <option value="">{{ languageValues['edit_user_label_birth_date_day'] }}</option>
-                            {% for day in range(1, 32) %}
-                                <option value="{{ day }}">{{ day }}</option>
-                            {% endfor %}
-                        </select>
-                        <select name="birth_month" required>
-                            <option value="">{{ languageValues['edit_user_label_birth_date_month'] }}</option>
-                            <option value="1">{{ languageValues['edit_user_label_birth_date_month_january'] }}</option>
-                            <option value="2">{{ languageValues['edit_user_label_birth_date_month_february'] }}</option>
-                            <option value="3">{{ languageValues['edit_user_label_birth_date_month_march'] }}</option>
-                            <option value="4">{{ languageValues['edit_user_label_birth_date_month_april'] }}</option>
-                            <option value="5">{{ languageValues['edit_user_label_birth_date_month_may'] }}</option>
-                            <option value="6">{{ languageValues['edit_user_label_birth_date_month_june'] }}</option>
-                            <option value="7">{{ languageValues['edit_user_label_birth_date_month_july'] }}</option>
-                            <option value="8">{{ languageValues['edit_user_label_birth_date_month_august'] }}</option>
-                            <option value="9">{{ languageValues['edit_user_label_birth_date_month_september'] }}</option>
-                            <option value="10">{{ languageValues['edit_user_label_birth_date_month_october'] }}</option>
-                            <option value="11">{{ languageValues['edit_user_label_birth_date_month_november'] }}</option>
-                            <option value="12">{{ languageValues['edit_user_label_birth_date_month_december'] }}</option>
-                        </select>
-                        <select name="birth_year" required>
-                            <option value="">{{ languageValues['edit_user_label_birth_date_year'] }}</option>
-                            {% for year in range(1900, 2026) %}
-                                <option value="{{ year }}">{{ year }}</option>
-                            {% endfor %}
+    <div class="edit-user-container" style="background: {{ theme_colors['background-gradient-start'] }};">
+        <h1 style="color: {{ theme_colors['text-color'] }};">{{ languageValues.get('create_user_title', 'Create User') }}</h1>
+        <form method="POST" action="{{ url_for('create_user') }}">
+            <div class="form-columns">
+                <div class="column">
+                    <div class="form-group">
+                        <label for="username" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_user_label_username'] }}</label>
+                        <input type="text" id="username" name="username" value="" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_user_label_email'] }}</label>
+                        <input type="email" id="email" name="email" value="" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_user_label_password'] }}</label>
+                        <input type="password" id="password" name="password" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="role" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_user_label_role'] }}</label>
+                        <select id="role" name="role" class="form-input">
+                            <option value="User" selected>{{ languageValues.get('edit_user_admin_role_user', 'User') }}</option>
+                            <option value="Admin">{{ languageValues.get('edit_user_admin_role_admin', 'Admin') }}</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>{{ languageValues['edit_user_label_street_and_housenumber'] }}</label>
-                    <div class="street-number-group">
-                        <input type="text" id="street" name="street" placeholder="Street" value="">
-                        <input type="text" id="house_number" name="house_number" placeholder="Nr." value="">
+                <div class="column">
+                    <div class="form-group">
+                        <label for="first_name" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_user_label_first_name'] }}</label>
+                        <input type="text" id="first_name" name="first_name" value="" required class="form-input">
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>{{ languageValues['edit_user_label_city_and_postcode'] }}</label>
-                    <div class="city-zip-group">
-                        <input type="text" id="city" name="city" placeholder="City" value="">
-                        <input type="text" id="zip_code" name="zip_code" placeholder="Postcode" value="">
+                    <div class="form-group">
+                        <label for="last_name" style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_user_label_last_name'] }}</label>
+                        <input type="text" id="last_name" name="last_name" value="" required class="form-input">
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="country">{{ languageValues['edit_user_label_country'] }}</label>
-                    <input type="text" id="country" name="country" value="">
+                    <div class="form-group">
+                        <label style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_user_label_birth_date'] }}</label>
+                        <div class="date-group">
+                            <select id="birth_day" name="birth_day" required class="form-input">
+                                <option value="">{{ languageValues['edit_user_label_birth_date_day'] }}</option>
+                                {% for day in range(1, 32) %}
+                                    <option value="{{ day }}">{{ day }}</option>
+                                {% endfor %}
+                            </select>
+                            <select id="birth_month" name="birth_month" required class="form-input">
+                                <option value="">{{ languageValues['edit_user_label_birth_date_month'] }}</option>
+                                <option value="1">{{ languageValues['edit_user_label_birth_date_month_january'] }}</option>
+                                <option value="2">{{ languageValues['edit_user_label_birth_date_month_february'] }}</option>
+                                <option value="3">{{ languageValues['edit_user_label_birth_date_month_march'] }}</option>
+                                <option value="4">{{ languageValues['edit_user_label_birth_date_month_april'] }}</option>
+                                <option value="5">{{ languageValues['edit_user_label_birth_date_month_may'] }}</option>
+                                <option value="6">{{ languageValues['edit_user_label_birth_date_month_june'] }}</option>
+                                <option value="7">{{ languageValues['edit_user_label_birth_date_month_july'] }}</option>
+                                <option value="8">{{ languageValues['edit_user_label_birth_date_month_august'] }}</option>
+                                <option value="9">{{ languageValues['edit_user_label_birth_date_month_september'] }}</option>
+                                <option value="10">{{ languageValues['edit_user_label_birth_date_month_october'] }}</option>
+                                <option value="11">{{ languageValues['edit_user_label_birth_date_month_november'] }}</option>
+                                <option value="12">{{ languageValues['edit_user_label_birth_date_month_december'] }}</option>
+                            </select>
+                            <select id="birth_year" name="birth_year" required class="form-input">
+                                <option value="">{{ languageValues['edit_user_label_birth_date_year'] }}</option>
+                                {% for year in range(1900, 2026) %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_user_label_address'] }}</label>
+                        <div class="address-wrapper">
+                            <input type="text" id="address-input" class="map-address-display" placeholder="{{ languageValues.get('search_enter_address', 'Enter address') }}">
+                            <div class="autocomplete-suggestions"></div>
+                        </div>
+                        <div id="address-map"></div>
+                        <input type="hidden" id="street" name="street" value="">
+                        <input type="hidden" id="house_number" name="house_number" value="">
+                        <input type="hidden" id="city" name="city" value="">
+                        <input type="hidden" id="zip_code" name="zip_code" value="">
+                        <input type="hidden" id="country" name="country" value="">
+                    </div>
                 </div>
             </div>
-        </div>
-        <button type="submit" class="btn">{{ languageValues.get('create_user_button_save', 'Create User') }}</button>
-    </form>
-</div>
+            <button type="submit" class="btn submit-btn" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }}; box-shadow: {{ theme_colors['button-shadow'] }};">{{ languageValues.get('create_user_button_save', 'Create User') }}</button>
+        </form>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-geosearch@3.10.0/dist/bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize the map
+            console.log('Initialising map...');
+            const map = L.map('address-map').setView([51.505, -0.09], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                maxZoom: 18,
+            }).addTo(map);
+            map.invalidateSize();
+            console.log('Map initialized and tile layer added:', map);
+
+            // Initialize marker
+            let marker = null;
+            const provider = new GeoSearch.OpenStreetMapProvider();
+            const addressInput = document.getElementById('address-input');
+            const addressWrapper = addressInput.parentNode;
+            const suggestionsContainer = addressWrapper.querySelector('.autocomplete-suggestions');
+
+            // Function to update hidden fields and address display
+            function updateAddressFields(address, displayName = '') {
+                document.getElementById('street').value = address.street || '';
+                document.getElementById('house_number').value = address.house_number || '';
+                document.getElementById('city').value = address.city || '';
+                document.getElementById('zip_code').value = address.zip_code || '';
+                document.getElementById('country').value = address.country || '';
+                let addressString = '';
+                if (address.street || address.city || address.zip_code || address.country) {
+                    addressString = [
+                        `${address.street || ''} ${address.house_number || ''}`.trim(),
+                        address.city,
+                        address.zip_code,
+                        address.country
+                    ].filter(part => part).join(', ').replace(/,\s*,/g, ',').replace(/^\s*,/, '').replace(/,\s*$/, '');
+                } else {
+                    addressString = displayName || `Coordinates: ${address.lat}, ${address.lng}`;
+                }
+                addressInput.value = addressString;
+                console.log('Address display updated:', addressInput.value);
+            }
+
+            // Function to place marker
+            function placeMarker(lat, lng, address, displayName = '') {
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+                marker = L.marker([lat, lng], {
+                    icon: L.icon({
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+                        shadowSize: [41, 41]
+                    })
+                }).addTo(map);
+                map.setView([lat, lng], 16);
+                updateAddressFields(address, displayName);
+                console.log('Marker placed at:', lat, lng, 'Address:', address);
+            }
+
+            // Parse address components
+            function parseAddress(raw) {
+                const address = {
+                    street: '',
+                    house_number: '',
+                    city: '',
+                    zip_code: '',
+                    country: '',
+                    lat: raw.lat || raw.y || '',
+                    lng: raw.lon || raw.x || ''
+                };
+                const nominatimData = raw.raw || raw;
+
+                if (nominatimData.address) {
+                    address.street = nominatimData.address.road || nominatimData.address.street || nominatimData.address.pedestrian || nominatimData.address.path || '';
+                    address.house_number = nominatimData.address.house_number || '';
+                    address.city = nominatimData.address.city || nominatimData.address.town || nominatimData.address.village || nominatimData.address.hamlet || nominatimData.address.suburb || '';
+                    address.zip_code = nominatimData.address.postcode || '';
+                    address.country = nominatimData.address.country || '';
+                }
+
+                if (!address.street && nominatimData.display_name) {
+                    const parts = nominatimData.display_name.split(',').map(part => part.trim());
+                    if (parts[0] && /^\d+$/.test(parts[0]) && parts[1]) {
+                        address.house_number = parts[0];
+                        address.street = parts[1];
+                    } else {
+                        address.street = parts[0] || '';
+                    }
+                    address.country = parts[parts.length - 1] || '';
+                    address.zip_code = parts.find(part => /^\d{4,5}$/.test(part)) || '';
+                }
+
+                console.log('Parsed address:', address);
+                return address;
+            }
+
+            // Debounce function to limit API calls
+            function debounce(func, wait) {
+                let timeout;
+                return function (...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+
+            // Handle map click with reverse geocoding
+            const handleMapClick = debounce((e) => {
+                const { lat, lng } = e.latlng;
+                console.log('Map clicked at:', lat, lng);
+                const fallbackAddress = {
+                    street: '',
+                    house_number: '',
+                    city: '',
+                    zip_code: '',
+                    country: '',
+                    lat: lat.toFixed(6),
+                    lng: lng.toFixed(6)
+                };
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`, {
+                    headers: { 'User-Agent': 'CampsiteApp/1.0' }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        const address = parseAddress(data);
+                        placeMarker(lat, lng, address, data.display_name);
+                    })
+                    .catch(err => {
+                        console.error('Reverse geocoding error:', err);
+                        placeMarker(lat, lng, fallbackAddress);
+                    });
+            }, 1000);
+
+            map.on('click', handleMapClick);
+
+            // Autocomplete suggestions
+            const fetchSuggestions = debounce((query) => {
+                if (!query || query.length < 3) {
+                    suggestionsContainer.innerHTML = '';
+                    suggestionsContainer.style.display = 'none';
+                    console.log('Suggestions cleared due to short query');
+                    return;
+                }
+                console.log('Fetching suggestions for:', query);
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`, {
+                    headers: { 'User-Agent': 'CampsiteApp/1.0' }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Suggestions received:', data);
+                        suggestionsContainer.innerHTML = '';
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const suggestion = document.createElement('div');
+                                suggestion.textContent = item.display_name;
+                                suggestion.addEventListener('click', () => {
+                                    suggestionsContainer.innerHTML = '';
+                                    suggestionsContainer.style.display = 'none';
+                                    provider.search({ query: item.display_name }).then(results => {
+                                        if (results && results.length > 0) {
+                                            const { x: lng, y: lat } = results[0];
+                                            const address = parseAddress(results[0]);
+                                            placeMarker(lat, lng, address, item.display_name);
+                                        }
+                                    }).catch(err => {
+                                        console.error('Search error:', err);
+                                        suggestionsContainer.innerHTML = '<div>Error fetching address. Please try again.</div>';
+                                        suggestionsContainer.style.display = 'block';
+                                        setTimeout(() => {
+                                            suggestionsContainer.innerHTML = '';
+                                            suggestionsContainer.style.display = 'none';
+                                        }, 3000);
+                                    });
+                                });
+                                suggestionsContainer.appendChild(suggestion);
+                            });
+                            suggestionsContainer.style.display = 'block';
+                            console.log('Suggestions displayed:', suggestionsContainer.innerHTML);
+                        } else {
+                            suggestionsContainer.style.display = 'none';
+                            console.log('No suggestions to display');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Autocomplete error:', err);
+                        suggestionsContainer.innerHTML = '<div>Search temporarily unavailable. Please try a different query or try again later.</div>';
+                        suggestionsContainer.style.display = 'block';
+                        setTimeout(() => {
+                            suggestionsContainer.innerHTML = '';
+                            suggestionsContainer.style.display = 'none';
+                        }, 3000);
+                    });
+            }, 300);
+
+            addressInput.addEventListener('input', (e) => {
+                fetchSuggestions(e.target.value);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!addressWrapper.contains(e.target)) {
+                    suggestionsContainer.innerHTML = '';
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
+
+            addressInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const query = addressInput.value.trim();
+                    if (query) {
+                        provider.search({ query }).then(results => {
+                            if (results && results.length > 0) {
+                                const { x: lng, y: lat } = results[0];
+                                const address = parseAddress(results[0]);
+                                placeMarker(lat, lng, address, results[0].raw?.display_name || results[0].display_name);
+                            } else {
+                                console.warn('No results for address:', query);
+                                addressInput.value = 'Address not found';
+                                setTimeout(() => { addressInput.value = ''; }, 2000);
+                            }
+                        }).catch(err => {
+                            console.error('Search error:', err);
+                            addressInput.value = 'Search error';
+                            setTimeout(() => { addressInput.value = ''; }, 2000);
+                        });
+                    }
+                    suggestionsContainer.innerHTML = '';
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
+
+            addressInput.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            // Theme integration
+            document.getElementById('address-map').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--card-background').trim();
+        });
+    </script>
 {% endblock %}

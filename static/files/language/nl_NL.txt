@@ -3,6 +3,12 @@ index_Button_Login = Inloggen
 index_Campsite_Description_NotFound = Geen campingbeschrijving beschikbaar
 index_Campsite_Clickable_ViewDetails = Bekijk details
 index_Campsites_NotFound = Geen campings gevonden
+index_tab_campsites = Campings
+index_tab_map = Kaart
+index_Campsites_Title = Ontdek campings
+create_campsite_label = Camping maken
+create_user_label = Gebruiker aanmaken
+search_enter_address = Adres invoeren
 
 # Campsite_Detail Page
 campsiteDetail_name_Label_Details = - Details
@@ -132,3 +138,5 @@ settings_themes_playful = Speels
 settings_themes_w11 = W11
 settings_themes_w11_dark = W11-Donker
 settings_themes_admin = Beheerder
+settings_themes_twilight = Twilight
+settings_themes_citrus = Citrus

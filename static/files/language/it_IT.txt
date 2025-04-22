@@ -3,6 +3,12 @@ index_Button_Login = Accedi
 index_Campsite_Description_NotFound = Nessuna descrizione del campeggio disponibile
 index_Campsite_Clickable_ViewDetails = Visualizza dettagli
 index_Campsites_NotFound = Nessun campeggio trovato
+index_tab_campsites = Campeggi
+index_tab_map = Mappa
+index_Campsites_Title = Scopri i campeggi
+create_campsite_label = Crea Campeggio
+create_user_label = Crea utente
+search_enter_address = Inserisci l'indirizzo
 
 # Campsite_Detail Page
 campsiteDetail_name_Label_Details = - Dettagli
@@ -132,3 +138,5 @@ settings_themes_playful = Giocoso
 settings_themes_w11 = W11
 settings_themes_w11_dark = W11-Buio
 settings_themes_admin = Amministratore
+settings_themes_twilight = Twilight
+settings_themes_citrus = Agrume

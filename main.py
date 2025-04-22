@@ -83,7 +83,7 @@ class FlaskApp:
         self.login_manager.login_view = 'login'
 
         # Ensure upload folder exists
-        UPLOAD_FOLDER = os.path.join(self.app.static_folder, 'uploads', 'campsites')
+        UPLOAD_FOLDER = os.path.join(self.app.static_folder, 'Uploads', 'campsites')
         if not os.path.exists(UPLOAD_FOLDER):
             os.makedirs(UPLOAD_FOLDER)
         self.app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -328,7 +328,7 @@ class FlaskApp:
 
         def load_svg(self, filename):
             possible_paths = [
-                os.path.join(self.app.static_folder, 'uploads', 'campsites', filename),
+                os.path.join(self.app.static_folder, 'Uploads', 'campsites', filename),
                 os.path.join(self.app.static_folder, 'images', filename)
             ]
             for path in possible_paths:
@@ -396,7 +396,12 @@ class FlaskApp:
                     flash(f'An error occurred during update: {str(e)}')
                     return redirect(url_for('edit_user'))
 
-            return render_template('edit_user.html', languageValues=language_values, theme_colors=theme_colors)
+            return render_template(
+                'edit_user.html',
+                user=current_user,
+                languageValues=language_values,
+                theme_colors=theme_colors
+            )
 
         @self.app.route("/edit_users")
         @login_required
@@ -425,6 +430,14 @@ class FlaskApp:
                 flash('User not found')
                 return redirect(url_for('edit_users'))
 
+            # Debugging: Log the address details
+            if user.getAddress():
+                print(f"Address - Street: {user.getAddress().getStreet()}")
+                print(f"Address - House Number: {user.getAddress().getHouseNumber()}")
+                print(f"Address - City: {user.getAddress().getCity()}")
+                print(f"Address - Zip Code: {user.getAddress().getPostCode()}")
+                print(f"Address - Country: {user.getAddress().getCountry()}")
+
             if request.method == 'POST':
                 username = request.form.get('username')
                 email = request.form.get('email')
@@ -441,12 +454,30 @@ class FlaskApp:
                 street_name = request.form.get('street')
                 house_number = request.form.get('house_number')
 
+                if city and country and city.strip().lower() == country.strip().lower():
+                    logger.warning(f"City ({city}) matches country ({country}), resetting city to empty")
+                    city = ''
+
                 err = ""
                 err += validateUsername(username)
                 err += validate_email(email)
                 if password:
                     err += validate_password(password)
                 err += validate_role(role)
+
+                # Validate date fields
+                try:
+                    birthday_day = int(birthday_day)
+                    birthday_month = int(birthday_month)
+                    birthday_year = int(birthday_year)
+                    if not (1 <= birthday_day <= 31):
+                        err += "Day must be between 1 and 31. "
+                    if not (1 <= birthday_month <= 12):
+                        err += "Month must be between 1 and 12. "
+                    if not (1900 <= birthday_year <= 2025):
+                        err += "Year must be between 1900 and 2025. "
+                except ValueError:
+                    err += "Invalid date values. "
 
                 user_with_name = user_repository.getUserByUsername(username)
                 user_with_email = user_repository.getUserByEmail(email)
@@ -469,7 +500,8 @@ class FlaskApp:
                     user.setRole(role)
                     user.setFirstName(first_name)
                     user.setLastName(last_name)
-                    user.setBirthday(f"{birthday_year}-{birthday_month}-{birthday_day}")
+                    birthday_str = f"{birthday_year}-{birthday_month:02d}-{birthday_day:02d}"
+                    user.setBirthday(birthday_str)
                     user.setAddress(street_name, house_number, city, postcode, country)
 
                     user_repository.updateUserObject(self.__repositoryFactory.getAddressRepository(), user)
@@ -480,36 +512,6 @@ class FlaskApp:
                     return redirect(url_for('edit_user_admin', user_id=user_id))
 
             return render_template("edit_user_admin.html", user=user, languageValues=language_values,
-                                   theme_colors=theme_colors)
-
-        @self.app.route("/edit_campsites")
-        @login_required
-        def edit_campsites():
-            if current_user.getRole() != "Admin":
-                flash('Access denied')
-                return redirect(url_for('index'))
-            language_values = getLanguageValues()
-            theme_colors = getThemeValues(language_values)
-            campsite_repository = self.__repositoryFactory.getCampsiteRepository()
-            all_campsites = campsite_repository.getCampsitesAsDataObjects(
-                self.db,
-                self.__repositoryFactory.getCampsiteModuleRepository(),
-                self.__repositoryFactory.getModuleRepository()
-            )
-            # Debug log to inspect campsite structure and type
-            for campsite in all_campsites:
-                logger.debug(f"Campsite type (edit_campsites): {type(campsite)}")
-                logger.debug(f"Campsite structure (edit_campsites): {campsite}")
-                logger.debug(f"Campsite address (edit_campsites): {getattr(campsite, 'address', 'N/A')}")
-            # Get campsite IDs where the current user is an admin
-            admin_campsite_ids = []
-            if current_user.is_authenticated:
-                campsite_admin_repository = self.__repositoryFactory.getCampsiteAdminRepository()
-                admin_assignments = campsite_admin_repository.getAdminsByUserId(current_user.getId())
-                admin_campsite_ids = [assignment['campsite_id'] for assignment in admin_assignments]
-                logger.debug(f"Admin campsite IDs for user {current_user.getUsername()}: {admin_campsite_ids}")
-            return render_template("edit_campsites.html", allCampsites=all_campsites,
-                                   admin_campsite_ids=admin_campsite_ids, languageValues=language_values,
                                    theme_colors=theme_colors)
 
         @self.app.route("/edit_campsite/<campsite_id>", methods=['GET', 'POST'])
@@ -533,7 +535,7 @@ class FlaskApp:
             )
             if not campsite:
                 flash('Campsite not found')
-                return redirect(url_for('edit_campsites'))
+                return redirect(url_for('index'))
 
             logger.debug(
                 f"Loaded campsite ID={campsite_id}: name={campsite.getName()}, description={campsite.getDescription()}")
@@ -570,7 +572,7 @@ class FlaskApp:
                             file_path = os.path.join(self.app.config['UPLOAD_FOLDER'],
                                                      f"campsite_{campsite_id}_{filename}")
                             file.save(file_path)
-                            logo_path = f"/uploads/campsites/campsite_{campsite_id}_{filename}"
+                            logo_path = f"/Uploads/campsites/campsite_{campsite_id}_{filename}"
 
                     campsite.setName(name)
                     campsite.setDescription(description)
@@ -595,7 +597,7 @@ class FlaskApp:
                     campsite_repository.clearCache()
                     campsite_module_repository.clearCache()
                     flash('Campsite updated successfully!')
-                    return redirect(url_for('edit_campsites'))
+                    return redirect(url_for('index'))
                 except Exception as e:
                     flash(f'An error occurred: {str(e)}')
                     return redirect(url_for('edit_campsite', campsite_id=campsite_id))
@@ -659,11 +661,13 @@ class FlaskApp:
 
                     address_repository = self.__repositoryFactory.getAddressRepository()
                     address_id = address_repository.saveAddressObject(campsite.getAddress(), self.db)
-                    campsite_id = self.db.execute(
-                        "INSERT INTO campsite (name, description, fk_address, isActive, logo_path) VALUES (%s, %s, %s, %s, %s) RETURNING id",
+                    self.db.execute(
+                        "INSERT INTO campsite (name, description, fk_address, isActive, logo_path) VALUES (%s, %s, %s, %s, %s)",
                         (name, description, address_id, True, logo_path),
                         commit=True
-                    )[0][0]
+                    )
+                    campsite_id = self.db.execute("SELECT LAST_INSERT_ID()", commit=False)[0][0]
+                    campsite.setId(campsite_id)
                     campsite.setId(campsite_id)
 
                     if logo_path:

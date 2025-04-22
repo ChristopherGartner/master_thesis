@@ -3,6 +3,12 @@ index_Button_Login = Login
 index_Campsite_Description_NotFound = No campsite-description available
 index_Campsite_Clickable_ViewDetails = View Details
 index_Campsites_NotFound = No campsite found
+index_tab_campsites = Campsites
+index_tab_map = Map
+index_Campsites_Title = Discover Campsites
+create_campsite_label = Create Campsite
+create_user_label = Create User
+search_enter_address = Enter Address
 
 # Campsite_Detail Page
 campsiteDetail_name_Label_Details = - Details
@@ -132,3 +138,5 @@ settings_themes_playful = Playful
 settings_themes_w11 = W11
 settings_themes_w11_dark = W11-Dark
 settings_themes_admin = Admin
+settings_themes_twilight = Twilight
+settings_themes_citrus = Citrus

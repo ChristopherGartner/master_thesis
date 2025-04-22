@@ -3,6 +3,12 @@ index_Button_Login = Connecter
 index_Campsite_Description_NotFound = Aucune description de camping disponible
 index_Campsite_Clickable_ViewDetails = Voir les détails
 index_Campsites_NotFound = Aucun camping trouvé
+index_tab_campsites = Camping
+index_tab_map = Carte
+index_Campsites_Title = Découvrir les campings
+create_campsite_label = Créer un camping
+create_user_label = Créer un utilisateur
+search_enter_address = Entrez l’adresse
 
 # Campsite_Detail Page
 campsiteDetail_name_Label_Details = - Détails
@@ -132,3 +138,5 @@ settings_themes_playful = Espiègle
 settings_themes_w11 = W11
 settings_themes_w11_dark = W11-Sombre
 settings_themes_admin = Administrateur
+settings_themes_twilight = Twilight
+settings_themes_citrus = Agrume
