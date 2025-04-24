@@ -1,7 +1,8 @@
 import argparse
 import logging
 import os
-from flask import Flask, request, render_template, send_from_directory, redirect, url_for, flash, make_response, session
+
+from flask import Flask, request, render_template, send_from_directory, redirect, url_for, flash, make_response, session, jsonify
 from flask_login import current_user, login_user, LoginManager, logout_user
 from loguru import logger
 from werkzeug.utils import secure_filename
@@ -788,11 +789,11 @@ class FlaskApp:
             module_metadata = {
                 "Bread": {
                     "logo": "pictogram_breadModule.svg",
-                    "url": f"/campsite/{campsite_id}/bread_module"
+                    "url": f"/campsite/{campsite_id}/module/bread_module"
                 },
                 "Booking": {
                     "logo": "pictogram_bookingModule.svg",
-                    "url": f"/campsite/{campsite_id}/booking_module SLOPPY CODE: UserRepository getUserReplacementRepository() not found"
+                    "url": f"/campsite/{campsite_id}/module/booking_module SLOPPY CODE: UserRepository getUserReplacementRepository() not found"
                 },
                 "Settings": {
                     "logo": "pictogram_settings.svg",
@@ -832,12 +833,21 @@ class FlaskApp:
                                    admin_campsite_ids=admin_campsite_ids, languageValues=language_values,
                                    theme_colors=theme_colors)
 
-        @self.app.route("/campsite/<campsite_id>/module/<module_id>")
-        def module(campsite_id, module_id):
+        @self.app.route("/campsite/<campsite_id>/module/bread_module")
+        @login_required
+        def module_bread(campsite_id):
             language_values = getLanguageValues()
             theme_colors = getThemeValues(language_values)
-            module_id = 1
-            return render_template("module.html", languageValues=language_values, theme_colors=theme_colors)
+            return render_template("module_bread.html", languageValues=language_values, theme_colors=theme_colors)
+
+        @self.app.route("/campsite/<campsite_id>/module/bread_module/inventory")
+        @login_required
+        def module_bread_inventory(campsite_id):
+            breads = self.db.execute("SELECT * FROM breadModuleInventory;")
+            for bread in breads:
+                if 'price' in bread and hasattr(bread['price'], 'to_eng_string'):
+                    bread['price'] = float(bread['price'])
+            return jsonify(breads)
 
         @self.app.route("/logout")
         def logout():

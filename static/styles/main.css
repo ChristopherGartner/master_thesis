@@ -1767,6 +1767,28 @@ body {
     opacity: 1;
 }
 
+.bread-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.bread-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.bread-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+
 .campsite-card-content {
     padding: 20px;
     flex: 1;
@@ -1924,4 +1946,5 @@ body {
     .campsite-card-address-item span.label {
         font-size: 13px;
     }
+
 }

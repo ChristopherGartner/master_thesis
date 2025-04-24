@@ -1,0 +1,34 @@
+{% extends "base_desktop.html" %}
+{% block extra_head %}
+    <script src="{{ url_for('static', filename='scripts/bread.js') }}"></script>
+{% endblock %}
+{% block body %}
+<body>
+  <h1>Bakery Order Form</h1>
+
+  <div id="order-form">
+    <div id="bread-container" class="bread-container">
+      <p class="loading">Loading available breads...</p>
+    </div>
+
+    <div class="total-section">
+      <div>Total: <span id="total-price" class="total-price">€0.00</span></div>
+    </div>
+
+    <button id="place-order-btn" class="action-button" disabled>Place Order</button>
+  </div>
+
+  <div id="order-summary" style="display: none;">
+    <h2>Order Summary</h2>
+    <div id="summary-items"></div>
+    <div class="summary-total">
+      <span>Grand Total:</span>
+      <span id="summary-total">€0.00</span>
+    </div>
+
+    <div id="paypal-button-container"></div>
+  </div>
+    <script src="https://www.paypal.com/sdk/js?client-id=AcJ2QDD36xS9qoECqMu76SGuKqixkG_irYHblvXLEh5f_TSuCdIgDIHTRp5KqNexY2yZOEW9cG75nUvW&currency=EUR"></script>
+</body>
+</html>
+{% endblock %}
