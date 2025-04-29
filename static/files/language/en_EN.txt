@@ -24,6 +24,16 @@ campsiteDetail_label_module_logo_notAvailable = Module-Logo not available
 campsiteDetail_label_module_access = Access Module
 campsiteDetail_label_module_nonAvailable = No modules available
 
+# Campsite Features
+feature_wlan = Wifi
+feature_paw = Pets allowed
+feature_shower = Showering options available
+feature_playground = Playgrounds
+feature_electric_current = Electric current available
+feature_parking = Parking options available
+feature_swimming = Swimming options available
+feature_fishing = Fishing options available
+
 # Login Page
 login_label_login = Login
 login_label_username = Username

@@ -1,58 +1,509 @@
+<!-- campsite_detail.html -->
 {% extends "base.html" %}
 {% block title %}{{ campsite.name }} {{ languageValues['campsiteDetail_name_Label_Details'] }}{% endblock %}
 {% block extra_head %}
-    <!-- Add only unique styles if necessary -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+.campsite-detail {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    padding: 40px 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 12px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    animation: slide-in 0.8s ease-out;
+}
+.hero h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--header-link-color);
+    text-shadow: 0 2px 4px var(--header-text-shadow);
+    margin: 0;
+    padding: 10px 20px;
+    transition: var(--card-transition);
+}
+.hero h1:hover {
+    transform: scale(1.05);
+    color: var(--secondary-color);
+}
+.hero h1::before {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--header-link-color);
+    transition: width 0.4s ease, left 0.4s ease;
+}
+.hero h1:hover::before {
+    width: 50%;
+    left: 25%;
+}
+.campsite-logo {
+    margin-top: 20px;
+    max-width: 150px;
+    max-height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: bounce-in 1.1s ease-out;
+}
+.campsite-logo img, .campsite-logo svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+.campsite-logo:hover img, .campsite-logo:hover svg {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Info Section with Integrated Map */
+.info {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+.address-container {
+    flex: 1;
+    min-width: 300px;
+    background: var(--info-background);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: inset 0 2px 5px var(--card-shadow);
+    animation: fade-in 0.7s ease-out;
+}
+.address-container h3 {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin: 0 0 15px;
+    text-shadow: 0 1px 2px var(--header-text-shadow);
+}
+.address-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: var(--text-color);
+}
+.address-content svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-color);
+}
+.map-container {
+    flex: 1;
+    min-width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.map-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px var(--card-hover-shadow);
+}
+.leaflet-popup-content-wrapper {
+    background: var(--card-background);
+    color: var(--text-color);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    padding: 0;
+    max-width: 250px;
+    overflow: hidden;
+    animation: popup-appear 0.3s ease-out;
+}
+.leaflet-popup-tip {
+    background: var(--card-background);
+}
+.leaflet-popup-content {
+    margin: 0;
+    padding: 15px;
+}
+.leaflet-popup-content h3 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+.leaflet-popup-content p {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Description Section */
+.description-container {
+    margin-bottom: 40px;
+    background: var(--card-background);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    animation: slide-in 0.8s ease-out;
+}
+.description-container h2 {
+    font-size: 28px;
+    color: var(--primary-color);
+    margin: 0 0 15px;
+    text-shadow: 0 1px 2px var(--header-text-shadow);
+}
+.description-content p {
+    font-size: 16px;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Features Section */
+.features-container {
+    margin-bottom: 40px;
+    background: var(--info-background);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: inset 0 2px 5px var(--card-shadow);
+    animation: fade-in 0.7s ease-out;
+}
+.features-container h2 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 0 20px;
+    text-shadow: 0 1px 2px var(--header-text-shadow);
+    animation: slide-in 0.8s ease-out;
+}
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.feature-card {
+    background: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--card-border);
+    text-align: center;
+    padding: 15px;
+    animation: bounce-in 1.1s ease-out;
+}
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px var(--card-hover-shadow);
+}
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.feature-icon svg {
+    max-width: 100%;
+    max-height: 100%;
+    fill: var(--primary-color);
+    transition: transform 0.3s ease, fill 0.3s ease;
+}
+.feature-card:hover .feature-icon svg {
+    transform: scale(1.2) rotate(5deg);
+    fill: var(--secondary-color);
+}
+.feature-card p {
+    font-size: 14px;
+    color: var(--text-color);
+    margin: 0;
+}
+.feature-card .feature-value {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+:root[data-theme="neon"] .feature-card:hover {
+    box-shadow: 0 12px 30px var(--dropdown-glow-color);
+}
+:root[data-theme="playful"] .feature-card:hover {
+    transform: translateY(-10px) rotate(2deg);
+}
+
+/* Modules Section */
+.modules-container {
+    margin-bottom: 40px;
+    background: var(--card-background);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    animation: slide-in 0.8s ease-out;
+}
+.modules-container h2 {
+    font-size: 28px;
+    color: var(--primary-color);
+    margin: 0 0 20px;
+    text-shadow: 0 1px 2px var(--header-text-shadow);
+}
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.module-card {
+    background: var(--info-background);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: bounce-in 1.1s ease-out;
+}
+.module-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px var(--card-hover-shadow);
+}
+.module-header h3 {
+    font-size: 18px;
+    color: var(--primary-color);
+    margin: 0 0 10px;
+}
+.module-pictogram svg {
+    max-width: 80px;
+    max-height: 80px;
+    fill: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+.module-card:hover .module-pictogram svg {
+    transform: scale(1.2) rotate(5deg);
+}
+.module-actions a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: var(--header-link-color);
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: var(--card-transition);
+    box-shadow: 0 2px 5px var(--button-shadow);
+}
+.module-actions a:hover {
+    background: var(--input-focus);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--button-shadow);
+}
+:root[data-theme="neon"] .module-card:hover {
+    box-shadow: 0 12px 30px var(--dropdown-glow-color);
+}
+:root[data-theme="playful"] .module-card:hover {
+    transform: translateY(-10px) rotate(2deg);
+}
+
+/* Actions Section */
+.actions {
+    text-align: center;
+    margin-top: 40px;
+}
+.actions a {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 0 10px;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: var(--card-transition);
+    box-shadow: 0 2px 5px var(--button-shadow);
+    animation: bounce-in 1.1s ease-out;
+}
+.back-btn {
+    background: var(--info-background);
+    color: var(--label-color);
+}
+.edit-btn {
+    background: var(--primary-color);
+    color: var(--header-link-color);
+}
+.actions a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--button-shadow);
+}
+:root[data-theme="neon"] .actions a:hover {
+    box-shadow: 0 4px 10px var(--dropdown-glow-color);
+}
+:root[data-theme="playful"] .actions a:hover {
+    transform: translateY(-2px) rotate(2deg);
+}
+
+/* Animations */
+@keyframes slide-in {
+    0% { transform: translateX(-20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes bounce-in {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes popup-appear {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+</style>
 {% endblock %}
 {% block body %}
-    <div class="campsite-detail">
-        <div class="hero">
-            <h1>{{ campsite.name }}</h1>
-        </div>
-        <div class="info">
-            <p><span class="label">{{ languageValues['campsiteDetail_label_address'] }}:</span> {{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }}, {{ campsite.address.getCity() }}, {{ campsite.address.getPostCode() }}, {{ campsite.address.getCountry() }}</p>
-            {% if campsite.description %}
-                <div class="description">
-                    <p><span class="label">{{ languageValues['campsiteDetail_label_description'] }}:</span> {{ campsite.description }}</p>
-                </div>
+<div class="campsite-detail">
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>{{ campsite.name }}</h1>
+        <div class="campsite-logo">
+            {% if campsite.logo_path.endswith('.svg') %}
+                {% set svg_content = load_svg(campsite.logo_path.split('/')[-1]) %}
+                {% if svg_content %}
+                    {{ svg_content | safe }}
+                {% else %}
+                    <img src="/static/images/pictogram_campsite_logo_missing.svg" alt="Missing Logo">
+                {% endif %}
             {% else %}
-                <p><span class="label">Description:</span>{{ languageValues['campsiteDetail_label_description_nonExistent'] }}</p>
-            {% endif %}
-        </div>
-
-        <div class="modules-container">
-            <h2 style="text-align: center; color: var(--primary-color); margin: 30px 0 20px;">{{ languageValues['campsiteDetail_label_availableModules'] }}:</h2>
-            {% if modules %}
-                <div class="module-grid">
-                    {% for module in modules %}
-                        <div class="module-card">
-                            <div class="module-header">
-                                <h3>{{ module.name }}</h3>
-                            </div>
-                            <div class="module-info">
-                                {% if module.logo %}
-                                    <div class="module-pictogram">
-                                        {{ module.logo | safe }}
-                                    </div>
-                                {% else %}
-                                    <p style="color: var(--description-text-color);">{{ languageValues['campsiteDetail_label_module_logo_notAvailable'] }}</p>
-                                {% endif %}
-                            </div>
-                            <div class="module-actions">
-                                <a href="{{ module.url or '#' }}">{{ languageValues['campsiteDetail_label_module_access'] }}</a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p style="text-align: center; color: var(--description-text-color);">{{ languageValues['campsiteDetail_label_module_nonAvailable'] }}</p>
-            {% endif %}
-        </div>
-
-        <div class="actions">
-            <a href="{{ url_for('index') }}" class="back-btn">{{ languageValues['campsiteDetail_button_backToIndexPage'] }}</a>
-            {% if current_user.is_authenticated and (current_user.getRole() == "Admin" or campsite.id in admin_campsite_ids) %}
-                <a href="{{ url_for('edit_campsite', campsite_id=campsite.id) }}" class="edit-btn">{{ languageValues.get('campsiteDetail_button_editCampsite', 'Edit Campsite') }}</a>
+                <img src="{{ campsite.logo_path }}" alt="{{ campsite.name }} Logo">
             {% endif %}
         </div>
     </div>
+
+    <!-- Info Section with Integrated Map -->
+    <div class="info">
+        <div class="address-container">
+            <h3>{{ languageValues['campsiteDetail_label_address'] }}</h3>
+            <div class="address-content">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                {{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }}, {{ campsite.address.getCity() }}, {{ campsite.address.getPostCode() }}, {{ campsite.address.getCountry() }}
+            </div>
+        </div>
+        <div id="map" class="map-container"></div>
+    </div>
+
+    <!-- Description Section -->
+    <div class="description-container">
+        <h2>{{ languageValues['campsiteDetail_label_description'] }}</h2>
+        <div class="description-content">
+            {% if campsite.description %}
+                <p>{{ campsite.description }}</p>
+            {% else %}
+                <p>{{ languageValues['campsiteDetail_label_description_nonExistent'] }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-container">
+        <h2>{{ languageValues['campsiteDetail_label_features'] }}</h2>
+        <div class="feature-grid">
+            {% for feature in available_features %}
+                {% if feature.type == 'checkbox' and campsite[feature.id] == true %}
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            {{ load_svg('campsite_features/' + feature.icon) | safe }}
+                        </div>
+                        <p>{{ languageValues[feature.label_key] }}</p>
+                    </div>
+                {% elif feature.type == 'text' and campsite[feature.id] %}
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            {{ load_svg('campsite_features/' + feature.icon) | safe }}
+                        </div>
+                        <p>{{ languageValues[feature.label_key] }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% set has_active_features = false %}
+        {% for feature in available_features %}
+            {% if (feature.type == 'checkbox' and campsite[feature.id] == true) or (feature.type == 'text' and campsite[feature.id]) %}
+                {% set has_active_features = true %}
+            {% endif %}
+        {% endfor %}
+        {% if not available_features or not has_active_features %}
+            <p>{{ languageValues['campsiteDetail_label_features_nonAvailable'] }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Modules Section -->
+    <div class="modules-container">
+        <h2>{{ languageValues['campsiteDetail_label_availableModules'] }}</h2>
+        {% if modules %}
+            <div class="module-grid">
+                {% for module in modules %}
+                    <div class="module-card">
+                        <div class="module-header">
+                            <h3>{{ module.name }}</h3>
+                        </div>
+                        <div class="module-info">
+                            {% if module.logo %}
+                                <div class="module-pictogram">
+                                    {{ module.logo | safe }}
+                                </div>
+                            {% else %}
+                                <p>{{ languageValues['campsiteDetail_label_module_logo_notAvailable'] }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="module-actions">
+                            <a href="{{ module.url or '#' }}">{{ languageValues['campsiteDetail_label_module_access'] }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>{{ languageValues['campsiteDetail_label_module_nonAvailable'] }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Actions Section -->
+    <div class="actions">
+        <a href="{{ url_for('index') }}" class="back-btn">{{ languageValues['campsiteDetail_button_backToIndexPage'] }}</a>
+        {% if current_user.is_authenticated and (current_user.getRole() == "Admin" or campsite.id in admin_campsite_ids) %}
+            <a href="{{ url_for('edit_campsite', campsite_id=campsite.id) }}" class="edit-btn">{{ languageValues.get('campsiteDetail_button_editCampsite', 'Edit Campsite') }}</a>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    const address = "{{ campsite.address.getStreet() }} {{ campsite.address.getHouseNumber() }}, {{ campsite.address.getCity() }}, {{ campsite.address.getPostCode() }}, {{ campsite.address.getCountry() }}";
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                map.setView([lat, lon], 15);
+                L.marker([lat, lon]).addTo(map)
+                    .bindPopup(`<h3>{{ campsite.name }}</h3><p>${address}</p>`)
+                    .openPopup();
+            } else {
+                console.error('Geocoding failed: No results found');
+            }
+        })
+        .catch(error => {
+            console.error('Geocoding error:', error);
+        });
+});
+</script>
 {% endblock %}

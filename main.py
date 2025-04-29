@@ -1,8 +1,8 @@
 import argparse
 import logging
 import os
-
-from flask import Flask, request, render_template, send_from_directory, redirect, url_for, flash, make_response, session, jsonify
+from flask import Flask, request, render_template, send_from_directory, redirect, url_for, flash, make_response, \
+    session, json, jsonify
 from flask_login import current_user, login_user, LoginManager, logout_user
 from loguru import logger
 from werkzeug.utils import secure_filename
@@ -518,10 +518,15 @@ class FlaskApp:
         @self.app.route("/edit_campsite/<campsite_id>", methods=['GET', 'POST'])
         @login_required
         def edit_campsite(campsite_id):
+            logger.info(f"Request method: {request.method}, URL: {request.url}")
             campsite_admin_repository = self.__repositoryFactory.getCampsiteAdminRepository()
             admin_assignments = campsite_admin_repository.getAdminsByUserId(current_user.getId())
             admin_campsite_ids = [assignment['campsite_id'] for assignment in admin_assignments]
+            logger.info(
+                f"User {current_user.getUsername()} (Role: {current_user.getRole()}) accessing campsite {campsite_id}")
+            logger.info(f"Admin campsite IDs: {admin_campsite_ids}")
             if current_user.getRole() != "Admin" and int(campsite_id) not in admin_campsite_ids:
+                logger.warning(f"Access denied for user {current_user.getUsername()} to campsite {campsite_id}")
                 flash('Access denied')
                 return redirect(url_for('index'))
 
@@ -534,14 +539,12 @@ class FlaskApp:
                 self.__repositoryFactory.getCampsiteModuleRepository(),
                 self.__repositoryFactory.getModuleRepository()
             )
+            logger.info(f"Campsite retrieved: {campsite}")
             if not campsite:
+                logger.warning(f"Campsite {campsite_id} not found")
                 flash('Campsite not found')
                 return redirect(url_for('index'))
 
-            logger.debug(
-                f"Loaded campsite ID={campsite_id}: name={campsite.getName()}, description={campsite.getDescription()}")
-
-            campsite_repository = self.__repositoryFactory.getCampsiteRepository()
             module_repository = self.__repositoryFactory.getModuleRepository()
             campsite_module_repository = self.__repositoryFactory.getCampsiteModuleRepository()
             user_repository = self.__repositoryFactory.getUserRepository()
@@ -550,10 +553,12 @@ class FlaskApp:
             all_modules = module_repository.getModules(self.db)
             assigned_modules = campsite_module_repository.getModulesByCampsiteId(int(campsite_id), self.db)
             assigned_module_ids = [module.getId() for module in assigned_modules]
-
             all_users = user_repository.getUsers()
             assigned_admins = campsite_admin_repository.getAdminsByCampsiteId(int(campsite_id))
             assigned_admin_ids = [str(admin.getId()) for admin in assigned_admins]
+            assigned_features = [f['id'] for f in campsite_repository.getAvailableFeatures() if
+                                 campsite.getDataObject().get(f['id'])]
+            available_features = campsite_repository.getAvailableFeatures()
 
             if request.method == 'POST':
                 try:
@@ -564,6 +569,10 @@ class FlaskApp:
                     city = request.form.get('city')
                     zip_code = request.form.get('zip_code')
                     country = request.form.get('country')
+                    features_json = request.form.get('features', '[]')
+                    logger.info(f"Received features JSON: {features_json}")
+                    features = json.loads(features_json)
+                    logger.info(f"Parsed features: {features}")
 
                     logo_path = campsite.getLogoPath()
                     if 'logo' in request.files:
@@ -578,12 +587,29 @@ class FlaskApp:
                     campsite.setName(name)
                     campsite.setDescription(description)
                     campsite.setAddress(street, house_number, city, zip_code, country)
+                    # Set feature values
+                    feature_values = {f['id']: f['value'] for f in features}
+                    logger.info(f"Feature values: {feature_values}")
+
+                    logger.info("Setting feature values...")
+                    campsite.setFeature_wlan(feature_values.get('wlan', False))
+                    campsite.setFeature_paw(feature_values.get('paw', False))
+                    campsite.setFeature_shower(feature_values.get('shower', False))
+                    campsite.setFeature_playground(feature_values.get('playground', False))
+                    campsite.setFeature_electricCurrent(feature_values.get('electric_current', False))
+                    campsite.setFeature_parking(feature_values.get('parking', False))
+                    campsite.setFeature_swimming(feature_values.get('swimming', False))
+                    campsite.setFeature_fishing(feature_values.get('fishing', False))
+                    logger.info("Feature values set successfully")
+
+                    logger.info("Updating campsite in database...")
                     campsite_repository.updateCampsiteObject(
                         self.__repositoryFactory.getAddressRepository(),
                         campsite,
                         self.db,
                         logo_path
                     )
+                    logger.info("Campsite updated successfully")
 
                     if current_user.getRole() == "Admin":
                         modules_str = request.form.get('modules', '')
@@ -592,7 +618,7 @@ class FlaskApp:
                         selected_admin_ids = admins_str.split(',') if admins_str else []
                         campsite_module_repository.updateCampsiteModules(int(campsite_id), selected_module_ids, self.db,
                                                                          campsite_repository)
-                        if admins_str:  # Only update admins if the admins field is provided
+                        if admins_str:
                             campsite_admin_repository.updateCampsiteAdmins(int(campsite_id), selected_admin_ids)
 
                     campsite_repository.clearCache()
@@ -610,6 +636,8 @@ class FlaskApp:
                 assigned_module_ids=assigned_module_ids,
                 all_users=all_users,
                 assigned_admin_ids=assigned_admin_ids,
+                assigned_features=assigned_features,
+                available_features=available_features,
                 languageValues=language_values,
                 theme_colors=theme_colors
             )
@@ -630,6 +658,7 @@ class FlaskApp:
 
             all_modules = module_repository.getModules(self.db)
             all_users = user_repository.getUsers()
+            available_features = campsite_repository.getAvailableFeatures()
 
             if request.method == 'POST':
                 try:
@@ -642,6 +671,8 @@ class FlaskApp:
                     country = request.form.get('country')
                     modules_str = request.form.get('modules', '')
                     admins_str = request.form.get('admins', '')
+                    features_json = request.form.get('features', '[]')
+                    features = json.loads(features_json)
                     selected_module_ids = modules_str.split(',') if modules_str else []
                     selected_admin_ids = admins_str.split(',') if admins_str else []
 
@@ -650,6 +681,16 @@ class FlaskApp:
                     campsite.setDescription(description)
                     campsite.setAddress(street, house_number, city, zip_code, country)
                     campsite.setActive(True)
+                    # Set feature values
+                    feature_values = {f['id']: f['value'] for f in features}
+                    campsite.setFeature_wlan(feature_values.get('wlan', False))
+                    campsite.setFeature_paw(feature_values.get('paw', False))
+                    campsite.setFeature_shower(feature_values.get('shower', False))
+                    campsite.setFeature_playground(feature_values.get('playground', False))
+                    campsite.setFeature_electricCurrent(feature_values.get('electric_current', False))
+                    campsite.setFeature_parking(feature_values.get('parking', False))
+                    campsite.setFeature_swimming(feature_values.get('swimming', False))
+                    campsite.setFeature_fishing(feature_values.get('fishing', False))
 
                     logo_path = None
                     if 'logo' in request.files:
@@ -658,22 +699,35 @@ class FlaskApp:
                             filename = secure_filename(file.filename)
                             file_path = os.path.join(self.app.config['UPLOAD_FOLDER'], f"new_campsite_{filename}")
                             file.save(file_path)
-                            logo_path = f"/uploads/campsites/new_campsite_{filename}"
+                            logo_path = f"/Uploads/campsites/new_campsite_{filename}"
 
                     address_repository = self.__repositoryFactory.getAddressRepository()
                     address_id = address_repository.saveAddressObject(campsite.getAddress(), self.db)
+                    feature_params = (
+                        campsite.getFeature_wlan(),
+                        campsite.getFeature_paw(),
+                        campsite.getFeature_shower(),
+                        campsite.getFeature_playground(),
+                        campsite.getFeature_electricCurrent(),
+                        campsite.getFeature_parking(),
+                        campsite.getFeature_swimming(),
+                        campsite.getFeature_fishing(),
+                    )
                     self.db.execute(
-                        "INSERT INTO campsite (name, description, fk_address, isActive, logo_path) VALUES (%s, %s, %s, %s, %s)",
-                        (name, description, address_id, True, logo_path),
+                        """
+                        INSERT INTO campsite (
+                            name, description, fk_address, isActive, logo_path,
+                            feature_wlan, feature_paw, feature_shower, feature_playground, feature_electric_current, feature_parking, feature_swimming, feature_fishing
+                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        """,
+                        (name, description, address_id, True, logo_path) + feature_params,
                         commit=True
                     )
                     campsite_id = self.db.execute("SELECT LAST_INSERT_ID()", commit=False)[0][0]
                     campsite.setId(campsite_id)
-                    campsite.setId(campsite_id)
 
                     if logo_path:
-                        # Update logo path with campsite ID
-                        new_logo_path = f"/uploads/campsites/campsite_{campsite_id}_{filename}"
+                        new_logo_path = f"/Uploads/campsites/campsite_{campsite_id}_{filename}"
                         os.rename(
                             os.path.join(self.app.config['UPLOAD_FOLDER'], f"new_campsite_{filename}"),
                             os.path.join(self.app.config['UPLOAD_FOLDER'], f"campsite_{campsite_id}_{filename}")
@@ -700,6 +754,7 @@ class FlaskApp:
                 assigned_module_ids=[],
                 all_users=all_users,
                 assigned_admin_ids=[],
+                available_features=available_features,
                 languageValues=language_values,
                 theme_colors=theme_colors
             )
@@ -767,9 +822,11 @@ class FlaskApp:
             language_values = getLanguageValues()
             theme_colors = getThemeValues(language_values)
             campsite_repository = self.__repositoryFactory.getCampsiteRepository()
-            all_campsites = campsite_repository.getCampsitesAsDataObjects(self.db,
-                                                                          self.__repositoryFactory.getCampsiteModuleRepository(),
-                                                                          self.__repositoryFactory.getModuleRepository())
+            all_campsites = campsite_repository.getCampsitesAsDataObjects(
+                self.db,
+                self.__repositoryFactory.getCampsiteModuleRepository(),
+                self.__repositoryFactory.getModuleRepository()
+            )
             logger.info(f"All campsites: {[c['id'] for c in all_campsites]}")
             campsite = next((c for c in all_campsites if str(c["id"]) == str(campsite_id)), None)
             if campsite is None:
@@ -785,6 +842,27 @@ class FlaskApp:
                 admin_assignments = campsite_admin_repository.getAdminsByUserId(current_user.getId())
                 admin_campsite_ids = [assignment['campsite_id'] for assignment in admin_assignments]
                 logger.debug(f"Admin campsite IDs for user {current_user.getUsername()}: {admin_campsite_ids}")
+
+            # Fetch all available features (with metadata like type, icon, label_key)
+            available_features = campsite_repository.getAvailableFeatures()
+
+            # Fetch the campsite object to get active features
+            campsite_obj = campsite_repository.getCampsiteById(
+                campsite['id'],
+                self.db,
+                self.__repositoryFactory.getCampsiteModuleRepository(),
+                self.__repositoryFactory.getModuleRepository()
+            )
+
+            # Add active features to the campsite dictionary for easier access in the template
+            campsite['wlan'] = campsite_obj.getFeature_wlan()
+            campsite['paw'] = campsite_obj.getFeature_paw()
+            campsite['shower'] = campsite_obj.getFeature_shower()
+            campsite['playground'] = campsite_obj.getFeature_playground()
+            campsite['electric_current'] = campsite_obj.getFeature_electricCurrent()
+            campsite['parking'] = campsite_obj.getFeature_parking()
+            campsite['swimming'] = campsite_obj.getFeature_swimming()
+            campsite['fishing'] = campsite_obj.getFeature_fishing()
 
             module_metadata = {
                 "Bread": {
@@ -808,7 +886,6 @@ class FlaskApp:
                 metadata = module_metadata.get(module_name, {})
                 logo_filename = metadata.get("logo")
 
-                # Debugging-Log
                 logger.debug(f"Processing module: {module_name}, logo: {logo_filename}")
 
                 if logo_filename:
@@ -829,9 +906,16 @@ class FlaskApp:
                     "logo": logo_content,
                     "url": metadata.get("url")
                 })
-            return render_template("campsite_detail.html", campsite=campsite, modules=enriched_modules,
-                                   admin_campsite_ids=admin_campsite_ids, languageValues=language_values,
-                                   theme_colors=theme_colors)
+
+            return render_template(
+                "campsite_detail.html",
+                campsite=campsite,
+                modules=enriched_modules,
+                admin_campsite_ids=admin_campsite_ids,
+                languageValues=language_values,
+                theme_colors=theme_colors,
+                available_features=available_features
+            )
 
         @self.app.route("/campsite/<campsite_id>/module/bread_module")
         @login_required
