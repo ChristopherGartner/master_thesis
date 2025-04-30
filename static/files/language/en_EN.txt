@@ -150,3 +150,20 @@ settings_themes_w11_dark = W11-Dark
 settings_themes_admin = Admin
 settings_themes_twilight = Twilight
 settings_themes_citrus = Citrus
+
+# Bread Module
+module_bread_title = Bread-Module
+module_bread_loading = Loading available products...
+module_bread_no_items = No products available at the moment.
+module_bread_no_description = No description available
+module_bread_total_label = Total
+module_bread_place_order = Place Order
+module_bread_order_summary = Order Summary
+module_bread_grand_total = Grand Total
+module_bread_item = Item
+module_bread_quantity = Quantity
+module_bread_payment_success = Payment successful! Thank you for your order,
+module_bread_payment_error = An error occurred during payment. Please try again.
+module_bread_error_loading = Error loading the products. Please try again later.
+module_bread_total_stock_label = Total Stock
+module_bread_pieces = Pieces

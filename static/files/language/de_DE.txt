@@ -150,3 +150,20 @@ settings_themes_w11_dark = W11-Dunkel
 settings_themes_admin = Administrator
 settings_themes_twilight = Twilight
 settings_themes_citrus = Zitrus
+
+# Bread Module
+module_bread_title = Brötchenmodul
+module_bread_loading = Lade verfügbare Produkte...
+module_bread_no_items = Es sind momentan keine Produkte verfügbar!
+module_bread_no_description = Keine Beschreibung verfügbar
+module_bread_total_label = Gesamtbetrag
+module_bread_place_order = Bestellung abschließen
+module_bread_order_summary = Bestellzusammenfassung
+module_bread_grand_total = Gesamtbetrag
+module_bread_item = Produkt
+module_bread_quantity = Quantifizieren
+module_bread_payment_success = Bezahlung erfolgreich. Vielen Dank für die Bestellung!
+module_bread_payment_error = Ein Problem beim Bezahlvorgang ist aufgetreten!
+module_bread_error_loading = Ein Fehler beim Laden der Produkte ist aufgetreten. Bitte versuchen Sie es später erneut!
+module_bread_total_stock_label = Noch verfügbar
+module_bread_pieces = Stück
