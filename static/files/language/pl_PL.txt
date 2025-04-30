@@ -3,7 +3,7 @@ index_Button_Login = Zaloguj się
 index_Campsite_Description_NotFound = Brak dostępnego opisu kempingu
 index_Campsite_Clickable_ViewDetails = Zobacz szczegóły
 index_Campsites_NotFound = Nie znaleziono kempingu
-index_tab_campsites = Campings
+index_tab_campsites = Kempingi
 index_tab_map = Mapa
 index_Campsites_Title = Odkryj Kempingi
 create_campsite_label = Utwórz Kemping
@@ -118,6 +118,34 @@ edit_users_edit_button = Edytuj
 edit_user_admin_title = Edytuj użytkownika
 edit_user_label_role = Rola
 
+# Transaction Overview Page
+transaction_title = Przegląd transakcji
+transaction_label_date = Data
+transaction_label_campsite = Kemping
+transaction_label_module = Moduł
+transaction_label_price = Cena
+transaction_label_currency = Waluta
+transaction_label_no_transactions = Nie znaleziono transakcji
+transaction_filter_from_date = Od daty
+transaction_filter_to_date = Do daty
+transaction_filter_sort_by = Sortuj według
+transaction_filter_sort_date_desc = Najnowsze najpierw
+transaction_filter_sort_date_asc = Najstarsze najpierw
+transaction_filter_sort_price_desc = Najwyższa cena
+transaction_filter_sort_price_asc = Najniższa cena
+transaction_filter_apply = Zastosuj filtry
+transaction_filter_username = Nazwa użytkownika
+transaction_filter_campsite = Kemping
+transaction_total_spent = Łącznie wydano
+transaction_campsite_title = Przegląd transakcji kempingu
+transaction_view_user_details = Szczegóły użytkownika
+transaction_view_campsite_details = Szczegóły kempingu
+campsite_label_name = Nazwa kempingu
+campsite_label_address = Adres kempingu
+campsite_label_description = Opis kempingu
+transaction_label_user_details = Szczegóły użytkownika
+transaction_label_campsite_details = Szczegóły kempingu
+
 # Settings
 index_Select_Language_de_DE = Niemiecki
 index_Select_Language_en_EN = Angielski
@@ -140,3 +168,20 @@ settings_themes_w11_dark = W11-Ciemny
 settings_themes_admin = Administrator
 settings_themes_twilight = Twilight
 settings_themes_citrus = Cytrusy
+
+# Bread Module
+module_bread_title = Moduł Chleba
+module_bread_loading = Ładowanie dostępnych produktów...
+module_bread_no_items = Brak dostępnych produktów w tej chwili.
+module_bread_no_description = Brak opisu
+module_bread_total_label = Suma
+module_bread_place_order = Złóż zamówienie
+module_bread_order_summary = Podsumowanie zamówienia
+module_bread_grand_total = Suma całkowita
+module_bread_item = Produkt
+module_bread_quantity = Ilość
+module_bread_payment_success = Płatność zakończona sukcesem! Dziękujemy za zamówienie,
+module_bread_payment_error = Wystąpił błąd podczas płatności. Spróbuj ponownie.
+module_bread_error_loading = Błąd podczas ładowania produktów. Spróbuj ponownie później.
+module_bread_total_stock_label = Całkowity zapas
+module_bread_pieces = Sztuki

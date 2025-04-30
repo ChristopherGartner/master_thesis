@@ -1,6 +1,8 @@
 import argparse
 import logging
 import os
+from datetime import datetime
+
 from flask import Flask, request, render_template, send_from_directory, redirect, url_for, flash, make_response, \
     session, json, jsonify
 from flask_login import current_user, login_user, LoginManager, logout_user
@@ -932,6 +934,215 @@ class FlaskApp:
                 if 'price' in bread and hasattr(bread['price'], 'to_eng_string'):
                     bread['price'] = float(bread['price'])
             return jsonify(breads)
+
+        @self.app.route("/transactions", methods=['GET'])
+        @login_required
+        def transactions():
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
+            try:
+                transaction_repository = self.__repositoryFactory.getTransactionRepository()
+                campsite_repository = self.__repositoryFactory.getCampsiteRepository()
+                module_repository = self.__repositoryFactory.getModuleRepository()
+
+                # Get filter and sort parameters
+                from_date = request.args.get('from_date')
+                to_date = request.args.get('to_date')
+                sort_by = request.args.get('sort_by', 'date_desc')
+                campsite_name = request.args.get('campsite')
+
+                # Fetch transactions for the current user
+                transactions = transaction_repository.getTransactionsByUserId(current_user.getId())
+
+                # Filter by date range
+                if from_date:
+                    transactions = [t for t in transactions if
+                                    t['dateOfTransaction'] >= datetime.strptime(from_date, '%Y-%m-%d')]
+                if to_date:
+                    transactions = [t for t in transactions if
+                                    t['dateOfTransaction'] <= datetime.strptime(to_date, '%Y-%m-%d')]
+
+                # Enrich transactions with campsite and module names
+                filtered_transactions = []
+                for transaction in transactions:
+                    campsite = campsite_repository.getCampsiteById(transaction['campsite_id'], self.db,
+                                                                   self.__repositoryFactory.getCampsiteModuleRepository(),
+                                                                   self.__repositoryFactory.getModuleRepository())
+                    module = module_repository.getModuleForModuleId(transaction['module_id'])
+
+                    # Filter by campsite name if provided
+                    if campsite_name and campsite and campsite.getName().lower() != campsite_name.lower():
+                        continue
+
+                    transaction['campsite_name'] = campsite.getName() if campsite else 'Unknown'
+                    transaction['module_name'] = module.getName() if module else 'Unknown'
+                    # Add campsite details
+                    address = campsite.getAddress() if campsite else None
+                    address_str = f"{address.getStreet()} {address.getHouseNumber()}, {address.getCity()} {address.getPostCode()}, {address.getCountry()}" if address else 'Unknown'
+                    transaction['campsite_details'] = {
+                        'name': campsite.getName() if campsite else 'Unknown',
+                        'address': address_str,
+                        'description': campsite.getDescription() if campsite else 'Unknown'
+                    }
+                    filtered_transactions.append(transaction)
+
+                transactions = filtered_transactions
+
+                # Sort transactions
+                if sort_by == 'date_asc':
+                    transactions.sort(key=lambda x: x['dateOfTransaction'])
+                elif sort_by == 'price_desc':
+                    transactions.sort(key=lambda x: x['price'], reverse=True)
+                elif sort_by == 'price_asc':
+                    transactions.sort(key=lambda x: x['price'])
+                else:  # Default: date_desc
+                    transactions.sort(key=lambda x: x['dateOfTransaction'], reverse=True)
+
+                # Calculate total spent by currency
+                total_spent = {}
+                for transaction in transactions:
+                    currency = transaction['moneyCurrency']
+                    price = transaction['price']
+                    if currency in total_spent:
+                        total_spent[currency] += price
+                    else:
+                        total_spent[currency] = price
+
+                return render_template(
+                    "transactions.html",
+                    transactions=transactions,
+                    total_spent=total_spent,
+                    from_date=from_date,
+                    to_date=to_date,
+                    sort_by=sort_by,
+                    campsite=campsite_name,
+                    languageValues=language_values,
+                    theme_colors=theme_colors
+                )
+            except Exception as e:
+                logger.error(f"Error in transactions route: {str(e)}")
+                flash(f"An error occurred: {str(e)}")
+                return render_template(
+                    "transactions.html",
+                    transactions=[],
+                    total_spent={},
+                    from_date=from_date,
+                    to_date=to_date,
+                    sort_by=sort_by,
+                    campsite=campsite_name,
+                    languageValues=language_values,
+                    theme_colors=theme_colors
+                )
+
+        @self.app.route("/campsite/<campsite_id>/transactions", methods=['GET'])
+        @login_required
+        def campsite_transactions(campsite_id):
+            # Check if user is admin or campsite admin
+            if current_user.getRole() != "Admin":
+                campsite_admin_repository = self.__repositoryFactory.getCampsiteAdminRepository()
+                admin_assignments = campsite_admin_repository.getAdminsByUserId(current_user.getId())
+                admin_campsite_ids = [assignment['campsite_id'] for assignment in admin_assignments]
+                if int(campsite_id) not in admin_campsite_ids:
+                    flash('Access denied')
+                    return redirect(url_for('index'))
+
+            language_values = getLanguageValues()
+            theme_colors = getThemeValues(language_values)
+            try:
+                transaction_repository = self.__repositoryFactory.getTransactionRepository()
+                campsite_repository = self.__repositoryFactory.getCampsiteRepository()
+                module_repository = self.__repositoryFactory.getModuleRepository()
+                user_repository = self.__repositoryFactory.getUserRepository()
+
+                # Get filter and sort parameters
+                from_date = request.args.get('from_date')
+                to_date = request.args.get('to_date')
+                sort_by = request.args.get('sort_by', 'date_desc')
+                username = request.args.get('username')
+
+                # Fetch transactions for the campsite
+                transactionsForCampsite = transaction_repository.getTransactionsByCampsiteId(campsite_id)
+
+                # Filter by date range
+                if from_date:
+                    transactionsForCampsite = [t for t in transactionsForCampsite if
+                                               t['dateOfTransaction'] >= datetime.strptime(from_date, '%Y-%m-%d')]
+                if to_date:
+                    transactionsForCampsite = [t for t in transactionsForCampsite if
+                                               t['dateOfTransaction'] <= datetime.strptime(to_date, '%Y-%m-%d')]
+
+                # Enrich transactions with campsite, module names, and user details
+                filtered_transactions = []
+                for transaction in transactionsForCampsite:
+                    campsite = campsite_repository.getCampsiteById(transaction['campsite_id'], self.db,
+                                                                   self.__repositoryFactory.getCampsiteModuleRepository(),
+                                                                   self.__repositoryFactory.getModuleRepository())
+                    module = module_repository.getModuleForModuleId(transaction['module_id'])
+                    user = user_repository.getUserById(transaction['user_id'])
+
+                    # Filter by username if provided
+                    if username and user and user.getUsername().lower() != username.lower():
+                        continue
+
+                    transaction['campsite_name'] = campsite.getName() if campsite else 'Unknown'
+                    transaction['module_name'] = module.getName() if module else 'Unknown'
+                    transaction['user_details'] = {
+                        'username': user.getUsername() if user else 'Unknown',
+                        'first_name': user.getFirstName() if user else 'Unknown',
+                        'last_name': user.getLastName() if user else 'Unknown',
+                        'email': user.getEmail() if user else 'Unknown'
+                    }
+                    filtered_transactions.append(transaction)
+
+                transactionsForCampsite = filtered_transactions
+
+                # Sort transactions
+                if sort_by == 'date_asc':
+                    transactionsForCampsite.sort(key=lambda x: x['dateOfTransaction'])
+                elif sort_by == 'price_desc':
+                    transactionsForCampsite.sort(key=lambda x: x['price'], reverse=True)
+                elif sort_by == 'price_asc':
+                    transactionsForCampsite.sort(key=lambda x: x['price'])
+                else:  # Default: date_desc
+                    transactionsForCampsite.sort(key=lambda x: x['dateOfTransaction'], reverse=True)
+
+                # Calculate total spent by currency
+                total_spent = {}
+                for transaction in transactionsForCampsite:
+                    currency = transaction['moneyCurrency']
+                    price = transaction['price']
+                    if currency in total_spent:
+                        total_spent[currency] += price
+                    else:
+                        total_spent[currency] = price
+
+                return render_template(
+                    "campsite_transactions.html",
+                    transactions=transactionsForCampsite,
+                    total_spent=total_spent,
+                    campsite_id=campsite_id,
+                    from_date=from_date,
+                    to_date=to_date,
+                    sort_by=sort_by,
+                    username=username,
+                    languageValues=language_values,
+                    theme_colors=theme_colors
+                )
+            except Exception as e:
+                logger.error(f"Error in campsite_transactions route: {str(e)}")
+                flash(f"An error occurred: {str(e)}")
+                return render_template(
+                    "campsite_transactions.html",
+                    transactions=[],
+                    total_spent={},
+                    campsite_id=campsite_id,
+                    from_date=from_date,
+                    to_date=to_date,
+                    sort_by=sort_by,
+                    username=username,
+                    languageValues=language_values,
+                    theme_colors=theme_colors
+                )
 
         @self.app.route("/logout")
         def logout():

@@ -118,6 +118,34 @@ edit_users_edit_button = Bewerken
 edit_user_admin_title = Gebruiker bewerken
 edit_user_label_role = Rol
 
+# Transaction Overview Page
+transaction_title = Transactieoverzicht
+transaction_label_date = Datum
+transaction_label_campsite = Camping
+transaction_label_module = Module
+transaction_label_price = Prijs
+transaction_label_currency = Valuta
+transaction_label_no_transactions = Geen transacties gevonden
+transaction_filter_from_date = Van datum
+transaction_filter_to_date = Tot datum
+transaction_filter_sort_by = Sorteren op
+transaction_filter_sort_date_desc = Nieuwste eerst
+transaction_filter_sort_date_asc = Oudste eerst
+transaction_filter_sort_price_desc = Hoogste prijs
+transaction_filter_sort_price_asc = Laagste prijs
+transaction_filter_apply = Filters toepassen
+transaction_filter_username = Gebruikersnaam
+transaction_filter_campsite = Camping
+transaction_total_spent = Totaal uitgegeven
+transaction_campsite_title = Campingtransactieoverzicht
+transaction_view_user_details = Gebruikersdetails
+transaction_view_campsite_details = Campingdetails
+campsite_label_name = Campingnaam
+campsite_label_address = Campingadres
+campsite_label_description = Campingbeschrijving
+transaction_label_user_details = Gebruikersdetails
+transaction_label_campsite_details = Campingdetails
+
 # Settings
 index_Select_Language_de_DE = Duits
 index_Select_Language_en_EN = Engels
@@ -140,3 +168,20 @@ settings_themes_w11_dark = W11-Donker
 settings_themes_admin = Beheerder
 settings_themes_twilight = Twilight
 settings_themes_citrus = Citrus
+
+# Bread Module
+module_bread_title = Broodmodule
+module_bread_loading = Beschikbare producten worden geladen...
+module_bread_no_items = Geen producten beschikbaar op dit moment.
+module_bread_no_description = Geen beschrijving beschikbaar
+module_bread_total_label = Totaal
+module_bread_place_order = Bestelling plaatsen
+module_bread_order_summary = Besteloverzicht
+module_bread_grand_total = Eindtotaal
+module_bread_item = Artikel
+module_bread_quantity = Hoeveelheid
+module_bread_payment_success = Betaling geslaagd! Dank u voor uw bestelling,
+module_bread_payment_error = Er is een fout opgetreden bij de betaling. Probeer het opnieuw.
+module_bread_error_loading = Fout bij het laden van de producten. Probeer het later opnieuw.
+module_bread_total_stock_label = Totale voorraad
+module_bread_pieces = Stuks

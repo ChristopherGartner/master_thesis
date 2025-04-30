@@ -5,6 +5,7 @@ from ..campsite.module_campsite.CampsiteModuleRepository import CampsiteModuleRe
 from ..modules.ModuleRepository import ModuleRepository
 from ..address.AddressRepository import AddressRepository
 from ..users.CampsiteAdminRepository import CampsiteAdminRepository
+from ..transaction.TransactionRepository import TransactionRepository
 
 class RepositoryFactory:
     def __init__(self, db: Database):
@@ -15,6 +16,7 @@ class RepositoryFactory:
         self.__module_repository = None
         self.__address_repository = None
         self.__campsite_admin_repository = None
+        self.__transaction_repository = None
 
     def getUserRepository(self) -> UserRepository:
         if self.__user_repository is None:
@@ -45,3 +47,8 @@ class RepositoryFactory:
         if self.__campsite_admin_repository is None:
             self.__campsite_admin_repository = CampsiteAdminRepository(self.__db, self.getUserRepository())
         return self.__campsite_admin_repository
+
+    def getTransactionRepository(self) -> TransactionRepository:
+        if self.__transaction_repository is None:
+            self.__transaction_repository = TransactionRepository(self.__db)
+        return self.__transaction_repository

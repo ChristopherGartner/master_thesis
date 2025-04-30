@@ -128,6 +128,34 @@ edit_users_edit_button = Bearbeiten
 edit_user_admin_title = Benutzer bearbeiten
 edit_user_label_role = Rolle
 
+# Transaction Overview Page
+transaction_title = Transactions-Übersicht
+transaction_label_date = Datum
+transaction_label_campsite = Campingplatz
+transaction_label_module = Modul
+transaction_label_price = Preis
+transaction_label_currency = Währung
+transaction_label_no_transactions = Keine Transaktionen gefunden
+transaction_filter_from_date = Von (Datum)
+transaction_filter_to_date = Bis (Datum)
+transaction_filter_sort_by = Sortieren nach
+transaction_filter_sort_date_desc = Neuste zuerst
+transaction_filter_sort_date_asc = Älteste zuerst
+transaction_filter_sort_price_desc = Höchster Preis
+transaction_filter_sort_price_asc = Niedrigster Preis
+transaction_filter_apply = Filter anwenden
+transaction_filter_username = Benutzername
+transaction_filter_campsite = Campingplatz
+transaction_total_spent = Gesamtausgaben:
+transaction_campsite_title = Campingplatz Transaktions-Übersicht
+transaction_view_user_details = Benutzerdetails
+transaction_view_campsite_details = Campingplatzdetails
+campsite_label_name = Campingplatz-Name
+campsite_label_address = Campingplatz-Addresse
+campsite_label_description = Campingplatz-Beschreibung
+transaction_label_user_details = Benutzer-Details
+transaction_label_campsite_details = Campingplatz-Details
+
 # Settings
 index_Select_Language_de_DE = Deutsch
 index_Select_Language_en_EN = Englisch

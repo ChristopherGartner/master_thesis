@@ -18,6 +18,99 @@
                 --{{ key }}: {{ value }};
             {% endfor %}
         }
+
+        /* Adjust user dropdown styling */
+        .user-dropdown {
+            background: var(--card-background);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px var(--card-shadow);
+            padding: 10px;
+            width: 250px;
+            position: absolute;
+            z-index: 1000;
+        }
+        .user-dropdown .dropdown-row {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-dropdown .dropdown-row strong {
+            color: var(--text-color);
+        }
+        .user-dropdown .dropdown-row span {
+            color: var(--text-color);
+        }
+        .user-dropdown .edit-user-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            background: var(--primary-color);
+            color: var(--header-link-color) !important;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: var(--card-transition);
+            margin-left: 10px;
+            position: relative;
+        }
+        .user-dropdown .edit-user-btn:hover {
+            background: var(--input-focus);
+            transform: translateY(-2px);
+        }
+        .user-dropdown .edit-user-btn .pictogram {
+            display: inline-flex;
+            align-items: center;
+        }
+        .user-dropdown .edit-user-btn .pictogram svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--header-link-color);
+        }
+        .user-container {
+            position: relative;
+        }
+
+        /* Ensure settings dropdown button matches */
+        .settings-dropdown .edit-user-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            background: var(--primary-color);
+            color: var(--header-link-color) !important;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: var(--card-transition);
+            position: relative;
+        }
+        .settings-dropdown .edit-user-btn:hover {
+            background: var(--input-focus);
+            transform: translateY(-2px);
+        }
+        .settings-dropdown .edit-user-btn .pictogram {
+            display: inline-flex;
+            align-items: center;
+        }
+        .settings-dropdown .edit-user-btn .pictogram svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--header-link-color);
+        }
+
+        /* Ensure SVGs in dropdown rows are visible */
+        .dropdown-row .pictogram svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--text-color);
+        }
+
+        /* Ensure icons are clickable */
+        .user-icon, .settings-icon, .admin-icon {
+            cursor: pointer;
+            display: inline-block;
+        }
     </style>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="canonical" href="{{ request.url }}"/>
@@ -62,6 +155,11 @@
                             </span>
                             <strong>{{ languageValues.get('edit_user_label_last_name', 'Last Name') }}:</strong>
                             <span>{{ current_user.getLastName() }}</span>
+                        </div>
+                        <div class="dropdown-row">
+                            <a href="{{ url_for('transactions') }}" class="edit-user-btn" aria-label="{{ languageValues.get('edit_user_button_viewTransactions', 'View Transactions') }}">
+                                {{ languageValues.get('edit_user_button_viewTransactions', 'View Transactions') }}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -156,10 +254,13 @@
                 $('.user-dropdown').hide();
                 $('.admin-dropdown').hide();
 
-                // Debug SVG loading
+                // Debug SVG loading and event binding
                 console.log('Admin SVG loaded:', $('.admin-icon .pictogram svg').length > 0);
                 console.log('User SVG loaded:', $('.user-icon .pictogram svg').length > 0);
                 console.log('Admin container visible:', $('.admin-container').is(':visible'));
+                console.log('Transactions SVG loaded:', $('.edit-user-btn .pictogram svg').length > 0);
+                console.log('User icon element:', $('.user-icon').length);
+                console.log('Settings icon element:', $('.settings-icon').length);
 
                 // Settings dropdown
                 $('.settings-icon').on('click', function(e) {
@@ -214,5 +315,5 @@
             });
         })(jQuery);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'932e1ce6bfdf53dc',t:'MTc0NTA4MzY0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'938786cb3ecab004',t:'MTc0NjAyMTIxOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93879f66ba7cb0cd',t:'MTc0NjAyMjIyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

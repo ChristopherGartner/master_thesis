@@ -118,6 +118,34 @@ edit_users_edit_button = Modifica
 edit_user_admin_title = Modifica utente
 edit_user_label_role = Ruolo
 
+# Transaction Overview Page
+transaction_title = Panoramica delle transazioni
+transaction_label_date = Data
+transaction_label_campsite = Campeggio
+transaction_label_module = Modulo
+transaction_label_price = Prezzo
+transaction_label_currency = Valuta
+transaction_label_no_transactions = Nessuna transazione trovata
+transaction_filter_from_date = Dalla data
+transaction_filter_to_date = Alla data
+transaction_filter_sort_by = Ordina per
+transaction_filter_sort_date_desc = Più recente prima
+transaction_filter_sort_date_asc = Più vecchio prima
+transaction_filter_sort_price_desc = Prezzo più alto
+transaction_filter_sort_price_asc = Prezzo più basso
+transaction_filter_apply = Applica filtri
+transaction_filter_username = Nome utente
+transaction_filter_campsite = Campeggio
+transaction_total_spent = Totale speso
+transaction_campsite_title = Panoramica transazioni campeggio
+transaction_view_user_details = Dettagli utente
+transaction_view_campsite_details = Dettagli campeggio
+campsite_label_name = Nome campeggio
+campsite_label_address = Indirizzo campeggio
+campsite_label_description = Descrizione campeggio
+transaction_label_user_details = Dettagli utente
+transaction_label_campsite_details = Dettagli campeggio
+
 # Settings
 index_Select_Language_de_DE = Tedesco
 index_Select_Language_en_EN = Inglese
@@ -140,3 +168,20 @@ settings_themes_w11_dark = W11-Buio
 settings_themes_admin = Amministratore
 settings_themes_twilight = Twilight
 settings_themes_citrus = Agrume
+
+# Bread Module
+module_bread_title = Modulo Pane
+module_bread_loading = Caricamento dei prodotti disponibili...
+module_bread_no_items = Nessun prodotto disponibile al momento.
+module_bread_no_description = Nessuna descrizione disponibile
+module_bread_total_label = Totale
+module_bread_place_order = Effettua ordine
+module_bread_order_summary = Riepilogo ordine
+module_bread_grand_total = Totale complessivo
+module_bread_item = Articolo
+module_bread_quantity = Quantità
+module_bread_payment_success = Pagamento riuscito! Grazie per il tuo ordine,
+module_bread_payment_error = Si è verificato un errore durante il pagamento. Riprova.
+module_bread_error_loading = Errore nel caricamento dei prodotti. Riprova più tardi.
+module_bread_total_stock_label = Stock totale
+module_bread_pieces = Pezzi

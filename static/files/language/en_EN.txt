@@ -16,6 +16,7 @@ campsiteDetail_button_backToIndexPage = Back to campsite-overview
 campsiteDetail_button_logout = Logout
 campsiteDetail_button_login = Login
 campsiteDetail_button_editCampsite = Edit Campsite
+campsiteDetail_button_viewTransactions = View Transactions
 campsiteDetail_label_address = Address
 campsiteDetail_label_description = Description
 campsiteDetail_label_description_nonExistent = No description available
@@ -95,6 +96,7 @@ edit_user_label_country = Country
 edit_user_label_city_and_postcode = City and Postcode
 edit_user_label_street_and_housenumber = Street and House Number
 edit_user_button_save = Save
+edit_user_button_viewTransactions = View Transactions
 
 # Edit Campsites Page
 edit_campsites_title = Edit Campsites
@@ -127,6 +129,34 @@ edit_users_edit_button = Edit
 # Edit User Admin Page
 edit_user_admin_title = Edit User
 edit_user_label_role = Role
+
+# Transaction Overview Page
+transaction_title = Transaction Overview
+transaction_label_date = Date
+transaction_label_campsite = Campsite
+transaction_label_module = Module
+transaction_label_price = Price
+transaction_label_currency = Currency
+transaction_label_no_transactions = No transactions found
+transaction_filter_from_date = From Date
+transaction_filter_to_date = To Date
+transaction_filter_sort_by = Sort By
+transaction_filter_sort_date_desc = Newest First
+transaction_filter_sort_date_asc = Oldest First
+transaction_filter_sort_price_desc = Highest Price
+transaction_filter_sort_price_asc = Lowest Price
+transaction_filter_apply = Apply Filters
+transaction_filter_username = Username
+transaction_filter_campsite = Campsite
+transaction_total_spent = Total Spent
+transaction_campsite_title = Campsite Transaction Overview
+transaction_view_user_details = User-Details
+transaction_view_campsite_details = Campsite-Details
+campsite_label_name = Campsite-Name
+campsite_label_address = Campsite-Address
+campsite_label_description = Campsite-Description
+transaction_label_user_details = User-Details
+transaction_label_campsite_details = Campsite-Details
 
 # Settings
 index_Select_Language_de_DE = German
@@ -162,7 +192,7 @@ module_bread_order_summary = Order Summary
 module_bread_grand_total = Grand Total
 module_bread_item = Item
 module_bread_quantity = Quantity
-module_bread_payment_success = Payment successful! Thank you for your order,
+module_bread_payment_success = Payment successful! Thank you for your order.
 module_bread_payment_error = An error occurred during payment. Please try again.
 module_bread_error_loading = Error loading the products. Please try again later.
 module_bread_total_stock_label = Total Stock

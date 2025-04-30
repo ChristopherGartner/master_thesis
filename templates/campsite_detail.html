@@ -327,7 +327,7 @@
     background: var(--info-background);
     color: var(--label-color);
 }
-.edit-btn {
+.edit-btn, .transactions-btn {
     background: var(--primary-color);
     color: var(--header-link-color);
 }
@@ -429,13 +429,13 @@
                 {% endif %}
             {% endfor %}
         </div>
-        {% set has_active_features = false %}
+        {% set has_activity = false %}
         {% for feature in available_features %}
             {% if (feature.type == 'checkbox' and campsite[feature.id] == true) or (feature.type == 'text' and campsite[feature.id]) %}
-                {% set has_active_features = true %}
+                {% set has_activity = true %}
             {% endif %}
         {% endfor %}
-        {% if not available_features or not has_active_features %}
+        {% if not available_features or not has_activity %}
             <p>{{ languageValues['campsiteDetail_label_features_nonAvailable'] }}</p>
         {% endif %}
     </div>
@@ -475,6 +475,7 @@
         <a href="{{ url_for('index') }}" class="back-btn">{{ languageValues['campsiteDetail_button_backToIndexPage'] }}</a>
         {% if current_user.is_authenticated and (current_user.getRole() == "Admin" or campsite.id in admin_campsite_ids) %}
             <a href="{{ url_for('edit_campsite', campsite_id=campsite.id) }}" class="edit-btn">{{ languageValues.get('campsiteDetail_button_editCampsite', 'Edit Campsite') }}</a>
+            <a href="{{ url_for('campsite_transactions', campsite_id=campsite.id) }}" class="transactions-btn">{{ languageValues.get('campsiteDetail_button_viewTransactions', 'View Transactions') }}</a>
         {% endif %}
     </div>
 </div>
