@@ -195,3 +195,17 @@ module_bread_payment_error = Ein Problem beim Bezahlvorgang ist aufgetreten!
 module_bread_error_loading = Ein Fehler beim Laden der Produkte ist aufgetreten. Bitte versuchen Sie es später erneut!
 module_bread_total_stock_label = Noch verfügbar
 module_bread_pieces = Stück
+
+# Impressum Page
+footer_impressum = Impressum
+impressum_title = Impressum
+impressum_company = Unternehmensinformationen
+impressum_address = Adresse
+impressum_phone = Telefon
+impressum_email = E-Mail
+impressum_legal = Rechtliche Informationen
+impressum_vat = Umsatzsteuer-ID
+impressum_register = Handelsregister
+impressum_manager = Geschäftsführer
+impressum_disclaimer = Haftungsausschluss
+impressum_disclaimer_text = Die Inhalte dieser Website dienen ausschließlich der allgemeinen Information. Wir übernehmen keine Haftung für die Richtigkeit oder Vollständigkeit der bereitgestellten Informationen.

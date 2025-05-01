@@ -185,3 +185,17 @@ module_bread_payment_error = Er is een fout opgetreden bij de betaling. Probeer 
 module_bread_error_loading = Fout bij het laden van de producten. Probeer het later opnieuw.
 module_bread_total_stock_label = Totale voorraad
 module_bread_pieces = Stuks
+
+# Impressum Page
+footer_impressum = Juridische informatie
+impressum_title = Juridische informatie
+impressum_company = Bedrijfsinformatie
+impressum_address = Adres
+impressum_phone = Telefoon
+impressum_email = E-mail
+impressum_legal = Juridische informatie
+impressum_vat = BTW-nummer
+impressum_register = Handelsregister
+impressum_manager = Directeur
+impressum_disclaimer = Disclaimer
+impressum_disclaimer_text = De inhoud van deze website is uitsluitend bedoeld voor algemene informatiedoeleinden. Wij aanvaarden geen aansprakelijkheid voor de nauwkeurigheid of volledigheid van de verstrekte informatie.

@@ -111,6 +111,77 @@
             cursor: pointer;
             display: inline-block;
         }
+
+        /* Footer Styling */
+        .footer {
+            background: linear-gradient(135deg, var(--header-gradient-start), var(--header-gradient-end));
+            color: var(--header-link-color);
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+            width: 100%;
+            box-shadow: 0 -2px 5px var(--card-shadow);
+            z-index: 100;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 10px 0;
+        }
+        .footer-links a {
+            color: var(--header-link-color);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 5px;
+            background: var(--header-link-background);
+            transition: var(--card-transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-links a:hover {
+            background: var(--header-link-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--button-shadow);
+        }
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        .footer-links a:hover::before {
+            left: 100%;
+        }
+        :root[data-theme="neon"] .footer {
+            box-shadow: 0 -2px 10px var(--dropdown-glow-color);
+        }
+        :root[data-theme="playful"] .footer-links a:hover {
+            transform: scale(1.1) rotate(2deg);
+            animation: playful-bounce 0.5s ease;
+        }
+        :root[data-theme="dark"], :root[data-theme="w11_dark"] .footer {
+            background: linear-gradient(135deg, #2e2e2e, #424242);
+        }
+        @media (max-width: 600px) {
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .footer-links a {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+        }
     </style>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="canonical" href="{{ request.url }}"/>
@@ -245,6 +316,12 @@
         {% block body %}
         {% endblock %}
     </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="{{ url_for('impressum') }}">{{ languageValues.get('footer_impressum', 'Impressum') }}</a>
+        </div>
+    </footer>
     <!-- JavaScript for Dropdown Toggle -->
     <script>
         (function($) {
@@ -315,5 +392,5 @@
             });
         })(jQuery);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'938786cb3ecab004',t:'MTc0NjAyMTIxOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93879f66ba7cb0cd',t:'MTc0NjAyMjIyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>

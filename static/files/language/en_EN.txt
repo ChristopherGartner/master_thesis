@@ -197,3 +197,17 @@ module_bread_payment_error = An error occurred during payment. Please try again.
 module_bread_error_loading = Error loading the products. Please try again later.
 module_bread_total_stock_label = Total Stock
 module_bread_pieces = Pieces
+
+# Impressum Page
+footer_impressum = Impressum
+impressum_title = Impressum
+impressum_company = Company Information
+impressum_address = Address
+impressum_phone = Phone
+impressum_email = Email
+impressum_legal = Legal Information
+impressum_vat = VAT ID
+impressum_register = Commercial Register
+impressum_manager = Managing Director
+impressum_disclaimer = Disclaimer
+impressum_disclaimer_text = The content on this website is provided for general information only. We assume no liability for the accuracy or completeness of the information provided.

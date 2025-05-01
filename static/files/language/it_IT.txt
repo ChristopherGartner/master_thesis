@@ -185,3 +185,17 @@ module_bread_payment_error = Si è verificato un errore durante il pagamento. Ri
 module_bread_error_loading = Errore nel caricamento dei prodotti. Riprova più tardi.
 module_bread_total_stock_label = Stock totale
 module_bread_pieces = Pezzi
+
+# Impressum Page
+footer_impressum = Note legali
+impressum_title = Note legali
+impressum_company = Informazioni sull'azienda
+impressum_address = Indirizzo
+impressum_phone = Telefono
+impressum_email = Email
+impressum_legal = Informazioni legali
+impressum_vat = Partita IVA
+impressum_register = Registro commerciale
+impressum_manager = Amministratore delegato
+impressum_disclaimer = Esclusione di responsabilità
+impressum_disclaimer_text = I contenuti di questo sito web sono forniti solo a scopo informativo generale. Non ci assumiamo alcuna responsabilità per l'accuratezza o la completezza delle informazioni fornite.

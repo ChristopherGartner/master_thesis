@@ -185,3 +185,17 @@ module_bread_payment_error = Wystąpił błąd podczas płatności. Spróbuj pon
 module_bread_error_loading = Błąd podczas ładowania produktów. Spróbuj ponownie później.
 module_bread_total_stock_label = Całkowity zapas
 module_bread_pieces = Sztuki
+
+# Impressum Page
+footer_impressum = Informacje prawne
+impressum_title = Informacje prawne
+impressum_company = Informacje o firmie
+impressum_address = Adres
+impressum_phone = Telefon
+impressum_email = E-mail
+impressum_legal = Informacje prawne
+impressum_vat = Numer VAT
+impressum_register = Rejestr handlowy
+impressum_manager = Dyrektor zarządzający
+impressum_disclaimer = Zastrzeżenie
+impressum_disclaimer_text = Treści na tej stronie internetowej służą wyłącznie do celów informacyjnych. Nie ponosimy odpowiedzialności za dokładność ani kompletność podanych informacji.
