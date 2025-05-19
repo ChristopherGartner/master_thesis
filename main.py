@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+from datetime import datetime
 
 from flask import Flask, request, render_template, send_from_directory, redirect, url_for, flash, make_response, session, jsonify
 from flask_login import current_user, login_user, LoginManager, logout_user
@@ -853,6 +854,49 @@ class FlaskApp:
         def logout():
             logout_user()
             return redirect(url_for('index'))
+
+        @self.app.route("/api/paypal-webhook", methods=['POST'])
+        @login_required
+        def paypal_webhook():
+            """
+            Handle PayPal webhook notifications.
+            This endpoint receives webhook notifications from PayPal (or your frontend simulation).
+            """
+            # Get the JSON payload
+            payload = request.json
+
+            if not payload:
+                logger.warning("Received empty payload")
+                return jsonify({'status': 'error', 'message': 'Empty payload received'}), 400
+
+            # Get all headers (useful for verification in production)
+            headers = dict(request.headers)
+
+
+            #TODO Hier jetzt noch aus payload['custom_data']['items_purchased'] das inventar aktualisieren und die gesamtsumme als transaktion für den Kunden anlegen
+
+
+            # Log the received webhook
+            logger.info(f"Received webhook: {payload.get('event_type', 'unknown event')}")
+
+            # Create a timestamp for the log file
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+            # Save the full webhook to a file for debugging and record keeping
+            webhook_filename = f"webhook_{timestamp}_{payload.get('id', 'unknown')}.json"
+            print(payload)
+
+            # Process different event types
+            event_type = payload.get('event_type')
+            #if event_type == 'PAYMENT.CAPTURE.COMPLETED':
+            #    return process_payment_completed(payload)
+            #elif event_type == 'PAYMENT.CAPTURE.PENDING':
+            #    return process_payment_pending(payload)
+            #elif event_type == 'PAYMENT.CAPTURE.REFUNDED':
+            #    return process_payment_refunded(payload)
+            #else:
+            #    logger.warning(f"Unhandled event type: {event_type}")
+            return jsonify({'status': 'success', 'message': f'Unhandled event type: {event_type}'}), 200
 
         @self.app.before_request
         def before() -> None:

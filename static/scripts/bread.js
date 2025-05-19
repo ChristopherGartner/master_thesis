@@ -178,7 +178,6 @@
       initializePayPalButton(orderTotal, currency);
     }
 
-    // Initialize PayPal button
     function initializePayPalButton(orderTotal, currency) {
       // Clear previous buttons
       document.getElementById('paypal-button-container').innerHTML = '';
@@ -238,9 +237,168 @@
             document.getElementById('paypal-button-container').appendChild(successMessage);
 
             console.log('Capture result', orderData);
+
+            // Send order data to your webhook endpoint
+            notifyOrderWebhook(orderData);
           });
         }
       }).render('#paypal-button-container');
+    }
+
+    /**
+     * Sends a webhook notification to your backend with PayPal data and purchased items
+     * @param {Object} orderData - The PayPal orderData from the successful capture
+     */
+    function notifyOrderWebhook(orderData) {
+      // Get the current timestamp in ISO format
+      const timestamp = new Date().toISOString();
+
+      // Generate unique IDs similar to PayPal's format
+      const webhookId = `WH-${generateRandomId(16)}`;
+      const captureId = `${orderData.id || generateRandomId(12)}`;
+
+      // Construct the items array from the current order
+      const itemsDetails = [];
+      for (const breadId in orderItems) {
+        const quantity = orderItems[breadId];
+        if (quantity > 0) {
+          const bread = breads.find(b => b.id === parseInt(breadId));
+          itemsDetails.push({
+            id: breadId,
+            name: bread.name,
+            quantity: quantity,
+            price: bread.price.toFixed(2),
+            currency: bread.currency
+          });
+        }
+      }
+
+      // Calculate total and fees
+      const orderTotal = parseFloat(orderData.purchase_units[0]?.amount?.value || 0);
+      const paypalFee = (orderTotal * 0.029 + 0.30).toFixed(2); // Standard PayPal fee
+      const netAmount = (orderTotal - parseFloat(paypalFee)).toFixed(2);
+
+      // Build a payload that mimics PayPal's webhook format but includes our item details
+      const webhookPayload = {
+        // Standard PayPal webhook envelope
+        id: webhookId,
+        event_version: "1.0",
+        create_time: timestamp,
+        resource_type: "capture",
+        resource_version: "2.0",
+        event_type: "PAYMENT.CAPTURE.COMPLETED",
+        summary: `Payment completed for ${orderTotal.toFixed(2)} ${orderData.purchase_units[0]?.amount?.currency_code || 'USD'}`,
+
+        // PayPal capture details
+        resource: {
+          id: captureId,
+          status: "COMPLETED",
+          amount: {
+            currency_code: orderData.purchase_units[0]?.amount?.currency_code || 'USD',
+            value: orderTotal.toFixed(2)
+          },
+          final_capture: true,
+          seller_protection: {
+            status: "ELIGIBLE",
+            dispute_categories: [
+              "ITEM_NOT_RECEIVED",
+              "UNAUTHORIZED_TRANSACTION"
+            ]
+          },
+          seller_receivable_breakdown: {
+            gross_amount: {
+              currency_code: orderData.purchase_units[0]?.amount?.currency_code || 'USD',
+              value: orderTotal.toFixed(2)
+            },
+            paypal_fee: {
+              currency_code: orderData.purchase_units[0]?.amount?.currency_code || 'USD',
+              value: paypalFee
+            },
+            net_amount: {
+              currency_code: orderData.purchase_units[0]?.amount?.currency_code || 'USD',
+              value: netAmount
+            }
+          },
+          create_time: timestamp,
+          update_time: timestamp
+        },
+
+        // Our custom fields with detailed order information
+        custom_data: {
+          order_id: orderData.id,
+          payer: {
+            email_address: orderData.payer?.email_address,
+            payer_id: orderData.payer?.payer_id,
+            name: {
+              given_name: orderData.payer?.name?.given_name,
+              surname: orderData.payer?.name?.surname
+            }
+          },
+          items_purchased: itemsDetails,
+          order_total: orderTotal.toFixed(2),
+          currency: orderData.purchase_units[0]?.amount?.currency_code || 'USD'
+        },
+
+        // Standard PayPal links
+        links: [
+          {
+            href: `https://api.sandbox.paypal.com/v1/notifications/webhooks-events/${webhookId}`,
+            rel: "self",
+            method: "GET"
+          },
+          {
+            href: `https://api.sandbox.paypal.com/v1/notifications/webhooks-events/${webhookId}/resend`,
+            rel: "resend",
+            method: "POST"
+          }
+        ]
+      };
+
+      // Send the webhook notification to your backend
+      const webhookUrl = 'http://localhost:9000/api/paypal-webhook'; // Replace with your actual webhook URL
+
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add simulated PayPal webhook headers
+          'paypal-auth-algo': 'SHA256withRSA',
+          'paypal-cert-url': 'https://api.sandbox.paypal.com/v1/notifications/certs/CERT-360caa42-fca2a594-a5cafa77',
+          'paypal-transmission-id': generateRandomId(8),
+          'paypal-transmission-sig': btoa(generateRandomId(24)), // Base64 encoded string
+          'paypal-transmission-time': timestamp
+        },
+        body: JSON.stringify(webhookPayload)
+      })
+      .then(response => {
+        if (!response.ok) {
+          console.error('Webhook notification failed:', response.status);
+          return response.text().then(text => {
+            throw new Error(`Failed to send webhook: ${text}`);
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Webhook notification sent successfully:', data);
+      })
+      .catch(error => {
+        console.error('Error sending webhook notification:', error);
+      });
+    }
+
+    /**
+     * Generates a random ID for simulating PayPal IDs
+     * @param {number} length - The length of the ID to generate
+     * @returns {string} - A random alphanumeric ID
+     */
+    function generateRandomId(length) {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
     }
 
     // Initialize the application
