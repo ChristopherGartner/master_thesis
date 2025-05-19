@@ -19,8 +19,9 @@ class CampsiteMapper:
 
             query = (
                 f"SELECT campsite.id, campsite.name, campsite.description, campsite.isActive, "
+                f"campsite.feature_wlan, campsite.feature_swimming, campsite.feature_shower, campsite.feature_playground, campsite.feature_paw, campsite.feature_parking, campsite.feature_electric_current, campsite.feature_fishing, "
                 f"address.streetName, address.houseNumber, city.name AS cityName, city.postCode, country.name AS countryName, "
-                f"campsite.logo_path "  # Add logo_path to the query
+                f"campsite.logo_path "
                 f"FROM campsite "
                 f"LEFT JOIN address ON campsite.fk_address = address.id "
                 f"LEFT JOIN city ON address.fk_city = city.id "
@@ -34,17 +35,30 @@ class CampsiteMapper:
 
             for campsiteTuple in selectedCampsites:
                 campsiteObject = Campsite()
+
+                # Normal values
                 campsiteObject.setId(campsiteTuple[0])
                 campsiteObject.setName(campsiteTuple[1])
                 campsiteObject.setDescription(campsiteTuple[2])
                 campsiteObject.setActive(campsiteTuple[3] == 1)
 
-                street = campsiteTuple[4] or ""
-                house_number = campsiteTuple[5] or ""
-                city = campsiteTuple[6] or ""
-                post_code = campsiteTuple[7] or ""
-                country = campsiteTuple[8] or ""
-                logo_path = campsiteTuple[9]  # Fetch logo_path
+                # Features
+                campsiteObject.setFeature_wlan(campsiteTuple[4] == 1)
+                campsiteObject.setFeature_swimming(campsiteTuple[5] == 1)
+                campsiteObject.setFeature_shower(campsiteTuple[6] == 1)
+                campsiteObject.setFeature_playground(campsiteTuple[7] == 1)
+                campsiteObject.setFeature_paw(campsiteTuple[8] == 1)
+                campsiteObject.setFeature_parking(campsiteTuple[9] == 1)
+                campsiteObject.setFeature_electricCurrent(campsiteTuple[10] == 1)
+                campsiteObject.setFeature_fishing(campsiteTuple[11] == 1)
+
+                # Address
+                street = campsiteTuple[12] or ""
+                house_number = campsiteTuple[13] or ""
+                city = campsiteTuple[14] or ""
+                post_code = campsiteTuple[15] or ""
+                country = campsiteTuple[16] or ""
+                logo_path = campsiteTuple[17]  # Fetch logo_path
 
                 campsiteObject.setAddress(street, house_number, city, post_code, country)
                 campsiteObject.setLogoPath(logo_path)

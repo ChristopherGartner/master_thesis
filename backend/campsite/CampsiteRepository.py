@@ -7,10 +7,10 @@ from ..modules.ModuleRepository import ModuleRepository
 from ..address.AddressRepository import AddressRepository
 
 class CampsiteRepository:
-    __campsites      = []
+    __campsites = []
     __campsiteMapper = None
 
-# Get methods
+    # Get methods
     def getCampsites(self, db: Database, campsiteModuleRepository: CampsiteModuleRepository, moduleRepository: ModuleRepository) -> List[Campsite]:
         if len(self.__campsites) == 0:
             self.setCampsites(self.getCampsiteMapper().getCampsiteObjects(db, campsiteModuleRepository, moduleRepository))
@@ -37,27 +37,63 @@ class CampsiteRepository:
                 return campsite
         return None
 
-# Set methods
+    def getAvailableFeatures(self) -> List[dict]:
+        # Define available features with type, SVG icon, and translation key
+        return [
+            {'id': 'wlan', 'type': 'checkbox', 'icon': 'pictogram_feature_wlan.svg', 'label_key': 'feature_wlan'},
+            {'id': 'paw', 'type': 'checkbox', 'icon': 'pictogram_feature_paw.svg', 'label_key': 'feature_paw'},
+            {'id': 'shower', 'type': 'text', 'icon': 'pictogram_feature_shower.svg', 'label_key': 'feature_shower'},
+            {'id': 'playground', 'type': 'checkbox', 'icon': 'pictogram_feature_playground.svg', 'label_key': 'feature_playground'},
+            {'id': 'electric_current', 'type': 'checkbox', 'icon': 'pictogram_feature_electricCurrent.svg', 'label_key': 'feature_electric_current'},
+            {'id': 'parking', 'type': 'checkbox', 'icon': 'pictogram_feature_parking.svg', 'label_key': 'feature_parking'},
+            {'id': 'swimming', 'type': 'checkbox', 'icon': 'pictogram_feature_swimming.svg', 'label_key': 'feature_swimming'},
+            {'id': 'fishing', 'type': 'checkbox', 'icon': 'pictogram_feature_fishing.svg', 'label_key': 'feature_fishing'},
+        ]
+
+    # Set methods
     def setCampsites(self, campsites: List[Campsite]) -> None:
         self.__campsites = campsites
 
     def setCampsiteMapper(self, campSiteMapper: CampsiteMapper) -> None:
         self.__campsiteMapper = campSiteMapper
 
-# Other methods
+    # Other methods
     def clearCache(self) -> None:
         self.__campsites = []
 
     def updateCampsiteObject(self, addressRepository: AddressRepository, campsiteObject: Campsite, db: Database, logo_path: str = None) -> None:
         addressId = addressRepository.saveAddressObject(campsiteObject.getAddress(), db)
-        params = (campsiteObject.getName(), campsiteObject.getDescription(), addressId, logo_path, campsiteObject.getId())
+
+        params = (
+            campsiteObject.getName(),
+            campsiteObject.getDescription(),
+            addressId,
+            logo_path,
+            campsiteObject.getFeature_wlan(),
+            campsiteObject.getFeature_paw(),
+            campsiteObject.getFeature_shower(),
+            campsiteObject.getFeature_playground(),
+            campsiteObject.getFeature_electricCurrent(),
+            campsiteObject.getFeature_parking(),
+            campsiteObject.getFeature_swimming(),
+            campsiteObject.getFeature_fishing(),
+            campsiteObject.getId()
+        )
         db.execute(
             "UPDATE campsite SET "
-            "name = %s, "
-            "description = %s, "
-            "fk_address = %s, "
-            "logo_path = %s "
-            "WHERE id = %s",
+                "name = %s, "
+                "description = %s, "
+                "fk_address = %s, "
+                "logo_path = %s, "
+                "feature_wlan = %s,"
+                "feature_paw = %s, "
+                "feature_shower = %s, "
+                "feature_playground = %s, "
+                "feature_electric_current = %s, "
+                "feature_parking = %s, "
+                "feature_swimming = %s, "
+                "feature_fishing = %s "
+            "WHERE campsite.id = %s",
             params,
             commit=True
         )

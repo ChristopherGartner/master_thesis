@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+{% block title %}{{ languageValues['transaction_title'] }}{% endblock %}
+{% block extra_head %}
+<style>
+.transaction-overview {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 12px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    animation: slide-in 0.8s ease-out;
+}
+.hero h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--header-link-color);
+    text-shadow: 0 2px 4px var(--header-text-shadow);
+    margin: 0;
+    transition: var(--card-transition);
+}
+.hero h1:hover {
+    transform: scale(1.05);
+    color: var(--secondary-color);
+}
+
+/* Filter Section */
+.filter-container {
+    margin-bottom: 40px;
+    background: var(--info-background);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: inset 0 2px 5px var(--card-shadow);
+    animation: fade-in 0.7s ease-out;
+}
+.filter-container h2 {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin: 0 0 15px;
+}
+.filter-form {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.filter-form label {
+    font-size: 16px;
+    color: var(--text-color);
+    margin-right: 10px;
+}
+.filter-form input, .filter-form select {
+    padding: 8px;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    background: var(--card-background);
+    color: var(--text-color);
+    transition: var(--card-transition);
+}
+.filter-form input:focus, .filter-form select:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 5px var(--input-focus);
+}
+.filter-form button {
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: var(--header-link-color);
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--card-transition);
+}
+.filter-form button:hover {
+    background: var(--input-focus);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--button-shadow);
+}
+
+/* Transactions Table */
+.transactions-container {
+    margin-bottom: 40px;
+    background: var(--card-background);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    animation: slide-in 0.8s ease-out;
+}
+.transactions-container h2 {
+    font-size: 28px;
+    color: var(--primary-color);
+    margin: 0 0 20px;
+}
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.transaction-table th, .transaction-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text-color);
+}
+.transaction-table th {
+    background: var(--info-background);
+    font-weight: 600;
+    color: var(--primary-color);
+}
+.transaction-table tr {
+    transition: background 0.3s ease;
+    animation: fade-in 0.7s ease-out;
+}
+.transaction-table tr:hover {
+    background: var(--input-focus);
+}
+.transaction-table td {
+    font-size: 14px;
+}
+.no-transactions {
+    text-align: center;
+    font-size: 16px;
+    color: var(--text-color);
+    padding: 20px;
+}
+
+/* Total Spent Section */
+.total-spent-container {
+    background: var(--info-background);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: inset 0 2px 5px var(--card-shadow);
+    animation: fade-in 0.7s ease-out;
+}
+.total-spent-container h2 {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin: 0 0 15px;
+}
+.total-spent-container p {
+    font-size: 16px;
+    color: var(--text-color);
+    margin: 5px 0;
+}
+
+/* Campsite Details Dropdown */
+.campsite-details-btn {
+    padding: 5px 10px;
+    background: var(--primary-color);
+    color: var(--header-link-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--card-transition);
+}
+.campsite-details-btn:hover {
+    background: var(--input-focus);
+}
+.campsite-details {
+    display: none;
+    padding: 10px;
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 5px;
+    margin-top: 5px;
+    box-shadow: 0 2px 5px var(--card-shadow);
+}
+.campsite-details.show {
+    display: block;
+}
+
+/* Animations */
+@keyframes slide-in {
+    0% { transform: translateX(-20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.campsite-details-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const details = this.nextElementSibling;
+            details.classList.toggle('show');
+        });
+    });
+});
+</script>
+{% endblock %}
+{% block body %}
+<div class="transaction-overview">
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>{{ languageValues['transaction_title'] }}</h1>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-container">
+        <h2>{{ languageValues['transaction_filter_apply'] }}</h2>
+        <form class="filter-form" method="GET" action="{{ url_for('transactions') }}">
+            <div>
+                <label for="campsite">{{ languageValues['transaction_filter_campsite'] }}</label>
+                <input type="text" id="campsite" name="campsite" value="{{ campsite or '' }}" placeholder="Search by campsite">
+            </div>
+            <div>
+                <label for="from_date">{{ languageValues['transaction_filter_from_date'] }}</label>
+                <input type="date" id="from_date" name="from_date" value="{{ from_date or '' }}">
+            </div>
+            <div>
+                <label for="to_date">{{ languageValues['transaction_filter_to_date'] }}</label>
+                <input type="date" id="to_date" name="to_date" value="{{ to_date or '' }}">
+            </div>
+            <div>
+                <label for="sort_by">{{ languageValues['transaction_filter_sort_by'] }}</label>
+                <select id="sort_by" name="sort_by">
+                    <option value="date_desc" {% if sort_by == 'date_desc' %}selected{% endif %}>{{ languageValues['transaction_filter_sort_date_desc'] }}</option>
+                    <option value="date_asc" {% if sort_by == 'date_asc' %}selected{% endif %}>{{ languageValues['transaction_filter_sort_date_asc'] }}</option>
+                    <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>{{ languageValues['transaction_filter_sort_price_desc'] }}</option>
+                    <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>{{ languageValues['transaction_filter_sort_price_asc'] }}</option>
+                </select>
+            </div>
+            <button type="submit">{{ languageValues['transaction_filter_apply'] }}</button>
+        </form>
+    </div>
+
+    <!-- Transactions Table -->
+    <div class="transactions-container">
+        <h2>{{ languageValues['transaction_title'] }}</h2>
+        {% if transactions %}
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th>{{ languageValues['transaction_label_date'] }}</th>
+                        <th>{{ languageValues['transaction_label_campsite'] }}</th>
+                        <th>{{ languageValues['transaction_label_module'] }}</th>
+                        <th>{{ languageValues['transaction_label_price'] }}</th>
+                        <th>{{ languageValues['transaction_label_currency'] }}</th>
+                        <th>{{ languageValues['transaction_label_campsite_details'] }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ transaction.dateOfTransaction }}</td>
+                            <td>{{ transaction.campsite_name }}</td>
+                            <td>{{ transaction.module_name }}</td>
+                            <td>{{ transaction.price }}</td>
+                            <td>{{ transaction.moneyCurrency }}</td>
+                            <td>
+                                <button class="campsite-details-btn">{{ languageValues['transaction_view_campsite_details'] }}</button>
+                                <div class="campsite-details">
+                                    <p><strong>{{ languageValues['campsite_label_name'] }}:</strong> {{ transaction.campsite_details.name }}</p>
+                                    <p><strong>{{ languageValues['campsite_label_address'] }}:</strong> {{ transaction.campsite_details.address }}</p>
+                                    <p><strong>{{ languageValues['campsite_label_description'] }}:</strong> {{ transaction.campsite_details.description }}</p>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-transactions">{{ languageValues['transaction_label_no_transactions'] }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Total Spent Section -->
+    <div class="total-spent-container">
+        <h2>{{ languageValues['transaction_total_spent'] }}</h2>
+        {% if total_spent %}
+            {% for currency, total in total_spent.items() %}
+                <p>{{ total }} {{ currency }}</p>
+            {% endfor %}
+        {% else %}
+            <p>{{ languageValues['transaction_label_no_transactions'] }}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

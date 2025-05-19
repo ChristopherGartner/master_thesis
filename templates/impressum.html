@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}{{ languageValues.get('impressum_title', 'Impressum') }}{% endblock %}
+{% block extra_head %}
+<style>
+    .impressum-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background: var(--card-background);
+        border-radius: 10px;
+        box-shadow: 0 6px 20px var(--card-shadow);
+        color: var(--text-color);
+        animation: slide-down 0.5s ease-out;
+    }
+    .impressum-container h1 {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 20px;
+        text-shadow: 0 1px 2px var(--header-text-shadow);
+    }
+    .impressum-container h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--label-color);
+        margin: 20px 0 10px;
+    }
+    .impressum-container p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+        color: var(--description-text-color);
+    }
+    .impressum-container a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: var(--card-transition);
+    }
+    .impressum-container a:hover {
+        color: var(--input-focus);
+        text-decoration: underline;
+    }
+    :root[data-theme="neon"] .impressum-container {
+        box-shadow: 0 0 15px var(--dropdown-glow-color);
+    }
+    :root[data-theme="playful"] .impressum-container h1 {
+        animation: playful-wobble 1.5s infinite;
+    }
+    :root[data-theme="dark"], :root[data-theme="w11_dark"] .impressum-container {
+        background: #2e2e2e;
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+    }
+    @media (max-width: 600px) {
+        .impressum-container {
+            margin: 20px;
+            padding: 15px;
+        }
+        .impressum-container h1 {
+            font-size: 28px;
+        }
+        .impressum-container h2 {
+            font-size: 20px;
+        }
+        .impressum-container p {
+            font-size: 14px;
+        }
+    }
+    @keyframes slide-down {
+        0% { transform: translateY(-20px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="impressum-container">
+    <h1>{{ languageValues.get('impressum_title', 'Impressum') }}</h1>
+    <h2>{{ languageValues.get('impressum_company', 'Company Information') }}</h2>
+    <p> CampsiteManager GmbH</p>
+    <p>{{ languageValues.get('impressum_address', 'Address') }}: Musterstraße 123, 80331 München, Deutschland</p>
+    <p>{{ languageValues.get('impressum_phone', 'Phone') }}: +49 89 12345678</p>
+    <p>{{ languageValues.get('impressum_email', 'Email') }}: <a href="campsiteManager@gmail.com">campsiteManager@gmail.com</a></p>
+    <h2>{{ languageValues.get('impressum_legal', 'Legal Information') }}</h2>
+    <p>{{ languageValues.get('impressum_vat', 'VAT ID') }}: DE123456789</p>
+    <p>{{ languageValues.get('impressum_register', 'Commercial Register') }}: Amtsgericht München, HRB 987654</p>
+    <p>{{ languageValues.get('impressum_manager', 'Managing Director') }}: Christopher Gartner</p>
+    <h2>{{ languageValues.get('impressum_disclaimer', 'Disclaimer') }}</h2>
+    <p>{{ languageValues.get('impressum_disclaimer_text', 'The content on this website is provided for general information only. We assume no liability for the accuracy or completeness of the information provided.') }}</p>
+</div>
+{% endblock %}

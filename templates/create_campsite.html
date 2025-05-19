@@ -1,3 +1,4 @@
+<!-- create_campsite.html -->
 {% extends "base.html" %}
 {% block title %}{{ languageValues.get('create_campsite_title', 'Create Campsite') }}{% endblock %}
 {% block extra_head %}
@@ -5,22 +6,98 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.10.0/dist/geosearch.css" />
     <style>
         #address-map {
-            height: 400px;
+            height: 300px;
             width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 6px 20px var(--card-shadow);
-            margin-bottom: 20px;
+            border-radius: 8px;
             margin-top: 10px;
         }
-        .map-address-display {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid var(--input-border);
-            border-radius: 5px;
+        .feature-assignment-section, .module-assignment-section, .admin-assignment-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--info-background);
+            border-radius: 12px;
+            box-shadow: inset 0 2px 5px var(--card-shadow);
+        }
+        .feature-lists, .module-lists, .admin-lists {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .feature-list-container, .module-list-container, .admin-list-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 48%;
+        }
+        .feature-list, .module-list, .admin-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
             background: var(--card-background);
-            color: var(--text-color);
-            font-size: 16px;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            min-height: 150px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .feature-list li, .module-list li, .admin-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid var(--input-border);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .feature-list li:last-child, .module-list li:last-child, .admin-list li:last-child {
+            border-bottom: none;
+        }
+        .feature-list li:hover, .module-list li:hover, .admin-list li:hover {
+            background: var(--info-background);
+            transform: translateX(5px);
+        }
+        .feature-name, .module-name, .admin-name {
+            display: flex;
+            align-items: center;
+        }
+        .feature-name svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            fill: var(--primary-color);
+        }
+        .move-right, .move-left {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            font-size: 10px;
+            width: 12px;
+            height: 12px;
+            min-width: 12px;
+            min-height: 12px;
+            line-height: 12px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            background: var(--primary-color);
+            color: var(--header-link-color);
+            box-sizing: border-box;
+        }
+        .move-right:hover, .move-left:hover {
+            background: var(--input-focus);
+        }
+        :root[data-theme="neon"] .feature-list li:hover, :root[data-theme="neon"] .module-list li:hover, :root[data-theme="neon"] .admin-list li:hover {
+            box-shadow: 0 0 8px var(--dropdown-glow-color);
+        }
+        :root[data-theme="playful"] .feature-list li:hover, :root[data-theme="playful"] .module-list li:hover, :root[data-theme="playful"] .admin-list li:hover {
+            transform: translateX(5px) rotate(1deg);
+        }
+        .address-wrapper {
+            position: relative;
+            width: 100%;
+            margin: 0 auto 20px auto;
+            z-index: 1000;
         }
         .autocomplete-suggestions {
             position: absolute;
@@ -54,23 +131,60 @@
             color: var(--label-color);
             transform: translateX(5px);
         }
-        :root[data-theme="neon"] .map-address-display {
-            border: 1px solid var(--primary-color);
-            animation: slide-down 0.5s ease-out, glow-pulse 2s infinite;
-        }
         :root[data-theme="neon"] .autocomplete-suggestions div:hover {
             box-shadow: 0 0 8px var(--dropdown-glow-color);
             transform: translateX(5px) scale(1.02);
-        }
-        :root[data-theme="playful"] .map-address-display {
-            animation: slide-down 0.5s ease-out, playful-bounce 1.5s infinite;
         }
         :root[data-theme="playful"] .autocomplete-suggestions div:hover {
             transform: translateX(5px) rotate(1deg);
             animation: playful-bounce 0.5s ease;
         }
+        :root[data-theme="neon"] .map-address-display {
+            border: 1px solid var(--primary-color);
+            animation: slide-down 0.5s ease-out, glow-pulse 2s infinite;
+        }
+        :root[data-theme="playful"] .map-address-display {
+            animation: slide-down 0.5s ease-out, playful-bounce 1.5s infinite;
+        }
         :root[data-theme="dark"], :root[data-theme="w11_dark"] .map-address-display {
             box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+        .map-address-display {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid var(--input-border);
+            border-radius: 30px;
+            background: var(--card-background);
+            color: var(--text-color);
+            font-size: 16px;
+            box-shadow: 0 4px 12px var(--card-shadow);
+            transition: var(--card-transition);
+            animation: slide-down 0.5s ease-out;
+            display: block;
+            position: relative;
+            z-index: 1000;
+        }
+        .map-address-display:focus {
+            outline: none;
+            border-color: var(--input-focus);
+            box-shadow: 0 0 8px var(--input-glow);
+        }
+        .map-address-display:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px var(--card-hover-shadow);
+        }
+        @keyframes slide-down {
+            0% { transform: translateY(-10px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes glow-pulse {
+            0% { box-shadow: 0 0 5px var(--dropdown-glow-color); }
+            50% { box-shadow: 0 0 15px var(--dropdown-glow-color); }
+            100% { box-shadow: 0 0 5px var(--dropdown-glow-color); }
+        }
+        @keyframes playful-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
         }
     </style>
 {% endblock %}
@@ -107,19 +221,45 @@
                     <div class="form-group">
                         <label style="color: {{ theme_colors['label-color'] }};">{{ languageValues['edit_campsite_label_address'] }}</label>
                         <div class="address-wrapper">
-                            <input type="text" id="address-input" class="map-address-display" placeholder="{{ languageValues.get('search_enter_address', 'Enter address') }}">
+                            <input type="text" id="address-input" class="map-address-display" value="{% if campsite %}{{ campsite.getAddress().getStreet() }} {{ campsite.getAddress().getHouseNumber() }}, {{ campsite.getAddress().getCity() }}, {{ campsite.getAddress().getPostCode() }}, {{ campsite.getAddress().getCountry() }}{% else %}{{ languageValues.get('search_enter_address', 'Enter address') }}{% endif %}" placeholder="{{ languageValues.get('search_enter_address', 'Enter address') }}">
                             <div class="autocomplete-suggestions"></div>
                         </div>
                         <div id="address-map"></div>
-                        <input type="hidden" id="street" name="street" value="">
-                        <input type="hidden" id="house_number" name="house_number" value="">
-                        <input type="hidden" id="city" name="city" value="">
-                        <input type="hidden" id="zip_code" name="zip_code" value="">
-                        <input type="hidden" id="country" name="country" value="">
+                        <input type="hidden" id="street" name="street" value="{% if campsite %}{{ campsite.getAddress().getStreet() }}{% endif %}">
+                        <input type="hidden" id="house_number" name="house_number" value="{% if campsite %}{{ campsite.getAddress().getHouseNumber() }}{% endif %}">
+                        <input type="hidden" id="city" name="city" value="{% if campsite %}{{ campsite.getAddress().getCity() }}{% endif %}">
+                        <input type="hidden" id="zip_code" name="zip_code" value="{% if campsite %}{{ campsite.getAddress().getPostCode() }}{% endif %}">
+                        <input type="hidden" id="country" name="country" value="{% if campsite %}{{ campsite.getAddress().getCountry() }}{% endif %}">
                     </div>
                 </div>
             </div>
-
+            <!-- Feature Assignment Section -->
+            <div class="feature-assignment-section">
+                <h2 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_label_features'] }}</h2>
+                <div class="feature-lists">
+                    <div class="feature-list-container">
+                        <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_available_features'] }}</h3>
+                        <ul id="available-features" class="feature-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
+                            {% for feature in available_features %}
+                                <li data-feature-id="{{ feature['id'] }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
+                                    <span class="feature-name">
+                                        {{ load_svg('campsite_features/' + feature['icon']) | safe }}
+                                        {{ languageValues[feature['label_key']] }}
+                                    </span>
+                                    <button type="button" class="move-right" title="Add Feature">→</button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="feature-list-container">
+                        <h3 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_assigned_features'] }}</h3>
+                        <ul id="assigned-features" class="feature-list" style="background: {{ theme_colors['card-background'] }}; border-color: {{ theme_colors['card-border'] }};">
+                        </ul>
+                    </div>
+                </div>
+                <input type="hidden" id="features" name="features" value="">
+            </div>
+            <!-- Module Assignment Section -->
             <div class="module-assignment-section">
                 <h2 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_label_modules'] }}</h2>
                 <div class="module-lists">
@@ -129,7 +269,7 @@
                             {% for module in all_modules %}
                                 <li data-module-id="{{ module.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
                                     <span class="module-name">{{ module.getName() }}</span>
-                                    <button type="button" class="move-right" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Add {{ module.getName() }}">→ {{ module.getName() }}</button>
+                                    <button type="button" class="move-right" title="Add Module">→</button>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -142,7 +282,7 @@
                 </div>
                 <input type="hidden" id="modules" name="modules" value="">
             </div>
-
+            <!-- Admin Assignment Section -->
             <div class="admin-assignment-section">
                 <h2 style="color: {{ theme_colors['text-color'] }};">{{ languageValues['edit_campsite_label_admins'] }}</h2>
                 <div class="admin-lists">
@@ -153,7 +293,7 @@
                             {% for user in all_users %}
                                 <li data-admin-id="{{ user.getId() }}" style="color: {{ theme_colors['text-color'] }}; background: {{ theme_colors['card-background'] }};">
                                     <span class="admin-name">{{ user.getUsername() }} ({{ user.getFirstName() }} {{ user.getLastName() }})</span>
-                                    <button type="button" class="move-right" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }};" title="Add {{ user.getUsername() }}">→ {{ user.getUsername() }}</button>
+                                    <button type="button" class="move-right" title="Add Admin">→</button>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -167,416 +307,416 @@
                 </div>
                 <input type="hidden" id="admins" name="admins" value="">
             </div>
-
             <button type="submit" class="btn" style="background: {{ theme_colors['primary-color'] }}; color: {{ theme_colors['header-link-color'] }}; box-shadow: {{ theme_colors['button-shadow'] }};">{{ languageValues.get('create_campsite_button_save', 'Create Campsite') }}</button>
         </form>
     </div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://unpkg.com/leaflet-geosearch@3.10.0/dist/bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize the map
-            const map = L.map('address-map').setView([51.505, -0.09], 13);
+    document.addEventListener('DOMContentLoaded', () => {
+        // Map Initialization
+        const mapElement = document.getElementById('address-map');
+        const addressInput = document.getElementById('address-input');
+        const streetInput = document.getElementById('street');
+        const houseNumberInput = document.getElementById('house_number');
+        const cityInput = document.getElementById('city');
+        const zipCodeInput = document.getElementById('zip_code');
+        const countryInput = document.getElementById('country');
+
+        const initialAddress = addressInput.value;
+        let map, marker;
+        const provider = new GeoSearch.OpenStreetMapProvider();
+
+        if (mapElement) {
+            map = L.map('address-map').setView([52.52, 13.405], 13); // Default to Berlin
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                maxZoom: 18,
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
-            // Initialize marker
-            let marker = null;
-            const provider = new GeoSearch.OpenStreetMapProvider();
-            const addressInput = document.getElementById('address-input');
-            const addressWrapper = addressInput.parentNode;
-            const suggestionsContainer = addressWrapper.querySelector('.autocomplete-suggestions');
-
-            // Function to update hidden fields and address display
-            function updateAddressFields(address, displayName = '') {
-                document.getElementById('street').value = address.street || '';
-                document.getElementById('house_number').value = address.house_number || '';
-                document.getElementById('city').value = address.city || '';
-                document.getElementById('zip_code').value = address.zip_code || '';
-                document.getElementById('country').value = address.country || '';
-                let addressString = '';
-                if (address.street || address.city || address.zip_code || address.country) {
-                    addressString = [
-                        `${address.street || ''} ${address.house_number || ''}`.trim(),
-                        address.city,
-                        address.zip_code,
-                        address.country
-                    ].filter(part => part).join(', ').replace(/,\s*,/g, ',').replace(/^\s*,/, '').replace(/,\s*$/, '');
-                } else {
-                    addressString = displayName || `Coordinates: ${address.lat}, ${address.lng}`;
-                }
-                addressInput.value = addressString;
-                console.log('Address display updated:', addressInput.value);
-            }
-
-            // Function to place marker
-            function placeMarker(lat, lng, address, displayName = '') {
-                if (marker) {
-                    map.removeLayer(marker);
-                }
-                marker = L.marker([lat, lng], {
-                    icon: L.icon({
-                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-                        iconSize: [25, 41],
-                        iconAnchor: [12, 41],
-                        popupAnchor: [1, -34],
-                        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-                        shadowSize: [41, 41]
-                    })
-                }).addTo(map);
-                map.setView([lat, lng], 16);
-                updateAddressFields(address, displayName);
-                console.log('Marker placed at:', lat, lng, 'Address:', address);
-                // Warn if required fields are missing
-                const missingFields = [];
-                if (!address.street) missingFields.push('street');
-                if (!address.city) missingFields.push('city');
-                if (!address.zip_code) missingFields.push('zip_code');
-                if (!address.country) missingFields.push('country');
-                if (missingFields.length > 0) {
-                    console.warn('Missing required fields:', missingFields);
-                    alert(`Please refine the location. Missing: ${missingFields.join(', ')}. Try clicking a more precise location or searching for the address.`);
-                }
-            }
-
-            // Parse address components
-            function parseAddress(raw) {
-                const address = {
-                    street: '',
-                    house_number: '',
-                    city: '',
-                    zip_code: '',
-                    country: '',
-                    lat: raw.lat || raw.y || '',
-                    lng: raw.lon || raw.x || ''
-                };
-                const nominatimData = raw.raw || raw;
-                console.log('Nominatim raw response:', nominatimData);
-                if (nominatimData.address) {
-                    address.street = nominatimData.address.road || nominatimData.address.street || nominatimData.address.pedestrian || nominatimData.address.path || '';
-                    address.house_number = nominatimData.address.house_number || '';
-                    address.city = nominatimData.address.city || nominatimData.address.town || nominatimData.address.village || nominatimData.address.hamlet || nominatimData.address.suburb || '';
-                    address.zip_code = nominatimData.address.postcode || '';
-                    address.country = nominatimData.address.country || '';
-                }
-                // Enhanced fallback parsing
-                if (nominatimData.display_name) {
-                    const parts = nominatimData.display_name.split(',').map(part => part.trim());
-                    // Parse house_number and street
-                    if (!address.house_number || !address.street) {
-                        for (let i = 0; i < parts.length; i++) {
-                            // Match house number (e.g., "10", "12A", "Flat 5")
-                            if (/^\d+[A-Za-z]?$/.test(parts[i]) && i + 1 < parts.length && /^[A-Za-z\s-]+$/.test(parts[i + 1])) {
-                                address.house_number = parts[i];
-                                address.street = parts[i + 1];
-                                break;
-                            } else if (/^(Flat|Apt|Unit)\s*\d+[A-Za-z]?$/.test(parts[i])) {
-                                address.house_number = parts[i];
-                                address.street = parts[i + 1] || parts[0] || '';
-                                break;
-                            } else if (/^\d+\s*[A-Za-z]?$/.test(parts[i]) && i + 1 < parts.length) {
-                                // Handle cases like "123 Main St"
-                                address.house_number = parts[i];
-                                address.street = parts[i + 1];
-                                break;
-                            }
-                        }
-                    }
-                    // Fallback for street if not set
-                    if (!address.street) {
-                        address.street = parts.find(part => /^[A-Za-z\s-]+$/.test(part) && part !== address.city && part !== address.country && !part.includes('Rheinland')) || parts[0] || 'Unknown Street';
-                    }
-                    // Fallback for city
-                    if (!address.city) {
-                        address.city = parts.find(part => /^[A-Za-z\s-]+$/.test(part) && part !== address.street && part !== address.country && !part.includes('Rheinland')) || 'Unknown City';
-                    }
-                    // Fallback for zip_code
-                    if (!address.zip_code) {
-                        address.zip_code = parts.find(part => /^\d{4,5}(?:[-\s]\d{4})?$/.test(part)) || '00000';
-                    }
-                    // Fallback for country
-                    if (!address.country) {
-                        address.country = parts[parts.length - 1] || 'Unknown Country';
-                    }
-                } else {
-                    // Ultimate fallback if no display_name
-                    address.street = address.street || 'Unknown Street';
-                    address.city = address.city || 'Unknown City';
-                    address.zip_code = address.zip_code || '00000';
-                    address.country = address.country || 'Unknown Country';
-                }
-                console.log('Parsed address:', address);
-                return address;
-            }
-
-            // Debounce function to limit API calls
-            function debounce(func, wait) {
-                let timeout;
-                return function (...args) {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => func.apply(this, args), wait);
-                };
-            }
-
-            // Handle map click with reverse geocoding
+            // Remove GeoSearchControl (no search bar on the map)
+            // Add click handler for placing a marker
             const handleMapClick = debounce((e) => {
                 const { lat, lng } = e.latlng;
-                console.log('Map clicked at:', lat, lng);
-                const fallbackAddress = {
-                    street: 'Unknown Street',
-                    house_number: '',
-                    city: 'Unknown City',
-                    zip_code: '00000',
-                    country: 'Unknown Country',
-                    lat: lat.toFixed(6),
-                    lng: lng.toFixed(6)
-                };
                 fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`, {
                     headers: { 'User-Agent': 'CampsiteApp/1.0' }
                 })
-                    .then(response => {
-                        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                        return response.json();
-                    })
+                    .then(response => response.json())
                     .then(data => {
                         const address = parseAddress(data);
                         placeMarker(lat, lng, address, data.display_name);
                     })
                     .catch(err => {
                         console.error('Reverse geocoding error:', err);
+                        const fallbackAddress = {
+                            street: '',
+                            house_number: '',
+                            city: '',
+                            zip_code: '',
+                            country: '',
+                            lat: lat.toFixed(6),
+                            lng: lng.toFixed(6)
+                        };
                         placeMarker(lat, lng, fallbackAddress);
                     });
             }, 1000);
 
             map.on('click', handleMapClick);
 
-            // Autocomplete suggestions
-            const fetchSuggestions = debounce((query) => {
-                if (!query || query.length < 3) {
-                    suggestionsContainer.innerHTML = '';
-                    suggestionsContainer.style.display = 'none';
-                    console.log('Suggestions cleared due to short query');
-                    return;
-                }
-                console.log('Fetching suggestions for:', query);
-                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`, {
-                    headers: { 'User-Agent': 'CampsiteApp/1.0' }
-                })
-                    .then(response => {
-                        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                        return response.json();
+            if (initialAddress) {
+                provider
+                    .search({ query: initialAddress })
+                    .then((results) => {
+                        if (results.length > 0) {
+                            const { x, y } = results[0];
+                            map.setView([y, x], 13);
+                            marker = L.marker([y, x]).addTo(map);
+                        }
                     })
-                    .then(data => {
-                        console.log('Suggestions received:', data);
-                        suggestionsContainer.innerHTML = '';
-                        if (data.length > 0) {
-                            data.forEach(item => {
-                                const suggestion = document.createElement('div');
-                                suggestion.textContent = item.display_name;
-                                suggestion.addEventListener('click', () => {
-                                    suggestionsContainer.innerHTML = '';
-                                    suggestionsContainer.style.display = 'none';
-                                    provider.search({ query: item.display_name }).then(results => {
-                                        if (results && results.length > 0) {
-                                            const { x: lng, y: lat } = results[0];
-                                            const address = parseAddress(results[0]);
-                                            placeMarker(lat, lng, address, item.display_name);
-                                        }
-                                    });
+                    .catch((error) => {
+                        console.error('Error geocoding initial address:', error);
+                    });
+            }
+        }
+
+        // Autocomplete Setup
+        const addressWrapper = addressInput.parentNode;
+        let suggestionsContainer = document.createElement('div');
+        suggestionsContainer.className = 'autocomplete-suggestions';
+        addressWrapper.appendChild(suggestionsContainer);
+
+        const fetchSuggestions = debounce((query) => {
+            if (!query || query.length < 3) {
+                suggestionsContainer.innerHTML = '';
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`, {
+                headers: { 'User-Agent': 'CampsiteApp/1.0' }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsContainer.innerHTML = '';
+                    if (data.length > 0) {
+                        data.forEach(item => {
+                            const suggestion = document.createElement('div');
+                            suggestion.textContent = item.display_name;
+                            suggestion.addEventListener('click', () => {
+                                suggestionsContainer.innerHTML = '';
+                                suggestionsContainer.style.display = 'none';
+                                provider.search({ query: item.display_name }).then(results => {
+                                    if (results && results.length > 0) {
+                                        const { x: lng, y: lat } = results[0];
+                                        const address = parseAddress(results[0]);
+                                        placeMarker(lat, lng, address, item.display_name);
+                                        updateAddressDisplay(address, item.display_name);
+                                    }
                                 });
-                                suggestionsContainer.appendChild(suggestion);
                             });
-                            suggestionsContainer.style.display = 'block';
-                            console.log('Suggestions displayed:', suggestionsContainer.innerHTML);
-                        } else {
-                            suggestionsContainer.style.display = 'none';
-                            console.log('No suggestions to display');
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Autocomplete error:', err);
-                        suggestionsContainer.innerHTML = '<div>Search temporarily unavailable. Please try a different query or try again later.</div>';
-                        suggestionsContainer.style.display = 'block';
-                        setTimeout(() => {
-                            suggestionsContainer.innerHTML = '';
-                            suggestionsContainer.style.display = 'none';
-                        }, 3000);
-                    });
-            }, 300);
-
-            addressInput.addEventListener('input', (e) => {
-                fetchSuggestions(e.target.value);
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!addressWrapper.contains(e.target)) {
-                    suggestionsContainer.innerHTML = '';
-                    suggestionsContainer.style.display = 'none';
-                }
-            });
-
-            addressInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const query = addressInput.value.trim();
-                    if (query) {
-                        provider.search({ query }).then(results => {
-                            if (results && results.length > 0) {
-                                const { x: lng, y: lat } = results[0];
-                                const address = parseAddress(results[0]);
-                                placeMarker(lat, lng, address, results[0].raw?.display_name || results[0].display_name);
-                            } else {
-                                console.warn('No results for address:', query);
-                                addressInput.value = 'Address not found';
-                                setTimeout(() => { addressInput.value = ''; }, 2000);
-                            }
-                        }).catch(err => {
-                            console.error('Search error:', err);
-                            addressInput.value = 'Search error';
-                            setTimeout(() => { addressInput.value = ''; }, 2000);
+                            suggestionsContainer.appendChild(suggestion);
                         });
-                    }
-                    suggestionsContainer.innerHTML = '';
-                    suggestionsContainer.style.display = 'none';
-                }
-            });
-
-            addressInput.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-
-            // Client-side form validation
-            document.querySelector('form').addEventListener('submit', (e) => {
-                const requiredFields = ['street', 'city', 'zip_code', 'country'];
-                for (const field of requiredFields) {
-                    const value = document.getElementById(field).value;
-                    if (!value || value === 'Unknown ' + field.replace('_', ' ')) {
-                        e.preventDefault();
-                        alert(`Please provide a valid ${field.replace('_', ' ')}`);
-                        return;
-                    }
-                }
-                const houseNumber = document.getElementById('house_number').value;
-                if (!houseNumber) {
-                    console.warn('House number is missing but allowing submission');
-                }
-            });
-
-            // Theme integration
-            document.getElementById('address-map').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--card-background').trim();
-
-            {% if current_user.getRole() == "Admin" %}
-                // Module Assignment
-                const availableList = document.getElementById('available-modules');
-                const assignedList = document.getElementById('assigned-modules');
-                const modulesInput = document.getElementById('modules');
-
-                // Admin Assignment
-                const availableAdminsList = document.getElementById('available-admins');
-                const assignedAdminsList = document.getElementById('assigned-admins');
-                const adminsInput = document.getElementById('admins');
-                const availableSearch = document.getElementById('available-admins-search');
-                const assignedSearch = document.getElementById('assigned-admins-search');
-
-                function updateModulesInput() {
-                    const assignedModules = assignedList.querySelectorAll('li');
-                    const moduleIds = Array.from(assignedModules).map(item => item.dataset.moduleId);
-                    modulesInput.value = moduleIds.join(',');
-                }
-
-                function updateAdminsInput() {
-                    const assignedAdmins = assignedAdminsList.querySelectorAll('li');
-                    const adminIds = Array.from(assignedAdmins).map(item => item.dataset.adminId);
-                    if (adminIds.some(id => !id || typeof id !== 'string')) {
-                        console.error("Invalid admin IDs detected:", adminIds);
-                        adminsInput.value = '';
+                        suggestionsContainer.style.display = 'block';
                     } else {
-                        adminsInput.value = adminIds.join(',');
+                        suggestionsContainer.style.display = 'none';
                     }
-                }
-
-                function moveItem(item, targetList, isModule = true) {
-                    item.style.transform = 'scale(0.8)';
-                    item.style.opacity = '0.5';
+                })
+                .catch(err => {
+                    console.error('Autocomplete error:', err);
+                    suggestionsContainer.innerHTML = '<div>Search temporarily unavailable.</div>';
+                    suggestionsContainer.style.display = 'block';
                     setTimeout(() => {
-                        targetList.appendChild(item);
-                        item.style.transform = 'scale(1)';
-                        item.style.opacity = '1';
-                        if (isModule) {
-                            updateModulesInput();
-                        } else {
-                            updateAdminsInput();
-                        }
-                    }, 300);
-                }
-
-                availableList.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('move-right')) {
-                        const item = e.target.parentElement;
-                        moveItem(item, assignedList, true);
-                        item.querySelector('button').classList.remove('move-right');
-                        item.querySelector('button').classList.add('move-left');
-                        item.querySelector('button').innerHTML = `← ${item.querySelector('.module-name').textContent}`;
-                        item.querySelector('button').title = `Remove ${item.querySelector('.module-name').textContent}`;
-                    }
+                        suggestionsContainer.innerHTML = '';
+                        suggestionsContainer.style.display = 'none';
+                    }, 3000);
                 });
+        }, 300);
 
-                assignedList.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('move-left')) {
-                        const item = e.target.parentElement;
-                        moveItem(item, availableList, true);
-                        item.querySelector('button').classList.remove('move-left');
-                        item.querySelector('button').classList.add('move-right');
-                        item.querySelector('button').innerHTML = `→ ${item.querySelector('.module-name').textContent}`;
-                        item.querySelector('button').title = `Add ${item.querySelector('.module-name').textContent}`;
-                    }
-                });
-
-                availableAdminsList.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('move-right')) {
-                        const item = e.target.parentElement;
-                        moveItem(item, assignedAdminsList, false);
-                        item.querySelector('button').classList.remove('move-right');
-                        item.querySelector('button').classList.add('move-left');
-                        item.querySelector('button').innerHTML = `← ${item.querySelector('.admin-name').textContent.split(' (')[0]}`;
-                        item.querySelector('button').title = `Remove ${item.querySelector('.admin-name').textContent}`;
-                    }
-                });
-
-                assignedAdminsList.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('move-left')) {
-                        const item = e.target.parentElement;
-                        moveItem(item, availableAdminsList, false);
-                        item.querySelector('button').classList.remove('move-left');
-                        item.querySelector('button').classList.add('move-right');
-                        item.querySelector('button').innerHTML = `→ ${item.querySelector('.admin-name').textContent.split(' (')[0]}`;
-                        item.querySelector('button').title = `Add ${item.querySelector('.admin-name').textContent}`;
-                    }
-                });
-
-                availableSearch.addEventListener('input', () => {
-                    const searchTerm = availableSearch.value.toLowerCase();
-                    const items = availableAdminsList.querySelectorAll('li');
-                    items.forEach(item => {
-                        const name = item.querySelector('.admin-name').textContent.toLowerCase();
-                        item.style.display = name.includes(searchTerm) ? '' : 'none';
-                    });
-                });
-
-                assignedSearch.addEventListener('input', () => {
-                    const searchTerm = assignedSearch.value.toLowerCase();
-                    const items = assignedAdminsList.querySelectorAll('li');
-                    items.forEach(item => {
-                        const name = item.querySelector('.admin-name').textContent.toLowerCase();
-                        item.style.display = name.includes(searchTerm) ? '' : 'none';
-                    });
-                });
-
-                updateModulesInput();
-                updateAdminsInput();
-            {% endif %}
+        addressInput.addEventListener('input', (e) => {
+            fetchSuggestions(e.target.value);
         });
-    </script>
+
+        document.addEventListener('click', (e) => {
+            if (!addressWrapper.contains(e.target)) {
+                suggestionsContainer.innerHTML = '';
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+
+        addressInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = addressInput.value;
+                if (query.trim()) {
+                    provider.search({ query: query.trim() }).then(results => {
+                        if (results && results.length > 0) {
+                            const { x: lng, y: lat } = results[0];
+                            const address = parseAddress(results[0]);
+                            placeMarker(lat, lng, address, results[0].raw?.display_name || results[0].display_name);
+                        } else {
+                            addressInput.value = 'Address not found';
+                            setTimeout(() => { addressInput.value = ''; }, 2000);
+                        }
+                    }).catch(err => {
+                        console.error('Search error:', err);
+                        addressInput.value = 'Search error';
+                        setTimeout(() => { addressInput.value = ''; }, 2000);
+                    });
+                }
+                suggestionsContainer.innerHTML = '';
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+
+        addressInput.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        function updateAddressDisplay(address, displayName = '') {
+            let addressString = '';
+            if (address.street || address.city || address.zip_code || address.country) {
+                addressString = [
+                    `${address.street || ''} ${address.house_number || ''}`.trim(),
+                    address.city,
+                    address.zip_code,
+                    address.country
+                ]
+                    .filter(part => part)
+                    .join(', ')
+                    .replace(/,\s*,/g, ',')
+                    .replace(/^\s*,/, '')
+                    .replace(/,\s*$/, '');
+            } else {
+                addressString = displayName || `Coordinates: ${address.lat}, ${address.lng}`;
+            }
+            addressInput.value = addressString;
+        }
+
+        function placeMarker(lat, lng, address, displayName = '') {
+            if (marker) map.removeLayer(marker);
+            marker = L.marker([lat, lng]).addTo(map);
+            map.setView([lat, lng], 16);
+            updateAddressDisplay(address, displayName);
+
+            // Update hidden inputs
+            streetInput.value = address.street || '';
+            houseNumberInput.value = address.house_number || '';
+            cityInput.value = address.city || '';
+            zipCodeInput.value = address.zip_code || '';
+            countryInput.value = address.country || '';
+        }
+
+        function parseAddress(raw) {
+            const address = {
+                street: '',
+                house_number: '',
+                city: '',
+                zip_code: '',
+                country: '',
+                lat: raw.lat || raw.y || '',
+                lng: raw.lon || raw.x || ''
+            };
+            const nominatimData = raw.raw || raw;
+            if (nominatimData.address) {
+                address.street = nominatimData.address.road || nominatimData.address.street || nominatimData.address.pedestrian || nominatimData.address.path || '';
+                address.house_number = nominatimData.address.house_number || '';
+                address.city = nominatimData.address.city || nominatimData.address.town || nominatimData.address.village || nominatimData.address.hamlet || nominatimData.address.suburb || '';
+                address.zip_code = nominatimData.address.postcode || '';
+                address.country = nominatimData.address.country || '';
+            }
+            if (!address.street && nominatimData.display_name) {
+                const parts = nominatimData.display_name.split(',').map(part => part.trim());
+                if (parts[0] && /^\d+$/.test(parts[0]) && parts[1]) {
+                    address.house_number = parts[0];
+                    address.street = parts[1];
+                } else {
+                    address.street = parts[0] || '';
+                }
+                address.city = parts.find(part => /^[A-Za-z\s-]+$/.test(part) && part !== address.street && part !== address.country && !part.includes('Rheinland')) || '';
+                address.zip_code = parts.find(part => /^\d{4,5}$/.test(part)) || '';
+                address.country = parts[parts.length - 1] || '';
+            }
+            return address;
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // Rest of the existing JavaScript for Feature, Module, and Admin assignment remains unchanged
+        // Feature Assignment
+        const availableFeaturesList = document.getElementById('available-features');
+        const assignedFeaturesList = document.getElementById('assigned-features');
+        const featuresInput = document.getElementById('features');
+
+        function updateFeaturesInput() {
+            const assignedFeatures = assignedFeaturesList.querySelectorAll('li');
+            const featureData = Array.from(assignedFeatures).map(item => {
+                const featureId = item.dataset.featureId;
+                return { id: featureId, value: true };
+            });
+            featuresInput.value = JSON.stringify(featureData);
+        }
+
+        function moveItem(item, targetList, fromList) {
+            item.style.transform = 'scale(0.8)';
+            item.style.opacity = '0.5';
+            setTimeout(() => {
+                targetList.appendChild(item);
+                item.style.transform = 'scale(1)';
+                item.style.opacity = '1';
+                updateFeaturesInput();
+                const button = item.querySelector('button');
+                if (fromList === availableFeaturesList) {
+                    button.classList.remove('move-right');
+                    button.classList.add('move-left');
+                    button.innerHTML = '←';
+                    button.title = 'Remove Feature';
+                } else {
+                    button.classList.remove('move-left');
+                    button.classList.add('move-right');
+                    button.innerHTML = '→';
+                    button.title = 'Add Feature';
+                }
+            }, 300);
+        }
+
+        availableFeaturesList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('move-right')) {
+                const item = e.target.parentElement;
+                moveItem(item, assignedFeaturesList, availableFeaturesList);
+            }
+        });
+
+        assignedFeaturesList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('move-left')) {
+                const item = e.target.parentElement;
+                moveItem(item, availableFeaturesList, assignedFeaturesList);
+            }
+        });
+
+        updateFeaturesInput();
+
+        // Module Assignment
+        const availableModulesList = document.getElementById('available-modules');
+        const assignedModulesList = document.getElementById('assigned-modules');
+        const modulesInput = document.getElementById('modules');
+
+        function updateModulesInput() {
+            const assignedModules = assignedModulesList.querySelectorAll('li');
+            const moduleIds = Array.from(assignedModules).map(item => item.dataset.moduleId);
+            modulesInput.value = moduleIds.join(',');
+        }
+
+        function moveModuleItem(item, targetList, fromList) {
+            item.style.transform = 'scale(0.8)';
+            item.style.opacity = '0.5';
+            setTimeout(() => {
+                targetList.appendChild(item);
+                item.style.transform = 'scale(1)';
+                item.style.opacity = '1';
+                updateModulesInput();
+                const button = item.querySelector('button');
+                if (fromList === availableModulesList) {
+                    button.classList.remove('move-right');
+                    button.classList.add('move-left');
+                    button.innerHTML = '←';
+                    button.title = 'Remove Module';
+                } else {
+                    button.classList.remove('move-left');
+                    button.classList.add('move-right');
+                    button.innerHTML = '→';
+                    button.title = 'Add Module';
+                }
+            }, 300);
+        }
+
+        availableModulesList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('move-right')) {
+                const item = e.target.parentElement;
+                moveModuleItem(item, assignedModulesList, availableModulesList);
+            }
+        });
+
+        assignedModulesList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('move-left')) {
+                const item = e.target.parentElement;
+                moveModuleItem(item, availableModulesList, assignedModulesList);
+            }
+        });
+
+        // Admin Assignment
+        const availableAdminsList = document.getElementById('available-admins');
+        const assignedAdminsList = document.getElementById('assigned-admins');
+        const adminsInput = document.getElementById('admins');
+        const availableSearch = document.getElementById('available-admins-search');
+        const assignedSearch = document.getElementById('assigned-admins-search');
+
+        function updateAdminsInput() {
+            const assignedAdmins = assignedAdminsList.querySelectorAll('li');
+            const adminIds = Array.from(assignedAdmins).map(item => item.dataset.adminId);
+            adminsInput.value = adminIds.join(',');
+        }
+
+        function moveAdminItem(item, targetList, fromList) {
+            item.style.transform = 'scale(0.8)';
+            item.style.opacity = '0.5';
+            setTimeout(() => {
+                targetList.appendChild(item);
+                item.style.transform = 'scale(1)';
+                item.style.opacity = '1';
+                updateAdminsInput();
+                const button = item.querySelector('button');
+                if (fromList === availableAdminsList) {
+                    button.classList.remove('move-right');
+                    button.classList.add('move-left');
+                    button.innerHTML = '←';
+                    button.title = 'Remove Admin';
+                } else {
+                    button.classList.remove('move-left');
+                    button.classList.add('move-right');
+                    button.innerHTML = '→';
+                    button.title = 'Add Admin';
+                }
+            }, 300);
+        }
+
+        availableAdminsList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('move-right')) {
+                const item = e.target.parentElement;
+                moveAdminItem(item, assignedAdminsList, availableAdminsList);
+            }
+        });
+
+        assignedAdminsList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('move-left')) {
+                const item = e.target.parentElement;
+                moveAdminItem(item, availableAdminsList, assignedAdminsList);
+            }
+        });
+
+        availableSearch.addEventListener('input', () => {
+            const searchTerm = availableSearch.value.toLowerCase();
+            const items = availableAdminsList.querySelectorAll('li');
+            items.forEach(item => {
+                const name = item.querySelector('.admin-name').textContent.toLowerCase();
+                item.style.display = name.includes(searchTerm) ? '' : 'none';
+            });
+        });
+
+        assignedSearch.addEventListener('input', () => {
+            const searchTerm = assignedSearch.value.toLowerCase();
+            const items = assignedAdminsList.querySelectorAll('li');
+            items.forEach(item => {
+                const name = item.querySelector('.admin-name').textContent.toLowerCase();
+                item.style.display = name.includes(searchTerm) ? '' : 'none';
+            });
+        });
+
+        updateModulesInput();
+        updateAdminsInput();
+    });
+</script>
 {% endblock %}

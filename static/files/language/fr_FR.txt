@@ -118,6 +118,34 @@ edit_users_edit_button = Modifier
 edit_user_admin_title = Modifier l'utilisateur
 edit_user_label_role = Rôle
 
+# Transaction Overview Page
+transaction_title = Aperçu de la transaction
+transaction_label_date = Date
+transaction_label_campsite = Camping
+transaction_label_module = Module
+transaction_label_price = Prix
+transaction_label_currency = Monnaie
+transaction_label_no_transactions = Aucune transaction n’a été trouvée
+transaction_filter_from_date = Date du
+transaction_filter_to_date = À ce jour
+transaction_filter_sort_by = Trier par
+transaction_filter_sort_date_desc = Le plus récent en premier
+transaction_filter_sort_date_asc = Le plus ancien en premier
+transaction_filter_sort_price_desc = Prix le plus élevé
+transaction_filter_sort_price_asc = Prix le plus bas
+transaction_filter_apply = Appliquer des filtres
+transaction_filter_username = Nom d’utilisateur
+transaction_filter_campsite = Camping
+transaction_total_spent = Total dépensé
+transaction_campsite_title = Aperçu de la transaction de camping
+transaction_view_user_details = Détails de l’utilisateur
+transaction_view_campsite_details = Détails du camping
+campsite_label_name = Nom-camping
+campsite_label_address = Adresse du camping
+campsite_label_description = Description du camping
+transaction_label_user_details = Détails de l’utilisateur
+transaction_label_campsite_details = Détails du camping
+
 # Settings
 index_Select_Language_de_DE = Allemand
 index_Select_Language_en_EN = Anglaise
@@ -140,3 +168,34 @@ settings_themes_w11_dark = W11-Sombre
 settings_themes_admin = Administrateur
 settings_themes_twilight = Twilight
 settings_themes_citrus = Agrume
+
+# Bread Module
+module_bread_title = Module de pain
+module_bread_loading = Chargement des produits disponibles...
+module_bread_no_items = Aucun produit n’est disponible pour le moment.
+module_bread_no_description = Aucune description disponible
+module_bread_total_label = Total
+module_bread_place_order = Passer la commande
+module_bread_order_summary = Résumé de la commande
+module_bread_grand_total = Total général
+module_bread_item = Article
+module_bread_quantity = Quantité
+module_bread_payment_success = Paiement réussi ! Merci pour votre commande.
+module_bread_payment_error = Une erreur s’est produite lors du paiement. Veuillez réessayer.
+module_bread_error_loading = Erreur lors du chargement des produits. Veuillez réessayer plus tard.
+module_bread_total_stock_label = Total des actions
+module_bread_pieces = Morceaux
+
+# Impressum Page
+footer_impressum = Mentions légales
+impressum_title = Mentions légales
+impressum_company = Informations sur l'entreprise
+impressum_address = Adresse
+impressum_phone = Téléphone
+impressum_email = E-mail
+impressum_legal = Informations légales
+impressum_vat = Numéro de TVA
+impressum_register = Registre du commerce
+impressum_manager = Directeur général
+impressum_disclaimer = Clause de non-responsabilité
+impressum_disclaimer_text = Le contenu de ce site web est fourni à titre d'information générale uniquement. Nous n'assumons aucune responsabilité quant à l'exactitude ou l'exhaustivité des informations fournies.

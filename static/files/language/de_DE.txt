@@ -24,6 +24,16 @@ campsiteDetail_label_module_logo_notAvailable = Modul-Logo nicht verfügbar
 campsiteDetail_label_module_access = Modul öffnen
 campsiteDetail_label_module_nonAvailable = Keine Module verfügbar
 
+# Campsite Features
+feature_wlan = W-LAN
+feature_paw = Haustiere erlaubt
+feature_shower = Duschmöglichkeiten verfügbar
+feature_playground = Spielplätze
+feature_electric_current = Stromanschluss
+feature_parking = Parkmöglichkeiten vorhanden
+feature_swimming = Schwimmmöglichkeiten vorhanden
+feature_fishing = Möglichkeiten zu fischen vorhanden
+
 # Login Page
 login_label_login = Anmelden
 login_label_username = Benutzername
@@ -118,6 +128,34 @@ edit_users_edit_button = Bearbeiten
 edit_user_admin_title = Benutzer bearbeiten
 edit_user_label_role = Rolle
 
+# Transaction Overview Page
+transaction_title = Transactions-Übersicht
+transaction_label_date = Datum
+transaction_label_campsite = Campingplatz
+transaction_label_module = Modul
+transaction_label_price = Preis
+transaction_label_currency = Währung
+transaction_label_no_transactions = Keine Transaktionen gefunden
+transaction_filter_from_date = Von (Datum)
+transaction_filter_to_date = Bis (Datum)
+transaction_filter_sort_by = Sortieren nach
+transaction_filter_sort_date_desc = Neuste zuerst
+transaction_filter_sort_date_asc = Älteste zuerst
+transaction_filter_sort_price_desc = Höchster Preis
+transaction_filter_sort_price_asc = Niedrigster Preis
+transaction_filter_apply = Filter anwenden
+transaction_filter_username = Benutzername
+transaction_filter_campsite = Campingplatz
+transaction_total_spent = Gesamtausgaben:
+transaction_campsite_title = Campingplatz Transaktions-Übersicht
+transaction_view_user_details = Benutzerdetails
+transaction_view_campsite_details = Campingplatzdetails
+campsite_label_name = Campingplatz-Name
+campsite_label_address = Campingplatz-Addresse
+campsite_label_description = Campingplatz-Beschreibung
+transaction_label_user_details = Benutzer-Details
+transaction_label_campsite_details = Campingplatz-Details
+
 # Settings
 index_Select_Language_de_DE = Deutsch
 index_Select_Language_en_EN = Englisch
@@ -140,3 +178,34 @@ settings_themes_w11_dark = W11-Dunkel
 settings_themes_admin = Administrator
 settings_themes_twilight = Twilight
 settings_themes_citrus = Zitrus
+
+# Bread Module
+module_bread_title = Brötchenmodul
+module_bread_loading = Lade verfügbare Produkte...
+module_bread_no_items = Es sind momentan keine Produkte verfügbar!
+module_bread_no_description = Keine Beschreibung verfügbar
+module_bread_total_label = Gesamtbetrag
+module_bread_place_order = Bestellung abschließen
+module_bread_order_summary = Bestellzusammenfassung
+module_bread_grand_total = Gesamtbetrag
+module_bread_item = Produkt
+module_bread_quantity = Quantifizieren
+module_bread_payment_success = Bezahlung erfolgreich. Vielen Dank für die Bestellung!
+module_bread_payment_error = Ein Problem beim Bezahlvorgang ist aufgetreten!
+module_bread_error_loading = Ein Fehler beim Laden der Produkte ist aufgetreten. Bitte versuchen Sie es später erneut!
+module_bread_total_stock_label = Noch verfügbar
+module_bread_pieces = Stück
+
+# Impressum Page
+footer_impressum = Impressum
+impressum_title = Impressum
+impressum_company = Unternehmensinformationen
+impressum_address = Adresse
+impressum_phone = Telefon
+impressum_email = E-Mail
+impressum_legal = Rechtliche Informationen
+impressum_vat = Umsatzsteuer-ID
+impressum_register = Handelsregister
+impressum_manager = Geschäftsführer
+impressum_disclaimer = Haftungsausschluss
+impressum_disclaimer_text = Die Inhalte dieser Website dienen ausschließlich der allgemeinen Information. Wir übernehmen keine Haftung für die Richtigkeit oder Vollständigkeit der bereitgestellten Informationen.
